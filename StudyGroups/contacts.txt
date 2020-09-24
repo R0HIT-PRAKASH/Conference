@@ -18,3 +18,7 @@ Preferred mode of Communication: Discord
 Name: Khushkaran Rajput
 Email: k.rajput@mail.utoronto.ca
 Preferred mode of Communication: Discord
+=========================================
+Name: Neil Gupta
+Email: np.gupta@mail.utoronto.ca
+Preferred mode of Communication: Discord
