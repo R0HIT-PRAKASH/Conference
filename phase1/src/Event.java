@@ -1,0 +1,74 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class Event {
+
+    String name;
+    Speaker Speaker;
+    int time;
+    int duration;
+    int roomNumber;
+    List<Attendee> attendeeList;
+
+    public Event(String name, Speaker speaker, int time, int duration, int roomNumber) {
+        this.name = name;
+        this.speaker = speaker;
+        this.time = time;
+        this.duration = duration;
+        this.roomNumber = roomNumber;
+        attendeeList = new ArrayList<Attendee>();
+    }
+
+    // Getters
+    public String getName() {
+        return name;
+    }
+
+    public Speaker getSpeaker() {
+        return Speaker;
+    }
+
+
+    public int getTime() {
+        return time;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public int getRoomNumber() {
+        return roomNumber;
+    }
+
+    public List<Attendee> getAttendeeList() {
+        return attendeeList;
+    }
+
+    // Setters
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSpeaker(Speaker speaker) {
+        Speaker = speaker;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public void setRoomNumber(int roomNumber) {
+        this.roomNumber = roomNumber;
+    }
+
+    public void addAttendee(Attendee attendee) {
+        this.attendeeList.add(attendee);
+    }
+
+
+}
