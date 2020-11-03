@@ -1,16 +1,17 @@
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Event {
 
     String name;
-    Speaker Speaker;
-    int time;
+    Speaker speaker;
+    LocalDateTime time;
     int duration;
     int roomNumber;
     List<Attendee> attendeeList;
 
-    public Event(String name, Speaker speaker, int time, int duration, int roomNumber) {
+    public Event(String name, Speaker speaker, LocalDateTime time, int duration, int roomNumber) {
         this.name = name;
         this.speaker = speaker;
         this.time = time;
@@ -25,11 +26,11 @@ public class Event {
     }
 
     public Speaker getSpeaker() {
-        return Speaker;
+        return speaker;
     }
 
 
-    public int getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
 
@@ -54,7 +55,7 @@ public class Event {
         Speaker = speaker;
     }
 
-    public void setTime(int time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 
