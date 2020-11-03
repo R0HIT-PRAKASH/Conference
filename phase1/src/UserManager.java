@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Map;
 
 public class UserManager {
@@ -6,9 +7,11 @@ public class UserManager {
      * The UserManager class stores a list of all of the users. userList
      * stores every username along with its associated User.
      */
-    private HashMap<String, User> userList = new HashMap<String, User>();
+    private Map<String, User> userList;
 
-    public UserManager(){}
+    public UserManager(){
+        userList = new HashMap<String, User>();
+    }
 
     /**
      * checkCredentials determines if the user is in userList based on the username.
@@ -16,10 +19,7 @@ public class UserManager {
      * @return This method returns true if the user is in userList and false if it isn't.
      */
     public boolean checkCredentials(String username){
-        if(userList.get(username) != null){
-            return true;
-        }
-        return false;
+        return userList.get(username) != null;
     }
 
     /**
@@ -41,11 +41,12 @@ public class UserManager {
      * @return Returns true if the user was added to userList and false otherwise.
      */
     public boolean setUser(String name, String address, String email, String username, String password){
-        if(userList.get(username) != null){
-            return False
+        if(checkCredentials(username)){
+            return false;
         }
-        new_user = new User(name, address, email, username, password);
-        userList.put(username, new_user);
+
+        newUser = new User(name, address, email, username, password);
+        userList.put(username, newUser);
         return true;
     }
 
