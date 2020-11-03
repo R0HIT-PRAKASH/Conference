@@ -14,12 +14,12 @@ public class EventManager {
         rooms =  new HashMap<String, Room>();
     }
 
-    public boolean createNewEvent(String title, String speaker, LocalDateTime time, int duration, int roomNumber){
-        return events.add(new Event(name, speaker, time, duration, roomNumber));
+    public boolean createNewEvent(String title, Speaker speaker, LocalDateTime time, int duration, int roomNumber){
+        return events.add(new Event(title, speaker, time, duration, roomNumber));
     }
 
     public Speaker createNewSpeaker(String name, String address, String email, String username, String password){
-
+        //return new Speaker(name, address, email, username, password);
     }
     /*
     private boolean addEvent(String title){
@@ -27,11 +27,16 @@ public class EventManager {
     }
     */
     public Event getEvent(String eventName){
-
+        for (Event event: events){
+            if (event.name.equals(eventName)){
+                return event;
+            }
+        }
+        //TRY Exception Needed...
     }
 
     public List<Event> getAllEvents(){
-
+        return events;
     }
 
     private boolean checkEventIsValid(Speaker speaker, int roomNumber, LocalDateTime time){
@@ -39,7 +44,8 @@ public class EventManager {
     }
 
     public boolean checkEventFull(String eventName){
-
+        Event event = this.getEvent(eventName);
+        //if ()
     }
 
     public boolean addRoom(int roomNumber, int capacity){
