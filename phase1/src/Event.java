@@ -52,7 +52,7 @@ public class Event {
     }
 
     public void setSpeaker(Speaker speaker) {
-        Speaker = speaker;
+        this.speaker = speaker;
     }
 
     public void setTime(LocalDateTime time) {
