@@ -21,3 +21,4 @@ public class Organizer extends User {
         this.attendingEvents.add(event.getName());
     }
 }
+// Test
