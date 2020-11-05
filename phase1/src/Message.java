@@ -1,18 +1,18 @@
 public class Message {
-    private String message;
+    private String content;
     private String senderUsername;
     private String recipientUsername;
 
 
-public Message(String message, String senderUsername, String recipientUsername){
-    this.message = message;
+public Message(String content, String senderUsername, String recipientUsername){
+    this.content = content;
     this.senderUsername = senderUsername;
     this.recipientUsername = recipientUsername;
 }
 
 // Getters
 
-public String getMessage(){ return message; }
+public String getContent(){ return content; }
 
 public String getRecipient(){ return recipientUsername; }
 
@@ -20,7 +20,7 @@ public String getSender(){ return senderUsername; }
 
 // Setters
 
-public void setMessage(String message){ this.message = message; }
+public void setContent(String content){ this.content = content; }
 
 public void setRecipient(String recipientUsername){ this.recipientUsername = recipientUsername; }
 
