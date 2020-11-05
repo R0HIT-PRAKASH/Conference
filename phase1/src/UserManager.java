@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 public class UserManager {
 
@@ -63,6 +64,11 @@ public class UserManager {
      */
     public String getUsername(User user){
         return user.getUsername();
+    }
+
+    public List<String> getSpeakingEvents(String username){
+        Speaker current = (Speaker) getUser(username);
+        return current.getSpeakingEvents();
     }
 
 }
