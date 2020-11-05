@@ -10,11 +10,11 @@ public class OrganizerController extends AttendeeController {
     }
 
     void messageAllAttendees(String message) {
-        messageManager.messageAll(message);
+        createBlastMessage("attendee", message);
     }
 
     void messageEventAttendees(String message, String title) {
-        messageManager.messageEvent(String message, String title);
+        messageManager.speakerBlastMessage();
     }
 
     void messageAllSpeakers(String message) {
@@ -33,9 +33,20 @@ public class OrganizerController extends AttendeeController {
         userManager.setUser(name, address, email, username, password);
     }
 
-    /* I don't know what this is supposed to do
-    void createBlastMessage(String blastType, String message) {}
-     */
+
+    void createBlastMessage(String blastType, String message) {
+        if(blastType.equals("attendee")) {
+            for(Event e : eventManager.getAllEvents()) {
+                for(Attendee a : e.getAttendeeList()) {
+                    messageManager.createNewMessage(message, this.user.getUsername(), a.getUsername());
+                }
+            }
+        }
+
+        if(blastType.equals())
+
+    }
+
 
 
 }
