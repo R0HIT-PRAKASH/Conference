@@ -10,7 +10,7 @@ public class UserManager {
     private Map<String, User> userList;
 
     public UserManager(){
-        userList = new HashMap<String, User>();
+        userList = new HashMap<>();
     }
 
     /**
@@ -38,15 +38,21 @@ public class UserManager {
      * @param email This parameter refers to the email of the user.
      * @param username This parameter refers to the username of the user.
      * @param password This parameter refers to the password of the user.
+     * @param usertype This parameter refers to the type of user this person is.
      * @return Returns true if the user was added to userList and false otherwise.
      */
-    public boolean setUser(String name, String address, String email, String username, String password){
+    public boolean addUser(String name, String address, String email, String username, String password, String usertype){
         if(checkCredentials(username)){
             return false;
         }
 
-        newUser = new User(name, address, email, username, password);
-        userList.put(username, newUser);
+        if(usertype.toLowerCase().equals("organizer")){
+            userList.put(username, new Organizer(name, address, email, username, password));
+        }else if(usertype.toLowerCase().equals("speaker")){
+            userList.put(username, new Speaker(name, address, email, username, password));
+        }else{
+            userList.put(username, new Attendee(name, address, email, username, password));
+        }
         return true;
     }
 
