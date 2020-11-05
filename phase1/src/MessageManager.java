@@ -22,8 +22,20 @@ public List<Message> viewMessages(String username){
 public void printMessages(String username){
     List<Message> allMessages = viewMessages(username);
         for (int i = allMessages.size() -1; i > -1; i-- ){
-            System.out.println(allMessages.get(i).getMessage());
+            System.out.println(allMessages.get(i).getContent());
         }
 }
 
+public void speakerBlastMessage(String [] eventNames, String message, EventManager eventManager){
+    Event [] thisOne = new Event[eventNames.length];
+    for (int i = 0; i < thisOne.length; i++){
+        thisOne[i] = eventManager.getEvent(eventNames[i]);
+    }
+    for (int i = 0; i < thisOne.length; i++){
+        List<Attendee> attendees = thisOne[i].getAttendeeList();
+        for(int i = 0; i < attendees.size(); i++) {
+            boolean toBeSent = createNewMessage(message, attendees.get(i).);
+        }
+    }
+}
 }

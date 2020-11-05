@@ -18,10 +18,10 @@ public class SpeakerController extends MainController{
     private void determineInput(String input){
         switch (input) {
             case "See Inbox":
-                viewMessages(this.user.username);
+                viewMessages(this.username);
                 break;
             case "View My Events":
-                viewScheduledEvents(this.user.username);
+                viewScheduledEvents(this.username);
                 break;
             case "Message Event Attendees":
                 System.out.println("Would you like to message the attendees of one event or more?");
