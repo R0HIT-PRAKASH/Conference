@@ -19,5 +19,18 @@ public List<Message> viewMessages(String username){
     return allUserMessages.get(username);
 }
 
+public void printMessages(String username){
+    List<Message> allMessages = viewMessages(username);
+        for (int i = allMessages.size() -1; i > -1; i-- ){
+            System.out.println(allMessages.get(i).getContent());
+        }
+}
 
+public void speakerBlastMessage(List<String> eventNames, String message, EventManager eventManager, String sender){
+    for(String name : eventNames) {
+        for (Attendee receiver : eventManager.getEvent(name).getAttendeeList()) {
+            boolean toBeSent = createNewMessage(message, sender, receiver.getUsername());
+        }
+    }
+}
 }

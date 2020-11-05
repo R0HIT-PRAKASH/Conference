@@ -4,12 +4,12 @@ import java.util.List;
 
 public class Event {
 
-    String name;
-    Speaker speaker;
-    LocalDateTime time;
-    int duration;
-    int roomNumber;
-    List<Attendee> attendeeList;
+    private String name;
+    private Speaker speaker;
+    private LocalDateTime time;
+    private int duration;
+    private int roomNumber;
+    private List<Attendee> attendeeList;
 
     public Event(String name, Speaker speaker, LocalDateTime time, int duration, int roomNumber) {
         this.name = name;
