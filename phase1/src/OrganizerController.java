@@ -1,11 +1,13 @@
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class OrganizerController extends AttendeeController {
 
     public OrganizerController() {}
 
-    void addEvent(String title, String speaker, LocalDateTime time, int duration, int roomNumber) {
+    void addEvent(String title, Speaker speaker, LocalDateTime time, int duration, int roomNumber) {
         eventManager.createNewEvent(title, speaker, time, duration, roomNumber);
     }
 
@@ -14,11 +16,11 @@ public class OrganizerController extends AttendeeController {
     }
 
     void messageEventAttendees(String message, String title) {
-        messageManager.speakerBlastMessage();
+        messageManager.speakerBlastMessage(Arrays.asList(title), message, eventManager, this.username);
     }
 
     void messageAllSpeakers(String message) {
-        messageManager.messageSpeakers(message);
+        createBlastMessage("speaker", message);
     }
 
     void cancelEvent(String title) {
@@ -30,20 +32,17 @@ public class OrganizerController extends AttendeeController {
     }
 
     void createSpeakerAccount(String name, String address, String email, String username, String password) {
-        userManager.setUser(name, address, email, username, password);
+        userManager.addUser(name, address, email, username, password, "speaker");
     }
 
 
     void createBlastMessage(String blastType, String message) {
-        if(blastType.equals("attendee")) {
-            for(Event e : eventManager.getAllEvents()) {
-                for(Attendee a : e.getAttendeeList()) {
-                    messageManager.createNewMessage(message, this.user.getUsername(), a.getUsername());
-                }
+
+        for(User u : userManager.getUserList().values()) {
+            if(u.getUserType().equals(blastType)) {
+                messageManager.createNewMessage(message, this.username, u.getUsername());
             }
         }
-
-        if(blastType.equals())
 
     }
 

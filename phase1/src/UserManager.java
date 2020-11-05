@@ -71,4 +71,8 @@ public class UserManager {
         return current.getSpeakingEvents();
     }
 
+    public Map<String, User> getUserList() {
+        return userList;
+    }
+
 }
