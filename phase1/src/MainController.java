@@ -5,10 +5,27 @@ public class MainController {
     protected UserManager userManager = new UserManager();
     protected EventManager eventManager = new EventManager();
     protected User user;
-    private static Scanner scan = new Scanner(System.in);
 
-    public static void main(String [] args) {
+    public void run() {
         LoginController log = new LoginController();
-        log.login();
+        readInFiles();
+        this.user = log.login();
+        String type = this.userManager.getUserType(this.user);
+        if(type.equals("organizer")){
+            OrganizerController controller = new OrganizerController();
+            controller.run();
+        }
+        else if(type.equals("attendee")){
+            AttendeeController controller = new AttendeeController();
+            controller.run();
+        }
+        else if(type.equals("speaker")){
+            SpeakerController controller = new SpeakerController();
+            controller.run();
+        }
+    }
+
+    private void readInFiles(){
+
     }
 }
