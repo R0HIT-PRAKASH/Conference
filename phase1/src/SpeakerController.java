@@ -29,7 +29,7 @@ public class SpeakerController extends MainController{
                 System.out.println("Please enter the number of events: ");
                 String strnum = scan.nextLine();
                 int num = Integer.parseInt(strnum);
-                String[] eventNames = new String[num];
+                List<String> eventNames = new ArrayList<>();
                 for (int i = 0; i < num; i++) {
                     if (i == 0) {
                         System.out.println("Please enter the name of the first event: ");
@@ -37,7 +37,8 @@ public class SpeakerController extends MainController{
                     else {
                         System.out.println("Please enter the name of the next event: ");
                         }
-                    eventNames[i] = scan.nextLine();
+                    String next = scan.nextLine();
+                    eventNames.add(next);
                     }
                     System.out.println("Please enter the message: ");
                 String message = scan.nextLine();
@@ -51,7 +52,7 @@ public class SpeakerController extends MainController{
 
     }
     public void viewScheduledEvents(String username){
-        String allEvents = userManager.getSpeakingEvents(username);
+        List<String> allEvents = userManager.getSpeakingEvents(username);
         System.out.println(allEvents);
     }
 

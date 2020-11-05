@@ -27,19 +27,6 @@ public void printMessages(String username){
 }
 
 public void speakerBlastMessage(List<String> eventNames, String message, EventManager eventManager, String sender){
-    /*
-    Event [] thisOne = new Event[eventNames.length];
-    for (int i = 0; i < thisOne.length; i++){
-        thisOne[i] = eventManager.getEvent(eventNames[i]);
-    }
-    for (int i = 0; i < thisOne.length; i++){
-        List<Attendee> attendees = thisOne[i].getAttendeeList();
-        for(int j = 0; j < attendees.size(); j++) {
-            boolean toBeSent = createNewMessage(message, sender,attendees.get(i).getUsername());
-        }
-    }
-     */
-
     for(String name : eventNames) {
         for (Attendee receiver : eventManager.getEvent(name).getAttendeeList()) {
             boolean toBeSent = createNewMessage(message, sender, receiver.getUsername());
