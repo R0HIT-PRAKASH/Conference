@@ -58,8 +58,8 @@ public class SpeakerController extends MainController{
     }
 
     public void viewMessages(String username) {
-        String allMessages = messageManager.viewMessages(username);
-        System.out.println(allMessages);
+        messageManager.printMessages(username);
+
     }
     public void viewScheduledEvents(String username){
         String allEvents = userManager.getSpeakingEvents(username);
