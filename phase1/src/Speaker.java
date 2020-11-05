@@ -8,4 +8,16 @@ public class Speaker extends User {
         super(name, address, email, userName, password);
         this.speakingEvents = new ArrayList<String>();
     }
+
+    public String getUserType() {
+        return "speaker";
+    }
+
+    public List<String> getSpeakingEvents() {
+        return this.speakingEvents;
+    }
+
+    public void addSpeakingEvent(String eventName) {
+        speakingEvents.add(eventName);
+    }
 }
