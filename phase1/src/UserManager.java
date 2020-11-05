@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UserManager {
@@ -65,4 +67,51 @@ public class UserManager {
         return user.getUsername();
     }
 
+    /**
+     * This method returns the type of user the person is based on username.
+     * @param username This parameter refers to the username of the user.
+     * @return Returns a string representation of the user's type or null if user is not in userList.
+     */
+    public String getUserType(String username){
+        if(userList.get(username) == null){
+            return null;
+        }
+        return userList.get(username).getUserType();
+    }
+
+    /**
+     * This method returns the type of user the person is.
+     * @param user This parameter refers to the user.
+     * @return Returns a string representation of the user's type.
+     */
+    public String getUserType(User user){
+        return user.getUserType();
+    }
+
+    /**
+     * This method returns the list of events the user will speak at if they are a speaker.
+     * @param username This parameter refers to the username of the user.
+     * @return Returns the list of events the user will be speaking at if they are a speaker. Returns null otherwise.
+     */
+    public List<String> getSpeakingEvents(String username){
+        if(userList.get(username) == null || !userList.get(username).getUserType().equals("speaker")){
+            return null;
+        }
+        return ((Speaker) userList.get(username)).getSpeakingEvents();
+
+    }
+
+    /**
+     * This method returns a list of all of the organizers in userList.
+     * @return A list of all of the organizers in userList.
+     */
+    public List<User> getOrganizers(){
+        List<User> organizers = new ArrayList<>();
+        for(String username : userList.keySet()){
+            if(userList.get(username) instanceof Organizer){
+                organizers.add(userList.get(username));
+            }
+        }
+        return organizers;
+    }
 }
