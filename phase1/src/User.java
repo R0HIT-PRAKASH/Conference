@@ -42,12 +42,6 @@ public abstract class User {
     public void setUsername(String newUserName){
         this.username = newUserName;
     }
-
-    // public String getUserType(){
-    //    ;
-    //}
+    public abstract String getUserType();
 
 }
-
-
-
