@@ -45,7 +45,7 @@ public class UserManager {
             return false;
         }
 
-        User newUser = new User(name, address, email, username, password);
+        newUser = new User(name, address, email, username, password);
         userList.put(username, newUser);
         return true;
     }
