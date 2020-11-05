@@ -10,7 +10,7 @@ public class UserManager {
     private Map<String, User> userList;
 
     public UserManager(){
-        userList = new HashMap<String, User>();
+        userList = new HashMap<>();
     }
 
     /**
@@ -46,16 +46,13 @@ public class UserManager {
             return false;
         }
 
-        if(usertype.upper().equals("ATTENDEE")) {
-            Attendee newUser = new Attendee(name, address, email, username, password,[]);
-        }else if(usertype.upper().equals("ORGANIZER")){
-            Organizer newUser = new Organizer(name, address, email, username, password,[], []);
-        }else if(usertype.upper().equals("SPEAKER")){
-            Speaker newUser = new Speaker(name, address, email, username, password, []);
+        if(usertype.toUpperCase().equals("ORGANIZER")){
+            userList.put(username, new Organizer(name, address, email, username, password));
+        }else if(usertype.toUpperCase().equals("SPEAKER")){
+            userList.put(username, new Speaker(name, address, email, username, password));
         }else{
-            return false
+            userList.put(username, new Attendee(name, address, email, username, password));
         }
-        userList.put(username, newUser);
         return true;
     }
 
@@ -65,7 +62,7 @@ public class UserManager {
      * @return Returns the username of the user.
      */
     public String getUsername(User user){
-        return user.username;
+        return user.getUsername();
     }
 
 }
