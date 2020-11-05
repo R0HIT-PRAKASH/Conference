@@ -45,7 +45,7 @@ public class UserManager {
             return false;
         }
 
-        newUser = new User(name, address, email, username, password);
+        User newUser = new User(name, address, email, username, password);
         userList.put(username, newUser);
         return true;
     }
@@ -56,7 +56,7 @@ public class UserManager {
      * @return Returns the username of the user.
      */
     public String getUsername(User user){
-        return user.username;
+        return user.getUsername();
     }
 
 }

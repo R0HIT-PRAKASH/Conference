@@ -20,4 +20,8 @@ public class Organizer extends User {
     public void signUpForEvent(Event event){
         this.attendingEvents.add(event.getName());
     }
+
+    public String getUserType(){
+        return "organizer";
+    }
 }

@@ -16,4 +16,7 @@ public class Attendee extends User {
         return this.attendingEvents;
     }
 
+    public String getUserType(){
+        return "attendee";
+    }
 }
