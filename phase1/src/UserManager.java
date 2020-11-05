@@ -71,8 +71,15 @@ public class UserManager {
         return current.getSpeakingEvents();
     }
 
-    public Map<String, User> getUserList() {
-        return userList;
+    public Map<String, String> getUserTypes() {
+
+        Map<String, String> m = new HashMap<>();
+
+        for(String name : userList.keySet()) {
+            m.put(name, userList.get(name).getUserType());
+        }
+
+        return m;
     }
 
 }
