@@ -56,6 +56,6 @@ public class SpeakerController extends MainController{
     }
 
     public void sendBlastMessage(String[] eventNames, String message){
-        messageManager.speakerBlastMessage(eventNames, message, eventManager);
+        messageManager.speakerBlastMessage(eventNames, message, eventManager, this.username);
     }
 }
