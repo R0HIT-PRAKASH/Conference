@@ -6,36 +6,42 @@ import java.util.Map;
 
 public class EventManager {
 
-    private List<Event> events;
+    private Map<String, Event> events;
     private Map<String, Room> rooms;
 
     public EventManager(){
-        events = new ArrayList<Event>();
+        events = new HashMap<String, Event>();
         rooms =  new HashMap<String, Room>();
     }
 
-    public boolean createNewEvent(String title, Speaker speaker, LocalDateTime time, int duration, int roomNumber){
-        return events.add(new Event(title, speaker, time, duration, roomNumber));
+    public boolean createNewEvent(String name, Speaker speaker, LocalDateTime time, int duration, int roomNumber){
+        if(events.containsKey(name)) return false;
+        events.put(name, new Event(name, speaker, time, duration, roomNumber));
+        return true;
     }
 
     public Speaker createNewSpeaker(String name, String address, String email, String username, String password){
         //return new Speaker(name, address, email, username, password);
     }
     /*
-    private boolean addEvent(String title){
+    private boolean addEvent(String name){
 
     }
     */
     public Event getEvent(String eventName){
+        /*
         for (Event event: events){
-            if (event.name.equals(eventName)){
+            if (event.getName().equals(eventName)){
                 return event;
             }
         }
+         */
+
+        return events.get(eventName);
         //TRY Exception Needed...
     }
 
-    public List<Event> getAllEvents(){
+    public Map<String, Event> getAllEvents(){
         return events;
     }
 
@@ -44,6 +50,7 @@ public class EventManager {
     }
 
     public boolean checkEventFull(String eventName){
+        // Maybe Event event = events.get(eventName);
         Event event = this.getEvent(eventName);
         //if ()
     }
