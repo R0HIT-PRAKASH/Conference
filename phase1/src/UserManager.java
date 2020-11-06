@@ -116,17 +116,14 @@ public class UserManager {
     }
 
     /**
-     * This method returns a map from username to userType for all users.
-     * @return A Map from username to userType
+     * This method goes through the list of usernames and returns a map of usernames to user types.
+     * @return A map of the usernames to the type of each user.
      */
-    public Map<String, String> getUserTypes() {
-
-        Map<String, String> m = new HashMap<>();
-
-        for(String name : userList.keySet()) {
-            m.put(name, userList.get(name).getUserType());
+    public Map<String, String> getUserTypes(){
+        Map<String, String> new_map = new HashMap<>();
+        for(String username : userList.keySet()){
+            new_map.put(username, userList.get(username).getUserType());
         }
-
-        return m;
+        return new_map;
     }
 }
