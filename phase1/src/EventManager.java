@@ -28,7 +28,7 @@ public class EventManager {
     */
     public Event getEvent(String eventName){
         for (Event event: events){
-            if (event.name.equals(eventName)){
+            if (event.getName().equals(eventName)){
                 return event;
             }
         }

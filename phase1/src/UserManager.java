@@ -114,4 +114,19 @@ public class UserManager {
         }
         return organizers;
     }
+
+    /**
+     * This method returns a map from username to userType for all users.
+     * @return A Map from username to userType
+     */
+    public Map<String, String> getUserTypes() {
+
+        Map<String, String> m = new HashMap<>();
+
+        for(String name : userList.keySet()) {
+            m.put(name, userList.get(name).getUserType());
+        }
+
+        return m;
+    }
 }
