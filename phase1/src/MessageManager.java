@@ -28,7 +28,7 @@ public void printMessages(String username){
 
 public void speakerBlastMessage(List<String> eventNames, String message, EventManager eventManager, String sender){
     for(String name : eventNames) {
-        for (Attendee receiver : eventManager.getEvent(name).getAttendeeList()) {
+        for (Attendee receiver : eventManager.getEvent(name).getAttendeeSet()) {
             boolean toBeSent = createNewMessage(message, sender, receiver.getUsername());
         }
     }

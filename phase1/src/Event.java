@@ -1,6 +1,6 @@
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Event {
 
@@ -9,7 +9,7 @@ public class Event {
     private LocalDateTime time;
     private int duration;
     private int roomNumber;
-    private List<Attendee> attendeeList;
+    private Set<Attendee> attendeeSet;
 
     public Event(String name, Speaker speaker, LocalDateTime time, int duration, int roomNumber) {
         this.name = name;
@@ -17,7 +17,7 @@ public class Event {
         this.time = time;
         this.duration = duration;
         this.roomNumber = roomNumber;
-        attendeeList = new ArrayList<Attendee>();
+        attendeeSet = new HashSet<Attendee>();
     }
 
     // Getters
@@ -42,8 +42,8 @@ public class Event {
         return roomNumber;
     }
 
-    public List<Attendee> getAttendeeList() {
-        return attendeeList;
+    public Set<Attendee> getAttendeeSet() {
+        return attendeeSet;
     }
 
     // Setters
@@ -68,7 +68,7 @@ public class Event {
     }
 
     public void addAttendee(Attendee attendee) {
-        this.attendeeList.add(attendee);
+        this.attendeeSet.add(attendee);
     }
 
 
