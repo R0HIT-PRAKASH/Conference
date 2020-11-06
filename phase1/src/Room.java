@@ -7,7 +7,7 @@ public class Room{
      * number of the room is represented by roomNumber.
      */
 
-    private int capacity = 2;
+    private int capacity;
     private int roomNumber;
 
     /**
@@ -16,6 +16,7 @@ public class Room{
      */
     public Room(int roomNumber){
         this.roomNumber = roomNumber;
+        this.capacity = 2;
     }
 
     /**
