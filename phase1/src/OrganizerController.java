@@ -8,28 +8,31 @@ public class OrganizerController extends AttendeeController {
 
     public OrganizerController() {}
 
-    void addEvent(String title, Speaker speaker, LocalDateTime time, int duration, int roomNumber) {
-        eventManager.createNewEvent(title, speaker, time, duration, roomNumber);
+    void addEvent(String name, Speaker speaker, LocalDateTime time, int duration, int roomNumber) {
+        eventManager.createNewEvent(name, speaker, time, duration, roomNumber);
     }
 
     void messageAllAttendees(String message) {
         createBlastMessage("attendee", message);
     }
 
-    void messageEventAttendees(String message, String title) {
-        messageManager.speakerBlastMessage(Arrays.asList(title), message, eventManager, this.username);
+    void messageEventAttendees(String message, String name) {
+        messageManager.speakerBlastMessage(Arrays.asList(name), message, eventManager, this.username);
     }
 
     void messageAllSpeakers(String message) {
         createBlastMessage("speaker", message);
     }
 
-    void cancelEvent(String title) {
-        eventManager.cancelEvent(title);
+    void cancelEvent(String name) {
+        eventManager.getAllEvents().remove(name);
     }
 
-    void rescheduleEvent(String title, LocalDateTime newTime) {
-        eventManager.reschedule(title, newTime);
+    void rescheduleEvent(String name, LocalDateTime newTime) {
+
+        if(eventManager.getAllEvents().containsKey(name)) {
+            eventManager.getAllEvents().get(name).setTime(newTime);
+        }
     }
 
     void createSpeakerAccount(String name, String address, String email, String username, String password) {
@@ -48,7 +51,5 @@ public class OrganizerController extends AttendeeController {
         }
 
     }
-
-
 
 }
