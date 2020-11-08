@@ -15,10 +15,10 @@ public class LoginController extends MainController{
     }
 
     private boolean checkLoginInfo(String username, String password){
-        username_valid = this.userManager.checkCredentials(username);
-        password_valid = false;
+        boolean username_valid = this.userManager.checkCredentials(username);
+        boolean password_valid = false;
         if(username_valid){
-            password_valid = (this.getUserInfo(username).getPassword() == password);
+            password_valid = (this.getUserInfo(username).getPassword().equals(password));
         }
         return password_valid;
     }
