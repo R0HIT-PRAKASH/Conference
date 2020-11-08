@@ -36,4 +36,12 @@ public class Room{
     public int getCapacity(){
         return capacity;
     }
+
+    /**
+     *
+     * @return Returns the room number of the room.
+     */
+    public int getRoomNumber(){
+        return roomNumber;
+    }
 }
