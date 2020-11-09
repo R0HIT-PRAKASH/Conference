@@ -31,8 +31,6 @@ public class AttendeeController extends MainController {
                 String response = scan.nextLine();
                 String responseUsername = messageManager.viewMessages(this.username).
                         get(messageManager.viewMessages(this.username).size() -  1).getSender();
-                messageManager.viewMessages(this.username).remove(messageManager.viewMessages(this.username).
-                        size() -  1);
                 replyMessage(response, responseUsername);
                 break;
             case "View Event List":
@@ -42,13 +40,25 @@ public class AttendeeController extends MainController {
                 viewSignedUpForEvent(this.username);
                 break;
             case "Cancel Spot":
-
+                System.out.println("What spot would you like to cancel?");
+                String cancel = scan.nextLine();
+                cancelSpotInEvent(cancel);
                 break;
             case "Sign Up For Event":
-
+                System.out.println("What spot would you like to sign up for?");
+                String eventSignedUp = scan.nextLine();
+                signUp(eventSignedUp);
                 break;
             case "Add User To Contact List":
-
+                System.out.println("Enter the username you would you like to add to your contact list?");
+                String newContactUsername = scan.nextLine();
+                // need to implement this method in MessageManager.java
+                if(messageManager.checkIfMessageable(newContactUsername, this.username)){
+                    addUserToMessageable(newContactUsername);
+                }
+                else{
+                    System.out.println("Invalid username, please try again.");
+                }
                 break;
         }
     }
@@ -57,7 +67,9 @@ public class AttendeeController extends MainController {
 
     public void sendMessages(String recipient, String messageContents) {}
 
-    public void replyMessage(String message, String originalMessenger) {}
+    public void replyMessage(String message, String originalMessenger) {
+        // need to remove message rom inbox once we respond to it
+    }
 
     public void viewEventList(String username) {
         Map<String, Event> events = eventManager.getAllEvents();
