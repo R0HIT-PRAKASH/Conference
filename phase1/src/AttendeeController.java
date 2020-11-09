@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class AttendeeController extends MainController {
     private Scanner scan = new Scanner(System.in);
@@ -42,7 +39,7 @@ public class AttendeeController extends MainController {
                 viewEventList(this.username);
                 break;
             case "View My Scheduled Events":
-
+                viewSignedUpForEvent(this.username);
                 break;
             case "Cancel Spot":
 
@@ -56,15 +53,18 @@ public class AttendeeController extends MainController {
         }
     }
 
-    public void viewMessages(String username) {}
+    public void viewMessages(String username) { messageManager.printMessages(this.username); }
 
     public void sendMessages(String recipient, String messageContents) {}
 
-    public void replyMessage(String message, String originalMessanger) {}
+    public void replyMessage(String message, String originalMessenger) {}
 
-    public void viewEventList(String username) {}
+    public void viewEventList(String username) {
+        Map<String, Event> events = eventManager.getAllEvents();
+        System.out.println(events);
+    }
 
-    public void viewSignedUpForEvent(String username) {}
+    public void viewSignedUpForEvent(String username) { userManager.getAttendingEvents(this.username);}
 
     public void cancelSpotInEvent(String eventName) {}
 
