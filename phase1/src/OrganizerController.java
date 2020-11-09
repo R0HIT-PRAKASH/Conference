@@ -7,7 +7,7 @@ public class OrganizerController extends AttendeeController {
 
     public OrganizerController() {}
 
-    void addEvent(String name, Speaker speaker, LocalDateTime time, int duration, int roomNumber) {
+    void addEvent(String name, String speaker, LocalDateTime time, int duration, int roomNumber) {
         eventManager.createNewEvent(name, speaker, time, duration, roomNumber);
     }
 
