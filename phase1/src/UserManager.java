@@ -137,7 +137,7 @@ public class UserManager {
             return ((Attendee) userMap.get(username)).getAttendingEvents();
         }else if(userMap.get(username).getUserType().equals("organizer")){
             return ((Organizer) userMap.get(username)).getAttendingEvents();
-        }else {
+        }else{
             return null;
         }
     }
