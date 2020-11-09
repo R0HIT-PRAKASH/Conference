@@ -126,4 +126,20 @@ public class UserManager {
         }
         return new_map;
     }
+
+    /**
+     * This method returns a list of events that the user will be attending if they are an organizer or attendee.
+     * @param username Refers to the username of the user.
+     * @return Returns a list of strings that represent the events the user will be attending.
+     */
+    public List<String> getAttendingEvents(String username){
+        if(userMap.get(username).getUserType().equals("attendee")){
+            return ((Attendee) userMap.get(username)).getAttendingEvents();
+        }else if(userMap.get(username).getUserType().equals("organizer")){
+            return ((Organizer) userMap.get(username)).getAttendingEvents();
+        }else {
+            return null;
+        }
+    }
+
 }
