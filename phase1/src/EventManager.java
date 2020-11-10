@@ -14,7 +14,7 @@ public class EventManager {
      *
      */
 
-    private Map<String, Event> events;
+    private HashMap<String, Event> events;
     private List<Room> rooms;
 
     /**
@@ -107,7 +107,7 @@ public class EventManager {
     /**
      * @return Returns map of events.
      */
-    public Map<String, Event> getAllEvents(){
+    public HashMap<String, Event> getAllEvents(){
         return events;
     }
 

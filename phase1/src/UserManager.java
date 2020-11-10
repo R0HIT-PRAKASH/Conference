@@ -9,7 +9,7 @@ public class UserManager {
      * The UserManager class stores a list of all of the users. userMap
      * stores every username along with its associated User.
      */
-    private Map<String, User> userMap;
+    private HashMap<String, User> userMap;
 
     public UserManager(){
         userMap = new HashMap<>();
@@ -31,6 +31,10 @@ public class UserManager {
      */
     public User getUser(String username){
         return userMap.get(username);
+    }
+
+    public HashMap<String, User> getUserMap(){
+        return userMap;
     }
 
     /**

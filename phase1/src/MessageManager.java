@@ -26,6 +26,10 @@ public void printMessages(String username){
         }
 }
 
+public HashMap<String, List<Message>> getAllUserMessages(){
+    return allUserMessages;
+}
+
 public void speakerBlastMessage(List<String> eventNames, String message, EventManager eventManager, String sender){
     for(String name : eventNames) {
         for (Attendee receiver : eventManager.getEvent(name).getAttendeeSet()) {
