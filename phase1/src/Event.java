@@ -2,7 +2,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Event {
+public class Event implements Comparable<Event> {
 
     private String name;
     private String speakerName;
@@ -126,5 +126,13 @@ public class Event {
         this.attendeeSet.add(attendee);
     }
 
+    /**
+     * CompareTo
+     * @param e The Event being compared to
+     * @return Returns the compareTo result based on the time of the event
+     */
+    public int compareTo(Event e) {
+        return this.getTime().compareTo(e.getTime());
+    }
 
 }
