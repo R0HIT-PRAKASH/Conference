@@ -71,7 +71,7 @@ public class Event {
 
     /**
      * This method is a getter for the set of attendees
-     * @return Set<Attendee> attendeeSet
+     * @return attendeeSet
      */
     public Set<Attendee> getAttendeeSet() {
         return attendeeSet;
@@ -79,8 +79,8 @@ public class Event {
 
 
     /**
-     * This method is a getter for the set of attendees
-     * @return Set<Attendee> attendeeSet
+     * This method is a setter for the event name
+     * @param name The Event Name
      */
     public void setName(String name) {
         this.name = name;
@@ -88,7 +88,7 @@ public class Event {
 
     /**
      * This method is a setter for the speaker
-     * @param speakerName
+     * @param speakerName The Speaker Name
      */
     public void setSpeakerName(String speakerName) {
         this.speakerName = speakerName;
@@ -96,7 +96,7 @@ public class Event {
 
     /**
      * This method is a setter for the time
-     * @param time
+     * @param time The Event Time
      */
     public void setTime(LocalDateTime time) {
         this.time = time;
@@ -104,7 +104,7 @@ public class Event {
 
     /**
      * This method is a setter for the duration
-     * @param duration
+     * @param duration The Event Duration
      */
     public void setDuration(int duration) {
         this.duration = duration;
@@ -112,7 +112,7 @@ public class Event {
 
     /**
      * This method is a setter for the roomNumber
-     * @param roomNumber
+     * @param roomNumber The Event Room Number
      */
     public void setRoomNumber(int roomNumber) {
         this.roomNumber = roomNumber;
@@ -120,7 +120,7 @@ public class Event {
 
     /**
      * This method adds an attendee
-     * @param Attendee attendee
+     * @param attendee The attendee to be added
      */
     public void addAttendee(Attendee attendee) {
         this.attendeeSet.add(attendee);
