@@ -20,7 +20,7 @@ public class AttendeeController extends MainController {
             case "Send Message":
                 System.out.println("Who would you like to message?");
                 String recipient = scan.nextLine();
-                if(checkIsMessageable(recipient, this.username)) {
+                if(messageManager.checkIsMessageable(recipient, this.username)) {
                     System.out.println("What message would you like to send to: " + recipient);
                     String messageContents = scan.nextLine();
                     sendMessages(recipient, messageContents);
@@ -81,9 +81,9 @@ public class AttendeeController extends MainController {
         // As there is no set implementation of the createNewMessage method right now, I am going to
         // directly access the message entity just to get a basic framework of this method for the time being
         List<Message> userInbox = messageManager.allUserMessages.get(this.username);
-        userInbox.remove(userInbox.size() - 1);
         Message replyMessage = new Message(message, this.username, originalMessenger);
         messageManager.allUserMessages.get(originalMessenger).add(replyMessage);
+        userInbox.remove(userInbox.size() - 1); //remove the message we just viewed from our inbox after we reply to it
     }
 
     public void viewEventList(String username) {
