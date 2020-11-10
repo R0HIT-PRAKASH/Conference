@@ -20,7 +20,7 @@ public class AttendeeController extends MainController {
             case "Send Message":
                 System.out.println("Who would you like to message?");
                 String recipient = scan.nextLine();
-                if(messageManager.checkIsMessageable(recipient, this.username)) {
+                if(messageManager.checkIsMessageable(recipient, this.username, this.userManager)) {
                     System.out.println("What message would you like to send to: " + recipient);
                     String messageContents = scan.nextLine();
                     sendMessages(recipient, messageContents);
@@ -58,7 +58,7 @@ public class AttendeeController extends MainController {
                 System.out.println("Enter the username you would you like to add to your contact list?");
                 String newContactUsername = scan.nextLine();
                 // need to implement this method in MessageManager.java
-                if(messageManager.checkIfMessageable(newContactUsername, this.username)){
+                if(messageManager.checkIsMessageable(newContactUsername, this.username, this.userManager)){
                     addUserToMessageable(newContactUsername);
                 }
                 else{
