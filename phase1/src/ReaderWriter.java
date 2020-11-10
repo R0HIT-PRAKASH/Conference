@@ -16,13 +16,11 @@ public class ReaderWriter {
     // This method should be run everytime the program is about to close with userMap, allUserMessages and events
     // Q's:
     // So does this overwrite filenames which already exist and that's ok?
-    // Need to figure out where this is called upon
-    // EventManager, UserManager - Map -> HashMap because Map is just an interface
     // Lots of repeated code - I tried to make a helper method but all of sudden it need an exception check as well
     // When we read, how do we assign what we've read to actually be the list of users, etc..
-    public void write(HashMap<String, Object> hashmap) { // Q: I dont think this should be static - Need confirmation
+    public <T> void write(HashMap<String, T> hashmap) { // Q: I dont think this should be static - Need confirmation
 
-        List<Object> list = new ArrayList<Object>(hashmap.values());
+        List<Object> list = new ArrayList<>(hashmap.values());
 
         try {
             if (list.get(0) instanceof User) {
@@ -51,7 +49,6 @@ public class ReaderWriter {
 
     //Should be run everytime a User logs in
     // make this into javadoc format
-    // filename will be without .ser
     public void read(String filename) {
         try {
             if (filename.equalsIgnoreCase("users")) {
