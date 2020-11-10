@@ -7,7 +7,7 @@ public class SpeakerController extends MainController{
 
     public void run(){
         System.out.println("What would you like to do?");
-        System.out.println("See Inbox, View My Events, Message Event Attendees, Reply to Attendee, End");
+        System.out.println("See Inbox, \nView My Events, \nMessage Event Attendees, \nReply to Attendee, \nEnd: ");
         String input = "";
         input = scan.nextLine().toLowerCase();
         while (!input.equals("end")){
@@ -51,9 +51,18 @@ public class SpeakerController extends MainController{
                     System.out.println(attendee);
                 }
                 String recipient = scan.nextLine();
-
+                System.out.println("Please enter the message: ");
+                String content = scan.nextLine();
+                replyMessage(recipient, content);
+            case "options":
+                viewOptions();
             break;
         }
+    }
+
+    private void viewOptions(){
+        System.out.println("See Inbox, \nView My Events, \nMessage Event Attendees, \nReply to Attendee, \nEnd");
+        System.out.println("Please enter next task: ");
     }
 
     private List<String> getAttendees(String username){
@@ -65,16 +74,26 @@ public class SpeakerController extends MainController{
         return attendees;
     }
 
-    public void viewMessages(String username) {
+    private void viewMessages(String username) {
         messageManager.printMessages(username);
+        System.out.println("Please enter next task (reminder, you can type 'Options' to see what you can do: ");
 
     }
-    public void viewScheduledEvents(String username){
+    private void viewScheduledEvents(String username){
         List<String> allEvents = userManager.getSpeakingEvents(username);
         System.out.println(allEvents);
+        System.out.println("Please enter next task (reminder, you can type 'Options' to see what you can do: ");
     }
 
-    public void sendBlastMessage(List<String> eventNames, String message){
+    private void sendBlastMessage(List<String> eventNames, String message){
         messageManager.speakerBlastMessage(eventNames, message, eventManager, this.username);
+        System.out.println("Messages sent");
+        System.out.println("Please enter next task (reminder, you can type 'Options' to see what you can do: ");
+    }
+
+    private void replyMessage(String recipient, String content){
+        Message message = messageManager.createNewMessage(content, username, recipient);
+        System.out.println("Message sent");
+        System.out.println("Please enter next task (reminder, you can type 'Options' to see what you can do: ");
     }
 }
