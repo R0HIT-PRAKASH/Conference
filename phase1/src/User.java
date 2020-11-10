@@ -1,7 +1,5 @@
-import java.util.ArrayList;
-
 public abstract class User implements Comparable<User>{
-    private String name; // I would suggest doing firstName, LastName instead
+    private String name;
     private String address;
     private String email;
     private String username;
