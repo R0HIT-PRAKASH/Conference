@@ -2,9 +2,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * A controller that deals with Speaker users
+ */
 public class SpeakerController extends MainController{
     private Scanner scan = new Scanner(System.in);
 
+    /**
+     * Runs the Speaker controller by asking for input and performing the actions
+     */
     public void run(){
         System.out.println("What would you like to do?");
         System.out.println("See Inbox, \nView My Events, \nMessage Event Attendees, \nReply to Attendee, \nEnd: ");
@@ -16,6 +22,10 @@ public class SpeakerController extends MainController{
         }
     }
 
+    /**
+     * Looks at the input from user and decides what to do
+     * @param input: The input from the user
+     */
     private void determineInput(String input){
         switch (input) {
             case "see inbox":
@@ -60,11 +70,19 @@ public class SpeakerController extends MainController{
         }
     }
 
+    /**
+     * Prints all the options the user can perform
+     */
     private void viewOptions(){
         System.out.println("See Inbox, \nView My Events, \nMessage Event Attendees, \nReply to Attendee, \nEnd");
         System.out.println("Please enter next task: ");
     }
 
+    /**
+     * Gets all the usernames of attendees who have messaged this Speaker
+     * @param username of this Speaker
+     * @return Returns all the usernames
+     */
     private List<String> getAttendees(String username){
         List<Message> allMessages = messageManager.viewMessages(username);
         List<String> attendees = new ArrayList<>();
@@ -74,23 +92,42 @@ public class SpeakerController extends MainController{
         return attendees;
     }
 
+    /**
+     * Prints all the messages the Speaker has received
+     * @param username of the Speaker
+     */
     private void viewMessages(String username) {
         messageManager.printMessages(username);
         System.out.println("Please enter next task (reminder, you can type 'Options' to see what you can do: ");
 
     }
+
+    /**
+     * Prints all the events the Speaker is scheduled for
+     * @param username of the Speaker
+     */
     private void viewScheduledEvents(String username){
         List<String> allEvents = userManager.getSpeakingEvents(username);
         System.out.println(allEvents);
         System.out.println("Please enter next task (reminder, you can type 'Options' to see what you can do: ");
     }
 
+    /**
+     * Sends a message to attendees of events that the Speaker has given
+     * @param eventNames: All the events whose attendees the Speaker wants to respond to
+     * @param message: What the Speaker is sending
+     */
     private void sendBlastMessage(List<String> eventNames, String message){
         messageManager.speakerBlastMessage(eventNames, message, eventManager, this.username);
         System.out.println("Messages sent");
         System.out.println("Please enter next task (reminder, you can type 'Options' to see what you can do: ");
     }
 
+    /**
+     * Replies to an attendee that has sent a message to this Speaker
+     * @param recipient: The attendee to send to
+     * @param content: What the Speaker is sending
+     */
     private void replyMessage(String recipient, String content){
         Message message = messageManager.createNewMessage(content, username, recipient);
         System.out.println("Message sent");
