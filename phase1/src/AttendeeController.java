@@ -20,9 +20,14 @@ public class AttendeeController extends MainController {
             case "Send Message":
                 System.out.println("Who would you like to message?");
                 String recipient = scan.nextLine();
-                System.out.println("What message would you like to send to: " + recipient);
-                String messageContents = scan.nextLine();
-                sendMessages(recipient, messageContents);
+                if(checkIsMessageable(recipient, this.username)) {
+                    System.out.println("What message would you like to send to: " + recipient);
+                    String messageContents = scan.nextLine();
+                    sendMessages(recipient, messageContents);
+                }
+                else{
+                    System.out.println("Sorry, this person is not in your contact list. Please try again");
+                }
                 break;
             case "Reply To Message":
                 System.out.println("This is the oldest message in your inbox: '" +
@@ -65,10 +70,20 @@ public class AttendeeController extends MainController {
 
     public void viewMessages(String username) { messageManager.printMessages(this.username); }
 
-    public void sendMessages(String recipient, String messageContents) {}
+    public void sendMessages(String recipient, String messageContents) {
+        // As there is no set implementation of the createNewMessage method right now, I am going to
+        // directly access the message entity just to get a basic framework of this method for the time being
+        Message newMessage = new Message(messageContents, this.username, recipient);
+        messageManager.allUserMessages.get(recipient).add(newMessage);
+    }
 
     public void replyMessage(String message, String originalMessenger) {
-        // need to remove message rom inbox once we respond to it
+        // As there is no set implementation of the createNewMessage method right now, I am going to
+        // directly access the message entity just to get a basic framework of this method for the time being
+        List<Message> userInbox = messageManager.allUserMessages.get(this.username);
+        userInbox.remove(userInbox.size() - 1);
+        Message replyMessage = new Message(message, this.username, originalMessenger);
+        messageManager.allUserMessages.get(originalMessenger).add(replyMessage);
     }
 
     public void viewEventList(String username) {
@@ -78,9 +93,15 @@ public class AttendeeController extends MainController {
 
     public void viewSignedUpForEvent(String username) { userManager.getAttendingEvents(this.username);}
 
-    public void cancelSpotInEvent(String eventName) {}
+    public void cancelSpotInEvent(String eventName) {
+        // Need method in the User Manager to modify the attendingEvents List
+    }
 
-    public void signUp(String eventName) {}
+    public void signUp(String eventName) {
+        // Need method in the User Manager to modify the attendingEvents List
+    }
 
-    public void addUserToMessageable(String username) {}
+    public void addUserToMessageable(String username) {
+        // How do we implement this as we currently do not have a variable that contains the contacts of an attendee
+    }
 }
