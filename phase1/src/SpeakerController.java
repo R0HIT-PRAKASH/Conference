@@ -7,23 +7,25 @@ public class SpeakerController extends MainController{
     private Scanner scan = new Scanner(System.in);
 
     public void run(){
+        System.out.println("What would you like to do?");
+        System.out.println("See Inbox, View My Events, Message Event Attendees, Reply to Attendee, End");
         String input = "";
-        input = scan.nextLine().toUpperCase();
-        while (!input.equals("END")){
+        input = scan.nextLine().toLowerCase();
+        while (!input.equals("end")){
             determineInput(input);
-            input = scan.nextLine().toUpperCase();
+            input = scan.nextLine().toLowerCase();
         }
     }
 
     private void determineInput(String input){
         switch (input) {
-            case "See Inbox":
+            case "see inbox":
                 viewMessages(this.username);
                 break;
-            case "View My Events":
+            case "view my events":
                 viewScheduledEvents(this.username);
                 break;
-            case "Message Event Attendees":
+            case "message event attendees":
                 System.out.println("How many event's attendees would you like to message: ");
                 String number = scan.nextLine();
                 System.out.println("Please enter the number of events: ");
@@ -43,8 +45,25 @@ public class SpeakerController extends MainController{
                     System.out.println("Please enter the message: ");
                 String message = scan.nextLine();
                 sendBlastMessage(eventNames, message);
+            case "reply to attendee":
+                System.out.println("Which attendee are you replying to: ");
+                List<String> attendees = getAttendees(username);
+                for (String attendee: attendees){
+                    System.out.println(attendee);
+                }
+                String recipient = scan.nextLine();
+
             break;
         }
+    }
+
+    private List<String> getAttendees(String username){
+        List<Message> allMessages = messageManager.viewMessages(username);
+        List<String> attendees = new ArrayList<>();
+        for (Message message: allMessages){
+            attendees.add(messageManager.getRecipient(message));
+        }
+        return attendees;
     }
 
     public void viewMessages(String username) {
