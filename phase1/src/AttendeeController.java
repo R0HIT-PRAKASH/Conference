@@ -1,26 +1,29 @@
 import java.util.*;
 
+/**
+ * A controller that deals with Attendee users
+ */
 public class AttendeeController extends MainController {
     private Scanner scan = new Scanner(System.in);
 
+    /**
+     * Runs the Attendee controller by asking for input and performing the actions
+     */
     public void run(){
         String input = "";
         input = scan.nextLine().toLowerCase();
         while (!input.equals("end")){
             determineInput(input);
-            input = scan.nextLine().toUpperCase();
+            input = scan.nextLine().toLowerCase();
         }
     }
 
-    // Can add a main menu method to print out all the options
-
     /**
-     *
-     * @param input (Add description)
+     * Looks at the input from user and decides what to do
+     * @param input: The input from the user
      */
     private void determineInput(String input) {
         switch (input) {
-            // Write cases in uppercase
             case "see inbox":
                 viewMessages(this.username);
                 break;
@@ -75,17 +78,29 @@ public class AttendeeController extends MainController {
         }
     }
 
+    /**
+     * Prints all the messages that this attendee has received
+     * @param username: The username of the Attendee
+     */
     public void viewMessages(String username) { messageManager.printMessages(this.username); }
 
+    /**
+     * Sends a message to a specified user
+     * @param recipient: The username of the recipient
+     * @param messageContents: The content of the message the Attendee is sending
+     */
     public void sendMessages(String recipient, String messageContents) {
         // As there is no set implementation of the createNewMessage method right now, I am going to
         // directly access the message entity just to get a basic framework of this method for the time being
-        // Note the createNewMessage will return the new Message that was created and addMessage will add the message
-        // to the message Map and return True or False if it worked (just check the implementation to be sure)
         Message newMessage = new Message(messageContents, this.username, recipient);
         messageManager.allUserMessages.get(recipient).add(newMessage);
     }
 
+    /**
+     * Sends a reply to the oldest message in an attendees inbox
+     * @param message: The content of the message the Attendee is sending
+     * @param originalMessenger: The username of the User we are replying too
+     */
     public void replyMessage(String message, String originalMessenger) {
         // As there is no set implementation of the createNewMessage method right now, I am going to
         // directly access the message entity just to get a basic framework of this method for the time being
@@ -95,23 +110,44 @@ public class AttendeeController extends MainController {
         userInbox.remove(userInbox.size() - 1); //remove the message we just viewed from our inbox after we reply to it
     }
 
+    /**
+     * Prints the event list for the entire conference
+     * @param username: The username of this Attendee
+     */
     public void viewEventList(String username) {
         Map<String, Event> events = eventManager.getAllEvents();
         System.out.println(events);
     }
 
-    // We might need the method getAttendingEvents from the userManager to sort the events by time
-    public void viewSignedUpForEvent(String username) { userManager.getAttendingEvents(this.username);}
+    /**
+     * Prints the scheduled events of an attendee
+     * @param username: The username of this Attendee
+     */
+    public void viewSignedUpForEvent(String username) {
+        List<String> signedUpFor = userManager.getAttendingEvents(username);
+        System.out.println(signedUpFor);
+    }
 
+    /**
+     * Removes an attendee from an event they were signed up for
+     * @param eventName: The name of the Event we want to cancel our spot in
+     */
     public void cancelSpotInEvent(String eventName) {
         // Need method in the User Manager to modify the attendingEvents List
     }
 
+    /**
+     * Signs an attendee up for a new event
+     * @param eventName: The name of the Event we want to sign up for
+     */
     public void signUp(String eventName) {
-        // The method signUpForEvent has to implemented in the User Manager
-        userManager.signUpForEvent(this.username, eventName);
+        // Need method in the User Manager to modify the attendingEvents List
     }
 
+    /**
+     * Adds another user to an attendees contact list
+     * @param username: The useranme of the User we want to add to our contacts
+     */
     public void addUserToMessageable(String username) {
         // How do we implement this as we currently do not have a variable that contains the contacts of an attendee
     }
