@@ -32,12 +32,11 @@ public class EventManager {
      * @param name Refers to the name of the event.
      * @param speakerName Refers to the name of the speaker of this event.
      * @param time Refers to the starting time of the event.
-     * @param duration Refers to the duration of this event.
      * @param roomNumber Refers to the room number of this event
      * @return Returns the created event.
      */
-    public Event createNewEvent(String name, String speakerName, LocalDateTime time, int duration, int roomNumber){
-        Event event = new Event(name, speakerName, time, duration, roomNumber);
+    public Event createNewEvent(String name, String speakerName, LocalDateTime time, int roomNumber){
+        Event event = new Event(name, speakerName, time, roomNumber);
         return event;
     }
 
@@ -47,12 +46,21 @@ public class EventManager {
      * @param name Refers to the name of the event.
      * @param speakerName Refers to the name of the speaker of this event.
      * @param time Refers to the starting time of the event.
-     * @param duration Refers to the duration of this event.
      * @param roomNumber Refers to the room number of this event.
      * @return Returns true if the event is successfully added. Otherwise, it returns false.
      */
-    public boolean addEvent(String name, String speakerName, LocalDateTime time, int duration, int roomNumber){
-        Event event = createNewEvent(name, speakerName, time, duration, roomNumber);
+    public boolean addEvent(String name, String speakerName, LocalDateTime time, int roomNumber){
+        Event event = createNewEvent(name, speakerName, time, roomNumber);
+        if (!checkEventIsValid(event)){
+            return false;
+        }
+
+        events.put(event.getName(), event);
+        return true;
+    }
+
+    // Don't think we need this method
+    private boolean checkEventIsValid(Event event){
         for (String i: events.keySet()){
             if (event.getName().equals(i)){
                 return false;
@@ -61,15 +69,12 @@ public class EventManager {
             if (e.getTime().equals(event.getTime()) && e.getRoomNumber() == event.getRoomNumber() ){
                 return false;
             }
+            if (e.getTime().equals(event.getTime()) && e.getSpeakerName().equals(event.getSpeakerName()){
+                return false;
+            }
         }
 
-        events.put(event.getName(), event);
         return true;
-    }
-
-    // Don't think we need this method
-    private boolean checkEventIsValid(Speaker speaker, int roomNumber, LocalDateTime time){
-        return true; // Just so that it would compile
     }
 
     /**
