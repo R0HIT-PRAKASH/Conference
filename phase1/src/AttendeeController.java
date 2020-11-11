@@ -5,7 +5,7 @@ public class AttendeeController extends MainController {
 
     public void run(){
         String input = "";
-        input = scan.nextLine().toUpperCase();
+        input = scan.nextLine(); //.toUpperCase() would require all the cases in determineInput to be upperCase
         while (!input.equals("END")){
             determineInput(input);
             input = scan.nextLine().toUpperCase();

@@ -3,11 +3,20 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MainController {
-    protected MessageManager messageManager = new MessageManager();
-    protected UserManager userManager = new UserManager();
-    protected EventManager eventManager = new EventManager();
+    protected MessageManager messageManager;
+    protected UserManager userManager;
+    protected EventManager eventManager;
     protected String username;
-    protected ReaderWriter  RW = new ReaderWriter(); // NEW - CONFIRM THIS IS CORRECT
+    protected ReaderWriter RW;
+
+    public MainController() {
+        messageManager = new MessageManager();
+        userManager = new UserManager();
+        eventManager = new EventManager();
+        RW = new ReaderWriter();
+        username = "";
+    }
+
 
     // Prompt them with the question - do you want to read in files?
     // If yes, de serialize
@@ -20,7 +29,7 @@ public class MainController {
         File users = new File("users.ser");
         File messages = new File("messages.ser");
         File events = new File("events.ser");
-        return users.exists() && messages.exists() && !events.exists();
+        return users.exists() && messages.exists() && events.exists();
     }
 
     public void fileQuestion() {
@@ -45,7 +54,7 @@ public class MainController {
         LoginController log = new LoginController();
         this.username = log.login();
         String type = this.userManager.getUserType(this.username);
-        if(type.equals("organizer")){
+        if(type == null || type.equals("organizer")){
             OrganizerController controller = new OrganizerController();
             controller.run();
         }

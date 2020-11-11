@@ -69,7 +69,7 @@ public class EventManager {
 
     // Don't think we need this method
     private boolean checkEventIsValid(Speaker speaker, int roomNumber, LocalDateTime time){
-
+        return true; // Just so that it would compile
     }
 
     /**
