@@ -4,7 +4,9 @@ public class LoginController extends MainController{
     private Scanner scan = new Scanner(System.in);
 
     public String login(){
+        System.out.println("Enter Username:");
         String username = scan.nextLine();
+        System.out.println("Enter Password");
         String password = scan.nextLine();
         if(this.checkLoginInfo(username, password)){
             return username;

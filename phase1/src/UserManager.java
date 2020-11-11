@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.time.LocalDateTime;
 
 public class UserManager {
 
@@ -33,6 +34,10 @@ public class UserManager {
         return userMap.get(username);
     }
 
+    /**
+     * This method returns the map of users.
+     * @return Returns the map of users.
+     */
     public HashMap<String, User> getUserMap(){
         return userMap;
     }
@@ -146,4 +151,78 @@ public class UserManager {
         }
     }
 
+    /**
+     * This method signs the user up for an event.
+     * @param username Refers to the username of the user.
+     * @param event Refers to the event.
+     * @param eventManager Refers to the class instance that contains all of the events.
+     * @return Returns true if the event was added to the list of events the user will attend and false otherwise.
+     */
+    public boolean signUpForEvent(String username, Event event, EventManager eventManager){
+        User user = userMap.get(username);
+
+        if(eventManager.getAllEvents().get(event.getName()) == null ||
+                event.getTime().getHour() < 9 || event.getTime().getHour() > 16 ||
+                eventManager.checkEventFull(event.getName()) || event.getTime().isBefore(LocalDateTime.now())){
+            return false;
+        }
+
+        if(user.getUserType().equals("attendee")){
+            for(String eventName : ((Attendee) user).getAttendingEvents()){
+                Event attendEvent = eventManager.getEvent(eventName);
+                double signUp = event.getTime().getHour();
+                double signedUp = attendEvent.getTime().getHour();
+                if(signedUp - signUp < 1 && signedUp - signUp > -1){
+                    return false;
+                }
+            }
+            ((Attendee) user).signUpForEvent(event);
+
+        }else if(user.getUserType().equals("organizer")){
+            for(String eventName : ((Organizer) user).getAttendingEvents()){
+                Event attendEvent = eventManager.getEvent(eventName);
+                double signUp = event.getTime().getHour();
+                double signedUp = attendEvent.getTime().getHour();
+                if(signedUp - signUp < 1 && signedUp - signUp > -1){
+                    return false;
+                }
+            }
+            ((Organizer) user).signUpForEvent(event);
+
+        }else{
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * This method cancels the user's spot in the event.
+     * @param username Refers to the username of the user.
+     * @param event Refers to the event object.
+     * @param eventManager Refers to the class instance that contains all of the events.
+     * @return Returns true if the event was removed from the list of events the user will attend or false otherwise.
+     */
+    public boolean cancelEventSpot(String username, Event event, EventManager eventManager){
+        User user = userMap.get(username);
+        if(!eventManager.getAllEvents().containsKey(event.getName())){
+            return false;
+        }
+
+        if(user.getUserType().equals("attendee")){
+            if(((Attendee) user).getAttendingEvents().contains(event.getName())){
+                ((Attendee) user).getAttendingEvents().remove(event.getName());
+            }else{
+                return false;
+            }
+        }else if(user.getUserType().equals("organizer")){
+            if(((Organizer) user).getAttendingEvents().contains(event.getName())){
+                ((Organizer) user).getAttendingEvents().remove(event.getName());
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+        return true;
+    }
 }
