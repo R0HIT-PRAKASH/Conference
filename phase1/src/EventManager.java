@@ -69,7 +69,7 @@ public class EventManager {
             if (e.getTime().equals(event.getTime()) && e.getRoomNumber() == event.getRoomNumber() ){
                 return false;
             }
-            if (e.getTime().equals(event.getTime()) && e.getSpeakerName().equals(event.getSpeakerName()){
+            if (e.getTime().equals(event.getTime()) && e.getSpeakerName().equals(event.getSpeakerName())){
                 return false;
             }
         }
