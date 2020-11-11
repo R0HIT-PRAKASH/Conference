@@ -5,19 +5,26 @@ public class AttendeeController extends MainController {
 
     public void run(){
         String input = "";
-        input = scan.nextLine().toUpperCase();
-        while (!input.equals("END")){
+        input = scan.nextLine().toLowerCase();
+        while (!input.equals("end")){
             determineInput(input);
             input = scan.nextLine().toUpperCase();
         }
     }
 
+    // Can add a main menu method to print out all the options
+
+    /**
+     *
+     * @param input (Add description)
+     */
     private void determineInput(String input) {
         switch (input) {
-            case "See Inbox":
+            // Write cases in uppercase
+            case "see inbox":
                 viewMessages(this.username);
                 break;
-            case "Send Message":
+            case "send message":
                 System.out.println("Who would you like to message?");
                 String recipient = scan.nextLine();
                 if(messageManager.checkIsMessageable(recipient, this.username)) {
@@ -29,7 +36,7 @@ public class AttendeeController extends MainController {
                     System.out.println("Sorry, this person is not in your contact list. Please try again");
                 }
                 break;
-            case "Reply To Message":
+            case "reply to message":
                 System.out.println("This is the oldest message in your inbox: '" +
                         messageManager.viewMessages(this.username).get(messageManager.viewMessages(this.username).size()
                                 -  1) + "'. How would you like to respond?");
@@ -38,23 +45,23 @@ public class AttendeeController extends MainController {
                         get(messageManager.viewMessages(this.username).size() -  1).getSender();
                 replyMessage(response, responseUsername);
                 break;
-            case "View Event List":
+            case "view event list":
                 viewEventList(this.username);
                 break;
-            case "View My Scheduled Events":
+            case "view my scheduled events":
                 viewSignedUpForEvent(this.username);
                 break;
-            case "Cancel Spot":
+            case "cancel spot":
                 System.out.println("What spot would you like to cancel?");
                 String cancel = scan.nextLine();
                 cancelSpotInEvent(cancel);
                 break;
-            case "Sign Up For Event":
+            case "sign up for event":
                 System.out.println("What spot would you like to sign up for?");
                 String eventSignedUp = scan.nextLine();
                 signUp(eventSignedUp);
                 break;
-            case "Add User To Contact List":
+            case "add user to contact list":
                 System.out.println("Enter the username you would you like to add to your contact list?");
                 String newContactUsername = scan.nextLine();
                 // need to implement this method in MessageManager.java
@@ -73,6 +80,8 @@ public class AttendeeController extends MainController {
     public void sendMessages(String recipient, String messageContents) {
         // As there is no set implementation of the createNewMessage method right now, I am going to
         // directly access the message entity just to get a basic framework of this method for the time being
+        // Note the createNewMessage will return the new Message that was created and addMessage will add the message
+        // to the message Map and return True or False if it worked (just check the implementation to be sure)
         Message newMessage = new Message(messageContents, this.username, recipient);
         messageManager.allUserMessages.get(recipient).add(newMessage);
     }
@@ -91,6 +100,7 @@ public class AttendeeController extends MainController {
         System.out.println(events);
     }
 
+    // We might need the method getAttendingEvents from the userManager to sort the events by time
     public void viewSignedUpForEvent(String username) { userManager.getAttendingEvents(this.username);}
 
     public void cancelSpotInEvent(String eventName) {
@@ -98,7 +108,8 @@ public class AttendeeController extends MainController {
     }
 
     public void signUp(String eventName) {
-        // Need method in the User Manager to modify the attendingEvents List
+        // The method signUpForEvent has to implemented in the User Manager
+        userManager.signUpForEvent(this.username, eventName);
     }
 
     public void addUserToMessageable(String username) {
