@@ -165,6 +165,9 @@ public class UserManager {
             return false;
         }
 
+        if(event.getTime().getHour() < 9 || event.getTime().getHour() > 16)
+            return false;
+
         if(eventManager.checkEventFull(event.getName()) || event.getTime().isBefore(LocalDateTime.now())){
             return false;
         }
@@ -172,7 +175,9 @@ public class UserManager {
         if(user.getUserType().equals("attendee")){
             for(String eventName : ((Attendee) user).getAttendingEvents()){
                 Event attendEvent = eventManager.getEvent(eventName);
-                if(event.getTime().isEqual(attendEvent.getTime())){
+                double signUp = event.getTime().getHour();
+                double signedUp = attendEvent.getTime().getHour();
+                if(signedUp - signUp < 1 && signedUp - signUp > -1){
                     return false;
                 }
             }
@@ -181,11 +186,14 @@ public class UserManager {
         }else if(user.getUserType().equals("organizer")){
             for(String eventName : ((Organizer) user).getAttendingEvents()){
                 Event attendEvent = eventManager.getEvent(eventName);
-                if(event.getTime().isEqual(attendEvent.getTime())){
+                double signUp = event.getTime().getHour();
+                double signedUp = attendEvent.getTime().getHour();
+                if(signedUp - signUp < 1 && signedUp - signUp > -1){
                     return false;
                 }
             }
             ((Organizer) user).signUpForEvent(event);
+
         }else{
             return false;
         }
