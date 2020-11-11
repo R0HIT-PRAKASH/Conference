@@ -51,10 +51,11 @@ public class MainController {
     }
 
     public void run() {
+        fileQuestion();
         LoginController log = new LoginController();
         this.username = log.login();
         String type = this.userManager.getUserType(this.username);
-        if(type == null || type.equals("organizer")){
+        if(type.equals("organizer")){
             OrganizerController controller = new OrganizerController();
             controller.run();
         }

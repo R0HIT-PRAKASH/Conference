@@ -29,7 +29,7 @@ public class ReaderWriter {
     public <T> void write(HashMap<String, T> hashmap) { // Q: I dont think this should be static - Need confirmation
 
         List<Object> list = new ArrayList<>(hashmap.values());
-
+        if(list.isEmpty()) return;
         try {
             if (list.get(0) instanceof User) {
                 FileOutputStream fos = new FileOutputStream("users.ser");

@@ -12,7 +12,7 @@ public class AttendeeController extends MainController {
     public void run(){
         System.out.println("What would you like to do?");
         System.out.println("See Inbox, \nSend Message, \nReply to Message, \nView Event List, " +
-                "\nView My Scheduled Events, Cancel Event Reservation\n, \n Sign up for Event, " +
+                "\nView My Scheduled Events, \nCancel Event Reservation, \n Sign up for Event, " +
                 "\nAdd User to Contact List  ,\nEnd: ");
         String input = "";
         input = scan.nextLine().toLowerCase();
@@ -81,6 +81,9 @@ public class AttendeeController extends MainController {
                 break;
             case "options":
                 viewOptions();
+                break;
+            default:
+                System.out.println("Invalid Input, please try again.");
                 break;
         }
     }

@@ -41,13 +41,16 @@ public List<Message> viewMessages(String username){
      * @return Return true if the sender should be able to message the recipient, and false otherwise.
      */
     public boolean checkIsMessageable(String to, String from, UserManager userManager){
-    if (userManager.getUserType(from).equals("attendee")){
-        return userManager.getUserType(to).equals("attendee") || userManager.getUserType(to).equals("speaker");
-    } else if (userManager.getUserType(from).equals("organizer")){
-        if (!(userManager.getUserType(to).equals("organizer"))){
-            return true;
+
+        if(userManager.getUserType(from).isEmpty() || userManager.getUserType(to).isEmpty()) return false;
+
+        if (userManager.getUserType(from).equals("attendee")){
+            return userManager.getUserType(to).equals("attendee") || userManager.getUserType(to).equals("speaker");
+        } else if (userManager.getUserType(from).equals("organizer")){
+            if (!(userManager.getUserType(to).equals("organizer"))){
+                return true;
+            }
         }
-    }
     return false;
 }
 
@@ -57,8 +60,12 @@ public String getMessageContent(Message message){
 
 public void printMessages(String username){
         List<Message> allMessages = viewMessages(username);
-            for (int i = allMessages.size() -1; i > -1; i-- ){
-                System.out.println(allMessages.get(i).getContent());
+        if(allMessages.size() == 0) {
+            System.out.println("No Messages :(");
+            return;
+        }
+        for (int i = allMessages.size() -1; i > -1; i-- ){
+            System.out.println(allMessages.get(i).getContent());
         }
     }
 

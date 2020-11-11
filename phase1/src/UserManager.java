@@ -83,7 +83,7 @@ public class UserManager {
      */
     public String getUserType(String username){
         if(userMap.get(username) == null){
-            return null;
+            return "";
         }
         return userMap.get(username).getUserType();
     }
