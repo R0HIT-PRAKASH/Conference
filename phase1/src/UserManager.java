@@ -161,14 +161,9 @@ public class UserManager {
     public boolean signUpForEvent(String username, Event event, EventManager eventManager){
         User user = userMap.get(username);
 
-        if(eventManager.getAllEvents().get(event.getName()) == null){
-            return false;
-        }
-
-        if(event.getTime().getHour() < 9 || event.getTime().getHour() > 16)
-            return false;
-
-        if(eventManager.checkEventFull(event.getName()) || event.getTime().isBefore(LocalDateTime.now())){
+        if(eventManager.getAllEvents().get(event.getName()) == null ||
+                event.getTime().getHour() < 9 || event.getTime().getHour() > 16 ||
+                eventManager.checkEventFull(event.getName()) || event.getTime().isBefore(LocalDateTime.now())){
             return false;
         }
 
