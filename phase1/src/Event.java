@@ -29,6 +29,15 @@ public class Event implements Comparable<Event> {
         attendeeSet = new HashSet<Attendee>();
     }
 
+    public Event(String name, String speakerName, LocalDateTime time, int roomNumber) {
+        this.name = name;
+        this.speakerName = speakerName;
+        this.time = time;
+        this.duration = 1;
+        this.roomNumber = roomNumber;
+        attendeeSet = new HashSet<Attendee>();
+    }
+
     /**
      * This method is a getter for name
      * @return String name
