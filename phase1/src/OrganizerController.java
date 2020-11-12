@@ -1,8 +1,180 @@
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Scanner;
 
 public class OrganizerController extends AttendeeController {
+
+    private Scanner scan = new Scanner(System.in);
+
+    /**
+     * Runs the OrganizerController by asking for input and performing the actions
+     */
+    public void run(){
+        viewOptions();
+        System.out.println("What would you like to do?\nEnter the corresponding number:");
+        int input = 0;
+        input = scan.nextInt();
+        while (input != 16){ // 16 is ending condition
+            determineInput(input);
+            input = scan.nextInt();
+        }
+    }
+
+    /**
+     * Looks at the input from user and decides what to do
+     * @param input: The input from the user
+     */
+    private void determineInput(int input) {
+        switch (input) {
+            case 0:
+                viewMessages(this.username);
+                break;
+            case 1:
+                System.out.println("Who would you like to message?");
+                String recipient = scan.nextLine();
+                if(messageManager.checkIsMessageable(recipient, this.username, userManager)) {
+                    System.out.println("What message would you like to send to: " + recipient);
+                    String messageContents = scan.nextLine();
+                    sendMessages(recipient, messageContents);
+                }
+                else{
+                    System.out.println("Sorry, this person is not in your contact list. Please try again");
+                }
+                break;
+            case 2:
+                System.out.println("This is the oldest message in your inbox: '" +
+                        messageManager.viewMessages(this.username).get(messageManager.viewMessages(this.username).size()
+                                -  1) + "'. How would you like to respond?");
+                String response = scan.nextLine();
+                String responseUsername = messageManager.viewMessages(this.username).
+                        get(messageManager.viewMessages(this.username).size() -  1).getSender();
+                replyMessage(response, responseUsername);
+                break;
+            case 3:
+                viewEventList();
+                break;
+            case 4:
+                viewSignedUpForEvent(this.username);
+                break;
+            case 5:
+                System.out.println("What spot would you like to cancel?");
+                String cancel = scan.nextLine();
+                if(userManager.getAttendingEvents(this.username).contains(cancel)) {
+                    cancelSpotInEvent(cancel);
+                }
+                else{
+                    System.out.println("Cancellation was unsuccessful since this event is not included in the events " +
+                            "you are attending");
+                }
+                break;
+            case 6:
+                System.out.println("What spot would you like to sign up for?");
+                String eventSignedUp = scan.nextLine();
+                if(eventManager.getAllEvents().containsKey(eventSignedUp)) {
+                    signUp(eventSignedUp);
+                }
+                else{
+                    System.out.println("Sign Up was unsuccessful as the event you are trying to sign up for does not" +
+                            "exist");
+                }
+                break;
+            case 7:
+                System.out.println("Enter the username you would you like to add to your contact list?");
+                String newContactUsername = scan.nextLine();
+                if(messageManager.checkIsMessageable(newContactUsername, this.username, userManager)){
+                    addUserToMessageable(newContactUsername);
+                }
+                else{
+                    System.out.println("Invalid username, please try again.");
+                }
+                break;
+
+            case 8:
+                System.out.println("To Add an Event to the Conference, Enter the following");
+                LocalDateTime time = askTime();
+
+                System.out.println("Enter an Event Title:");
+                String name = scan.nextLine();
+                System.out.println("Enter a speaker");
+                String speaker = scan.nextLine();
+                if(!userManager.checkCredentials(speaker)) {
+                    System.out.println("This speaker does not exist. You will be asked to create an account for them.");
+                    makeSpeaker();
+                }
+                System.out.println("Enter a room number");
+                int num = scan.nextInt();
+
+                while(!eventManager.addEvent(name, speaker, time, num)) {
+                    System.out.println("The event was invalid. Either the speaker or the room would be double booked. " +
+                            "Please try again.");
+                }
+                break;
+
+            case 9:
+                System.out.println("What do you want to say to all the attendees? (1 line)");
+                messageAllAttendees(scan.nextLine());
+                break;
+
+            case 10:
+                System.out.println("Enter the event you want to message");
+                String eventname = scan.nextLine();
+                if(eventManager.getEvent(eventname) == null) {
+                    System.out.println("Invalid Event. Please try again");
+                }
+
+                System.out.println("What do you want to say to all the attendees at this event? (1 line)");
+                messageEventAttendees(scan.nextLine(), eventname);
+                break;
+
+            case 11:
+                System.out.println("What do you want to say to all the speakers? (1 line)");
+                messageAllSpeakers(scan.nextLine());
+                break;
+
+            case 12:
+                System.out.println("What event do you want to remove?");
+                cancelEvent(scan.nextLine());
+                break;
+
+            case 13:
+                System.out.println("What Event do you want to reschedule?");
+                String eventname1 = scan.nextLine();
+                if(eventManager.getEvent(eventname1) == null) {
+                    System.out.println("Invalid Event. Please try again");
+                }
+                LocalDateTime newTime = askTime();
+                rescheduleEvent(eventname1, newTime);
+                break;
+
+            case 14:
+                makeSpeaker();
+                break;
+
+            case 15:
+                viewOptions();
+                break;
+
+            default:
+                System.out.println("Invalid Input, please try again.");
+                break;
+        }
+    }
+
+    /**
+     * Prints all the options the user can perform
+     */
+    private void viewOptions(){
+        System.out.println("(0) See Inbox\n(1) Send Message\n(2) Reply to Message\n(3) View Event List" +
+                "\n(4) View My Scheduled Events\n(5) Cancel Event Reservation\n(6) Sign up for Event" +
+                "\n(7) Add User to Contact List\n(8) Add Event\n(9) Message All Attendees\n(10) Message Event Attendees" +
+                "\n(11) Message All Speakers\n(12) Cancel Event\n(13) Reschedule Event\n(14) Add Speaker\n(15) View Options" +
+                "\n(16) End");
+        System.out.println("Please enter next task: ");
+    }
+
+
 
     /**
      * This method adds an event to the set of events in the conference
@@ -94,6 +266,72 @@ public class OrganizerController extends AttendeeController {
             }
         }
 
+    }
+
+    /**
+     * This method returns a LocalDateTime object queried from the user
+     * @return LocalDateTime
+     * @throws DateTimeException
+     */
+
+    private LocalDateTime getTime() throws DateTimeException {
+        System.out.println("Enter a year:");
+        int y = scan.nextInt();
+        System.out.println("Enter a month (1-12):");
+        int m = scan.nextInt();
+        System.out.println("Enter an day:");
+        int d = scan.nextInt();
+        System.out.println("Enter an hour (0-23):");
+        int h = scan.nextInt();
+        System.out.println("Enter a minute (0-59):");
+        int mi = scan.nextInt();
+
+        return LocalDateTime.of(y, m, d, h, mi);
+    }
+
+    /**
+     * This repeatedly asks a user for a LocalDateTime object until they make one that is valid
+     * @return LocalDateTime
+     */
+    private LocalDateTime askTime() {
+        LocalDateTime time = LocalDateTime.now();
+        do {
+            try {
+                time = getTime();
+                break;
+            } catch (DateTimeException d) {
+                System.out.println("Invalid information. Please try again.");
+                d.printStackTrace();
+            }
+        } while(true);
+
+        return time;
+    }
+
+    /**
+     * This method makes a speaker account with data queried from the user.
+     */
+    private void makeSpeaker() {
+        String username = "";
+        do {
+            System.out.println("Enter the speaker username");
+            username = scan.nextLine();
+        } while(userManager.checkCredentials(username));
+
+        String passwd = "";
+        do {
+            System.out.println("Enter the speaker password");
+            passwd = scan.nextLine();
+        } while(passwd.length() < 3);
+
+        System.out.println("Enter the speaker name");
+        String name = scan.nextLine();
+        System.out.println("Enter the speaker address");
+        String address = scan.nextLine();
+        System.out.println("Enter the speaker Email");
+        String email = scan.nextLine();
+
+        createSpeakerAccount(name, address, email, username, passwd);
     }
 
 }
