@@ -38,6 +38,11 @@ public class UserManager {
      * This method returns the map of users.
      * @return Returns the map of users.
      */
+
+    public void setUserMap(HashMap<String, User> userMap) {
+        this.userMap = userMap;
+    }
+
     public HashMap<String, User> getUserMap(){
         return userMap;
     }

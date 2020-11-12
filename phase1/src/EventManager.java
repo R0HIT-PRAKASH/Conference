@@ -116,6 +116,11 @@ public class EventManager {
         return events;
     }
 
+    public void setAllEvents(HashMap<String, Event> events){
+        this.events = events;
+    }
+
+
     /**
      * Checks if the specified event is full.
      * @param eventName Refers to the name of the event.

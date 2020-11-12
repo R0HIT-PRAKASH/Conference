@@ -73,6 +73,11 @@ public HashMap<String, List<Message>> getAllUserMessages(){
     return allUserMessages;
 }
 
+public void setAllUserMessages(HashMap<String, List<Message>> allUserMessages){
+        this.allUserMessages = allUserMessages;
+    }
+
+
 public String getRecipient(Message message){
         return message.getRecipient();
 }

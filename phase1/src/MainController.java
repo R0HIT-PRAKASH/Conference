@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -26,11 +27,13 @@ public class MainController {
 
     // Check if the files even exist before even prompting the User to choose
     public boolean filesExist() {
+
         File users = new File("users.ser");
         File messages = new File("messages.ser");
         File events = new File("events.ser");
-        return users.exists() && messages.exists() && events.exists();
+        return users.isFile() && messages.isFile() && events.isFile();
     }
+
 
     public void fileQuestion() {
         Scanner question = new Scanner(System.in);
@@ -41,17 +44,20 @@ public class MainController {
                 System.out.println("Invalid Input: Please type 'Yes' or 'No'");
                 answer = question.nextLine();
             } if (answer.equalsIgnoreCase("Yes")) {
-                readInFiles(RW);
+                readInFiles(RW, userManager, messageManager, eventManager);
                 System.out.println("Files downloaded.");
             }
         } catch (InputMismatchException ime) {
             System.out.println("Error: Please type 'Yes' or 'No'");
             question.nextLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
     public void run() {
-        fileQuestion();
         LoginController log = new LoginController();
         this.username = log.login();
         String type = this.userManager.getUserType(this.username);
@@ -73,9 +79,9 @@ public class MainController {
         RW.write(eventManager.getAllEvents());
     }
 
-    private void readInFiles(ReaderWriter RW){
-        RW.read("users");
-        RW.read("messages");
-        RW.read("events");
+    private void readInFiles(ReaderWriter RW, UserManager UM, MessageManager MM, EventManager EM) throws IOException, ClassNotFoundException {
+        UM.setUserMap(RW.readUsers("users"));
+        MM.setAllUserMessages(RW.readMessages("messages"));
+        EM.setAllEvents(RW.readEvents("events"));
     }
 }

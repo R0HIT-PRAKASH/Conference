@@ -1,11 +1,7 @@
+import java.io.*;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
 
 // Sources:
 // 1) https://beginnersbook.com/2013/12/how-to-serialize-hashmap-in-java/
@@ -21,15 +17,15 @@ public class ReaderWriter {
         oos.close();
         fos.close();
     }
+
     /**
-     *
      * @param hashmap
      * @param <T>
      */
     public <T> void write(HashMap<String, T> hashmap) { // Q: I dont think this should be static - Need confirmation
 
         List<Object> list = new ArrayList<>(hashmap.values());
-        if(list.isEmpty()) return;
+        if (list.isEmpty()) return;
         try {
             if (list.get(0) instanceof User) {
                 FileOutputStream fos = new FileOutputStream("users.ser");
@@ -59,35 +55,61 @@ public class ReaderWriter {
     }
 // in helper method - throws IOException in the header
 
-    public void read(String filename) {
-        try {
-            if (filename.equalsIgnoreCase("users")) {
-                FileInputStream fis = new FileInputStream("users.ser");
-                ObjectInputStream ois = new ObjectInputStream(fis);
-                HashMap<String, User> userHashMap = (HashMap<String, User>) ois.readObject();
-                ois.close();
-                fis.close();
-            } else if (filename.equalsIgnoreCase("messages")) {
-                FileInputStream fis = new FileInputStream("messages.ser");
-                ObjectInputStream ois = new ObjectInputStream(fis);
-                HashMap<String, Message> allUserMessages = (HashMap<String, Message>) ois.readObject();
-                ois.close();
-                fis.close();
-            } else if (filename.equalsIgnoreCase("events")) {
-                FileInputStream fis = new FileInputStream("events.ser");
-                ObjectInputStream ois = new ObjectInputStream(fis);
-                HashMap<String, Event> events = (HashMap<String, Event>) ois.readObject();
-                ois.close();
-                fis.close();
-            }
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        } catch (ClassNotFoundException cnfe) {
-            System.out.println("Class not found");
-            cnfe.printStackTrace();
-        } catch(ClassCastException cce) {
-            System.out.println("Invalid cast attempt");
-            cce.printStackTrace();
-        }
+
+    public HashMap<String, User> readUsers(String filename) throws IOException, ClassNotFoundException {
+        FileInputStream fis = new FileInputStream("users.ser");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        HashMap<String, User> userHashMap = (HashMap<String, User>) ois.readObject();
+        ois.close();
+        fis.close();
+        return userHashMap;
     }
+    public HashMap<String, List<Message>> readMessages(String filename) throws IOException, ClassNotFoundException {
+        FileInputStream fis = new FileInputStream("messages.ser");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        HashMap<String, List<Message>> allUserMessages = (HashMap<String, List<Message>>) ois.readObject();
+        ois.close();
+        fis.close();
+        return allUserMessages;
+    }
+    public HashMap<String, Event> readEvents(String filename) throws IOException, ClassNotFoundException {
+        FileInputStream fis = new FileInputStream("events.ser");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        HashMap<String, Event> events = (HashMap<String, Event>) ois.readObject();
+        ois.close();
+        fis.close();
+        return events;
+}
+
+//    public void read(String filename) {
+//        try {
+//            if (filename.equalsIgnoreCase("users")) {
+//                FileInputStream fis = new FileInputStream("users.ser");
+//                ObjectInputStream ois = new ObjectInputStream(fis);
+//                HashMap<String, User> userHashMap = (HashMap<String, User>) ois.readObject();
+//                ois.close();
+//                fis.close();
+//            } else if (filename.equalsIgnoreCase("messages")) {
+//                FileInputStream fis = new FileInputStream("messages.ser");
+//                ObjectInputStream ois = new ObjectInputStream(fis);
+//                HashMap<String, Message> allUserMessages = (HashMap<String, Message>) ois.readObject();
+//                ois.close();
+//                fis.close();
+//            } else if (filename.equalsIgnoreCase("events")) {
+//                FileInputStream fis = new FileInputStream("events.ser");
+//                ObjectInputStream ois = new ObjectInputStream(fis);
+//                HashMap<String, Event> events = (HashMap<String, Event>) ois.readObject();
+//                ois.close();
+//                fis.close();
+//            }
+//        } catch (IOException ioe) {
+//            ioe.printStackTrace();
+//        } catch (ClassNotFoundException cnfe) {
+//            System.out.println("Class not found");
+//            cnfe.printStackTrace();
+//        } catch(ClassCastException cce) {
+//            System.out.println("Invalid cast attempt");
+//            cce.printStackTrace();
+//        }
+//    }
 }
