@@ -53,7 +53,7 @@ public class AttendeeController extends MainController {
                 replyMessage(response, responseUsername);
                 break;
             case "view event list":
-                viewEventList(this.username);
+                viewEventList();
                 break;
             case "view my scheduled events":
                 viewSignedUpForEvent(this.username);
@@ -61,17 +61,28 @@ public class AttendeeController extends MainController {
             case "cancel event reservation":
                 System.out.println("What spot would you like to cancel?");
                 String cancel = scan.nextLine();
-                cancelSpotInEvent(cancel);
+                if(userManager.getAttendingEvents(this.username).contains(cancel)) {
+                    cancelSpotInEvent(cancel);
+                }
+                else{
+                    System.out.println("Cancellation was unsuccessful since this event is not included in the events " +
+                            "you are attending");
+                }
                 break;
             case "sign up for event":
                 System.out.println("What spot would you like to sign up for?");
                 String eventSignedUp = scan.nextLine();
-                signUp(eventSignedUp);
+                if(eventManager.getAllEvents().containsKey(eventSignedUp)) {
+                    signUp(eventSignedUp);
+                }
+                else{
+                    System.out.println("Sign Up was unsuccessful as the event you are trying to sign up for does not" +
+                            "exist");
+                }
                 break;
             case "add user to contact list":
                 System.out.println("Enter the username you would you like to add to your contact list?");
                 String newContactUsername = scan.nextLine();
-                // need to implement this method in MessageManager.java
                 if(messageManager.checkIsMessageable(newContactUsername, this.username, userManager)){
                     addUserToMessageable(newContactUsername);
                 }
@@ -93,7 +104,7 @@ public class AttendeeController extends MainController {
      */
     private void viewOptions(){
         System.out.println("See Inbox, \nSend Message, \nReply to Message, \nView Event List, " +
-                "\nView My Scheduled Events, Cancel Event Reservation\n, \n Sign up for Event, " +
+                "\nView My Scheduled Events, \nCancel Event Reservation, \n Sign up for Event, " +
                 "\nAdd User to Contact List  ,\nEnd: ");
         System.out.println("Please enter next task: ");
     }
@@ -110,10 +121,8 @@ public class AttendeeController extends MainController {
      * @param messageContents: The content of the message the Attendee is sending
      */
     public void sendMessages(String recipient, String messageContents) {
-        // As there is no set implementation of the createNewMessage method right now, I am going to
-        // directly access the message entity just to get a basic framework of this method for the time being
-        Message newMessage = new Message(messageContents, this.username, recipient);
-        messageManager.allUserMessages.get(recipient).add(newMessage);
+        Message newMessage = messageManager.createNewMessage(messageContents, this.username, recipient);
+        messageManager.addMessage(recipient, newMessage);
         System.out.println("Message Sent");
         System.out.println("Please enter next task (reminder, you can type 'options' to see what you can do: ");
     }
@@ -124,22 +133,21 @@ public class AttendeeController extends MainController {
      * @param originalMessenger: The username of the User we are replying too
      */
     public void replyMessage(String message, String originalMessenger) {
-        // As there is no set implementation of the createNewMessage method right now, I am going to
-        // directly access the message entity just to get a basic framework of this method for the time being
         List<Message> userInbox = messageManager.allUserMessages.get(this.username);
-        Message replyMessage = new Message(message, this.username, originalMessenger);
-        messageManager.allUserMessages.get(originalMessenger).add(replyMessage);
-        userInbox.remove(userInbox.size() - 1); //remove the message we just viewed from our inbox after we reply to it
+        Message replyMessage = messageManager.createNewMessage(message, this.username, originalMessenger);
+        messageManager.addMessage(originalMessenger, replyMessage);
+        // Should we have a method in MessageManager to handle removing a message?
+        userInbox.remove(userInbox.size() - 1); //remove the message we just viewed from our inbox after replying
         System.out.println("Successfully Replied to Message");
         System.out.println("Please enter next task (reminder, you can type 'options' to see what you can do: ");
     }
 
     /**
      * Prints the event list for the entire conference
-     * @param username: The username of this Attendee
      */
-    public void viewEventList(String username) {
-        Map<String, Event> events = eventManager.getAllEvents();
+    public void viewEventList() {
+        HashMap<String, Event> events = eventManager.getAllEvents();
+        System.out.println("Here are all the available events: ");
         System.out.println(events);
         System.out.println("Please enter next task (reminder, you can type 'options' to see what you can do: ");
     }
@@ -159,7 +167,8 @@ public class AttendeeController extends MainController {
      * @param eventName: The name of the Event we want to cancel our spot in
      */
     public void cancelSpotInEvent(String eventName) {
-        // Need method in the User Manager to modify the attendingEvents List
+        Event event = eventManager.getEvent(eventName);
+        userManager.cancelEventSpot(this.username, event, eventManager);
         System.out.println("Successfully Cancelled Spot in Event");
         System.out.println("Please enter next task (reminder, you can type 'options' to see what you can do: ");
     }
@@ -169,7 +178,8 @@ public class AttendeeController extends MainController {
      * @param eventName: The name of the Event we want to sign up for
      */
     public void signUp(String eventName) {
-        // Need method in the User Manager to modify the attendingEvents List
+        Event event = eventManager.getEvent(eventName);
+        userManager.signUpForEvent(this.username, event, eventManager);
         System.out.println("Successfully Signed up for Event");
         System.out.println("Please enter next task (reminder, you can type 'options' to see what you can do: ");
     }
@@ -179,7 +189,6 @@ public class AttendeeController extends MainController {
      * @param username: The useranme of the User we want to add to our contacts
      */
     public void addUserToMessageable(String username) {
-        // How do we implement this as we currently do not have a variable that contains the contacts of an attendee
         System.out.println("Successfully Added" + username + "to Your Contact List");
         System.out.println("Please enter next task (reminder, you can type 'options' to see what you can do: ");
     }
