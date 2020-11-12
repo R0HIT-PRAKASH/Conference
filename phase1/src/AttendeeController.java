@@ -1,4 +1,6 @@
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * A controller that deals with Attendee users
@@ -10,15 +12,13 @@ public class AttendeeController extends MainController {
      * Runs the Attendee controller by asking for input and performing the actions
      */
     public void run(){
-        System.out.println("What would you like to do?");
-        System.out.println("See Inbox, \nSend Message, \nReply to Message, \nView Event List, " +
-                "\nView My Scheduled Events, \nCancel Event Reservation, \n Sign up for Event, " +
-                "\nAdd User to Contact List  ,\nEnd: ");
-        String input = "";
-        input = scan.nextLine().toLowerCase();
-        while (!input.equals("end")){
+        viewOptions();
+        System.out.println("What would you like to do?\nEnter the corresponding number:");
+        int input = 0;
+        input = scan.nextInt();
+        while (input != 9){ // 9 is ending condition
             determineInput(input);
-            input = scan.nextLine().toLowerCase();
+            input = scan.nextInt();
         }
     }
 
@@ -26,12 +26,12 @@ public class AttendeeController extends MainController {
      * Looks at the input from user and decides what to do
      * @param input: The input from the user
      */
-    private void determineInput(String input) {
+    private void determineInput(int input) {
         switch (input) {
-            case "see inbox":
+            case 0:
                 viewMessages(this.username);
                 break;
-            case "send message":
+            case 1:
                 System.out.println("Who would you like to message?");
                 String recipient = scan.nextLine();
                 if(messageManager.checkIsMessageable(recipient, this.username, userManager)) {
@@ -43,7 +43,7 @@ public class AttendeeController extends MainController {
                     System.out.println("Sorry, this person is not in your contact list. Please try again");
                 }
                 break;
-            case "reply to message":
+            case 2:
                 System.out.println("This is the oldest message in your inbox: '" +
                         messageManager.viewMessages(this.username).get(messageManager.viewMessages(this.username).size()
                                 -  1) + "'. How would you like to respond?");
@@ -52,13 +52,13 @@ public class AttendeeController extends MainController {
                         get(messageManager.viewMessages(this.username).size() -  1).getSender();
                 replyMessage(response, responseUsername);
                 break;
-            case "view event list":
+            case 3:
                 viewEventList();
                 break;
-            case "view my scheduled events":
+            case 4:
                 viewSignedUpForEvent(this.username);
                 break;
-            case "cancel event reservation":
+            case 5:
                 System.out.println("What spot would you like to cancel?");
                 String cancel = scan.nextLine();
                 if(userManager.getAttendingEvents(this.username).contains(cancel)) {
@@ -69,7 +69,7 @@ public class AttendeeController extends MainController {
                             "you are attending");
                 }
                 break;
-            case "sign up for event":
+            case 6:
                 System.out.println("What spot would you like to sign up for?");
                 String eventSignedUp = scan.nextLine();
                 if(eventManager.getAllEvents().containsKey(eventSignedUp)) {
@@ -80,7 +80,7 @@ public class AttendeeController extends MainController {
                             "exist");
                 }
                 break;
-            case "add user to contact list":
+            case 7:
                 System.out.println("Enter the username you would you like to add to your contact list?");
                 String newContactUsername = scan.nextLine();
                 if(messageManager.checkIsMessageable(newContactUsername, this.username, userManager)){
@@ -90,7 +90,7 @@ public class AttendeeController extends MainController {
                     System.out.println("Invalid username, please try again.");
                 }
                 break;
-            case "options":
+            case 8:
                 viewOptions();
                 break;
             default:
@@ -103,9 +103,9 @@ public class AttendeeController extends MainController {
      * Prints all the options the user can perform
      */
     private void viewOptions(){
-        System.out.println("See Inbox, \nSend Message, \nReply to Message, \nView Event List, " +
-                "\nView My Scheduled Events, \nCancel Event Reservation, \n Sign up for Event, " +
-                "\nAdd User to Contact List  ,\nEnd: ");
+        System.out.println("(0) See Inbox\n(1) Send Message\n(2) Reply to Message\n(3) View Event List" +
+                "\n(4) View My Scheduled Events\n(5) Cancel Event Reservation\n(6) Sign up for Event" +
+                "\n(7) Add User to Contact List\n(8) View Options \n(9) End");
         System.out.println("Please enter next task: ");
     }
 
@@ -186,7 +186,7 @@ public class AttendeeController extends MainController {
 
     /**
      * Adds another user to an attendees contact list
-     * @param username: The useranme of the User we want to add to our contacts
+     * @param username: The username of the User we want to add to our contacts
      */
     public void addUserToMessageable(String username) {
         System.out.println("Successfully Added" + username + "to Your Contact List");
