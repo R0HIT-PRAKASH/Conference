@@ -23,7 +23,7 @@ public class OrganizerController extends AttendeeController {
         System.out.println("What would you like to do?\nEnter the corresponding number:");
         int input = 0;
         input = scan.nextInt();
-        while (input != 16){ // 16 is ending condition
+        while (input != 15){ // 15 is ending condition
             scan.nextLine();
             determineInput(input);
             input = scan.nextInt();
@@ -88,18 +88,8 @@ public class OrganizerController extends AttendeeController {
                             "exist");
                 }
                 break;
-            case 7:
-                System.out.println("Enter the username you would you like to add to your contact list");
-                String newContactUsername = scan.nextLine();
-                if(messageManager.checkIsMessageable(newContactUsername, this.username, userManager)){
-                    addUserToMessageable(newContactUsername);
-                }
-                else{
-                    System.out.println("Invalid username, please try again.");
-                }
-                break;
 
-            case 8:
+            case 7:
                 System.out.println("To Add an Event to the Conference, Enter the following");
                 LocalDateTime time = askTime();
 
@@ -121,12 +111,12 @@ public class OrganizerController extends AttendeeController {
                 }
                 break;
 
-            case 9:
+            case 8:
                 System.out.println("What do you want to say to all the attendees? (1 line)");
                 messageAllAttendees(scan.nextLine());
                 break;
 
-            case 10:
+            case 9:
                 System.out.println("Enter the event you want to message");
                 String eventname = scan.nextLine();
                 if(eventManager.getEvent(eventname) == null) {
@@ -137,17 +127,17 @@ public class OrganizerController extends AttendeeController {
                 messageEventAttendees(scan.nextLine(), eventname);
                 break;
 
-            case 11:
+            case 10:
                 System.out.println("What do you want to say to all the speakers? (1 line)");
                 messageAllSpeakers(scan.nextLine());
                 break;
 
-            case 12:
+            case 11:
                 System.out.println("What event do you want to remove?");
                 cancelEvent(scan.nextLine());
                 break;
 
-            case 13:
+            case 12:
                 System.out.println("What Event do you want to reschedule?");
                 String eventname1 = scan.nextLine();
                 if(eventManager.getEvent(eventname1) == null) {
@@ -157,11 +147,11 @@ public class OrganizerController extends AttendeeController {
                 rescheduleEvent(eventname1, newTime);
                 break;
 
-            case 14:
+            case 13:
                 makeSpeaker();
                 break;
 
-            case 15:
+            case 14:
                 viewOptions();
                 break;
 
@@ -177,9 +167,9 @@ public class OrganizerController extends AttendeeController {
     private void viewOptions(){
         System.out.println("(0) See Inbox\n(1) Send Message\n(2) Reply to Message\n(3) View Event List" +
                 "\n(4) View My Scheduled Events\n(5) Cancel Event Reservation\n(6) Sign up for Event" +
-                "\n(7) Add User to Contact List\n(8) Add Event\n(9) Message All Attendees\n(10) Message Event Attendees" +
-                "\n(11) Message All Speakers\n(12) Cancel Event\n(13) Reschedule Event\n(14) Add Speaker\n(15) View Options" +
-                "\n(16) End");
+                "\n(7) Add Event\n(8) Message All Attendees\n(9) Message Event Attendees" +
+                "\n(10) Message All Speakers\n(11) Cancel Event\n(12) Reschedule Event\n(13) Add Speaker\n(14) View Options" +
+                "\n(15) End");
         System.out.println("Please enter next task: ");
     }
 
