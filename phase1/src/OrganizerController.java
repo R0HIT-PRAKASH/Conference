@@ -6,7 +6,14 @@ import java.util.Scanner;
 
 public class OrganizerController extends AttendeeController {
 
-    private Scanner scan = new Scanner(System.in);
+    private Scanner scan;
+
+    public OrganizerController(UserManager userManager, EventManager eventManager, MessageManager messageManager, String username) {
+        super(userManager, eventManager, messageManager, username);
+         scan = new Scanner(System.in);
+    }
+
+
 
     /**
      * Runs the OrganizerController by asking for input and performing the actions

@@ -35,14 +35,16 @@ public class UserManager {
     }
 
     /**
-     * This method returns the map of users.
-     * @return Returns the map of users.
+     * This method sets the map of users.
      */
-
     public void setUserMap(HashMap<String, User> userMap) {
         this.userMap = userMap;
     }
 
+    /**
+     * This method returns the map of users.
+     * @return Returns the map of users.
+     */
     public HashMap<String, User> getUserMap(){
         return userMap;
     }
@@ -175,9 +177,12 @@ public class UserManager {
         if(user.getUserType().equals("attendee")){
             for(String eventName : ((Attendee) user).getAttendingEvents()){
                 Event attendEvent = eventManager.getEvent(eventName);
-                double signUp = event.getTime().getHour();
-                double signedUp = attendEvent.getTime().getHour();
-                if(signedUp - signUp < 1 && signedUp - signUp > -1){
+                double signUpHour = event.getTime().getHour();
+                double signedUpHour = attendEvent.getTime().getHour();
+                if(event.getTime().getDayOfYear() == attendEvent.getTime().getDayOfYear() &&
+                        event.getTime().getYear() == attendEvent.getTime().getYear() &&
+                        (signedUpHour < signUpHour && signUpHour - signedUpHour < attendEvent.getDuration()) ||
+                        (!(signedUpHour < signUpHour) && signedUpHour - signedUpHour < event.getDuration())) {
                     return false;
                 }
             }
@@ -186,9 +191,12 @@ public class UserManager {
         }else if(user.getUserType().equals("organizer")){
             for(String eventName : ((Organizer) user).getAttendingEvents()){
                 Event attendEvent = eventManager.getEvent(eventName);
-                double signUp = event.getTime().getHour();
-                double signedUp = attendEvent.getTime().getHour();
-                if(signedUp - signUp < 1 && signedUp - signUp > -1){
+                double signUpHour = event.getTime().getHour();
+                double signedUpHour = attendEvent.getTime().getHour();
+                if(event.getTime().getDayOfYear() == attendEvent.getTime().getDayOfYear() &&
+                        event.getTime().getYear() == attendEvent.getTime().getYear() &&
+                        (signedUpHour < signUpHour && signUpHour - signedUpHour < attendEvent.getDuration()) ||
+                        (!(signedUpHour < signUpHour) && signedUpHour - signedUpHour < event.getDuration())) {
                     return false;
                 }
             }
