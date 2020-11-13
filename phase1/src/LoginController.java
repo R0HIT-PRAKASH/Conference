@@ -4,8 +4,8 @@ public class LoginController{
     private Scanner scan = new Scanner(System.in);
     private UserManager userManager;
 
-    public String login(){
-        userManager = new UserManager();
+    public String login(UserManager userManager){
+        this.userManager = userManager;
         System.out.println("Enter Username:");
         String username = scan.nextLine();
         System.out.println("Enter Password");
