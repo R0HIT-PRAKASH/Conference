@@ -5,8 +5,20 @@ import java.util.Scanner;
 /**
  * A controller that deals with Attendee users
  */
-public class AttendeeController extends MainController {
+public class AttendeeController{
     private Scanner scan = new Scanner(System.in);
+    UserManager userManager;
+    EventManager eventManager;
+    MessageManager messageManager;
+    String username;
+
+    public AttendeeController(UserManager userManager, EventManager eventManager, MessageManager messageManager,
+                              String username){
+        this.userManager = userManager;
+        this.eventManager = eventManager;
+        this.messageManager = messageManager;
+        this.username = username;
+    }
 
     /**
      * Runs the Attendee controller by asking for input and performing the actions
