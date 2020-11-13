@@ -2,15 +2,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
 /**
  * A controller that deals with Speaker users
  */
 public class SpeakerController{
     private Scanner scan = new Scanner(System.in);
-    UserManager userManager;
-    EventManager eventManager;
-    MessageManager messageManager;
-    String username;
+    public UserManager userManager;
+    public EventManager eventManager;
+    public MessageManager messageManager;
+    public String username;
+
 
     public SpeakerController(UserManager userManager, EventManager eventManager, MessageManager messageManager,
                              String username){
@@ -46,8 +48,10 @@ public class SpeakerController{
                 viewScheduledEvents(this.username);
                 break;
             case "message event attendees":
-                System.out.println("How many event's attendees would you like to message: ");
-                String number = scan.nextLine();
+                List<String> allEvents = userManager.getSpeakingEvents(username);
+                List<String> priorEvents = eventManager.eventHappened(allEvents);
+                System.out.println("Here are all the events that you have given: ");
+                System.out.println(priorEvents);
                 System.out.println("Please enter the number of events: ");
                 String strnum = scan.nextLine();
                 int num = Integer.parseInt(strnum);
@@ -58,10 +62,20 @@ public class SpeakerController{
                         }
                     else {
                         System.out.println("Please enter the name of the next event: ");
-                        }
-                    String next = scan.nextLine();
-                    eventNames.add(next);
                     }
+                    String next = scan.nextLine();
+                    if (priorEvents.contains(next) && !eventNames.contains(next)) {
+                        eventNames.add(next);
+                    }
+                    else if(priorEvents.contains(next)){
+                        System.out.println("You've already added that event. ");
+                        i--;
+                    }
+                    else if(!priorEvents.contains(next)){
+                        System.out.println("That event isn't one you have already given. ");
+                        i--;
+                    }
+                }
                     System.out.println("Please enter the message: ");
                 String message = scan.nextLine();
                 sendBlastMessage(eventNames, message);

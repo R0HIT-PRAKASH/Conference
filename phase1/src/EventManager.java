@@ -250,4 +250,17 @@ public class EventManager {
         return null;
     }
 
+    public List<String> eventHappened(List<String> allEvents){
+        LocalDateTime time = LocalDateTime.now();
+        List<String> priorEvents = new ArrayList<>();
+        for(String event: allEvents){
+            Event check = getEvent(event);
+            int compare = time.compareTo(check.getTime());
+            if (compare > 0){
+                priorEvents.add(event);
+            }
+        }
+        return priorEvents;
+    }
+
 }
