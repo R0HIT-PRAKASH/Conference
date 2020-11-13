@@ -18,6 +18,7 @@ public class LoginController {
         }
         switch (input){
             case 1:
+                scan.nextLine();
                 System.out.println("It looks like you are a new user!\nPlease enter some information:");
                 System.out.println("Enter Username: ");
                 username = scan.nextLine();
