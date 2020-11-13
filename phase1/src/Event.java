@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Event implements Comparable<Event> {
+public class Event implements Comparable<Event>, Serializable {
 
     private String name;
     private String speakerName;
