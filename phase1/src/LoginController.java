@@ -8,37 +8,55 @@ public class LoginController {
     public String login(UserManager userManager, MessageManager messageManager){
         this.userManager = userManager;
         this.messageManager = messageManager;
-        System.out.println("Enter Username: ");
-        String username = scan.nextLine();
-        System.out.println("Enter Password: ");
-        String password = scan.nextLine();
-        while(password.length() < 3) {
-            System.out.println("Error, password must be at least 3 characters.\nPlease enter another:");
-            password = scan.nextLine();
+        System.out.println("Are you a (1)new user or (2)returning user: ");
+        int input = scan.nextInt();
+        String username = "";
+        String password = "";
+        while(input != 1 && input != 2){
+            System.out.println("Not a valid input, please try again: ");
+            input = scan.nextInt();
         }
-        if(!this.userManager.checkCredentials(username)){
-            System.out.println("It looks like you are a new user!\nPlease enter some additional information:");
-            System.out.println("Enter your name: ");
-            String name = scan.nextLine();
-            System.out.println("Enter your address: ");
-            String address = scan.nextLine();
-            System.out.println("Enter your Email: ");
-            String email = scan.nextLine();
-            System.out.println("Enter your status in the conference. This can be \"organizer\", \"attendee\" or \"speaker\":");
-            String type = scan.nextLine();
-            while(!type.equals("organizer") && !type.equals("attendee") && !type.equals("speaker")) {
-                System.out.println("That was an invalid input.\nPlease try again:");
-                type = scan.nextLine();
-            }
-            this.userManager.addUser(name, address, email, username, password, type);
-            this.messageManager.addUserInbox(username);
+        switch (input){
+            case 1:
+                System.out.println("It looks like you are a new user!\nPlease enter some information:");
+                System.out.println("Enter Username: ");
+                username = scan.nextLine();
+                while(this.userManager.checkCredentials(username)){
+                   System.out.println("That username is already taken, please enter another one: ");
+                   username = scan.nextLine();
+                }
+                System.out.println("Enter Password: ");
+                password = scan.nextLine();
+                System.out.println("Enter your name: ");
+                String name = scan.nextLine();
+                System.out.println("Enter your address: ");
+                String address = scan.nextLine();
+                System.out.println("Enter your Email: ");
+                String email = scan.nextLine();
+                System.out.println("Enter your status in the conference. This can be \"organizer\", \"attendee\" or \"speaker\":");
+                String type = scan.nextLine();
+                while(!type.equals("organizer") && !type.equals("attendee") && !type.equals("speaker")) {
+                    System.out.println("That was an invalid input.\nPlease try again:");
+                    type = scan.nextLine();
+                }
+                this.userManager.addUser(name, address, email, username, password, type);
+                this.messageManager.addUserInbox(username);
+                break;
+            case 2:
+                System.out.println("Enter Username: ");
+                username = scan.nextLine();
+                System.out.println("Enter Password: ");
+                password = scan.nextLine();
+                while(password.length() < 3) {
+                    System.out.println("Error, password must be at least 3 characters.\nPlease enter again:");
+                    password = scan.nextLine();
+                }
+                while(!this.checkLoginInfo(username, password) && !password.equals("q")) {
+                    System.out.println("Re-enter your password:\nTo quit, press \"q\":");
+                    password = scan.nextLine();
+                }
+                break;
         }
-
-        while(!this.checkLoginInfo(username, password) && !password.equals("q")) {
-            System.out.println("Re-enter your password:\nTo quit, press \"q\":");
-            password = scan.nextLine();
-        }
-
         return username;
     }
 
