@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -93,5 +94,8 @@ public void speakerBlastMessage(List<String> eventNames, String message, EventMa
             this.addMessage(receiver.getUsername(), toBeSent);
         }
     }
+}
+public void addUserInbox(String username) {
+        this.allUserMessages.put(username, new ArrayList<Message>());
 }
 }

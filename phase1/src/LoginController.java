@@ -3,9 +3,11 @@ import java.util.Scanner;
 public class LoginController {
     private Scanner scan = new Scanner(System.in);
     private UserManager userManager;
+    private MessageManager messageManager;
 
-    public String login(UserManager userManager){
+    public String login(UserManager userManager, MessageManager messageManager){
         this.userManager = userManager;
+        this.messageManager = messageManager;
         System.out.println("Enter Username: ");
         String username = scan.nextLine();
         System.out.println("Enter Password: ");
@@ -29,6 +31,7 @@ public class LoginController {
                 type = scan.nextLine();
             }
             this.userManager.addUser(name, address, email, username, password, type);
+            this.messageManager.addUserInbox(username);
         }
 
         while(!this.checkLoginInfo(username, password) && !password.equals("q")) {
