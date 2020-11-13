@@ -105,10 +105,7 @@ public class EventManager {
         int compare1 = time.compareTo(dateAt9AM);
         int compare2 = time.compareTo(dateAt5PM);
 
-        if (compare1 < 0 || compare2 > 0){
-            return false;
-        }
-        return true;
+        return (compare1 >= 0 && compare2 <= 0);
     }
 
     /**
@@ -129,10 +126,7 @@ public class EventManager {
         int compare3 = endTime1.compareTo(beginningTime2);
         int compare4 = endTime1.compareTo(endTime2);
 
-        if (compare1 == 0 || (compare1 > 0 && compare2 < 0) || (compare3 > 0 && compare4 < 0)){
-            return true;
-        }
-        return false;
+        return (compare1 == 0 || (compare1 > 0 && compare2 < 0) || (compare3 > 0 && compare4 < 0));
     }
 
     /**
