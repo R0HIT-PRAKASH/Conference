@@ -93,6 +93,7 @@ public class SpeakerController{
                 break;
             case 4:
                 viewOptions();
+                break;
             default:
                 System.out.println("Not a valid input, please try again.");
                 viewOptions();
