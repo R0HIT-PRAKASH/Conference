@@ -40,7 +40,7 @@ public class OrganizerController extends AttendeeController {
                 viewMessages(this.username);
                 break;
             case 1:
-                System.out.println("Who would you like to message?");
+                System.out.println("Who would you like to message? (Please enter the username of the recipient)");
                 String recipient = scan.nextLine();
                 if(messageManager.checkIsMessageable(recipient, this.username, userManager)) {
                     System.out.println("What message would you like to send to: " + recipient);
@@ -67,7 +67,7 @@ public class OrganizerController extends AttendeeController {
                 viewSignedUpForEvent(this.username);
                 break;
             case 5:
-                System.out.println("What spot would you like to cancel?");
+                System.out.println("What is the name of the event you no longer want to attend?");
                 String cancel = scan.nextLine();
                 if(userManager.getAttendingEvents(this.username).contains(cancel)) {
                     cancelSpotInEvent(cancel);
@@ -78,7 +78,7 @@ public class OrganizerController extends AttendeeController {
                 }
                 break;
             case 6:
-                System.out.println("What spot would you like to sign up for?");
+                System.out.println("What is the name of the event you would like to sign up for?");
                 String eventSignedUp = scan.nextLine();
                 if(eventManager.getAllEvents().containsKey(eventSignedUp)) {
                     signUp(eventSignedUp);
@@ -89,7 +89,7 @@ public class OrganizerController extends AttendeeController {
                 }
                 break;
             case 7:
-                System.out.println("Enter the username you would you like to add to your contact list?");
+                System.out.println("Enter the username you would you like to add to your contact list");
                 String newContactUsername = scan.nextLine();
                 if(messageManager.checkIsMessageable(newContactUsername, this.username, userManager)){
                     addUserToMessageable(newContactUsername);
