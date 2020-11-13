@@ -25,13 +25,13 @@ public class SpeakerController{
      * Runs the Speaker controller by asking for input and performing the actions
      */
     public void run(){
-        System.out.println("What would you like to do?");
-        System.out.println("See Inbox, \nView My Events, \nMessage Event Attendees, \nReply to Attendee, \nEnd: ");
-        String input = "";
-        input = scan.nextLine().toLowerCase();
-        while (!input.equals("end")){
+        System.out.println("What would you like to do? \nEnter the corresponding number: ");
+        System.out.println("(0) See Inbox, \n(1) View My Events, \n(2) Message Event Attendees, " +
+                "\n(3) Reply to Attendee, \n(4) Options, \n(5) End: ");
+        int input = scan.nextInt();
+        while (input != 5){
             determineInput(input);
-            input = scan.nextLine().toLowerCase();
+            input = scan.nextInt();
         }
     }
 
@@ -39,15 +39,15 @@ public class SpeakerController{
      * Looks at the input from user and decides what to do
      * @param input: The input from the user
      */
-    private void determineInput(String input){
+    private void determineInput(int input){
         switch (input) {
-            case "see inbox":
+            case 0:
                 viewMessages(this.username);
                 break;
-            case "view my events":
+            case 1:
                 viewScheduledEvents(this.username);
                 break;
-            case "message event attendees":
+            case 2:
                 List<String> allEvents = userManager.getSpeakingEvents(username);
                 List<String> priorEvents = eventManager.eventHappened(allEvents);
                 System.out.println("Here are all the events that you have given: ");
@@ -79,7 +79,8 @@ public class SpeakerController{
                     System.out.println("Please enter the message: ");
                 String message = scan.nextLine();
                 sendBlastMessage(eventNames, message);
-            case "reply to attendee":
+                break;
+            case 3:
                 System.out.println("Which attendee are you replying to: ");
                 List<String> attendees = getAttendees(username);
                 for (String attendee: attendees){
@@ -89,9 +90,13 @@ public class SpeakerController{
                 System.out.println("Please enter the message: ");
                 String content = scan.nextLine();
                 replyMessage(recipient, content);
-            case "options":
+                break;
+            case 4:
                 viewOptions();
-            break;
+            default:
+                System.out.println("Not a valid input, please try again.");
+                viewOptions();
+                break;
         }
     }
 
