@@ -9,7 +9,7 @@ public class LoginController {
         this.userManager = userManager;
         this.messageManager = messageManager;
         System.out.println("Are you a (1)new user or (2)returning user: ");
-        int input = scan.nextInt();
+        int input = Integer.parseInt(scan.nextLine());
         String username = "";
         String password = "";
         while(input != 1 && input != 2){
@@ -18,7 +18,6 @@ public class LoginController {
         }
         switch (input){
             case 1:
-                scan.nextLine();
                 System.out.println("It looks like you are a new user!\nPlease enter some information:");
                 System.out.println("Enter Username: ");
                 username = scan.nextLine();
