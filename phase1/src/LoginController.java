@@ -1,14 +1,14 @@
 import java.util.Scanner;
 
-public class LoginController{
+public class LoginController {
     private Scanner scan = new Scanner(System.in);
     private UserManager userManager;
 
     public String login(UserManager userManager){
         this.userManager = userManager;
-        System.out.println("Enter Username:");
+        System.out.println("Enter Username: ");
         String username = scan.nextLine();
-        System.out.println("Enter Password");
+        System.out.println("Enter Password: ");
         String password = scan.nextLine();
         while(password.length() < 3) {
             System.out.println("Error, password must be at least 3 characters.\nPlease enter another:");
@@ -16,11 +16,11 @@ public class LoginController{
         }
         if(!this.userManager.checkCredentials(username)){
             System.out.println("It looks like you are a new user!\nPlease enter some additional information:");
-            System.out.println("Enter your name");
+            System.out.println("Enter your name: ");
             String name = scan.nextLine();
-            System.out.println("Enter your address");
+            System.out.println("Enter your address: ");
             String address = scan.nextLine();
-            System.out.println("Enter your Email");
+            System.out.println("Enter your Email: ");
             String email = scan.nextLine();
             System.out.println("Enter your status in the conference. This can be \"organizer\", \"attendee\" or \"speaker\":");
             String type = scan.nextLine();
@@ -35,6 +35,7 @@ public class LoginController{
             System.out.println("Enter a new password:\nTo quit, press \"q\":");
             password = scan.nextLine();
         }
+
         return username;
     }
 
