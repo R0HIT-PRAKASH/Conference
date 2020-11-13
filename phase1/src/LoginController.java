@@ -4,9 +4,9 @@ public class LoginController extends MainController{
     private Scanner scan = new Scanner(System.in);
 
     public String login(){
-        System.out.println("Enter Username:");
+        System.out.println("Enter Username: ");
         String username = scan.nextLine();
-        System.out.println("Enter Password");
+        System.out.println("Enter Password: ");
         String password = scan.nextLine();
         while(password.length() < 3) {
             System.out.println("Error, password must be at least 3 characters.\nPlease enter another:");
@@ -14,11 +14,11 @@ public class LoginController extends MainController{
         }
         if(!this.userManager.checkCredentials(username)){
             System.out.println("It looks like you are a new user!\nPlease enter some additional information:");
-            System.out.println("Enter your name");
+            System.out.println("Enter your name: ");
             String name = scan.nextLine();
-            System.out.println("Enter your address");
+            System.out.println("Enter your address: ");
             String address = scan.nextLine();
-            System.out.println("Enter your Email");
+            System.out.println("Enter your Email: ");
             String email = scan.nextLine();
             System.out.println("Enter your status in the conference. This can be \"organizer\", \"attendee\" or \"speaker\":");
             String type = scan.nextLine();
