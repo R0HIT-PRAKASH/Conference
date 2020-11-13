@@ -1,9 +1,11 @@
 import java.util.Scanner;
 
-public class LoginController extends MainController{
+public class LoginController {
     private Scanner scan = new Scanner(System.in);
+    private UserManager userManager;
 
-    public String login(){
+    public String login(UserManager userManager){
+        this.userManager = userManager;
         System.out.println("Enter Username: ");
         String username = scan.nextLine();
         System.out.println("Enter Password: ");
