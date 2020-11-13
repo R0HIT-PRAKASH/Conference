@@ -5,9 +5,20 @@ import java.util.Scanner;
 /**
  * A controller that deals with Speaker users
  */
-public class SpeakerController extends MainController{
+public class SpeakerController{
     private Scanner scan = new Scanner(System.in);
+    UserManager userManager;
+    EventManager eventManager;
+    MessageManager messageManager;
+    String username;
 
+    public SpeakerController(UserManager userManager, EventManager eventManager, MessageManager messageManager,
+                             String username){
+        this.userManager = userManager;
+        this.eventManager = eventManager;
+        this.messageManager = messageManager;
+        this.username = username;
+    }
     /**
      * Runs the Speaker controller by asking for input and performing the actions
      */
