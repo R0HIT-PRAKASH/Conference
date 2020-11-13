@@ -103,6 +103,7 @@ public class OrganizerController extends AttendeeController {
                 System.out.println("To Add an Event to the Conference, Enter the following");
                 LocalDateTime time = askTime();
 
+                scan.nextLine(); //fixes the problem where we can't enter the event title
                 System.out.println("Enter an Event Title:");
                 String name = scan.nextLine();
                 System.out.println("Enter a speaker");
