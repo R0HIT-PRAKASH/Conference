@@ -35,7 +35,7 @@ public class LoginController {
         }
 
         while(!this.checkLoginInfo(username, password) && !password.equals("q")) {
-            System.out.println("Enter a new password:\nTo quit, press \"q\":");
+            System.out.println("Re-enter your password:\nTo quit, press \"q\":");
             password = scan.nextLine();
         }
 
