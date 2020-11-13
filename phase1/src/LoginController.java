@@ -18,29 +18,7 @@ public class LoginController {
         }
         switch (input){
             case 1:
-                System.out.println("It looks like you are a new user!\nPlease enter some information:");
-                System.out.println("Enter Username: ");
-                username = scan.nextLine();
-                while(this.userManager.checkCredentials(username)){
-                   System.out.println("That username is already taken, please enter another one: ");
-                   username = scan.nextLine();
-                }
-                System.out.println("Enter Password: ");
-                password = scan.nextLine();
-                System.out.println("Enter your name: ");
-                String name = scan.nextLine();
-                System.out.println("Enter your address: ");
-                String address = scan.nextLine();
-                System.out.println("Enter your Email: ");
-                String email = scan.nextLine();
-                System.out.println("Enter your status in the conference. This can be \"organizer\", \"attendee\" or \"speaker\":");
-                String type = scan.nextLine();
-                while(!type.equals("organizer") && !type.equals("attendee") && !type.equals("speaker")) {
-                    System.out.println("That was an invalid input.\nPlease try again:");
-                    type = scan.nextLine();
-                }
-                this.userManager.addUser(name, address, email, username, password, type);
-                this.messageManager.addUserInbox(username);
+                username = createAccount();
                 break;
             case 2:
                 System.out.println("Enter Username: ");
@@ -70,5 +48,32 @@ public class LoginController {
     }
     private User getUserInfo(String username){
         return this.userManager.getUser(username);
+    }
+
+    private String createAccount(){
+        System.out.println("It looks like you are a new user!\nPlease enter some information:");
+        System.out.println("Enter Username: ");
+        String username = scan.nextLine();
+        while(this.userManager.checkCredentials(username)){
+            System.out.println("That username is already taken, please enter another one: ");
+            username = scan.nextLine();
+        }
+        System.out.println("Enter Password: ");
+        String password = scan.nextLine();
+        System.out.println("Enter your name: ");
+        String name = scan.nextLine();
+        System.out.println("Enter your address: ");
+        String address = scan.nextLine();
+        System.out.println("Enter your Email: ");
+        String email = scan.nextLine();
+        System.out.println("Enter your status in the conference. This can be \"organizer\", \"attendee\" or \"speaker\":");
+        String type = scan.nextLine();
+        while(!type.equals("organizer") && !type.equals("attendee") && !type.equals("speaker")) {
+            System.out.println("That was an invalid input.\nPlease try again:");
+            type = scan.nextLine();
+        }
+        this.userManager.addUser(name, address, email, username, password, type);
+        this.messageManager.addUserInbox(username);
+        return username;
     }
 }
