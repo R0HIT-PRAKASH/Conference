@@ -59,22 +59,80 @@ public class EventManager {
         return true;
     }
 
-    // Don't think we need this method
+    /**
+     * @param event Refers to the event being checked.
+     * @return Returns True if event is valid, otherwise return false.
+     */
     private boolean checkEventIsValid(Event event){
+
+        if (!between9to5(event)){
+            return false;
+        }
+
         for (String i: events.keySet()){
             if (event.getName().equals(i)){
                 return false;
             }
             Event e = events.get(i);
-            if (e.getTime().equals(event.getTime()) && e.getRoomNumber() == event.getRoomNumber() ){
+
+            boolean invalidTime = compareTimes(event, e);
+
+            if (invalidTime && e.getRoomNumber() == event.getRoomNumber() ){
                 return false;
             }
-            if (e.getTime().equals(event.getTime()) && e.getSpeakerName().equals(event.getSpeakerName())){
+            if (invalidTime && e.getSpeakerName().equals(event.getSpeakerName())){
                 return false;
             }
         }
 
         return true;
+    }
+
+    /**
+     * Checks if the time of the event is between 9AM and 5PM.
+     * @param event Refers to the event being evaluated
+     * @return Returns true if the time of the event is between 9AM and 5PM
+     */
+    private boolean between9to5(Event event){
+        LocalDateTime time = event.getTime();
+
+        int year = time.getYear();
+        int month = time.getMonthValue();
+        int day = time.getDayOfMonth();
+        LocalDateTime dateAt9AM = LocalDateTime.of(year, month, day, 9, 0);
+        LocalDateTime dateAt5PM = LocalDateTime.of(year, month, day, 16, 0);
+
+        int compare1 = time.compareTo(dateAt9AM);
+        int compare2 = time.compareTo(dateAt5PM);
+
+        if (compare1 < 0 || compare2 > 0){
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * @param e1 Refers to the event that is requested to be added.
+     * @param e2 Refers to an already scheduled event.
+     * @return Returns true if the requested time of e1 conflicts the scheduled time of e2. Otherwise returns false.
+     */
+    private boolean compareTimes(Event e1, Event e2){
+        LocalDateTime beginningTime1 = e1.getTime();
+        LocalDateTime endTime1 = e1.getTime().plusMinutes(59);
+
+        LocalDateTime beginningTime2 = e2.getTime();
+        LocalDateTime endTime2 = e2.getTime().plusMinutes(59);
+
+        int compare1 = beginningTime1.compareTo(beginningTime2);
+        int compare2 = beginningTime1.compareTo(endTime2);
+
+        int compare3 = endTime1.compareTo(beginningTime2);
+        int compare4 = endTime1.compareTo(endTime2);
+
+        if (compare1 == 0 || (compare1 > 0 && compare2 < 0) || (compare3 > 0 && compare4 < 0)){
+            return true;
+        }
+        return false;
     }
 
     /**
