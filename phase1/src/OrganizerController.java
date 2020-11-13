@@ -24,6 +24,7 @@ public class OrganizerController extends AttendeeController {
         int input = 0;
         input = scan.nextInt();
         while (input != 16){ // 16 is ending condition
+            scan.nextLine();
             determineInput(input);
             input = scan.nextInt();
         }

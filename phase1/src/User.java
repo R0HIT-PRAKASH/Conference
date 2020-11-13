@@ -1,4 +1,6 @@
-public abstract class User implements Comparable<User>{
+import java.io.Serializable;
+
+public abstract class User implements Comparable<User>, Serializable {
     private String name;
     private String address;
     private String email;
