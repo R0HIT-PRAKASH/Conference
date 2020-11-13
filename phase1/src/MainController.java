@@ -59,18 +59,18 @@ public class MainController {
 
     public void run() {
         LoginController log = new LoginController();
-        this.username = log.login();
+        this.username = log.login(userManager, username);
         String type = this.userManager.getUserType(this.username);
         if(type.equals("organizer")){
-            OrganizerController controller = new OrganizerController();
+            OrganizerController controller = new OrganizerController(userManager, eventManager, messageManager, username);
             controller.run();
         }
         else if(type.equals("attendee")){
-            AttendeeController controller = new AttendeeController();
+            AttendeeController controller = new AttendeeController(userManager, eventManager, messageManager, username);
             controller.run();
         }
         else if(type.equals("speaker")){
-            SpeakerController controller = new SpeakerController();
+            SpeakerController controller = new SpeakerController(userManager, eventManager, messageManager, username);
             controller.run();
         }
 
