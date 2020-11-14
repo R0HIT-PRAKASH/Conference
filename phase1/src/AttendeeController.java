@@ -77,11 +77,13 @@ public class AttendeeController{
                 break;
 
             case 3:
+                System.out.println("Here is a list of all the available events at this conference: ");
                 viewEventList();
                 break;
 
             case 4:
                 viewSignedUpForEvent(this.username);
+                System.out.println("Here is a list of events you have signed up for: ");
                 break;
 
             case 5:
