@@ -48,24 +48,33 @@ public class AttendeeController{
                 System.out.println("Who would you like to message? (Please enter the username of the recipient)");
                 String recipient = scan.nextLine();
                 if(userManager.getUserMap().size() == 1) {
-                    System.out.println("There are currently no other users who are registered within this conference. Please try at a later time.");
-                    System.out.println("What would you like to do?\nEnter the corresponding number:");
+                    System.out.println("There are currently no other users who are registered within this " +
+                            "conference. Please try at a later time.");
+                    System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
                     break;
                 }
                 else if(!messageManager.checkIsMessageable(recipient, this.username, userManager)){
-                    System.out.println("Sorry, it seems you are unable to message this user. Please wait for this user to register for the conference.");
-                    System.out.println("What would you like to do?\nEnter the corresponding number:");
+                    System.out.println("Sorry, it seems you are unable to message this user. Please wait for this " +
+                            "user to register for the conference.");
+                    System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
                     break;
                 }
-                System.out.println("What message would you like to send to: " + recipient);
+                System.out.println("What message would you like to send to: " + recipient + ".");
                 String messageContents = scan.nextLine();
                 sendMessages(recipient, messageContents);
                 break;
 
             case 2:
                 if(messageManager.getAllUserMessages().get(this.username).size() == 0){
-                    System.out.println("You have no messages to reply to");
-                    System.out.println("Please enter next task (reminder, you can type '15' to see what you can do: ");
+                    System.out.println("You currently have no messages to reply to.");
+                    System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
+                    break;
+                }
+                else if(userManager.getUserMap().size() == 1) {
+                    System.out.println("You are unable to reply to any messages as there are currently no other " +
+                            "registered users. Please try at a later time.");
+                    System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
+                    break;
                 }
                 System.out.println("This is the oldest message in your inbox: '" +
                         messageManager.viewMessages(this.username).get(messageManager.viewMessages(this.username).size()
@@ -82,32 +91,44 @@ public class AttendeeController{
                 break;
 
             case 4:
-                viewSignedUpForEvent(this.username);
                 System.out.println("Here is a list of events you have signed up for: ");
+                viewSignedUpForEvent(this.username);
                 break;
 
             case 5:
                 System.out.println("What is the name of the event you no longer want to attend?");
                 String cancel = scan.nextLine();
-                if(userManager.getAttendingEvents(this.username).contains(cancel)) {
-                    cancelSpotInEvent(cancel);
-                }
-                else{
+                if(!userManager.getAttendingEvents(this.username).contains(cancel)) {
                     System.out.println("Cancellation was unsuccessful since this event is not included in the events " +
-                            "you are attending");
+                            "you are attending. Please try again.");
+                    System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
+                    break;
                 }
+                else if(userManager.getAttendingEvents(this.username).size() == 0){
+                    System.out.println("You are currently not attending any events. For future use, you must be " +
+                            "signed up for an event to use this feature.");
+                    System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
+                    break;
+                }
+                cancelSpotInEvent(cancel);
                 break;
 
             case 6:
                 System.out.println("What is the name of the event you would like to sign up for?");
                 String eventSignedUp = scan.nextLine();
-                if(eventManager.getAllEvents().containsKey(eventSignedUp)) {
-                    signUp(eventSignedUp);
-                }
-                else{
+                if(!eventManager.getAllEvents().containsKey(eventSignedUp)) {
                     System.out.println("Sign Up was unsuccessful as the event you are trying to sign up for does not" +
                             "exist");
+                    System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
+                    break;
                 }
+                else if(eventManager.getAllEvents().size() == 0){
+                    System.out.println("There are currently no events in this conference. Please wait until event(s)" +
+                            "have been added to use this feature.");
+                    System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
+                    break;
+                }
+                signUp(eventSignedUp);
                 break;
 
             case 14:
@@ -116,6 +137,7 @@ public class AttendeeController{
 
             default:
                 System.out.println("Invalid Input, please try again.");
+                System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
                 break;
         }
     }
@@ -127,7 +149,7 @@ public class AttendeeController{
         System.out.println("(0) See Inbox\n(1) Send Message\n(2) Reply to Message\n(3) View Event List" +
                 "\n(4) View My Scheduled Events\n(5) Cancel Event Reservation\n" +
                 "(6) Add User to Contact List\n(14) View Options \n(15) End");
-        System.out.println("Please enter next task: ");
+        System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
     }
 
     /**
