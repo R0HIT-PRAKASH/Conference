@@ -26,14 +26,20 @@ public class MainController {
     // Should I even check first if the files exist? If they do, then prompt them?
 
     // Check if the files even exist before even prompting the User to choose
-    public boolean filesExist() {
+    public int filesExist() {
 
         File users = new File("users.ser");
         File messages = new File("messages.ser");
         File events = new File("events.ser");
-        return users.isFile() && messages.isFile() && events.isFile();
+        if (users.isFile() && !messages.isFile() && !events.isFile()) {
+            return 0;
+        } else if (users.isFile() && messages.isFile() && events.isFile()) {
+            return 1;
+        }
+        else {
+            return 2;
+        }
     }
-
 
     public void fileQuestion() {
         Scanner question = new Scanner(System.in);
@@ -45,6 +51,28 @@ public class MainController {
                 answer = question.nextLine();
             } if (answer.equalsIgnoreCase("Yes")) {
                 readInFiles(RW, userManager, messageManager, eventManager);
+                System.out.println("Files downloaded.");
+            }
+        } catch (InputMismatchException ime) {
+            System.out.println("Error: Please type 'Yes' or 'No'");
+            question.nextLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void fileQuestionUserOnlyExists() {
+        Scanner question = new Scanner(System.in);
+        try {
+            System.out.println("Do you want to use pre-existing files? Please type 'Yes' or 'No'");
+            String answer = question.nextLine();  // This reads the answer they give
+            while(!answer.equalsIgnoreCase("Yes") && !answer.equalsIgnoreCase("No")) {
+                System.out.println("Invalid Input: Please type 'Yes' or 'No'");
+                answer = question.nextLine();
+            } if (answer.equalsIgnoreCase("Yes")) {
+                readInFiles(RW, userManager);
                 System.out.println("Files downloaded.");
             }
         } catch (InputMismatchException ime) {
@@ -83,5 +111,9 @@ public class MainController {
         UM.setUserMap(RW.readUsers("users"));
         MM.setAllUserMessages(RW.readMessages("messages"));
         EM.setAllEvents(RW.readEvents("events"));
+    }
+
+    private void readInFiles(ReaderWriter RW, UserManager UM) throws IOException, ClassNotFoundException {
+        UM.setUserMap(RW.readUsers("users"));
     }
 }
