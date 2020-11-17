@@ -35,7 +35,7 @@ public class LoginController {
                 }
                 System.out.println("Enter Password: ");
                 password = scan.nextLine();
-                while(password.length() < 4) {
+                while(password.length() < 3) {
                     System.out.println("Error, password must be at least 3 characters.\nPlease enter again:");
                     password = scan.nextLine();
                 }
@@ -70,7 +70,7 @@ public class LoginController {
         }
         System.out.println("Enter Password: ");
         String password = scan.nextLine();
-        while(password.length() < 4){
+        while(password.length() < 3){
             System.out.println("Error, password must be at least 3 characters.\nPlease enter again:");
             password = scan.nextLine();
         }
