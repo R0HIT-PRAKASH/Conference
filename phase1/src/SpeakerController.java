@@ -72,7 +72,7 @@ public class SpeakerController{
                         i--;
                     }
                     else if(!priorEvents.contains(next)){
-                        System.out.println("That event isn't one you have already given. ");
+                        System.out.println("That event isn't one you have given. ");
                         i--;
                     }
                 }
@@ -81,12 +81,17 @@ public class SpeakerController{
                 sendBlastMessage(eventNames, message);
                 break;
             case 3:
-                System.out.println("Which attendee are you replying to: ");
+                System.out.println("Which attendee are you replying to (it is case sensitive): ");
                 List<String> attendees = getAttendees(username);
                 for (String attendee: attendees){
                     System.out.println(attendee);
                 }
                 String recipient = scan.nextLine();
+                while (!attendees.contains(recipient)){
+                    System.out.println("That attendee is not one you can reply to, please re-enter the username " +
+                            "of someone who has messaged you: ");
+                    recipient = scan.nextLine();
+                }
                 System.out.println("Please enter the message: ");
                 String content = scan.nextLine();
                 replyMessage(recipient, content);

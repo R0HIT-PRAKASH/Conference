@@ -17,7 +17,7 @@ public class Event implements Comparable<Event>, Serializable {
      * @param name The name of the event
      * @param speakerName The speaker at the event
      * @param time The event time
-     * @param duration The event duration
+     * @param duration The event duration(in hours).
      * @param roomNumber The event room number
      */
 

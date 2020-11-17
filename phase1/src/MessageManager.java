@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MessageManager {
+public class MessageManager implements java.io.Serializable {
 protected HashMap<String, List<Message>> allUserMessages;
 
 public MessageManager(){
