@@ -88,6 +88,9 @@ public class MainController {
     public void run() {
         LoginController log = new LoginController();
         this.username = log.login(userManager, messageManager);
+        if (username.equals("q")){
+            return;
+        }
         String type = this.userManager.getUserType(this.username);
         if(type.equals("organizer")){
             OrganizerController controller = new OrganizerController(userManager, eventManager, messageManager, username);
