@@ -76,6 +76,7 @@ public class OrganizerController extends AttendeeController {
                     System.out.println("Cancellation was unsuccessful since this event is not included in the events " +
                             "you are attending");
                 }
+                System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
                 break;
             case 6:
                 System.out.println("What is the name of the event you would like to sign up for?");
@@ -85,8 +86,9 @@ public class OrganizerController extends AttendeeController {
                 }
                 else{
                     System.out.println("Sign Up was unsuccessful as the event you are trying to sign up for does not" +
-                            "exist");
+                            " exist");
                 }
+                System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
                 break;
 
             case 7:
@@ -114,7 +116,8 @@ public class OrganizerController extends AttendeeController {
             case 8:
                 System.out.println("What do you want to say to all the attendees? (1 line)");
                 messageAllAttendees(scan.nextLine());
-                System.out.print("Message Sent");
+                System.out.print("Message Sent\n");
+                System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
                 break;
 
             case 9:
@@ -124,18 +127,22 @@ public class OrganizerController extends AttendeeController {
                     System.out.println("Invalid Event. Please try again");
                 }
 
-                System.out.println("What do you want to say to all the attendees at this event? (1 line)");
+                else {System.out.println("What do you want to say to all the attendees at this event? (1 line)");
                 messageEventAttendees(scan.nextLine(), eventname);
+                }
+                System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
                 break;
 
             case 10:
                 System.out.println("What do you want to say to all the speakers? (1 line)");
                 messageAllSpeakers(scan.nextLine());
+                System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
                 break;
 
             case 11:
                 System.out.println("What event do you want to remove?");
                 cancelEvent(scan.nextLine());
+                System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
                 break;
 
             case 12:
