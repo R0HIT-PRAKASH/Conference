@@ -176,12 +176,13 @@ public class UserManager {
         if(user.getUserType().equals("attendee")){
             for(String eventName : ((Attendee) user).getAttendingEvents()){
                 Event attendEvent = eventManager.getEvent(eventName);
-                double signUpHour = event.getTime().getHour();
-                double signedUpHour = attendEvent.getTime().getHour();
+                double timeBetween = Math.abs(event.getTime().getHour()*60 + event.getTime().getMinute() -
+                        attendEvent.getTime().getHour()*60 - attendEvent.getTime().getMinute());
                 if(event.getTime().getDayOfYear() == attendEvent.getTime().getDayOfYear() &&
                         event.getTime().getYear() == attendEvent.getTime().getYear() &&
-                        (signedUpHour < signUpHour && signUpHour - signedUpHour < attendEvent.getDuration()) ||
-                        (!(signedUpHour < signUpHour) && signedUpHour - signedUpHour < event.getDuration())) {
+                        ((event.getTime().isBefore(attendEvent.getTime()) && timeBetween < event.getDuration()*60) ||
+                                (event.getTime().isAfter(attendEvent.getTime()) && timeBetween < attendEvent.getDuration()*60) ||
+                                (event.getTime().isEqual(attendEvent.getTime())))){
                     return false;
                 }
             }
@@ -190,12 +191,13 @@ public class UserManager {
         }else if(user.getUserType().equals("organizer")){
             for(String eventName : ((Organizer) user).getAttendingEvents()){
                 Event attendEvent = eventManager.getEvent(eventName);
-                double signUpHour = event.getTime().getHour();
-                double signedUpHour = attendEvent.getTime().getHour();
+                double timeBetween = Math.abs(event.getTime().getHour()*60 + event.getTime().getMinute() -
+                        attendEvent.getTime().getHour()*60 - attendEvent.getTime().getMinute());
                 if(event.getTime().getDayOfYear() == attendEvent.getTime().getDayOfYear() &&
                         event.getTime().getYear() == attendEvent.getTime().getYear() &&
-                        (signedUpHour < signUpHour && signUpHour - signedUpHour < attendEvent.getDuration()) ||
-                        (!(signedUpHour < signUpHour) && signedUpHour - signedUpHour < event.getDuration())) {
+                        ((event.getTime().isBefore(attendEvent.getTime()) && timeBetween < event.getDuration()*60) ||
+                                (event.getTime().isAfter(attendEvent.getTime()) && timeBetween < attendEvent.getDuration()*60) ||
+                                (event.getTime().isEqual(attendEvent.getTime())))){
                     return false;
                 }
             }
