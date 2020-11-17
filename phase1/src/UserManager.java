@@ -3,8 +3,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.time.LocalDateTime;
+import java.io.Serializable;
 
-public class UserManager {
+public class UserManager implements java.io.Serializable {
 
     /**
      * The UserManager class stores a list of all of the users. userMap
