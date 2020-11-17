@@ -5,6 +5,11 @@ import java.util.Set;
 
 public class Event implements Comparable<Event>, Serializable {
 
+    /**
+     * This class represents an Event object. An Event can have a name, speaker, time, duration(in hours), room,
+     * and set of attendees attending.
+     */
+
     private String name;
     private String speakerName;
     private LocalDateTime time;
