@@ -176,13 +176,7 @@ public class UserManager implements java.io.Serializable {
 
         if(user.getUserType().equals("attendee")){
             for(String eventName : ((Attendee) user).getAttendingEvents()){
-                Event attendEvent = eventManager.getEvent(eventName);
-                double signUpHour = event.getTime().getHour();
-                double signedUpHour = attendEvent.getTime().getHour();
-                if(event.getTime().getDayOfYear() == attendEvent.getTime().getDayOfYear() &&
-                        event.getTime().getYear() == attendEvent.getTime().getYear() &&
-                        (signedUpHour < signUpHour && signUpHour - signedUpHour < attendEvent.getDuration()) ||
-                        (!(signedUpHour < signUpHour) && signedUpHour - signedUpHour < event.getDuration())) {
+                if(!helpSignUp(eventName, event, eventManager)){
                     return false;
                 }
             }
@@ -190,15 +184,7 @@ public class UserManager implements java.io.Serializable {
 
         }else if(user.getUserType().equals("organizer")){
             for(String eventName : ((Organizer) user).getAttendingEvents()){
-                Event attendEvent = eventManager.getEvent(eventName);
-                double signUpHour = event.getTime().getHour();
-                double signedUpHour = attendEvent.getTime().getHour();
-                if(event.getTime().getDayOfYear() == attendEvent.getTime().getDayOfYear() &&
-                        event.getTime().getYear() == attendEvent.getTime().getYear() &&
-                        (signedUpHour < signUpHour && signUpHour - signedUpHour < attendEvent.getDuration()) ||
-                        (!(signedUpHour < signUpHour) && signedUpHour - signedUpHour < event.getDuration())) {
-                    return false;
-                }
+                if(!helpSignUp(eventName, event, eventManager));
             }
             ((Organizer) user).signUpForEvent(event);
 
@@ -234,6 +220,27 @@ public class UserManager implements java.io.Serializable {
                 return false;
             }
         }else{
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * This is a helper method for signUpForEvent().
+     * @param eventName Refers to the name of the event in the list of attending events.
+     * @param event Refers to the event that might be added.
+     * @param eventManager Refers to the class that contains the list of events.
+     * @return Returns true if the events don't overlap and false otherwise.
+     */
+    public boolean helpSignUp(String eventName, Event event, EventManager eventManager){
+        Event attendEvent = eventManager.getEvent(eventName);
+        double timeBetween = Math.abs(event.getTime().getHour()*60 + event.getTime().getMinute() -
+                attendEvent.getTime().getHour()*60 - attendEvent.getTime().getMinute());
+        if(event.getTime().getDayOfYear() == attendEvent.getTime().getDayOfYear() &&
+                event.getTime().getYear() == attendEvent.getTime().getYear() &&
+                ((event.getTime().isBefore(attendEvent.getTime()) && timeBetween < event.getDuration()*60) ||
+                        (event.getTime().isAfter(attendEvent.getTime()) && timeBetween < attendEvent.getDuration()*60) ||
+                        (event.getTime().isEqual(attendEvent.getTime())))){
             return false;
         }
         return true;

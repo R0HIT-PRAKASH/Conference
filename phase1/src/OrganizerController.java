@@ -93,16 +93,16 @@ public class OrganizerController extends AttendeeController {
                 System.out.println("To Add an Event to the Conference, Enter the following");
                 LocalDateTime time = askTime();
 
-                scan.nextLine(); //fixes the problem where we can't enter the event title
+                //scan.nextLine(); //fixes the problem where we can't enter the event title
                 System.out.println("Enter an Event Title:");
                 String name = scan.nextLine();
-                System.out.println("Enter a speaker");
+                System.out.println("Enter a Speaker:");
                 String speaker = scan.nextLine();
                 if(!userManager.checkCredentials(speaker)) {
                     System.out.println("This speaker does not exist. You will be asked to create an account for them.");
                     makeSpeaker();
                 }
-                System.out.println("Enter a room number");
+                System.out.println("Enter a room number:");
                 int num = scan.nextInt();
 
                 while(!eventManager.addEvent(name, speaker, time, num)) {
@@ -114,6 +114,7 @@ public class OrganizerController extends AttendeeController {
             case 8:
                 System.out.println("What do you want to say to all the attendees? (1 line)");
                 messageAllAttendees(scan.nextLine());
+                System.out.print("Message Sent");
                 break;
 
             case 9:
@@ -272,19 +273,18 @@ public class OrganizerController extends AttendeeController {
      * @return LocalDateTime
      * @throws DateTimeException
      */
-
     private LocalDateTime getTime() throws DateTimeException {
         System.out.println("Enter a year:");
         int y = scan.nextInt();
         System.out.println("Enter a month (1-12):");
         int m = scan.nextInt();
-        System.out.println("Enter an day:");
+        System.out.println("Enter a day:");
         int d = scan.nextInt();
         System.out.println("Enter an hour (0-23):");
         int h = scan.nextInt();
         System.out.println("Enter a minute (0-59):");
         int mi = scan.nextInt();
-
+        scan.nextLine();
         return LocalDateTime.of(y, m, d, h, mi);
     }
 
