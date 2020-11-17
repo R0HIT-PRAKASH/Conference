@@ -30,6 +30,9 @@ public class LoginController {
                         break;
                     }
                 }
+                if (username.equals("q")){
+                    break;
+                }
                 System.out.println("Enter Password: ");
                 password = scan.nextLine();
                 while(password.length() < 3) {
