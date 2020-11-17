@@ -50,13 +50,13 @@ public class AttendeeController{
                 if(userManager.getUserMap().size() == 1) {
                     System.out.println("There are currently no other users who are registered within this " +
                             "conference. Please try at a later time.");
-                    System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
+                    System.out.println("Please enter next task (reminder, you can type '14' to see what you can do): ");
                     break;
                 }
                 else if(!messageManager.checkIsMessageable(recipient, this.username, userManager)){
                     System.out.println("Sorry, it seems you are unable to message this user. Please wait for this " +
                             "user to register for the conference.");
-                    System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
+                    System.out.println("Please enter next task (reminder, you can type '14' to see what you can do): ");
                     break;
                 }
                 System.out.println("What message would you like to send to: " + recipient + ".");
@@ -67,13 +67,13 @@ public class AttendeeController{
             case 2:
                 if(messageManager.getAllUserMessages().get(this.username).size() == 0){
                     System.out.println("You currently have no messages to reply to.");
-                    System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
+                    System.out.println("Please enter next task (reminder, you can type '14' to see what you can do): ");
                     break;
                 }
                 else if(userManager.getUserMap().size() == 1) {
                     System.out.println("You are unable to reply to any messages as there are currently no other " +
                             "registered users. Please try at a later time.");
-                    System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
+                    System.out.println("Please enter next task (reminder, you can type '14' to see what you can do): ");
                     break;
                 }
                 System.out.println("This is the oldest message in your inbox: '" +
@@ -101,13 +101,13 @@ public class AttendeeController{
                 if(!userManager.getAttendingEvents(this.username).contains(cancel)) {
                     System.out.println("Cancellation was unsuccessful since this event is not included in the events " +
                             "you are attending. Please try again.");
-                    System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
+                    System.out.println("Please enter next task (reminder, you can type '14' to see what you can do): ");
                     break;
                 }
                 else if(userManager.getAttendingEvents(this.username).size() == 0){
                     System.out.println("You are currently not attending any events. For future use, you must be " +
                             "signed up for an event to use this feature.");
-                    System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
+                    System.out.println("Please enter next task (reminder, you can type '14' to see what you can do): ");
                     break;
                 }
                 cancelSpotInEvent(cancel);
@@ -119,13 +119,13 @@ public class AttendeeController{
                 if(!eventManager.getAllEvents().containsKey(eventSignedUp)) {
                     System.out.println("Sign Up was unsuccessful as the event you are trying to sign up for does not" +
                             "exist");
-                    System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
+                    System.out.println("Please enter next task (reminder, you can type '14' to see what you can do): ");
                     break;
                 }
                 else if(eventManager.getAllEvents().size() == 0){
                     System.out.println("There are currently no events in this conference. Please wait until event(s)" +
                             "have been added to use this feature.");
-                    System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
+                    System.out.println("Please enter next task (reminder, you can type '14' to see what you can do): ");
                     break;
                 }
                 signUp(eventSignedUp);
@@ -137,7 +137,7 @@ public class AttendeeController{
 
             default:
                 System.out.println("Invalid Input, please try again.");
-                System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
+                System.out.println("Please enter next task (reminder, you can type '14' to see what you can do): ");
                 break;
         }
     }
@@ -149,7 +149,7 @@ public class AttendeeController{
         System.out.println("(0) See Inbox\n(1) Send Message\n(2) Reply to Message\n(3) View Event List" +
                 "\n(4) View My Scheduled Events\n(5) Cancel Event Reservation\n" +
                 "(6) Add User to Contact List\n(14) View Options \n(15) End");
-        System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
+        System.out.println("Please enter next task (reminder, you can type '14' to see what you can do): ");
     }
 
     /**
@@ -158,7 +158,7 @@ public class AttendeeController{
      */
     public void viewMessages(String username) {
         messageManager.printMessages(this.username);
-        System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
+        System.out.println("Please enter next task (reminder, you can type '14' to see what you can do): ");
     }
 
     /**
@@ -170,7 +170,7 @@ public class AttendeeController{
         Message newMessage = messageManager.createNewMessage(messageContents, this.username, recipient);
         messageManager.addMessage(recipient, newMessage);
         System.out.println("Message Sent");
-        System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
+        System.out.println("Please enter next task (reminder, you can type '14' to see what you can do): ");
     }
 
     /**
@@ -185,7 +185,7 @@ public class AttendeeController{
         // Should we have a method in MessageManager to handle removing a message?
         userInbox.remove(userInbox.size() - 1); //remove the message we just viewed from our inbox after replying
         System.out.println("Successfully Replied to Message");
-        System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
+        System.out.println("Please enter next task (reminder, you can type '14' to see what you can do): ");
     }
 
     /**
@@ -195,7 +195,7 @@ public class AttendeeController{
         HashMap<String, Event> events = eventManager.getAllEvents();
         System.out.println("Here are all the available events: ");
         System.out.println(events);
-        System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
+        System.out.println("Please enter next task (reminder, you can type '14' to see what you can do): ");
     }
 
     /**
@@ -205,7 +205,7 @@ public class AttendeeController{
     public void viewSignedUpForEvent(String username) {
         List<String> signedUpFor = userManager.getAttendingEvents(username);
         System.out.println(signedUpFor);
-        System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
+        System.out.println("Please enter next task (reminder, you can type '14' to see what you can do): ");
     }
 
     /**
@@ -216,7 +216,7 @@ public class AttendeeController{
         Event event = eventManager.getEvent(eventName);
         userManager.cancelEventSpot(this.username, event, eventManager);
         System.out.println("Successfully Cancelled Spot in Event");
-        System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
+        System.out.println("Please enter next task (reminder, you can type '14' to see what you can do): ");
     }
 
     /**
@@ -227,6 +227,6 @@ public class AttendeeController{
         Event event = eventManager.getEvent(eventName);
         userManager.signUpForEvent(this.username, event, eventManager);
         System.out.println("Successfully Signed up for Event");
-        System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
+        System.out.println("Please enter next task (reminder, you can type '14' to see what you can do): ");
     }
 }
