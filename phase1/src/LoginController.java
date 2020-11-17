@@ -23,6 +23,13 @@ public class LoginController {
             case 2:
                 System.out.println("Enter Username: ");
                 username = scan.nextLine();
+                while (!this.userManager.checkCredentials(username)){
+                    System.out.println("This username doesn't exist, please re-enter or type \"q\" to quit: ");
+                    username = scan.nextLine();
+                    if (username.equals("q")){
+                        break;
+                    }
+                }
                 System.out.println("Enter Password: ");
                 password = scan.nextLine();
                 while(password.length() < 3) {
