@@ -64,8 +64,13 @@ public class LoginController {
         System.out.println("It looks like you are a new user!\nPlease enter some information:");
         System.out.println("Enter Username: ");
         String username = scan.nextLine();
-        while(this.userManager.checkCredentials(username)){
-            System.out.println("That username is already taken, please enter another one: ");
+        while(this.userManager.checkCredentials(username) || username.length() < 3){
+            if (this.userManager.checkCredentials(username)) {
+                System.out.println("That username is already taken, please enter another one: ");
+            }
+            else if (username.length() < 3) {
+                System.out.println("Error, username must be at least 3 characters. please enter another one: ");
+            }
             username = scan.nextLine();
         }
         System.out.println("Enter Password: ");
