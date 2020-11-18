@@ -239,6 +239,11 @@ public class Presenter {
         System.out.println("Error, email must be at least 3 characters.\nPlease enter again:");
     }
 
+    public void displayRoomCreationPrompt(){ System.out.println("What is the number of the Room you would like to add?");
+    }
+
+    public void displayRoomAlreadyExists(){ System.out.println("This room already exists! Please try again.");}
+
 
     // ----------------------------------------------------------------------------------------------------------------
 }
