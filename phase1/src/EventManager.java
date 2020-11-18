@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 public class EventManager implements java.io.Serializable {
 
+
     /**
      * The EventManager class is responsible for handling
      * event-related actions. events is a map that stores
@@ -15,7 +16,7 @@ public class EventManager implements java.io.Serializable {
      *
      */
 
-    private HashMap<String, Event> events;
+    public HashMap<String, Event> events;
     private List<Room> rooms;
 
     /**
@@ -38,6 +39,10 @@ public class EventManager implements java.io.Serializable {
      */
     public Event createNewEvent(String name, String speakerName, LocalDateTime time, int roomNumber){
         Event event = new Event(name, speakerName, time, roomNumber);
+        if (getRoom(roomNumber) == null){
+            addRoom(roomNumber);
+        }
+
         return event;
     }
 
@@ -117,7 +122,7 @@ public class EventManager implements java.io.Serializable {
      * @param e2 Refers to an already scheduled event.
      * @return Returns true if the requested time of e1 conflicts the scheduled time of e2. Otherwise returns false.
      */
-    private boolean compareTimes(Event e1, Event e2){
+    public boolean compareTimes(Event e1, Event e2){
         LocalDateTime beginningTime1 = e1.getTime();
         LocalDateTime endTime1 = e1.getTime().plusMinutes(59);
 
@@ -130,7 +135,7 @@ public class EventManager implements java.io.Serializable {
         int compare3 = endTime1.compareTo(beginningTime2);
         int compare4 = endTime1.compareTo(endTime2);
 
-        if (compare1 == 0 || (compare1 > 0 && compare2 < 0) || (compare3 > 0 && compare4 < 0)){
+        if (compare1 == 0 || compare3 == 0 || (compare1 > 0 && compare2 < 0) || (compare3 > 0 && compare4 < 0)){
             return true;
         }
         return false;
@@ -219,7 +224,23 @@ public class EventManager implements java.io.Serializable {
 
         rooms.add(room);
 
-        return false;
+        return true;
+    }
+
+    public boolean addRoom(int roomNumber){
+
+        Room room = createNewRoom(roomNumber);
+        int i = 0;
+        while (i < rooms.size()){
+            if (rooms.get(i).getRoomNumber() == room.getRoomNumber()) {
+                return false;
+            }
+            i++;
+        }
+
+        rooms.add(room);
+
+        return true;
     }
 
 
@@ -233,6 +254,13 @@ public class EventManager implements java.io.Serializable {
         Room room = new Room(roomNumber, capacity);
         return room;
     }
+
+    public Room createNewRoom(int roomNumber){
+        Room room = new Room(roomNumber);
+        return room;
+    }
+
+
 
 
     /**
