@@ -94,9 +94,16 @@ public class SpeakerController{
                 }
                 String recipient = scan.nextLine();
                 while (!attendees.contains(recipient)){
-                    System.out.println("That attendee is not one you can reply to, please re-enter the username " +
-                            "of someone who has messaged you: ");
+                    System.out.println("That user is not one you can reply to, please re-enter the username " +
+                            "of someone who has messaged you or enter \"q\" to go back to your options: ");
                     recipient = scan.nextLine();
+                    if (recipient.equals("q")){
+                        break;
+                    }
+                }
+                if (recipient.equals("q")){
+                    System.out.println("Please enter next task (reminder, you can type '4' to see what you can do: ");
+                    break;
                 }
                 System.out.println("Please enter the message: ");
                 String content = scan.nextLine();
@@ -140,7 +147,7 @@ public class SpeakerController{
      */
     private void viewMessages(String username) {
         messageManager.printMessages(username);
-        System.out.println("Please enter next task (reminder, you can type 'Options' to see what you can do: ");
+        System.out.println("Please enter next task (reminder, you can type '4' to see what you can do: ");
 
     }
 
@@ -151,7 +158,7 @@ public class SpeakerController{
     private void viewScheduledEvents(String username){
         List<String> allEvents = userManager.getSpeakingEvents(username);
         System.out.println(allEvents);
-        System.out.println("Please enter next task (reminder, you can type 'Options' to see what you can do: ");
+        System.out.println("Please enter next task (reminder, you can type '4' to see what you can do: ");
     }
 
     /**
@@ -162,7 +169,7 @@ public class SpeakerController{
     private void sendBlastMessage(List<String> eventNames, String message){
         messageManager.speakerBlastMessage(eventNames, message, eventManager, this.username);
         System.out.println("Messages sent");
-        System.out.println("Please enter next task (reminder, you can type 'Options' to see what you can do: ");
+        System.out.println("Please enter next task (reminder, you can type '4' to see what you can do: ");
     }
 
     /**
@@ -173,6 +180,6 @@ public class SpeakerController{
     private void replyMessage(String recipient, String content){
         Message message = messageManager.createNewMessage(content, username, recipient);
         System.out.println("Message sent");
-        System.out.println("Please enter next task (reminder, you can type 'Options' to see what you can do: ");
+        System.out.println("Please enter next task (reminder, you can type '4' to see what you can do: ");
     }
 }
