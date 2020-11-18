@@ -114,7 +114,7 @@ public class Presenter {
                 "\n(4) View My Scheduled Events\n(5) Cancel Event Reservation\n(6) Sign up for Event" +
                 "\n(7) Add Event\n(8) Message All Attendees\n(9) Message Event Attendees" +
                 "\n(10) Message All Speakers\n(11) Cancel Event\n(12) Reschedule Event\n(13) Add Speaker\n(14) View Options" +
-                "\n(15) End");
+                "\n(15) Add Room \n(16)End");
     }
 
     public void displayAddConferencePrompt(){
@@ -161,6 +161,11 @@ public class Presenter {
     public void displayEventReschedulePrompt(){
         System.out.println("What Event do you want to reschedule?");
     }
+
+    public void displayRoomCreationPrompt(){ System.out.println("What is the number of the Room you would like to add?");
+    }
+
+    public void displayRoomAlreadyExists(){ System.out.println("This room already exists! Please try again.");}
 
     // ----------------------------------------------------------------------------------------------------------------
 }

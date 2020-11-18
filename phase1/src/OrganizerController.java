@@ -25,7 +25,7 @@ public class OrganizerController extends AttendeeController {
         p.displayOptions2();
         p.displayTaskInput();
         int input = nextInt();
-        while (input != 15){ // 15 is ending condition
+        while (input != 16){ // 15 is ending condition
             determineInput(input);
             input = nextInt();
         }
@@ -156,6 +156,21 @@ public class OrganizerController extends AttendeeController {
             case 14:
                 p.displayOptions2();
                 break;
+
+
+            case 15:
+                p.displayRoomCreationPrompt();
+                int roomNumber = Integer.parseInt(scan.nextLine());
+                boolean roomAdded = eventManager.addRoom(roomNumber);
+                if(roomAdded){
+                    break;
+                }
+                else {
+                    p.displayRoomAlreadyExists();
+                }
+                break;
+
+
 
             default:
                 p.displayInvalidInputError();

@@ -84,8 +84,9 @@ public class AttendeeController{
                     break;
                 }
                 System.out.println("This is the oldest message in your inbox: '" +
-                        messageManager.viewMessages(this.username).get(messageManager.viewMessages(this.username).size()
-                                -  1) + "'. How would you like to respond?");
+                        messageManager.getMessageContent(messageManager.viewMessages
+                                (this.username).get(messageManager.viewMessages(this.username).size()
+                                -  1)) + "'. How would you like to respond?");
                 String response = scan.nextLine();
                 String responseUsername = messageManager.viewMessages(this.username).
                         get(messageManager.viewMessages(this.username).size() -  1).getSender();
