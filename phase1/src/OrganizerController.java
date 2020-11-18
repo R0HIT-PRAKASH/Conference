@@ -7,10 +7,12 @@ import java.util.Scanner;
 public class OrganizerController extends AttendeeController {
 
     private Scanner scan;
+    private Presenter p;
 
     public OrganizerController(UserManager userManager, EventManager eventManager, MessageManager messageManager, String username) {
         super(userManager, eventManager, messageManager, username);
          scan = new Scanner(System.in);
+         p = new Presenter();
     }
 
 
