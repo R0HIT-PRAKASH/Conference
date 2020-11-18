@@ -60,7 +60,7 @@ public class OrganizerController extends AttendeeController {
                     p.displayMessageSentPrompt();
                 }
                 else{
-                    System.out.println("Sorry, this person is not in your contact list. Please try again");
+                    p.displayContactListError();
                 }
                 break;
             case 2:
@@ -116,8 +116,7 @@ public class OrganizerController extends AttendeeController {
                 int num = nextInt();
 
                 while(!eventManager.addEvent(name, speaker, time, num)) {
-                    System.out.println("The event was invalid. Either the speaker or the room would be double booked. " +
-                            "Please try again.");
+                    p.displayEventCreationError();
                 }
                 break;
 
@@ -128,18 +127,19 @@ public class OrganizerController extends AttendeeController {
                 break;
 
             case 9:
-                System.out.println("Enter the event you want to message");
+                p.displayEventMessagePrompt();
                 String eventname = scan.nextLine();
                 if(eventManager.getEvent(eventname) == null) {
                     p.displayInvalidEventError();
-                } else {System.out.println("What do you want to say to all the attendees at this event? (1 line)");
+                } else {
+                    p.displayAllAttendeeEventMessagePrompt();
                     messageEventAttendees(scan.nextLine(), eventname);
                     p.displayMessageSentPrompt();
                 }
                 break;
 
             case 10:
-                System.out.println("What do you want to say to all the speakers? (1 line)");
+                p.displayAllSpeakerMessagePrompt();
                 messageAllSpeakers(scan.nextLine());
                 p.displayMessageSentPrompt();
                 break;
@@ -326,7 +326,7 @@ public class OrganizerController extends AttendeeController {
      * This method makes a speaker account with data queried from the user.
      */
     private void makeSpeaker() {
-        p.displayEnterUsernamePrompt()
+        p.displayEnterUsernamePrompt();
         String username = scan.nextLine();
         while(this.userManager.checkCredentials(username) || username.length() < 3){
             if (this.userManager.checkCredentials(username)) {
@@ -366,15 +366,6 @@ public class OrganizerController extends AttendeeController {
             }
             email = scan.nextLine();
         }
-        createSpeakerAccount(name, address, email, username, password);
-        messageManager.addUserInbox(username);
-        System.out.println("Enter the speaker name");
-        name = scan.nextLine();
-        System.out.println("Enter the speaker address");
-        address = scan.nextLine();
-        System.out.println("Enter the speaker Email");
-        email = scan.nextLine();
-
         createSpeakerAccount(name, address, email, username, password);
         messageManager.addUserInbox(username);
     }
