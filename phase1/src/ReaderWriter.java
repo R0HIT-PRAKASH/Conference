@@ -45,6 +45,19 @@ public class ReaderWriter {
         }
     }
 
+    public void writeRoom(List<Room> rooms) {
+        if (rooms.isEmpty()) return;
+        try {
+            FileOutputStream fos = new FileOutputStream("rooms.ser");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(rooms);
+            oos.close();
+            fos.close();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
     /**
      * Reads the users.ser file
      * @param filename name of the file we want to read (excluding .ser part)
@@ -94,5 +107,15 @@ public class ReaderWriter {
         ois.close();
         fis.close();
         return events;
+
+        // I think I can make all these readhashmaps into one method
 }
+    public ArrayList<Room> readRooms(String filename) throws IOException, ClassNotFoundException {
+        FileInputStream fis = new FileInputStream("rooms.ser");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        ArrayList<Room> rooms = (ArrayList<Room>) ois.readObject();
+        ois.close();
+        fis.close();
+        return rooms;
+    }
 }
