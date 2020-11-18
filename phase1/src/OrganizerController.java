@@ -5,11 +5,21 @@ import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * Refers to the controller class that will deal with the actions of an organizer object.
+ */
 public class OrganizerController extends AttendeeController {
 
     private Scanner scan;
     private Presenter p;
 
+    /**
+     * Constructs an OrganizerController object.
+     * @param userManager Refers to the UserManager object.
+     * @param eventManager Refers to the EventManager object.
+     * @param messageManager Refers to the MessageManager object.
+     * @param username Refers to the username of the organizer.
+     */
     public OrganizerController(UserManager userManager, EventManager eventManager, MessageManager messageManager, String username) {
         super(userManager, eventManager, messageManager, username);
         scan = new Scanner(System.in);
