@@ -115,7 +115,7 @@ public class OrganizerController extends AttendeeController {
                 p.displayEnterRoomNumberPrompt();
                 int num = nextInt();
 
-                while(!eventManager.addEvent(name, speaker, time, num)) {
+                while(!addEvent(name, speaker, time, num)) {
                     System.out.println("The event was invalid. Either the speaker or the room would be double booked. " +
                             "Please try again.");
                 }
