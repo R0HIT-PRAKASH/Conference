@@ -9,7 +9,8 @@ public class OrganizerController extends AttendeeController {
     private Scanner scan;
     private Presenter p;
 
-    public OrganizerController(UserManager userManager, EventManager eventManager, MessageManager messageManager, String username) {
+    public OrganizerController(UserManager userManager, EventManager eventManager, MessageManager messageManager,
+                               String username) {
         super(userManager, eventManager, messageManager, username);
          scan = new Scanner(System.in);
          p = new Presenter();
@@ -320,26 +321,48 @@ public class OrganizerController extends AttendeeController {
      * This method makes a speaker account with data queried from the user.
      */
     private void makeSpeaker() {
-        String username = "";
-        do {
-            System.out.println("Enter the speaker username");
+        System.out.println("Enter Username: ");
+        String username = scan.nextLine();
+        while(this.userManager.checkCredentials(username) || username.length() < 3){
+            if (this.userManager.checkCredentials(username)) {
+                System.out.println("That username is already taken, please enter another one: ");
+            }
+            else if (username.length() < 3) {
+                System.out.println("Error, username must be at least 3 characters. please enter another one: ");
+            }
             username = scan.nextLine();
-        } while(userManager.checkCredentials(username));
-
-        String passwd = "";
-        do {
-            System.out.println("Enter the speaker password");
-            passwd = scan.nextLine();
-        } while(passwd.length() < 3);
-
+        }
+        System.out.println("Enter Password: ");
+        String password = scan.nextLine();
+        while(password.length() < 3){
+            System.out.println("Error, password must be at least 3 characters.\nPlease enter again:");
+            password = scan.nextLine();
+        }
         System.out.println("Enter the speaker name");
         String name = scan.nextLine();
+        while(name.length() < 2) {
+            System.out.println("Error, name must be at least 2 characters.\nPlease enter again:");
+            name = scan.nextLine();
+        }
         System.out.println("Enter the speaker address");
         String address = scan.nextLine();
+        while(address.length() < 3) {
+            System.out.println("Error, address must be at least 6 characters.\nPlease enter again:");
+            address = scan.nextLine();
+        }
         System.out.println("Enter the speaker Email");
         String email = scan.nextLine();
+        while(email.length() < 3 || !email.contains("@")){
+            if (!email.contains("@")) {
+                System.out.println("Error, email must contain '@'.\nPlease enter a valid email:");
+            }
+            else if (email.length() < 3) {
+                System.out.println("Error, email must be at least 3 characters.\nPlease enter again:");
+            }
+            email = scan.nextLine();
+        }
 
-        createSpeakerAccount(name, address, email, username, passwd);
+        createSpeakerAccount(name, address, email, username, password);
         messageManager.addUserInbox(username);
     }
 
