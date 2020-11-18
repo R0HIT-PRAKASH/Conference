@@ -52,15 +52,15 @@ public class AttendeeController{
                 break;
 
             case 1:
-                System.out.println("Who would you like to message? (Please enter the username of the recipient)");
-                String recipient = scan.nextLine();
                 if(userManager.getUserMap().size() == 1) {
                     System.out.println("There are currently no other users who are registered within this " +
                             "conference. Please try at a later time.");
                     System.out.println("Please enter next task (reminder, you can type '14' to see what you can do): ");
                     break;
                 }
-                else if(!messageManager.checkIsMessageable(recipient, this.username, userManager)){
+                System.out.println("Who would you like to message? (Please enter the username of the recipient)");
+                String recipient = scan.nextLine();
+                if(!messageManager.checkIsMessageable(recipient, this.username, userManager)){
                     System.out.println("Sorry, it seems you are unable to message this user. Please wait for this " +
                             "user to register for the conference.");
                     System.out.println("Please enter next task (reminder, you can type '14' to see what you can do): ");
