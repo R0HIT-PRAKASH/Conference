@@ -1,8 +1,10 @@
+import java.io.Serializable;
+
 /**
  * This class represents the rooms that events could take place in. The number of people that can be
  * in the room is represented by capacity. The actual number of the room is represented by roomNumber.
  */
-public class Room{
+public class Room implements Serializable {
 
     private int capacity;
     private int roomNumber;
