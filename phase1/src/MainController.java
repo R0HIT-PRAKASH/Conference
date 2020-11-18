@@ -31,17 +31,41 @@ public class MainController {
         File users = new File("users.ser");
         File messages = new File("messages.ser");
         File events = new File("events.ser");
-        if (users.isFile() && !messages.isFile() && !events.isFile()) {
+        File rooms = new File("rooms.ser");
+        if (users.isFile() && messages.isFile() && !events.isFile() && !rooms.isFile()) {
             return 0;
-        } else if (users.isFile() && messages.isFile() && events.isFile()) {
+        } else if (users.isFile() && messages.isFile() && !events.isFile() && rooms.isFile()) {
             return 1;
-        }
-        else {
+        } else if (users.isFile() && messages.isFile() && events.isFile() && rooms.isFile()) {
             return 2;
+        } else {
+            return 3; // nothing exists
         }
     }
 
-    public void fileQuestion() {
+    public void fileQUserMssgExists() {
+        Scanner question = new Scanner(System.in);
+        try {
+            System.out.println("Do you want to use pre-existing files? Please type 'Yes' or 'No'");
+            String answer = question.nextLine();  // This reads the answer they give
+            while(!answer.equalsIgnoreCase("Yes") && !answer.equalsIgnoreCase("No")) {
+                System.out.println("Invalid Input: Please type 'Yes' or 'No'");
+                answer = question.nextLine();
+            } if (answer.equalsIgnoreCase("Yes")) {
+                readInFiles(RW, userManager, messageManager);
+                System.out.println("Files downloaded.");
+            }
+        } catch (InputMismatchException ime) {
+            System.out.println("Error: Please type 'Yes' or 'No'");
+            question.nextLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void fileQUserMssgRoomsExists() {
         Scanner question = new Scanner(System.in);
         try {
             System.out.println("Do you want to use pre-existing files? Please type 'Yes' or 'No'");
@@ -63,7 +87,7 @@ public class MainController {
         }
     }
 
-    public void fileQuestionUserOnlyExists() {
+    public void fileQAllExists() {
         Scanner question = new Scanner(System.in);
         try {
             System.out.println("Do you want to use pre-existing files? Please type 'Yes' or 'No'");
@@ -72,7 +96,7 @@ public class MainController {
                 System.out.println("Invalid Input: Please type 'Yes' or 'No'");
                 answer = question.nextLine();
             } if (answer.equalsIgnoreCase("Yes")) {
-                readInFiles(RW, userManager);
+                readInAllFiles(RW, userManager, messageManager, eventManager);
                 System.out.println("Files downloaded.");
             }
         } catch (InputMismatchException ime) {
@@ -84,6 +108,7 @@ public class MainController {
             e.printStackTrace();
         }
     }
+
 
     public void run() {
         LoginController log = new LoginController();
@@ -108,15 +133,24 @@ public class MainController {
         RW.write(userManager.getUserMap());
         RW.write(messageManager.getAllUserMessages());
         RW.write(eventManager.getAllEvents());
+        RW.writeRoom(eventManager.getRooms());
+    }
+
+    private void readInAllFiles(ReaderWriter RW, UserManager UM, MessageManager MM, EventManager EM) throws IOException, ClassNotFoundException {
+        UM.setUserMap(RW.readUsers("users"));
+        MM.setAllUserMessages(RW.readMessages("messages"));
+        EM.setAllEvents(RW.readEvents("events"));
+        EM.setRooms(RW.readRooms("rooms"));
+    }
+
+    private void readInFiles(ReaderWriter RW, UserManager UM, MessageManager MM) throws IOException, ClassNotFoundException {
+        UM.setUserMap(RW.readUsers("users"));
+        MM.setAllUserMessages(RW.readMessages("messages"));
     }
 
     private void readInFiles(ReaderWriter RW, UserManager UM, MessageManager MM, EventManager EM) throws IOException, ClassNotFoundException {
         UM.setUserMap(RW.readUsers("users"));
         MM.setAllUserMessages(RW.readMessages("messages"));
-        EM.setAllEvents(RW.readEvents("events"));
-    }
-
-    private void readInFiles(ReaderWriter RW, UserManager UM) throws IOException, ClassNotFoundException {
-        UM.setUserMap(RW.readUsers("users"));
+        EM.setRooms(RW.readRooms("rooms"));
     }
 }

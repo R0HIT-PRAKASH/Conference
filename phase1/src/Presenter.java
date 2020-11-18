@@ -286,5 +286,11 @@ public class Presenter {
         System.out.println("Which attendee are you replying to (it is case sensitive): ");
     }
 
+    public void displayRoomCreationPrompt(){ System.out.println("What is the number of the Room you would like to add?");
+    }
+
+    public void displayRoomAlreadyExists(){
+        System.out.println("This room already exists! Please try again.");
+    }
     // ----------------------------------------------------------------------------------------------------------------
 }

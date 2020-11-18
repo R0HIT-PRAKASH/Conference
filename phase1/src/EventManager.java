@@ -166,11 +166,25 @@ public class EventManager implements java.io.Serializable {
     }
 
     /**
+     * @return Returns list of all rooms
+     */
+    public List<Room> getRooms(){
+        return this.rooms;
+    }
+    /**
      * Sets events to the events passed in
      * @param events Refers to the events
      */
     public void setAllEvents(HashMap<String, Event> events){
         this.events = events;
+    }
+
+    /**
+     * Sets rooms to the rooms passed in
+     * @param rooms Refers to the rooms
+     */
+    public void setRooms(ArrayList<Room> rooms){
+        this.rooms = rooms;
     }
 
     /**
