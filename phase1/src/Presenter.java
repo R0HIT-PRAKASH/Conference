@@ -241,7 +241,8 @@ public class Presenter {
 
     // ----------------------------------------------------------------------------------------------------------------
 
-    // Methods for Organizer Controller --------------------------------------------------------------------------------
+
+    // Methods for Speaker Controller --------------------------------------------------------------------------------
 
     public void displayOptions3(){
         System.out.println("What would you like to do? \nEnter the corresponding number: ");
