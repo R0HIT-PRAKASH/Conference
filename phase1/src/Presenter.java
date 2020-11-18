@@ -19,6 +19,10 @@ public class Presenter {
         System.out.println("Message Sent\n");
     }
 
+    public void displayMessageSentPrompt2(){
+        System.out.println("Messages Sent");
+    }
+
     public void displaySuccessfulMessage(){
         System.out.println("Successfully Replied to Message");
     }
@@ -56,7 +60,7 @@ public class Presenter {
         System.out.println("Who would you like to message? (Please enter the username of the recipient)");
     }
 
-    public void displayMessageError(){ // use this for case2 in attendeecontroller as well
+    public void displayMessageError(){ // use this for case2 in attendee controller as well
         System.out.println("Sorry, it seems you are unable to message this user. Please wait for this " +
                 "user to register for the conference.");
     }
@@ -119,7 +123,7 @@ public class Presenter {
                 "\n(4) View My Scheduled Events\n(5) Cancel Event Reservation\n(6) Sign up for Event" +
                 "\n(7) Add Event\n(8) Message All Attendees\n(9) Message Event Attendees" +
                 "\n(10) Message All Speakers\n(11) Cancel Event\n(12) Reschedule Event\n(13) Add Speaker\n(14) View Options" +
-                "\n(15) Add Room \n(16) End");
+                "\n(15) Add Room \n(16) View All Rooms \n(17) End");
     }
 
     public void displayAddConferencePrompt(){
@@ -250,6 +254,10 @@ public class Presenter {
         System.out.println("This room already exists! Please try again.");
     }
 
+    public void displayRoomList(Object rooms){
+        System.out.println(rooms);
+    }
+
     // ----------------------------------------------------------------------------------------------------------------
 
 
@@ -303,4 +311,5 @@ public class Presenter {
     }
 
     // ----------------------------------------------------------------------------------------------------------------
+
 }

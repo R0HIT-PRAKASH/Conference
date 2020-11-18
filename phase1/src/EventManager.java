@@ -2,12 +2,13 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 
 /**
  * The EventManager class is responsible for handling event-related actions. events is a map that stores
  * the names of events along with its associated event object. rooms is a list of all rooms.
  */
-public class EventManager implements java.io.Serializable {
+public class EventManager implements Serializable {
 
     public HashMap<String, Event> events;
     private List<Room> rooms;

@@ -35,7 +35,7 @@ public class OrganizerController extends AttendeeController {
         p.displayOptions2();
         p.displayTaskInput();
         int input = nextInt();
-        while (input != 16){ // 15 is ending condition
+        while (input != 17){ // 17 is ending condition
             determineInput(input);
             input = nextInt();
         }
@@ -66,7 +66,7 @@ public class OrganizerController extends AttendeeController {
             case 2:
                 p.displayOldestInboxMessage(messageManager.viewMessages(this.username).
                         get(messageManager.viewMessages(this.username).size()
-                        -  1).toString());
+                                -  1).toString());
                 String response = scan.nextLine();
                 String responseUsername = messageManager.viewMessages(this.username).
                         get(messageManager.viewMessages(this.username).size() -  1).getSender();
@@ -115,7 +115,7 @@ public class OrganizerController extends AttendeeController {
                 p.displayEnterRoomNumberPrompt();
                 int num = nextInt();
 
-                while(!eventManager.addEvent(name, speaker, time, num)) {
+                while(!addEvent(name, speaker, time, num)) {
                     p.displayEventCreationError();
                 }
                 break;
@@ -180,8 +180,9 @@ public class OrganizerController extends AttendeeController {
                 }
                 break;
 
-
-
+            case 16:
+                p.displayRoomList(eventManager.getRooms());
+                break;
             default:
                 p.displayInvalidInputError();
                 break;
