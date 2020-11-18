@@ -31,6 +31,11 @@ public class Presenter {
         System.out.println("Invalid Event. Please try again");
     }
 
+    public void displayDateError(){
+        System.out.println("Invalid Date. Please try again.");
+    }
+
+
     // ----------------------------------------------------------------------------------------------------------------
 
     // Methods for Attendee Controller --------------------------------------------------------------------------------
@@ -114,7 +119,7 @@ public class Presenter {
                 "\n(4) View My Scheduled Events\n(5) Cancel Event Reservation\n(6) Sign up for Event" +
                 "\n(7) Add Event\n(8) Message All Attendees\n(9) Message Event Attendees" +
                 "\n(10) Message All Speakers\n(11) Cancel Event\n(12) Reschedule Event\n(13) Add Speaker\n(14) View Options" +
-                "\n(15) Add Room \n(16)End");
+                "\n(15) End");
     }
 
     public void displayAddConferencePrompt(){
@@ -162,10 +167,78 @@ public class Presenter {
         System.out.println("What Event do you want to reschedule?");
     }
 
-    public void displayRoomCreationPrompt(){ System.out.println("What is the number of the Room you would like to add?");
+    public void displayContactListError(){
+        System.out.println("Sorry, this person is not in your contact list. Please try again");
     }
 
-    public void displayRoomAlreadyExists(){ System.out.println("This room already exists! Please try again.");}
+    public void displayEnterYearPrompt(){
+        System.out.println("Enter a year:");
+    }
+
+    public void displayEnterMonthPrompt(){
+        System.out.println("Enter a month (1-12):");
+    }
+
+    public void displayEnterDayPrompt(){
+        System.out.println("Enter a day:");
+    }
+
+    public void displayEnterHourPrompt(){
+        System.out.println("Enter an hour (0-23):");
+    }
+
+    public void displayEnterMinutePrompt(){
+        System.out.println("Enter a minute (0-59):");
+    }
+
+    public void displayEnterUsernamePrompt(){
+        System.out.println("Enter Username: ");
+    }
+
+    public void displayRepeatUsernameError(){
+        System.out.println("That username is already taken, please enter another one: ");
+    }
+
+    public void displayUsernameLengthError(){
+        System.out.println("Error, username must be at least 3 characters. please enter another one: ");
+    }
+
+    public void displayEnterPasswordPrompt(){
+        System.out.println("Enter Password: ");
+    }
+
+    public void displayPasswordLengthError(){
+        System.out.println("Error, password must be at least 3 characters.\nPlease enter again:");
+    }
+
+    public void displayEnterSpeakerNamePrompt(){
+        System.out.println("Enter the speaker name");
+    }
+
+    public void displaySpeakerNameError(){
+        System.out.println("Error, name must be at least 2 characters.\nPlease enter again:");
+    }
+
+    public void displayEnterSpeakerAddressPrompt(){
+        System.out.println("Enter the speaker address");
+    }
+
+    public void displayAddressLengthError(){
+        System.out.println("Error, address must be at least 6 characters.\nPlease enter again:");
+    }
+
+    public void displayEnterSpeakerEmailPrompt(){
+        System.out.println("Enter the speaker Email");
+    }
+
+    public void displaySpeakerEmailError1(){
+        System.out.println("Error, email must contain '@'.\nPlease enter a valid email:");
+    }
+
+    public void displaySpeakerEmailError2(){
+        System.out.println("Error, email must be at least 3 characters.\nPlease enter again:");
+    }
+
 
     // ----------------------------------------------------------------------------------------------------------------
 }

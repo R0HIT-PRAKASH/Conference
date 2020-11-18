@@ -120,7 +120,8 @@ public class LoginController {
         }
         System.out.println("Enter your status in the conference. This can be \"organizer\", \"attendee\" or \"speaker\":");
         String type = scan.nextLine();
-        while(!type.equals("organizer") && !type.equals("attendee") && !type.equals("speaker")) {
+        while(!type.equalsIgnoreCase("organizer") && !type.equalsIgnoreCase("attendee") &&
+                !type.equalsIgnoreCase("speaker")) {
             System.out.println("That was an invalid input.\nPlease try again:");
             type = scan.nextLine();
         }
