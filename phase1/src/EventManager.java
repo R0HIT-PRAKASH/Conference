@@ -215,6 +215,11 @@ public class EventManager implements java.io.Serializable {
         return true;
     }
 
+    /**
+     * Adds a room to the list of rooms (Fixed Capacity).
+     * @param roomNumber Refers to the room number.
+     * @return Returns true if adding room was successful. Otherwise, returns false.
+     */
     public boolean addRoom(int roomNumber){
         Room room = createNewRoom(roomNumber);
         int i = 0;
@@ -239,6 +244,11 @@ public class EventManager implements java.io.Serializable {
         return room;
     }
 
+    /**
+     * Creates a new room (Fixed Capacity).
+     * @param roomNumber Refers to the room number.
+     * @return Returns the room object.
+     */
     public Room createNewRoom(int roomNumber){
         Room room = new Room(roomNumber);
         return room;
