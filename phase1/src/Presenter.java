@@ -19,6 +19,10 @@ public class Presenter {
         System.out.println("Message Sent\n");
     }
 
+    public void displayMessageSentPrompt2(){
+        System.out.println("Messages Sent");
+    }
+
     public void displaySuccessfulMessage(){
         System.out.println("Successfully Replied to Message");
     }
@@ -56,7 +60,7 @@ public class Presenter {
         System.out.println("Who would you like to message? (Please enter the username of the recipient)");
     }
 
-    public void displayMessageError(){ // use this for case2 in attendeecontroller as well
+    public void displayMessageError(){ // use this for case2 in attendee controller as well
         System.out.println("Sorry, it seems you are unable to message this user. Please wait for this " +
                 "user to register for the conference.");
     }
@@ -299,4 +303,5 @@ public class Presenter {
     }
 
     // ----------------------------------------------------------------------------------------------------------------
+
 }
