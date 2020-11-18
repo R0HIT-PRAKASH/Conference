@@ -225,14 +225,7 @@ public class UserManager implements java.io.Serializable {
         return true;
     }
 
-    /**
-     * This is a helper method for signUpForEvent().
-     * @param eventName Refers to the name of the event in the list of attending events.
-     * @param event Refers to the event that might be added.
-     * @param eventManager Refers to the class that contains the list of events.
-     * @return Returns true if the events don't overlap and false otherwise.
-     */
-    public boolean helpSignUp(String eventName, Event event, EventManager eventManager){
+    private boolean helpSignUp(String eventName, Event event, EventManager eventManager){
         Event attendEvent = eventManager.getEvent(eventName);
         double timeBetween = Math.abs(event.getTime().getHour()*60 + event.getTime().getMinute() -
                 attendEvent.getTime().getHour()*60 - attendEvent.getTime().getMinute());
