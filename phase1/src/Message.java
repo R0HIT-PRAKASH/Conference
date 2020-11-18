@@ -1,4 +1,6 @@
-public class Message {
+import java.io.Serializable;
+
+public class Message implements Serializable {
 
     /**
      * This class represents a Message object. Message objects have a string content, username of the sender,

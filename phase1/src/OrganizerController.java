@@ -338,6 +338,7 @@ public class OrganizerController extends AttendeeController {
         String email = scan.nextLine();
 
         createSpeakerAccount(name, address, email, username, passwd);
+        messageManager.addUserInbox(username);
     }
 
 }

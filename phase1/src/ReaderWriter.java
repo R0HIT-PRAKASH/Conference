@@ -34,7 +34,7 @@ public class ReaderWriter {
 //                oos.writeObject(hashmap);
 //                oos.close();
 //                fos.close();
-            } else if (list.get(0) instanceof Message) {
+            } else if (list.get(0) instanceof ArrayList) {
                 FileOutputStream fos = new FileOutputStream("messages.ser");
                 writeHelper(fos, hashmap);
 //                ObjectOutputStream oos = new ObjectOutputStream(fos);
