@@ -13,7 +13,13 @@ public class SpeakerController{
     public MessageManager messageManager;
     public String username;
 
-
+    /**
+     * Creates a Speaker Controller
+     * @param userManager user use case
+     * @param eventManager event use case
+     * @param messageManager message use case
+     * @param username username of the user
+     */
     public SpeakerController(UserManager userManager, EventManager eventManager, MessageManager messageManager,
                              String username){
         this.userManager = userManager;
