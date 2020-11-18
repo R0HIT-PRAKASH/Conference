@@ -1,6 +1,7 @@
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -9,11 +10,10 @@ public class OrganizerController extends AttendeeController {
     private Scanner scan;
     private Presenter p;
 
-    public OrganizerController(UserManager userManager, EventManager eventManager, MessageManager messageManager,
-                               String username) {
+    public OrganizerController(UserManager userManager, EventManager eventManager, MessageManager messageManager, String username) {
         super(userManager, eventManager, messageManager, username);
-         scan = new Scanner(System.in);
-         p = new Presenter();
+        scan = new Scanner(System.in);
+        p = new Presenter();
     }
 
 
@@ -22,14 +22,12 @@ public class OrganizerController extends AttendeeController {
      * Runs the OrganizerController by asking for input and performing the actions
      */
     public void run(){
-        viewOptions();
-        System.out.println("What would you like to do?\nEnter the corresponding number:");
-        int input = 0;
-        input = scan.nextInt();
+        p.displayOptions2();
+        p.displayTaskInput();
+        int input = nextInt();
         while (input != 15){ // 15 is ending condition
-            scan.nextLine();
             determineInput(input);
-            input = scan.nextInt();
+            input = nextInt();
         }
     }
 
@@ -43,21 +41,22 @@ public class OrganizerController extends AttendeeController {
                 viewMessages(this.username);
                 break;
             case 1:
-                System.out.println("Who would you like to message? (Please enter the username of the recipient)");
+                p.displayMethodPrompt();
                 String recipient = scan.nextLine();
                 if(messageManager.checkIsMessageable(recipient, this.username, userManager)) {
-                    System.out.println("What message would you like to send to: " + recipient);
+                    p.displayEnterMessagePrompt(recipient);
                     String messageContents = scan.nextLine();
                     sendMessages(recipient, messageContents);
+                    p.displayMessageSentPrompt();
                 }
                 else{
                     System.out.println("Sorry, this person is not in your contact list. Please try again");
                 }
                 break;
             case 2:
-                System.out.println("This is the oldest message in your inbox: '" +
-                        messageManager.viewMessages(this.username).get(messageManager.viewMessages(this.username).size()
-                                -  1) + "'. How would you like to respond?");
+                p.displayOldestInboxMessage(messageManager.viewMessages(this.username).
+                        get(messageManager.viewMessages(this.username).size()
+                        -  1).toString());
                 String response = scan.nextLine();
                 String responseUsername = messageManager.viewMessages(this.username).
                         get(messageManager.viewMessages(this.username).size() -  1).getSender();
@@ -70,45 +69,41 @@ public class OrganizerController extends AttendeeController {
                 viewSignedUpForEvent(this.username);
                 break;
             case 5:
-                System.out.println("What is the name of the event you no longer want to attend?");
+                p.displayEventCancelPrompt();
                 String cancel = scan.nextLine();
                 if(userManager.getAttendingEvents(this.username).contains(cancel)) {
                     cancelSpotInEvent(cancel);
                 }
                 else{
-                    System.out.println("Cancellation was unsuccessful since this event is not included in the events " +
-                            "you are attending");
+                    p.displayEventCancellationError1();
                 }
-                System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
                 break;
             case 6:
-                System.out.println("What is the name of the event you would like to sign up for?");
+                p.displayEventSignUpPrompt();
                 String eventSignedUp = scan.nextLine();
                 if(eventManager.getAllEvents().containsKey(eventSignedUp)) {
                     signUp(eventSignedUp);
                 }
                 else{
-                    System.out.println("Sign Up was unsuccessful as the event you are trying to sign up for does not" +
-                            " exist");
+                    p.displaySignUpError1();
                 }
-                System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
                 break;
 
             case 7:
-                System.out.println("To Add an Event to the Conference, Enter the following");
+                p.displayAddConferencePrompt();
                 LocalDateTime time = askTime();
 
                 //scan.nextLine(); //fixes the problem where we can't enter the event title
-                System.out.println("Enter an Event Title:");
+                p.displayEventTitlePrompt();
                 String name = scan.nextLine();
-                System.out.println("Enter a Speaker:");
+                p.displayEnterSpeakerPrompt();
                 String speaker = scan.nextLine();
                 if(!userManager.checkCredentials(speaker)) {
-                    System.out.println("This speaker does not exist. You will be asked to create an account for them.");
+                    p.displaySpeakerCredentialError();
                     makeSpeaker();
                 }
-                System.out.println("Enter a room number:");
-                int num = scan.nextInt();
+                p.displayEnterRoomNumberPrompt();
+                int num = nextInt();
 
                 while(!eventManager.addEvent(name, speaker, time, num)) {
                     System.out.println("The event was invalid. Either the speaker or the room would be double booked. " +
@@ -117,42 +112,38 @@ public class OrganizerController extends AttendeeController {
                 break;
 
             case 8:
-                System.out.println("What do you want to say to all the attendees? (1 line)");
+                p.displayAllAttendeeMessagePrompt();
                 messageAllAttendees(scan.nextLine());
-                System.out.print("Message Sent\n");
-                System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
+                p.displayMessageSentPrompt();
                 break;
 
             case 9:
                 System.out.println("Enter the event you want to message");
                 String eventname = scan.nextLine();
                 if(eventManager.getEvent(eventname) == null) {
-                    System.out.println("Invalid Event. Please try again");
+                    p.displayInvalidEventError();
+                } else {System.out.println("What do you want to say to all the attendees at this event? (1 line)");
+                    messageEventAttendees(scan.nextLine(), eventname);
+                    p.displayMessageSentPrompt();
                 }
-
-                else {System.out.println("What do you want to say to all the attendees at this event? (1 line)");
-                messageEventAttendees(scan.nextLine(), eventname);
-                }
-                System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
                 break;
 
             case 10:
                 System.out.println("What do you want to say to all the speakers? (1 line)");
                 messageAllSpeakers(scan.nextLine());
-                System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
+                p.displayMessageSentPrompt();
                 break;
 
             case 11:
-                System.out.println("What event do you want to remove?");
+                p.displayEventRemovalPrompt();
                 cancelEvent(scan.nextLine());
-                System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
                 break;
 
             case 12:
-                System.out.println("What Event do you want to reschedule?");
+                p.displayEventReschedulePrompt();
                 String eventname1 = scan.nextLine();
                 if(eventManager.getEvent(eventname1) == null) {
-                    System.out.println("Invalid Event. Please try again");
+                    p.displayInvalidEventError();
                 }
                 LocalDateTime newTime = askTime();
                 rescheduleEvent(eventname1, newTime);
@@ -163,26 +154,16 @@ public class OrganizerController extends AttendeeController {
                 break;
 
             case 14:
-                viewOptions();
+                p.displayOptions2();
                 break;
 
             default:
-                System.out.println("Invalid Input, please try again.");
+                p.displayInvalidInputError();
                 break;
         }
+        p.displayNextTaskPrompt();
     }
 
-    /**
-     * Prints all the options the user can perform
-     */
-    private void viewOptions(){
-        System.out.println("(0) See Inbox\n(1) Send Message\n(2) Reply to Message\n(3) View Event List" +
-                "\n(4) View My Scheduled Events\n(5) Cancel Event Reservation\n(6) Sign up for Event" +
-                "\n(7) Add Event\n(8) Message All Attendees\n(9) Message Event Attendees" +
-                "\n(10) Message All Speakers\n(11) Cancel Event\n(12) Reschedule Event\n(13) Add Speaker\n(14) View Options" +
-                "\n(15) End");
-        System.out.println("Please enter next task: ");
-    }
 
 
 
@@ -285,16 +266,15 @@ public class OrganizerController extends AttendeeController {
      */
     private LocalDateTime getTime() throws DateTimeException {
         System.out.println("Enter a year:");
-        int y = scan.nextInt();
+        int y = nextInt();
         System.out.println("Enter a month (1-12):");
-        int m = scan.nextInt();
+        int m = nextInt();
         System.out.println("Enter a day:");
-        int d = scan.nextInt();
+        int d = nextInt();
         System.out.println("Enter an hour (0-23):");
-        int h = scan.nextInt();
+        int h = nextInt();
         System.out.println("Enter a minute (0-59):");
-        int mi = scan.nextInt();
-        scan.nextLine();
+        int mi = nextInt();
         return LocalDateTime.of(y, m, d, h, mi);
     }
 
@@ -309,7 +289,7 @@ public class OrganizerController extends AttendeeController {
                 time = getTime();
                 break;
             } catch (DateTimeException d) {
-                System.out.println("Invalid information. Please try again.");
+                System.out.println("Invalid Date. Please try again.");
                 d.printStackTrace();
             }
         } while(true);
@@ -321,49 +301,43 @@ public class OrganizerController extends AttendeeController {
      * This method makes a speaker account with data queried from the user.
      */
     private void makeSpeaker() {
-        System.out.println("Enter Username: ");
-        String username = scan.nextLine();
-        while(this.userManager.checkCredentials(username) || username.length() < 3){
-            if (this.userManager.checkCredentials(username)) {
-                System.out.println("That username is already taken, please enter another one: ");
-            }
-            else if (username.length() < 3) {
-                System.out.println("Error, username must be at least 3 characters. please enter another one: ");
-            }
+        String username = "";
+        do {
+            System.out.println("Enter the speaker username");
             username = scan.nextLine();
-        }
-        System.out.println("Enter Password: ");
-        String password = scan.nextLine();
-        while(password.length() < 3){
-            System.out.println("Error, password must be at least 3 characters.\nPlease enter again:");
-            password = scan.nextLine();
-        }
+        } while(userManager.checkCredentials(username));
+
+        String passwd = "";
+        do {
+            System.out.println("Enter the speaker password. The length must exceed 2.");
+            passwd = scan.nextLine();
+        } while(passwd.length() < 3);
+
         System.out.println("Enter the speaker name");
         String name = scan.nextLine();
-        while(name.length() < 2) {
-            System.out.println("Error, name must be at least 2 characters.\nPlease enter again:");
-            name = scan.nextLine();
-        }
         System.out.println("Enter the speaker address");
         String address = scan.nextLine();
-        while(address.length() < 3) {
-            System.out.println("Error, address must be at least 6 characters.\nPlease enter again:");
-            address = scan.nextLine();
-        }
         System.out.println("Enter the speaker Email");
         String email = scan.nextLine();
-        while(email.length() < 3 || !email.contains("@")){
-            if (!email.contains("@")) {
-                System.out.println("Error, email must contain '@'.\nPlease enter a valid email:");
-            }
-            else if (email.length() < 3) {
-                System.out.println("Error, email must be at least 3 characters.\nPlease enter again:");
-            }
-            email = scan.nextLine();
-        }
 
-        createSpeakerAccount(name, address, email, username, password);
+        createSpeakerAccount(name, address, email, username, passwd);
         messageManager.addUserInbox(username);
     }
 
+
+    private int nextInt() {
+        int input = 0;
+
+        do {
+            try {
+                input = Integer.parseInt(scan.nextLine());
+                break;
+            } catch (NumberFormatException e) {
+                p.displayInvalidInputError();
+                e.printStackTrace();
+            }
+        } while(true);
+
+        return input;
+    }
 }

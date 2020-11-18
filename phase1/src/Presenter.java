@@ -107,7 +107,7 @@ public class Presenter {
 
     // ----------------------------------------------------------------------------------------------------------------
 
-    // Methods for Attendee Controller --------------------------------------------------------------------------------
+    // Methods for Organizer Controller --------------------------------------------------------------------------------
 
     public void displayOptions2(){
         System.out.println("(0) See Inbox\n(1) Send Message\n(2) Reply to Message\n(3) View Event List" +
