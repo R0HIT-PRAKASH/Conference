@@ -289,7 +289,7 @@ public class OrganizerController extends AttendeeController {
                 time = getTime();
                 break;
             } catch (DateTimeException d) {
-                System.out.println("Invalid information. Please try again.");
+                System.out.println("Invalid Date. Please try again.");
                 d.printStackTrace();
             }
         } while(true);
@@ -333,7 +333,7 @@ public class OrganizerController extends AttendeeController {
                 input = Integer.parseInt(scan.nextLine());
                 break;
             } catch (NumberFormatException e) {
-                System.out.println("Invalid input!\nPlease try again.");
+                p.displayInvalidInputError();
                 e.printStackTrace();
             }
         } while(true);
