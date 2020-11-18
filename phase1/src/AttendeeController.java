@@ -86,12 +86,10 @@ public class AttendeeController{
                 break;
 
             case 3:
-                System.out.println("Here is a list of all the available events at this conference: ");
                 viewEventList();
                 break;
 
             case 4:
-                System.out.println("Here is a list of events you have signed up for: ");
                 viewSignedUpForEvent(this.username);
                 break;
 
@@ -193,7 +191,7 @@ public class AttendeeController{
      */
     public void viewEventList() {
         HashMap<String, Event> events = eventManager.getAllEvents();
-        System.out.println("Here are all the available events: ");
+        System.out.println("Here is a list of all the available events at this conference: ");
         System.out.println(events);
         System.out.println("Please enter next task (reminder, you can type '14' to see what you can do): ");
     }
@@ -203,6 +201,7 @@ public class AttendeeController{
      * @param username: The username of this Attendee
      */
     public void viewSignedUpForEvent(String username) {
+        System.out.println("Here is a list of events you have signed up for: ");
         List<String> signedUpFor = userManager.getAttendingEvents(username);
         System.out.println(signedUpFor);
         System.out.println("Please enter next task (reminder, you can type '14' to see what you can do): ");
