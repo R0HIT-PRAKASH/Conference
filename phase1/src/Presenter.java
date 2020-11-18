@@ -239,6 +239,13 @@ public class Presenter {
         System.out.println("Error, email must be at least 3 characters.\nPlease enter again:");
     }
 
+    public void displayRoomCreationPrompt(){ System.out.println("What is the number of the Room you would like to add?");
+    }
+
+    public void displayRoomAlreadyExists(){
+        System.out.println("This room already exists! Please try again.");
+    }
+
     // ----------------------------------------------------------------------------------------------------------------
 
 
@@ -286,11 +293,10 @@ public class Presenter {
         System.out.println("Which attendee are you replying to (it is case sensitive): ");
     }
 
-    public void displayRoomCreationPrompt(){ System.out.println("What is the number of the Room you would like to add?");
+    public void displayUserReplyError(){
+        System.out.println("That user is not one you can reply to, please re-enter the username " +
+                "of someone who has messaged you or enter \"q\" to go back to your options: ");
     }
 
-    public void displayRoomAlreadyExists(){
-        System.out.println("This room already exists! Please try again.");
-    }
     // ----------------------------------------------------------------------------------------------------------------
 }
