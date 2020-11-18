@@ -6,7 +6,6 @@ import java.util.List;
 
 public class EventManager implements java.io.Serializable {
 
-
     /**
      * The EventManager class is responsible for handling
      * event-related actions. events is a map that stores
@@ -27,7 +26,6 @@ public class EventManager implements java.io.Serializable {
         rooms =  new ArrayList<Room>();
     }
 
-
     /**
      * Creates a new event object.
      * @param name Refers to the name of the event.
@@ -44,7 +42,6 @@ public class EventManager implements java.io.Serializable {
 
         return event;
     }
-
 
     /**
      * Adds an event to the events map.
@@ -73,7 +70,6 @@ public class EventManager implements java.io.Serializable {
         if (!between9to5(event)){
             return false;
         }
-
         for (String i: events.keySet()){
             if (event.getName().equals(i)){
                 return false;
@@ -89,7 +85,6 @@ public class EventManager implements java.io.Serializable {
                 return false;
             }
         }
-
         return true;
     }
 
@@ -153,23 +148,19 @@ public class EventManager implements java.io.Serializable {
         return new Speaker(name, address, email, username, password);
     }
 
-
     /**
      * Finds and gets the specified event from the map of events.
      * @param eventName Refers the name of the event.
      * @return Returns the specified event.
      */
     public Event getEvent(String eventName){
-
         for (String i : events.keySet()){
             if (i.equals(eventName)){
                 return events.get(i);
             }
         }
-
         System.out.println("Event not found.");
         return null;
-
     }
 
     /**
@@ -179,10 +170,13 @@ public class EventManager implements java.io.Serializable {
         return events;
     }
 
+    /**
+     * Sets events to the events passed in
+     * @param events Refers to the events
+     */
     public void setAllEvents(HashMap<String, Event> events){
         this.events = events;
     }
-
 
     /**
      * Checks if the specified event is full.
@@ -190,7 +184,6 @@ public class EventManager implements java.io.Serializable {
      * @return Returns true if event is full. Otherwise, returns false.
      */
     public boolean checkEventFull(String eventName){
-
         Event event = this.getEvent(eventName);
         if (event == null){
             return true;
@@ -201,7 +194,6 @@ public class EventManager implements java.io.Serializable {
         else{
             return false;
         }
-
     }
 
     /**
@@ -211,7 +203,6 @@ public class EventManager implements java.io.Serializable {
      * @return Returns true if adding room was successful. Otherwise, returns false.
      */
     public boolean addRoom(int roomNumber, int capacity){
-
         Room room = createNewRoom(roomNumber, capacity);
         int i = 0;
         while (i < rooms.size()){
@@ -220,14 +211,11 @@ public class EventManager implements java.io.Serializable {
             }
             i++;
         }
-
         rooms.add(room);
-
         return true;
     }
 
     public boolean addRoom(int roomNumber){
-
         Room room = createNewRoom(roomNumber);
         int i = 0;
         while (i < rooms.size()){
@@ -236,12 +224,9 @@ public class EventManager implements java.io.Serializable {
             }
             i++;
         }
-
         rooms.add(room);
-
         return true;
     }
-
 
     /**
      * Creates a new room.
@@ -259,9 +244,6 @@ public class EventManager implements java.io.Serializable {
         return room;
     }
 
-
-
-
     /**
      * Finds and gets the specified room from the list of rooms.
      * @param roomNumber Refers to the room number.
@@ -273,11 +255,15 @@ public class EventManager implements java.io.Serializable {
                 return room;
             }
         }
-
         //Room Not Found
         return null;
     }
 
+    /**
+     * Yields the events that have already happened.
+     * @param allEvents Refers to all the events in this conference.
+     * @return All the events that have already happened.
+     */
     public List<String> eventHappened(List<String> allEvents){
         LocalDateTime time = LocalDateTime.now();
         List<String> priorEvents = new ArrayList<>();
@@ -290,5 +276,4 @@ public class EventManager implements java.io.Serializable {
         }
         return priorEvents;
     }
-
 }
