@@ -30,7 +30,7 @@ public class Room{
     }
 
     /**
-     *
+     * This method gets the capacity of the room.
      * @return Returns the capacity of the room.
      */
     public int getCapacity(){
@@ -38,7 +38,7 @@ public class Room{
     }
 
     /**
-     *
+     * This method gets the room number.
      * @return Returns the room number of the room.
      */
     public int getRoomNumber(){

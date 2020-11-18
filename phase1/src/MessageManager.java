@@ -3,9 +3,18 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MessageManager implements java.io.Serializable {
-protected HashMap<String, List<Message>> allUserMessages;
 
-public MessageManager(){
+    /**
+     * The MessageManager class is responsible for handling message-related actions. allUserMessages
+     * is a map of usernames to all of their Message objects.
+     */
+
+    protected HashMap<String, List<Message>> allUserMessages;
+
+    /**
+     * This method constructs a MessageManager object with an empty allUserMessages.
+     */
+    public MessageManager(){
     this.allUserMessages =  new HashMap<String, List<Message>>();
 }
 
@@ -16,23 +25,26 @@ public MessageManager(){
      * @param recipientUsername Refers to the String username of the user receiving the message.
      * @return Return the created message.
      */
-public Message createNewMessage(String message, String senderUsername, String recipientUsername){
-    Message newMessage = new Message(message, senderUsername, recipientUsername);
-    return newMessage;
-}
+    public Message createNewMessage(String message, String senderUsername, String recipientUsername){
+        Message newMessage = new Message(message, senderUsername, recipientUsername);
+        return newMessage;
+    }
 
     /**
      * Adds a new message to the list of all messages a user has (their "inbox").
      * @param newMessage Refers to the message to be added.
      * @return Returns nothing, as the message will always be added.
      */
-public void addMessage(String username, Message newMessage){
-    this.allUserMessages.get(username).add(newMessage);
-}
+    public void addMessage(String username, Message newMessage){ this.allUserMessages.get(username).add(newMessage); }
 
-public List<Message> viewMessages(String username){
-    return allUserMessages.get(username);
-}
+    /**
+     * This method allows the user to see all of their messages.
+     * @param username Refers to the username of the user.
+     * @return Returns a list of messages relating to the user.
+     */
+    public List<Message> viewMessages(String username){
+        return allUserMessages.get(username);
+    }
 
     /**
      * Checks if the user sending the message should be able to contact the recipient.
@@ -53,7 +65,7 @@ public List<Message> viewMessages(String username){
             }
         }
     return false;
-}
+    }
 
     /**
      * Returns the actual written component of a Message object
@@ -64,7 +76,11 @@ public List<Message> viewMessages(String username){
         return message.getContent();
 }
 
-public void printMessages(String username){
+    /**
+     * Prints out all of the contents of the messages if there are messages relating to the user.
+     * @param username Refers to the username of the user.
+     */
+    public void printMessages(String username){
         List<Message> allMessages = viewMessages(username);
         if(allMessages.size() == 0) {
             System.out.println("No Messages :(");
@@ -75,32 +91,61 @@ public void printMessages(String username){
         }
     }
 
-public HashMap<String, List<Message>> getAllUserMessages(){
+    /**
+     * This method gets all of the user messages.
+     * @return Refers to the map allUserMessages.
+     */
+    public HashMap<String, List<Message>> getAllUserMessages(){
     return allUserMessages;
 }
 
-public void setAllUserMessages(HashMap<String, List<Message>> allUserMessages){
+    /**
+     * This method sets the map of usernames to the list of messages relating to the user.
+     * @param allUserMessages Refers to the map of usernames to list of messages relating to the user.
+     */
+    public void setAllUserMessages(HashMap<String, List<Message>> allUserMessages){
         this.allUserMessages = allUserMessages;
     }
 
-
-public String getRecipient(Message message){
+    /**
+     * This method gets the recipient of the message object.
+     * @param message Refers to the message object.
+     * @return Returns the username of the recipient of the message.
+     */
+    public String getRecipient(Message message){
         return message.getRecipient();
 }
 
-public String getSender(Message message){
+    /**
+     * This method gets the sender of the message object.
+     * @param message Refers to the message object.
+     * @return Returns the username of the sender of the recipient.
+     */
+    public String getSender(Message message){
         return message.getSender();
 }
 
-public void speakerBlastMessage(List<String> eventNames, String message, EventManager eventManager, String sender){
-    for(String name : eventNames) {
-        for (Attendee receiver : eventManager.getEvent(name).getAttendeeSet()) {
-            Message toBeSent = createNewMessage(message, sender, receiver.getUsername());
-            this.addMessage(receiver.getUsername(), toBeSent);
+    /**
+     * This method sends a message to all of the attendees of the specified event.
+     * @param eventNames Refers to the list of events to which you want to send the attendees a message.
+     * @param message Refers to the string content of the message.
+     * @param eventManager Refers to the class handling all of the events.
+     * @param sender Refers to the username of the sender.
+     */
+    public void speakerBlastMessage(List<String> eventNames, String message, EventManager eventManager, String sender){
+        for(String name : eventNames) {
+            for (Attendee receiver : eventManager.getEvent(name).getAttendeeSet()) {
+                Message toBeSent = createNewMessage(message, sender, receiver.getUsername());
+                this.addMessage(receiver.getUsername(), toBeSent);
+            }
         }
     }
-}
-public void addUserInbox(String username) {
+
+    /**
+     * This method adds a new username and list of message objects to the map.
+     * @param username Refers to the username of the user.
+     */
+    public void addUserInbox(String username) {
         this.allUserMessages.put(username, new ArrayList<Message>());
 }
 }
