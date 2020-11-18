@@ -5,11 +5,21 @@ import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * Refers to the controller class that will deal with the actions of an organizer object.
+ */
 public class OrganizerController extends AttendeeController {
 
     private Scanner scan;
     private Presenter p;
 
+    /**
+     * Constructs an OrganizerController object.
+     * @param userManager Refers to the UserManager object.
+     * @param eventManager Refers to the EventManager object.
+     * @param messageManager Refers to the MessageManager object.
+     * @param username Refers to the username of the organizer.
+     */
     public OrganizerController(UserManager userManager, EventManager eventManager, MessageManager messageManager, String username) {
         super(userManager, eventManager, messageManager, username);
         scan = new Scanner(System.in);
@@ -25,7 +35,7 @@ public class OrganizerController extends AttendeeController {
         p.displayOptions2();
         p.displayTaskInput();
         int input = nextInt();
-        while (input != 15){ // 15 is ending condition
+        while (input != 16){ // 15 is ending condition
             determineInput(input);
             input = nextInt();
         }
@@ -156,6 +166,21 @@ public class OrganizerController extends AttendeeController {
             case 14:
                 p.displayOptions2();
                 break;
+
+
+            case 15:
+                p.displayRoomCreationPrompt();
+                int roomNumber = Integer.parseInt(scan.nextLine());
+                boolean roomAdded = eventManager.addRoom(roomNumber);
+                if(roomAdded){
+                    break;
+                }
+                else {
+                    p.displayRoomAlreadyExists();
+                }
+                break;
+
+
 
             default:
                 p.displayInvalidInputError();
