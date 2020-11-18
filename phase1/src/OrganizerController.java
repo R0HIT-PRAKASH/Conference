@@ -290,15 +290,15 @@ public class OrganizerController extends AttendeeController {
      * @throws DateTimeException
      */
     private LocalDateTime getTime() throws DateTimeException {
-        System.out.println("Enter a year:");
+        p.displayEnterYearPrompt();
         int y = nextInt();
-        System.out.println("Enter a month (1-12):");
+        p.displayEnterMonthPrompt();
         int m = nextInt();
-        System.out.println("Enter a day:");
+        p.displayEnterDayPrompt();
         int d = nextInt();
-        System.out.println("Enter an hour (0-23):");
+        p.displayEnterHourPrompt();
         int h = nextInt();
-        System.out.println("Enter a minute (0-59):");
+        p.displayEnterMinutePrompt();
         int mi = nextInt();
         return LocalDateTime.of(y, m, d, h, mi);
     }
@@ -314,7 +314,7 @@ public class OrganizerController extends AttendeeController {
                 time = getTime();
                 break;
             } catch (DateTimeException d) {
-                System.out.println("Invalid Date. Please try again.");
+                p.displayDateError();
                 d.printStackTrace();
             }
         } while(true);
@@ -326,43 +326,43 @@ public class OrganizerController extends AttendeeController {
      * This method makes a speaker account with data queried from the user.
      */
     private void makeSpeaker() {
-        System.out.println("Enter Username: ");
+        p.displayEnterUsernamePrompt()
         String username = scan.nextLine();
         while(this.userManager.checkCredentials(username) || username.length() < 3){
             if (this.userManager.checkCredentials(username)) {
-                System.out.println("That username is already taken, please enter another one: ");
+                p.displayRepeatUsernameError();
             }
             else if (username.length() < 3) {
-                System.out.println("Error, username must be at least 3 characters. please enter another one: ");
+                p.displayUsernameLengthError();
             }
             username = scan.nextLine();
         }
-        System.out.println("Enter Password: ");
+        p.displayEnterPasswordPrompt();
         String password = scan.nextLine();
         while(password.length() < 3){
-            System.out.println("Error, password must be at least 3 characters.\nPlease enter again:");
+            p.displayPasswordLengthError();
             password = scan.nextLine();
         }
-        System.out.println("Enter the speaker name");
+        p.displayEnterSpeakerNamePrompt();
         String name = scan.nextLine();
         while(name.length() < 2) {
-            System.out.println("Error, name must be at least 2 characters.\nPlease enter again:");
+            p.displaySpeakerNameError();
             name = scan.nextLine();
         }
-        System.out.println("Enter the speaker address");
+        p.displayEnterSpeakerAddressPrompt();
         String address = scan.nextLine();
-        while(address.length() < 3) {
-            System.out.println("Error, address must be at least 6 characters.\nPlease enter again:");
+        while(address.length() < 6) {
+            p.displayAddressLengthError();
             address = scan.nextLine();
         }
-        System.out.println("Enter the speaker Email");
+        p.displayEnterSpeakerEmailPrompt();
         String email = scan.nextLine();
         while(email.length() < 3 || !email.contains("@")) {
             if (!email.contains("@")) {
-                System.out.println("Error, email must contain '@'.\nPlease enter a valid email:");
+                p.displaySpeakerEmailError1();
             }
             else if (email.length() < 3) {
-                System.out.println("Error, email must be at least 3 characters.\nPlease enter again:");
+                p.displaySpeakerEmailError2();
             }
             email = scan.nextLine();
         }
