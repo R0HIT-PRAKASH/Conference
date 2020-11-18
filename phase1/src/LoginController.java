@@ -1,10 +1,19 @@
 import java.util.Scanner;
 
+/**
+ * A controller that deals with loggin into the program.
+ */
 public class LoginController {
     private Scanner scan = new Scanner(System.in);
     private UserManager userManager;
     private MessageManager messageManager;
 
+    /**
+     * This constructs a login occurance
+     * @param userManager the instance of the User Manager
+     * @param messageManager the instance of the Message Manager
+     * @return String username (of the user who was able to log in)
+     */
     public String login(UserManager userManager, MessageManager messageManager){
         this.userManager = userManager;
         this.messageManager = messageManager;
@@ -51,6 +60,7 @@ public class LoginController {
         return username;
     }
 
+    //returns if the password matches the password of the User who has given username
     private boolean checkLoginInfo(String username, String password){
         boolean username_valid = this.userManager.checkCredentials(username);
         boolean password_valid = false;
@@ -59,10 +69,12 @@ public class LoginController {
         }
         return password_valid;
     }
+    //returns the User who has the given username
     private User getUserInfo(String username){
         return this.userManager.getUser(username);
     }
 
+    //creates an Account for a new User, and returns their username
     private String createAccount(){
         System.out.println("It looks like you are a new user!\nPlease enter some information:");
         System.out.println("Enter Username: ");
