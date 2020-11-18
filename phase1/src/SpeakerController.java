@@ -58,18 +58,26 @@ public class SpeakerController{
                 List<String> priorEvents = eventManager.eventHappened(allEvents);
                 System.out.println("Here are all the events that you have given: ");
                 System.out.println(priorEvents);
-                System.out.println("Please enter the number of events: ");
+                System.out.println("Please enter the number of events or type 'q' to quit: ");
                 String strnum = scan.nextLine();
+                if (strnum.equals("q")){
+                    System.out.println("Please enter next task (reminder, you can type '4' to see what you can do: ");
+                    break;
+                }
                 int num = Integer.parseInt(strnum);
+                String next = "";
                 List<String> eventNames = new ArrayList<>();
                 for (int i = 0; i < num; i++) {
                     if (i == 0) {
-                        System.out.println("Please enter the name of the first event: ");
+                        System.out.println("Please enter the name of the first event or type 'q' to go back: ");
                         }
                     else {
-                        System.out.println("Please enter the name of the next event: ");
+                        System.out.println("Please enter the name of the next event or type 'q' to go back: ");
                     }
-                    String next = scan.nextLine();
+                    next = scan.nextLine();
+                    if (next.equals("q")){
+                        break;
+                    }
                     if (priorEvents.contains(next) && !eventNames.contains(next)) {
                         eventNames.add(next);
                     }
@@ -82,7 +90,11 @@ public class SpeakerController{
                         i--;
                     }
                 }
-                    System.out.println("Please enter the message: ");
+                if(next.equals("q")) {
+                    System.out.println("Please enter next task (reminder, you can type '4' to see what you can do: ");
+                    break;
+                }
+                System.out.println("Please enter the message: ");
                 String message = scan.nextLine();
                 sendBlastMessage(eventNames, message);
                 break;
