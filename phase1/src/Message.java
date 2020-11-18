@@ -1,11 +1,10 @@
 import java.io.Serializable;
 
+/**
+ * This class represents a Message object. Message objects have a string content, username of the sender,
+ * and a username of the recipient.
+ */
 public class Message implements Serializable {
-
-    /**
-     * This class represents a Message object. Message objects have a string content, username of the sender,
-     * and a username of the recipient.
-     */
 
     private String content;
     private String senderUsername;

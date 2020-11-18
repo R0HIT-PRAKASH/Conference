@@ -2,12 +2,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * The MessageManager class is responsible for handling message-related actions. allUserMessages
+ * is a map of usernames to all of their Message objects.
+ */
 public class MessageManager implements java.io.Serializable {
-
-    /**
-     * The MessageManager class is responsible for handling message-related actions. allUserMessages
-     * is a map of usernames to all of their Message objects.
-     */
 
     protected HashMap<String, List<Message>> allUserMessages;
 

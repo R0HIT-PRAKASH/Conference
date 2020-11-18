@@ -3,12 +3,11 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * This class represents an Event object. An Event can have a name, speaker, time, duration(in hours), room,
+ * and set of attendees attending.
+ */
 public class Event implements Comparable<Event>, Serializable {
-
-    /**
-     * This class represents an Event object. An Event can have a name, speaker, time, duration(in hours), room,
-     * and set of attendees attending.
-     */
 
     private String name;
     private String speakerName;

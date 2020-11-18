@@ -5,12 +5,12 @@ import java.util.Map;
 import java.time.LocalDateTime;
 import java.io.Serializable;
 
+/**
+ * The UserManager class stores a list of all of the users. userMap
+ * stores every username along with its associated User.
+ */
 public class UserManager implements java.io.Serializable {
 
-    /**
-     * The UserManager class stores a list of all of the users. userMap
-     * stores every username along with its associated User.
-     */
     private HashMap<String, User> userMap;
 
     public UserManager(){

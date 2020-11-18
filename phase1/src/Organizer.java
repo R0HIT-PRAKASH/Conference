@@ -2,13 +2,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class contains the characteristics and actions of an organizer. They have the
+ * same characteristics as a user, except they have a list of events they will attend
+ * and a list of events they will organize.
+ */
 public class Organizer extends User implements Serializable {
-
-    /**
-     * This class contains the characteristics and actions of an organizer. They have the
-     * same characteristics as a user, except they have a list of events they will attend
-     * and a list of events they will organize.
-     */
 
     private List<String> attendingEvents;
     private List<String> organizingEvents;

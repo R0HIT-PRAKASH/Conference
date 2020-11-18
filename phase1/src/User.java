@@ -1,11 +1,10 @@
 import java.io.Serializable;
 
+/**
+ * This class represents the properties and actions of all users. They all
+ * have a name, address, email, username, and password.
+ */
 public abstract class User implements Comparable<User>, Serializable {
-
-    /**
-     * This class represents the properties and actions of all users. They all
-     * have a name, address, email, username, and password.
-     */
 
     private String name;
     private String address;

@@ -1,13 +1,12 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class contains all of the characteristics and actions of an attendee. They
+ * have a name, address, email, username, and password. Attendees can attend events
+ * and sign up for events.
+ */
 public class Attendee extends User {
-
-    /**
-     * This class contains all of the characteristics and actions of an attendee. They
-     * have a name, address, email, username, and password. Attendees can attend events
-     * and sign up for events.
-     */
 
     private List<String> attendingEvents;
 

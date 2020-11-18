@@ -1,12 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class contains the characteristics and actions of a speaker. They have all of the
+ * characteristics of a user, except they have a list of events they will speak at.
+ */
 public class Speaker extends User {
-
-    /**
-     * This class contains the characteristics and actions of a speaker. They have all of the
-     * characteristics of a user, except they have a list of events they will speak at.
-     */
 
     private List<String> speakingEvents;
 
