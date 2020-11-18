@@ -96,10 +96,27 @@ public class LoginController {
         }
         System.out.println("Enter your name: ");
         String name = scan.nextLine();
+        while(name.length() < 2){
+            System.out.println("Error, name must be at least 2 characters.\nPlease enter again:");
+            name = scan.nextLine();
+        }
         System.out.println("Enter your address: ");
         String address = scan.nextLine();
+        while(address.length() < 3){
+            System.out.println("Error, address must be at least 6 characters.\nPlease enter again:");
+            address = scan.nextLine();
+        }
         System.out.println("Enter your Email: ");
         String email = scan.nextLine();
+        while(email.length() < 3 || !email.contains("@")){
+            if (!email.contains("@")) {
+                System.out.println("Error, email must contain '@'.\nPlease enter a valid email:");
+            }
+            else if (email.length() < 3) {
+                System.out.println("Error, email must be at least 3 characters.\nPlease enter again:");
+            }
+            email = scan.nextLine();
+        }
         System.out.println("Enter your status in the conference. This can be \"organizer\", \"attendee\" or \"speaker\":");
         String type = scan.nextLine();
         while(!type.equals("organizer") && !type.equals("attendee") && !type.equals("speaker")) {
