@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 /**
- * A controller that deals with loggin into the program.
+ * A controller that deals with logging into the program.
  */
 public class LoginController {
     private Scanner scan = new Scanner(System.in);
@@ -9,7 +9,7 @@ public class LoginController {
     private MessageManager messageManager;
 
     /**
-     * This constructs a login occurance
+     * This constructs a login occurrence
      * @param userManager the instance of the User Manager
      * @param messageManager the instance of the Message Manager
      * @return String username (of the user who was able to log in)

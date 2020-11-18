@@ -55,7 +55,12 @@ public List<Message> viewMessages(String username){
     return false;
 }
 
-public String getMessageContent(Message message){
+    /**
+     * Returns the actual written component of a Message object
+     * @param message the message whose content variable we want
+     * @return returns the content variable of the Message object
+     */
+    public String getMessageContent(Message message){
         return message.getContent();
 }
 

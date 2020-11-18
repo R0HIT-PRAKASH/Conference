@@ -7,11 +7,13 @@ import java.util.List;
 // 1) https://beginnersbook.com/2013/12/how-to-serialize-hashmap-in-java/
 // 2) https://www.java8net.com/2020/03/serialize-hashmap-in-java.html
 
+/**
+ * This class is used to read and write .ser files.
+ */
+
 public class ReaderWriter {
-    // Lots of repeated code - I tried to make a helper method but all of sudden it need an exception check as well
 
-
-    public <T> void writeHelper(FileOutputStream fos, HashMap<String, T> hashmap) throws IOException {
+    private <T> void writeHelper(FileOutputStream fos, HashMap<String, T> hashmap) throws IOException {
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(hashmap);
         oos.close();
@@ -19,43 +21,38 @@ public class ReaderWriter {
     }
 
     /**
-     * @param hashmap
-     * @param <T>
+     * Writes a HashMap object to a specific .ser file depending on the type
+     * of the HashMap object's values
+     * @param hashmap the HashMap object we want to save
+     * @param <T> the type of the values in the HashMap object
      */
-    public <T> void write(HashMap<String, T> hashmap) { // Q: I dont think this should be static - Need confirmation
-
+    public <T> void write(HashMap<String, T> hashmap) {
         List<Object> list = new ArrayList<>(hashmap.values());
         if (list.isEmpty()) return;
         try {
             if (list.get(0) instanceof User) {
                 FileOutputStream fos = new FileOutputStream("users.ser");
                 writeHelper(fos, hashmap);
-//                ObjectOutputStream oos = new ObjectOutputStream(fos);
-//                oos.writeObject(hashmap);
-//                oos.close();
-//                fos.close();
             } else if (list.get(0) instanceof ArrayList) {
                 FileOutputStream fos = new FileOutputStream("messages.ser");
                 writeHelper(fos, hashmap);
-//                ObjectOutputStream oos = new ObjectOutputStream(fos);
-//                oos.writeObject(hashmap);
-//                oos.close();
-//                fos.close();
             } else if (list.get(0) instanceof Event) {
                 FileOutputStream fos = new FileOutputStream("events.ser");
                 writeHelper(fos, hashmap);
-//                ObjectOutputStream oos = new ObjectOutputStream(fos);
-//                oos.writeObject(hashmap);
-//                oos.close();
-//                fos.close();
             }
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
     }
-// in helper method - throws IOException in the header
 
-
+    /**
+     * Reads the users.ser file
+     * @param filename name of the file we want to read (excluding .ser part)
+     * @return returns the deserialized HashMap object containing usernames as keys and the corresponding
+     * Users as values
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public HashMap<String, User> readUsers(String filename) throws IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream("users.ser");
         ObjectInputStream ois = new ObjectInputStream(fis);
@@ -64,6 +61,15 @@ public class ReaderWriter {
         fis.close();
         return userHashMap;
     }
+
+    /**
+     * Reads the messages.ser file
+     * @param filename name of the file we want to read (excluding .ser part)
+     * @return returns the deserialized HashMap object containing usernames as keys and the corresponding
+     * user's messages received (List<Message> type) as values
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public HashMap<String, List<Message>> readMessages(String filename) throws IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream("messages.ser");
         ObjectInputStream ois = new ObjectInputStream(fis);
@@ -72,6 +78,15 @@ public class ReaderWriter {
         fis.close();
         return allUserMessages;
     }
+
+    /**
+     * Reads the events.ser file
+     * @param filename name of the file we want to read (excluding .ser part)
+     * @return returns the deserialized HashMap object containing event names as keys and the corresponding
+     * Events as values
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public HashMap<String, Event> readEvents(String filename) throws IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream("events.ser");
         ObjectInputStream ois = new ObjectInputStream(fis);
@@ -80,36 +95,4 @@ public class ReaderWriter {
         fis.close();
         return events;
 }
-
-//    public void read(String filename) {
-//        try {
-//            if (filename.equalsIgnoreCase("users")) {
-//                FileInputStream fis = new FileInputStream("users.ser");
-//                ObjectInputStream ois = new ObjectInputStream(fis);
-//                HashMap<String, User> userHashMap = (HashMap<String, User>) ois.readObject();
-//                ois.close();
-//                fis.close();
-//            } else if (filename.equalsIgnoreCase("messages")) {
-//                FileInputStream fis = new FileInputStream("messages.ser");
-//                ObjectInputStream ois = new ObjectInputStream(fis);
-//                HashMap<String, Message> allUserMessages = (HashMap<String, Message>) ois.readObject();
-//                ois.close();
-//                fis.close();
-//            } else if (filename.equalsIgnoreCase("events")) {
-//                FileInputStream fis = new FileInputStream("events.ser");
-//                ObjectInputStream ois = new ObjectInputStream(fis);
-//                HashMap<String, Event> events = (HashMap<String, Event>) ois.readObject();
-//                ois.close();
-//                fis.close();
-//            }
-//        } catch (IOException ioe) {
-//            ioe.printStackTrace();
-//        } catch (ClassNotFoundException cnfe) {
-//            System.out.println("Class not found");
-//            cnfe.printStackTrace();
-//        } catch(ClassCastException cce) {
-//            System.out.println("Invalid cast attempt");
-//            cce.printStackTrace();
-//        }
-//    }
 }

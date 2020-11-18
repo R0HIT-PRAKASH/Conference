@@ -12,6 +12,13 @@ public class AttendeeController{
     MessageManager messageManager;
     String username;
 
+    /**
+     * This constructs an AttendeeController object
+     * @param userManager the instance of the User Manager
+     * @param eventManager the instance of the Event Manager
+     * @param messageManager the instance of the Message Manager
+     * @param username the username of the Attendee accessing the AttendeeController
+     */
     public AttendeeController(UserManager userManager, EventManager eventManager, MessageManager messageManager,
                               String username){
         this.userManager = userManager;

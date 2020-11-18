@@ -12,7 +12,7 @@ public class Attendee extends User {
     private List<String> attendingEvents;
 
     /**
-     * This method constructs a new user with an empty list of attendingEvents.
+     * This method constructs a new attendee object with an empty list of attendingEvents.
      * @param name Refers to the name of the attendee.
      * @param address Refers to the address of the attendee.
      * @param email Refers to the email of the attendee.

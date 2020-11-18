@@ -63,7 +63,7 @@ public abstract class User implements Comparable<User>, Serializable {
 
     /**
      * This method gets the password of the user.
-     * @return Returns the passoword of the user.
+     * @return Returns the password of the user.
      */
     public String getPassword(){
         return this.password;
