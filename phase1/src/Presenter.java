@@ -239,6 +239,51 @@ public class Presenter {
         System.out.println("Error, email must be at least 3 characters.\nPlease enter again:");
     }
 
+    // ----------------------------------------------------------------------------------------------------------------
+
+    // Methods for Organizer Controller --------------------------------------------------------------------------------
+
+    public void displayOptions3(){
+        System.out.println("What would you like to do? \nEnter the corresponding number: ");
+        System.out.println("(0) See Inbox, \n(1) View My Events, \n(2) Message Event Attendees, " +
+                "\n(3) Reply to Attendee, \n(4) Options, \n(5) End: ");
+    }
+
+    public void displayNextTaskPrompt2(){
+        System.out.println("Please enter next task (reminder, you can type '4' to see what you can do: ");
+    }
+
+    public void displayAllEventsEntered(){
+        System.out.println("Here are all the events that you have given: ");
+    }
+
+    public void displayEnterNumberOfEventsPrompt(){
+        System.out.println("Please enter the number of events or type 'q' to quit: ");
+    }
+
+    public void displayEnterEventNamePrompt(){
+        System.out.println("Please enter the name of the first event or type 'q' to go back: ");
+    }
+
+    public void displayEnterEventNamePrompt2(){
+        System.out.println("Please enter the name of the next event or type 'q' to go back: ");
+    }
+
+    public void displayEventAlreadyAddedError(){
+        System.out.println("You've already added that event. ");
+    }
+
+    public void displayEventNotGivenError(){
+        System.out.println("That event isn't one you have given. ");
+    }
+
+    public void displayEnterMessagePrompt(){
+        System.out.println("Please enter the message: ");
+    }
+
+    public void displayEnterAttendeeUsernamePrompt(){
+        System.out.println("Which attendee are you replying to (it is case sensitive): ");
+    }
 
     // ----------------------------------------------------------------------------------------------------------------
 }
