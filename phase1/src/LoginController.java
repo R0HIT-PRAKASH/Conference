@@ -1,9 +1,10 @@
 import java.util.Scanner;
 
-/**
- * A controller that deals with logging into the program.
- */
 public class LoginController {
+    /**
+     * A controller that deals with logging into the program.
+     */
+
     private Scanner scan = new Scanner(System.in);
     private UserManager userManager;
     private MessageManager messageManager;
