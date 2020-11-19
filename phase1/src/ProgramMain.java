@@ -1,5 +1,13 @@
+/**
+ * Refers to the controller class that can run the entire program. It calls the MainController, when run, which calls
+ * all of the other classes.
+ */
 public class ProgramMain {
 
+    /**
+     * This method is responsible for calling the appropriate methods in MainController.
+     * @param args Refers to the string argument from the command line.
+     */
     public static void main(String [] args){
         MainController run = new MainController();
         if (run.filesExist() == 0) {

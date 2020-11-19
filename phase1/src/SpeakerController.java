@@ -35,10 +35,10 @@ public class SpeakerController{
     public void run(){
         p.displayOptions3();
         p.displayTaskInput();
-        int input = scan.nextInt();
+        int input = nextInt();
         while (input != 5){
             determineInput(input);
-            input = scan.nextInt();
+            input = nextInt();
         }
     }
 
@@ -195,5 +195,25 @@ public class SpeakerController{
         Message message = messageManager.createNewMessage(content, username, recipient);
         messageManager.addMessage(recipient, message);
         p.displayMessageSentPrompt();
+    }
+
+    /**
+     * Queries the user for an integer
+     * @return int
+     */
+    private int nextInt() {
+        int input = 0;
+
+        do {
+            try {
+                input = Integer.parseInt(scan.nextLine());
+                break;
+            } catch (NumberFormatException e) {
+                p.displayInvalidInputError();
+                e.printStackTrace();
+            }
+        } while(true);
+
+        return input;
     }
 }
