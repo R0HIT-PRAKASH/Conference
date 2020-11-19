@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -82,13 +83,24 @@ public class AttendeeController{
                     p.displayConferenceError();
                     break;
                 }
-                p.displayOldestInboxMessage(messageManager.viewMessages(this.username).
-                        get(messageManager.viewMessages(this.username).size()
-                                -  1).toString());
-                String response = scan.nextLine();
-                String responseUsername = messageManager.viewMessages(this.username).
-                        get(messageManager.viewMessages(this.username).size() -  1).getSender();
-                replyMessage(response, responseUsername);
+                List<String> attendees = getSenders(username);
+                p.displayAllSenders(attendees);
+                p.displayEnterUserUsernamePrompt();
+                //scan.nextLine();
+                String recipients = scan.nextLine();
+                while (!attendees.contains(recipients)){
+                    p.displayUserReplyError();
+                    recipients = scan.nextLine();
+                    if (recipients.equals("q")){
+                        break;
+                    }
+                }
+                if (recipients.equals("q")){
+                    break;
+                }
+                p.displayEnterMessagePrompt();
+                String content = scan.nextLine();
+                replyMessage(content, recipients);
                 break;
 
             case 3:
@@ -127,7 +139,7 @@ public class AttendeeController{
                 signUp(eventSignedUp);
                 break;
 
-            case 14:
+            case 7:
                 p.displayOptions();
                 break;
 
@@ -183,7 +195,8 @@ public class AttendeeController{
      */
     public void viewSignedUpForEvent(String username) {
         List<String> signedUpFor = userManager.getAttendingEvents(username);
-        p.displaySignedUpEvents(signedUpFor);
+        List<Event> chronological = eventManager.chronologicalEvents(signedUpFor);
+        p.displaySignedUpEvents(chronological);
     }
 
     /**
@@ -204,6 +217,20 @@ public class AttendeeController{
         Event event = eventManager.getEvent(eventName);
         userManager.signUpForEvent(this.username, event, eventManager);
         p.displayEventSignUp();
+    }
+
+    /**
+     * Gets all the usernames of users who have messaged this Attendee
+     * @param username of this Attendee
+     * @return Returns all the usernames
+     */
+    private List<String> getSenders(String username){
+        List<Message> allMessages = messageManager.viewMessages(username);
+        List<String> attendees = new ArrayList<>();
+        for (Message message: allMessages){
+            attendees.add(messageManager.getSender(message));
+        }
+        return attendees;
     }
 
     /**

@@ -156,8 +156,8 @@ public class Event implements Comparable<Event>, Serializable {
         DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
         String date = getTime().format(formatter);
 
-        return "Time: " + date + "|Title: " + getName() + "|Speaker: " + getSpeakerName() + "|Duration: "
-                + getDuration() + " hour/s|Room: " + getRoomNumber();
+        return "Title: " + getName() + "|Time: " + date + "| Speaker: " + getSpeakerName() + "| Duration: "
+                + getDuration() + " hour/s| Room: " + getRoomNumber();
     }
 
 }

@@ -98,11 +98,18 @@ public class SpeakerController{
                 sendBlastMessage(eventNames, message);
                 break;
             case 3:
-                p.displayEnterAttendeeUsernamePrompt();
-                List<String> attendees = getAttendees(username);
-                for (String attendee: attendees){
-                    System.out.println(attendee);
+                if(messageManager.getAllUserMessages().get(this.username).size() == 0){
+                    p.displayNoReply();
+                    break;
                 }
+                else if(userManager.getUserMap().size() == 1) {
+                    p.displayConferenceError();
+                    break;
+                }
+                List<String> attendees = getAttendees(username);
+                p.displayAllSenders(attendees);
+                p.displayEnterAttendeeUsernamePrompt();
+                scan.nextLine();
                 String recipient = scan.nextLine();
                 while (!attendees.contains(recipient)){
                     p.displayUserReplyError();
@@ -145,7 +152,7 @@ public class SpeakerController{
         List<Message> allMessages = messageManager.viewMessages(username);
         List<String> attendees = new ArrayList<>();
         for (Message message: allMessages){
-            attendees.add(messageManager.getRecipient(message));
+            attendees.add(messageManager.getSender(message));
         }
         return attendees;
     }
@@ -186,6 +193,7 @@ public class SpeakerController{
      */
     private void replyMessage(String recipient, String content){
         Message message = messageManager.createNewMessage(content, username, recipient);
+        messageManager.addMessage(recipient, message);
         p.displayMessageSentPrompt();
     }
 }

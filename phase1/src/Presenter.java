@@ -59,7 +59,7 @@ public class Presenter {
     public void displayOptions(){
         System.out.println("(0) See Inbox\n(1) Send Message\n(2) Reply to Message\n(3) View Event List" +
                 "\n(4) View My Scheduled Events\n(5) Cancel Event Reservation\n" +
-                "(6) Add User to Contact List\n(7) View Options \n(8) End");
+                "(6) Sign up for an event\n(7) View Options \n(8) End");
     }
 
     public void displayConferenceError(){
@@ -84,10 +84,14 @@ public class Presenter {
         System.out.println("You currently have no messages to reply to.");
     }
 
-    public void displayOldestInboxMessage(String message){
-        System.out.println("This is the oldest message in your inbox: '" +
-                message + "'. How would you like to respond?");
+    public void displayEnterUserUsernamePrompt(){
+        System.out.println("Which user are you replying to (it is case sensitive): ");
     }
+
+//    public void displayOldestInboxMessage(String message){
+//        System.out.println("This is the oldest message in your inbox: '" +
+//                message + "'. How would you like to respond?");
+//    }
 
     public void displayEventList(List<Event> events){
         System.out.println("Here is a list of all the available events at this conference: ");
@@ -96,9 +100,12 @@ public class Presenter {
         }
     }
 
-    public void displaySignedUpEvents(List<String> signedUpFor){
-        System.out.println("Here is a list of events you have signed up for: ");
-        System.out.println(signedUpFor);
+    public void displaySignedUpEvents(List<Event> signedUpFor){
+        System.out.println("Here is the list of events you have signed up for: ");
+        int counter = 1;
+        for (Event curr : signedUpFor) {
+            System.out.println(counter + ": " + curr);
+        }
     }
 
     public void displayEventCancelPrompt(){
@@ -169,6 +176,10 @@ public class Presenter {
     public void displayEventCreationError(){
         System.out.println("The event was invalid. Either the speaker or the room would be double booked. " +
                 "Please try again.");
+    }
+
+    public void displaySuccessfulEventCreation(){
+        System.out.println("Event created successfully. ");
     }
 
     public void displayAllAttendeeMessagePrompt(){
@@ -284,12 +295,21 @@ public class Presenter {
                 "\n(3) Reply to Attendee, \n(4) Options, \n(5) End: ");
     }
 
+    public void displayAllSenders(List<String> attendees){
+        System.out.println("These are all the users who have messaged you: ");
+        int counter = 1;
+        for (String attendee: attendees){
+            System.out.println(counter + ": " + attendee);
+            counter++;
+        }
+    }
+
     public void displayAllEventsGiven(List<Event> events){
         System.out.println("Here are all the events that you have given: ");
+        int counter = 1;
         for (Event curr : events){
-            DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
-            String date = curr.getTime().format(formatter);
-            System.out.println(date + ": " + curr);
+            System.out.println(counter + ": " + curr);
+            counter++;
         }
     }
 
