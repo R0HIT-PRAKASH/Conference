@@ -12,6 +12,7 @@ public class MainController {
     protected EventManager eventManager;
     protected String username;
     protected ReaderWriter RW;
+    MainPresenter p;
 
     /**
      * Constructs a MainController object with MessageManager, UserManager, EventManager, ReaderWriter objects,
@@ -62,17 +63,17 @@ public class MainController {
     public void fileQUserMssgExists() {
         Scanner question = new Scanner(System.in);
         try {
-            System.out.println("Do you want to use pre-existing files? Please type 'Yes' or 'No'");
+            p.displayPreExisitingFilePrompt();
             String answer = question.nextLine();  // This reads the answer they give
             while(!answer.equalsIgnoreCase("Yes") && !answer.equalsIgnoreCase("No")) {
-                System.out.println("Invalid Input: Please type 'Yes' or 'No'");
+                p.displayInvalidFileChoice();
                 answer = question.nextLine();
             } if (answer.equalsIgnoreCase("Yes")) {
                 readInFiles(RW, userManager, messageManager);
-                System.out.println("Files downloaded.");
+                p.displayDownloadCompletion();
             }
         } catch (InputMismatchException ime) {
-            System.out.println("Error: Please type 'Yes' or 'No'");
+            p.displayInvalidInputError();
             question.nextLine();
         } catch (IOException e) {
             e.printStackTrace();
@@ -88,17 +89,17 @@ public class MainController {
     public void fileQUserMssgRoomsExists() {
         Scanner question = new Scanner(System.in);
         try {
-            System.out.println("Do you want to use pre-existing files? Please type 'Yes' or 'No'");
+            p.displayPreExisitingFilePrompt();
             String answer = question.nextLine();  // This reads the answer they give
             while(!answer.equalsIgnoreCase("Yes") && !answer.equalsIgnoreCase("No")) {
-                System.out.println("Invalid Input: Please type 'Yes' or 'No'");
+                p.displayInvalidFileChoice();
                 answer = question.nextLine();
             } if (answer.equalsIgnoreCase("Yes")) {
                 readInFiles(RW, userManager, messageManager, eventManager);
-                System.out.println("Files downloaded.");
+                p.displayDownloadCompletion();
             }
         } catch (InputMismatchException ime) {
-            System.out.println("Error: Please type 'Yes' or 'No'");
+            p.displayInvalidInputError();
             question.nextLine();
         } catch (IOException e) {
             e.printStackTrace();
@@ -114,17 +115,17 @@ public class MainController {
     public void fileQAllExists() {
         Scanner question = new Scanner(System.in);
         try {
-            System.out.println("Do you want to use pre-existing files? Please type 'Yes' or 'No'");
+            p.displayPreExisitingFilePrompt();
             String answer = question.nextLine();  // This reads the answer they give
             while(!answer.equalsIgnoreCase("Yes") && !answer.equalsIgnoreCase("No")) {
-                System.out.println("Invalid Input: Please type 'Yes' or 'No'");
+                p.displayInvalidFileChoice();
                 answer = question.nextLine();
             } if (answer.equalsIgnoreCase("Yes")) {
                 readInAllFiles(RW, userManager, messageManager, eventManager);
-                System.out.println("Files downloaded.");
+                p.displayDownloadCompletion();
             }
         } catch (InputMismatchException ime) {
-            System.out.println("Error: Please type 'Yes' or 'No'");
+            p.displayInvalidInputError();
             question.nextLine();
         } catch (IOException e) {
             e.printStackTrace();
