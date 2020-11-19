@@ -152,7 +152,9 @@ public class AttendeeController{
      * Prints all the messages that this attendee has received
      * @param username: The username of the Attendee
      */
-    public void viewMessages(String username) { messageManager.printMessages(username);
+    public void viewMessages(String username) {
+        List<Message> allMessages = messageManager.viewMessages(username);
+        p.displayPrintMessages(allMessages);
     }
 
     /**

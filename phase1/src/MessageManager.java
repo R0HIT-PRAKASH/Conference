@@ -75,23 +75,6 @@ public class MessageManager implements java.io.Serializable {
         return message.getContent();
 }
 
-    /**
-     * Prints out all of the contents of the messages if there are messages relating to the user.
-     * @param username Refers to the username of the user.
-     */
-    public void printMessages(String username){
-        List<Message> allMessages = viewMessages(username);
-        if(allMessages.size() == 0) {
-            System.out.println("No Messages :(");
-            return;
-        }
-        int counter = 1;
-        for (int i = allMessages.size() -1; i > -1; i-- ){
-            System.out.println(counter + ". Sent By: " + allMessages.get(i).getSender() + "\nMessage: " +
-                    allMessages.get(i).getContent());
-            counter++;
-        }
-    }
 
     /**
      * This method gets all of the user messages.

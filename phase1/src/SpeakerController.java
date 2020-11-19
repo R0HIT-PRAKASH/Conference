@@ -168,7 +168,8 @@ public class SpeakerController{
      * @param username of the Speaker
      */
     private void viewMessages(String username) {
-        messageManager.printMessages(username);
+        List<Message> allMessages = messageManager.viewMessages(username);
+        p.displayPrintMessages(allMessages);
     }
 
     /**
