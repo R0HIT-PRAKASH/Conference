@@ -101,6 +101,10 @@ public class Presenter {
     }
 
     public void displaySignedUpEvents(List<Event> signedUpFor){
+        if (signedUpFor.size() == 0){
+            System.out.println("You haven't signed up for any events yet. ");
+            return;
+        }
         System.out.println("Here is the list of events you have signed up for: ");
         int counter = 1;
         for (Event curr : signedUpFor) {

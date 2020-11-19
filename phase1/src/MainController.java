@@ -24,6 +24,7 @@ public class MainController {
         eventManager = new EventManager();
         RW = new ReaderWriter();
         username = "";
+        p = new MainPresenter();
     }
 
 
@@ -63,7 +64,7 @@ public class MainController {
     public void fileQUserMssgExists() {
         Scanner question = new Scanner(System.in);
         try {
-            p.displayPreExisitingFilePrompt();
+            p.displayPreExistingFilePrompt();
             String answer = question.nextLine();  // This reads the answer they give
             while(!answer.equalsIgnoreCase("Yes") && !answer.equalsIgnoreCase("No")) {
                 p.displayInvalidFileChoice();
@@ -89,7 +90,7 @@ public class MainController {
     public void fileQUserMssgRoomsExists() {
         Scanner question = new Scanner(System.in);
         try {
-            p.displayPreExisitingFilePrompt();
+            p.displayPreExistingFilePrompt();
             String answer = question.nextLine();  // This reads the answer they give
             while(!answer.equalsIgnoreCase("Yes") && !answer.equalsIgnoreCase("No")) {
                 p.displayInvalidFileChoice();
@@ -115,7 +116,7 @@ public class MainController {
     public void fileQAllExists() {
         Scanner question = new Scanner(System.in);
         try {
-            p.displayPreExisitingFilePrompt();
+            p.displayPreExistingFilePrompt();
             String answer = question.nextLine();  // This reads the answer they give
             while(!answer.equalsIgnoreCase("Yes") && !answer.equalsIgnoreCase("No")) {
                 p.displayInvalidFileChoice();
@@ -131,7 +132,7 @@ public class MainController {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        }
+        } 
     }
 
     /**

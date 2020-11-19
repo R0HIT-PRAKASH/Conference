@@ -20,6 +20,7 @@ public class LoginController {
     public String login(UserManager userManager, MessageManager messageManager){
         this.userManager = userManager;
         this.messageManager = messageManager;
+        p = new MainPresenter();
         p.displayNewOrReturningPrompt();
         int input = Integer.parseInt(scan.nextLine());
         String username = "";

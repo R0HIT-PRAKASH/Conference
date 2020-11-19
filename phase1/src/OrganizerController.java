@@ -1,9 +1,6 @@
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.InputMismatchException;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 import java.util.regex.Pattern;
 
 /**
@@ -73,14 +70,23 @@ public class OrganizerController extends AttendeeController {
                     p.displayConferenceError();
                     break;
                 }
-                p.displayOldestInboxMessage(messageManager.viewMessages(this.username).
-                        get(messageManager.viewMessages(this.username).size()
-                                -  1).toString());
-                String response = scan.nextLine();
-                String responseUsername = messageManager.viewMessages(this.username).
-                        get(messageManager.viewMessages(this.username).size() -  1).getSender();
-                replyMessage(response, responseUsername);
-                p.displaySuccessfulMessage();
+                List<String> users = getSenders(username);
+                p.displayAllSenders(users);
+                p.displayEnterUserUsernamePrompt();
+                String recipients = scan.nextLine();
+                while (!users.contains(recipients)){
+                    p.displayUserReplyError();
+                    recipients = scan.nextLine();
+                    if (recipients.equals("q")){
+                        break;
+                    }
+                }
+                if (recipients.equals("q")){
+                    break;
+                }
+                p.displayEnterMessagePrompt();
+                String content = scan.nextLine();
+                replyMessage(content, recipients);
                 break;
             case 3:
                 viewEventList();
@@ -371,5 +377,17 @@ public class OrganizerController extends AttendeeController {
         createSpeakerAccount(name, address, email, username, password);
         messageManager.addUserInbox(username);
     }
-
+    /**
+     * Gets all the usernames of users who have messaged this Organizer
+     * @param username of this Organizer
+     * @return Returns all the usernames
+     */
+    private List<String> getSenders(String username){
+        List<Message> allMessages = messageManager.viewMessages(username);
+        List<String> users = new ArrayList<>();
+        for (Message message: allMessages){
+            users.add(messageManager.getSender(message));
+        }
+        return users;
+    }
 }

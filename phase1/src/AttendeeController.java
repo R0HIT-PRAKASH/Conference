@@ -86,7 +86,6 @@ public class AttendeeController{
                 List<String> attendees = getSenders(username);
                 p.displayAllSenders(attendees);
                 p.displayEnterUserUsernamePrompt();
-                //scan.nextLine();
                 String recipients = scan.nextLine();
                 while (!attendees.contains(recipients)){
                     p.displayUserReplyError();

@@ -81,7 +81,7 @@ public class MainPresenter {
 
     // Methods for the Main Controller --------------------------------------------------------------------------------
 
-    public void displayPreExisitingFilePrompt(){
+    public void displayPreExistingFilePrompt(){
         System.out.println("Do you want to use pre-existing files? Please type 'Yes' or 'No'");
     }
 
