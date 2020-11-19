@@ -40,6 +40,7 @@ public class UserManager implements java.io.Serializable {
 
     /**
      * This method sets the map of users.
+     * @param userMap Refers to the map the userMap will now be set to.
      */
     public void setUserMap(HashMap<String, User> userMap) {
         this.userMap = userMap;
@@ -123,10 +124,10 @@ public class UserManager implements java.io.Serializable {
     }
 
     /**
-     * adds an Event name to a speaker's list of speaking events.
+     * Adds an Event name to a speaker's list of speaking events.
      * @param username The String username of the speaker of the event
      * @param eventName The String name of the event.
-     * @return true if the event is added to the speaker's list of speaking events.
+     * @return True if the event is added to the speaker's list of speaking events.
      */
     public boolean addSpeakingEvent(String username, String eventName) {
         if (userMap.get(username).getUserType().equals("speaker")) {
@@ -201,7 +202,9 @@ public class UserManager implements java.io.Serializable {
 
         }else if(user.getUserType().equals("organizer")){
             for(String eventName : ((Organizer) user).getAttendingEvents()){
-                if(!helpSignUp(eventName, event, eventManager));
+                if(!helpSignUp(eventName, event, eventManager)){
+                    return false;
+                }
             }
             ((Organizer) user).signUpForEvent(event);
 
@@ -246,13 +249,11 @@ public class UserManager implements java.io.Serializable {
         Event attendEvent = eventManager.getEvent(eventName);
         double timeBetween = Math.abs(event.getTime().getHour()*60 + event.getTime().getMinute() -
                 attendEvent.getTime().getHour()*60 - attendEvent.getTime().getMinute());
-        if(event.getTime().getDayOfYear() == attendEvent.getTime().getDayOfYear() &&
-                event.getTime().getYear() == attendEvent.getTime().getYear() &&
-                ((event.getTime().isBefore(attendEvent.getTime()) && timeBetween < event.getDuration()*60) ||
-                        (event.getTime().isAfter(attendEvent.getTime()) && timeBetween < attendEvent.getDuration()*60) ||
-                        (event.getTime().isEqual(attendEvent.getTime())))){
-            return false;
-        }
-        return true;
+        return event.getTime().getDayOfYear() != attendEvent.getTime().getDayOfYear() ||
+                event.getTime().getYear() != attendEvent.getTime().getYear() ||
+                ((!event.getTime().isBefore(attendEvent.getTime()) ||
+                        !(timeBetween < event.getDuration() * 60)) &&
+                        (!event.getTime().isAfter(attendEvent.getTime()) || !(timeBetween < attendEvent.getDuration() * 60)) &&
+                        (!event.getTime().isEqual(attendEvent.getTime())));
     }
 }

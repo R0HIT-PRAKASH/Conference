@@ -84,6 +84,23 @@ public class Presenter {
         System.out.println("Invalid Date. Please try again.");
     }
 
+    /**
+     * Prints all the messages a User has received in order of last arrived
+     * @param allMessages: All the messages the user has received
+     */
+    public void displayPrintMessages(List<Message> allMessages){
+        if(allMessages.size() == 0) {
+            System.out.println("No Messages :(");
+            return;
+        }
+        int counter = 1;
+        for (int i = allMessages.size() -1; i > -1; i-- ){
+            System.out.println(counter + ". Sent By: " + allMessages.get(i).getSender() + "\nMessage: " +
+                    allMessages.get(i).getContent());
+            counter++;
+        }
+    }
+
 
     // ----------------------------------------------------------------------------------------------------------------
 
