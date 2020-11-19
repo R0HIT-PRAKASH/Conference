@@ -352,7 +352,7 @@ public class OrganizerController extends AttendeeController {
         }
         System.out.println("Enter the speaker address");
         String address = scan.nextLine();
-        while(address.length() < 3) {
+        while(address.length() < 6) {
             System.out.println("Error, address must be at least 6 characters.\nPlease enter again:");
             address = scan.nextLine();
         }

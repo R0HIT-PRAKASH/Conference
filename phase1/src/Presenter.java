@@ -135,7 +135,7 @@ public class Presenter {
     }
 
     public void displayEnterSpeakerPrompt(){
-        System.out.println("Enter a Speaker:");
+        System.out.println("Enter a Speaker's username:");
     }
 
     public void displayEnterRoomNumberPrompt(){
