@@ -146,6 +146,7 @@ public class OrganizerController extends AttendeeController {
                 int num = nextInt();
 
                 boolean added = addEvent(name, speaker, time, num);
+                userManager.addSpeakingEvent(speaker, name);
                 if(!added) p.displayEventCreationError();
 
                 break;

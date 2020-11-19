@@ -122,7 +122,19 @@ public class UserManager implements java.io.Serializable {
 
     }
 
-
+    /**
+     * adds an Event name to a speaker's list of speaking events.
+     * @param username The String username of the speaker of the event
+     * @param eventName The String name of the event.
+     * @return true if the event is added to the speaker's list of speaking events.
+     */
+    public boolean addSpeakingEvent(String username, String eventName) {
+        if (userMap.get(username).getUserType().equals("speaker")) {
+            ((Speaker) userMap.get(username)).addSpeakingEvent(eventName);
+            return true;
+        }
+        return false;
+    }
     /**
      * This method returns a list of all of the organizers in userMap.
      * @return A list of all of the organizers in userMap.
