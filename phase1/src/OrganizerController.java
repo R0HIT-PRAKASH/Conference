@@ -4,13 +4,13 @@ import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 /**
  * Refers to the controller class that will deal with the actions of an organizer object.
  */
 public class OrganizerController extends AttendeeController {
 
-    private Presenter p;
 
     /**
      * Constructs an OrganizerController object.
@@ -21,7 +21,6 @@ public class OrganizerController extends AttendeeController {
      */
     public OrganizerController(UserManager userManager, EventManager eventManager, MessageManager messageManager, String username) {
         super(userManager, eventManager, messageManager, username);
-        p = new Presenter();
     }
 
 
@@ -113,9 +112,9 @@ public class OrganizerController extends AttendeeController {
                 p.displayEnterRoomNumberPrompt();
                 int num = nextInt();
 
-                while(!addEvent(name, speaker, time, num)) {
-                    p.displayEventCreationError();
-                }
+                boolean added = addEvent(name, speaker, time, num);
+                if(!added) p.displayEventCreationError();
+
                 break;
 
             case 8:
@@ -168,14 +167,10 @@ public class OrganizerController extends AttendeeController {
 
             case 15:
                 p.displayRoomCreationPrompt();
-                int roomNumber = Integer.parseInt(scan.nextLine());
+                int roomNumber = nextInt();
                 boolean roomAdded = eventManager.addRoom(roomNumber);
-                if(roomAdded){
-                    break;
-                }
-                else {
-                    p.displayRoomAlreadyExists();
-                }
+                if(!roomAdded) p.displayRoomAlreadyExists();
+
                 break;
 
             case 16:
@@ -356,13 +351,9 @@ public class OrganizerController extends AttendeeController {
         }
         p.displayEnterSpeakerEmailPrompt();
         String email = scan.nextLine();
-        while(email.length() < 3 || !email.contains("@")) {
-            if (!email.contains("@")) {
-                p.displaySpeakerEmailError1();
-            }
-            else if (email.length() < 3) {
-                p.displaySpeakerEmailError2();
-            }
+        Pattern email_pattern = Pattern.compile("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");
+        while(!email_pattern.matcher(email).matches()){
+            System.out.println("The email is not up to RFC 5322 standards. Try another");
             email = scan.nextLine();
         }
         createSpeakerAccount(name, address, email, username, password);

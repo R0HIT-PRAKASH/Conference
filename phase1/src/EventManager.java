@@ -96,7 +96,7 @@ public class EventManager implements Serializable {
         int month = time.getMonthValue();
         int day = time.getDayOfMonth();
         LocalDateTime dateAt9AM = LocalDateTime.of(year, month, day, 9, 0);
-        LocalDateTime dateAt5PM = LocalDateTime.of(year, month, day, 16, 0);
+        LocalDateTime dateAt5PM = LocalDateTime.of(year, month, day, 17, 0);
 
         int compare1 = time.compareTo(dateAt9AM);
         int compare2 = time.compareTo(dateAt5PM);

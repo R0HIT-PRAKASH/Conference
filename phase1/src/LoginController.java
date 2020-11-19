@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 /**
  * A controller that deals with logging into the program.
@@ -109,13 +110,9 @@ public class LoginController {
         }
         System.out.println("Enter your Email: ");
         String email = scan.nextLine();
-        while(email.length() < 3 || !email.contains("@")){
-            if (!email.contains("@")) {
-                System.out.println("Error, email must contain '@'.\nPlease enter a valid email:");
-            }
-            else if (email.length() < 3) {
-                System.out.println("Error, email must be at least 3 characters.\nPlease enter again:");
-            }
+        Pattern email_pattern = Pattern.compile("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");
+        while(!email_pattern.matcher(email).matches()){
+            System.out.println("The email is not up to RFC 5322 standards. Try another");
             email = scan.nextLine();
         }
         System.out.println("Enter your status in the conference. This can be \"organizer\", \"attendee\" or \"speaker\":");

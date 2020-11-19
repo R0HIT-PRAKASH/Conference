@@ -149,4 +149,9 @@ public class Event implements Comparable<Event>, Serializable {
         return this.getTime().compareTo(e.getTime());
     }
 
+    public String toString() {
+        return "Title: " + getName() + "|Time: " + getTime() + "|Speaker: " + getSpeakerName() + "|Duration: "
+                + getDuration() + " hour/s|Room: " + getRoomNumber();
+    }
+
 }
