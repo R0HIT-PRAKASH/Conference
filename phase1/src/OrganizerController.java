@@ -122,7 +122,7 @@ public class OrganizerController extends AttendeeController {
                 while(!eventManager.between9to5(time)) {
                     System.out.println("Invalid time. The event must begin between 9:00 and 16:00");
                     // NEED TO ADD THIS TO PRESENTER
-                    LocalDateTime newtime = askTime();
+                    time = askTime();
                 }
                 p.displayEventTitlePrompt();
                 String name = scan.nextLine();
