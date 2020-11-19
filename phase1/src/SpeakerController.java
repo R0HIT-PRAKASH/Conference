@@ -156,7 +156,6 @@ public class SpeakerController{
      */
     private void viewMessages(String username) {
         messageManager.printMessages(username);
-
     }
 
     /**

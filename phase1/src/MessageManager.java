@@ -85,8 +85,10 @@ public class MessageManager implements java.io.Serializable {
             System.out.println("No Messages :(");
             return;
         }
+        int counter = 1;
         for (int i = allMessages.size() -1; i > -1; i-- ){
-            System.out.println(allMessages.get(i).getContent());
+            System.out.println(counter + ". Sent By: " + allMessages.get(i).getSender() + "\nMessage: " +
+                    allMessages.get(i).getContent());
         }
     }
 
