@@ -40,6 +40,7 @@ public class UserManager implements java.io.Serializable {
 
     /**
      * This method sets the map of users.
+     * @param userMap Refers to the map the userMap will now be set to.
      */
     public void setUserMap(HashMap<String, User> userMap) {
         this.userMap = userMap;
