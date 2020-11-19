@@ -57,6 +57,7 @@ public class SpeakerController{
             case 2:
                 List<String> allEvents = userManager.getSpeakingEvents(username);
                 List<Event> priorEvents = eventManager.chronologicalEvents(eventManager.eventHappened(allEvents));
+                List<String> priorEventNames = eventManager.eventHappened(allEvents);
                 p.displayAllEventsGiven(priorEvents);
                 p.displayEnterNumberOfEventsPrompt();
                 String strnum = scan.nextLine();
@@ -77,14 +78,14 @@ public class SpeakerController{
                     if (next.equals("q")){
                         break;
                     }
-                    if (priorEvents.contains(next) && !eventNames.contains(next)) {
+                    if (priorEventNames.contains(next) && !eventNames.contains(next)) {
                         eventNames.add(next);
                     }
-                    else if(priorEvents.contains(next)){
+                    else if(priorEventNames.contains(next)){
                         p.displayEventAlreadyAddedError();
                         i--;
                     }
-                    else if(!priorEvents.contains(next)){
+                    else if(!priorEventNames.contains(next)){
                         p.displayEventNotGivenError();
                         i--;
                     }
