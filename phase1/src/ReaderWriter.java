@@ -67,8 +67,8 @@ public class ReaderWriter {
      * @param filename name of the file we want to read (excluding .ser part)
      * @return returns the deserialized HashMap object containing usernames as keys and the corresponding
      * Users as values
-     * @throws IOException
-     * @throws ClassNotFoundException
+     * @throws IOException Refers to the exception that is raised when the program can't get input or output from users.
+     * @throws ClassNotFoundException Refers to the exception that is raised when the program can't find users.
      */
     public HashMap<String, User> readUsers(String filename) throws IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream("users.ser");
@@ -84,8 +84,8 @@ public class ReaderWriter {
      * @param filename name of the file we want to read (excluding .ser part)
      * @return returns the deserialized HashMap object containing usernames as keys and the corresponding
      * user's messages received (List<Message> type) as values
-     * @throws IOException
-     * @throws ClassNotFoundException
+     * @throws IOException Refers to the exception that is raised when the program can't get input or output from messages.
+     * @throws ClassNotFoundException Refers to the exception that is raised when the program can't find messages.
      */
     public HashMap<String, List<Message>> readMessages(String filename) throws IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream("messages.ser");
@@ -101,8 +101,8 @@ public class ReaderWriter {
      * @param filename name of the file we want to read (excluding .ser part)
      * @return returns the deserialized HashMap object containing event names as keys and the corresponding
      * Events as values
-     * @throws IOException
-     * @throws ClassNotFoundException
+     * @throws IOException Refers to the exception that is raised when the program can't get input or output from events.
+     * @throws ClassNotFoundException Refers to the exception that is raised when the program can't find events.
      */
     public HashMap<String, Event> readEvents(String filename) throws IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream("events.ser");
@@ -119,8 +119,8 @@ public class ReaderWriter {
      * Reads the rooms.ser file
      * @param filename the name of the file we want to read
      * @return returns the deserialized ArrayList object containing the rooms
-     * @throws IOException
-     * @throws ClassNotFoundException
+     * @throws IOException Refers to the exception that is raised when the program can't get input or outputs from rooms.
+     * @throws ClassNotFoundException Refers to the exception that is raised when the program can't find rooms.
      */
     public ArrayList<Room> readRooms(String filename) throws IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream("rooms.ser");

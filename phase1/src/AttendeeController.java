@@ -37,12 +37,10 @@ public class AttendeeController{
         p.displayOptions();
         p.displayTaskInput();
         int input = 0;
-        input = scan.nextInt();
-        scan.nextLine();
-        while (input != 8){ // 15 is ending condition
+        input = nextInt();
+        while (input != 8){ // 8 is ending condition
             determineInput(input);
-            input = scan.nextInt();
-            scan.nextLine();
+            input = nextInt();
         }
     }
 
