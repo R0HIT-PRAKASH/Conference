@@ -6,7 +6,7 @@ import java.util.Scanner;
  * A controller that deals with Attendee users
  */
 public class AttendeeController{
-    private Scanner scan = new Scanner(System.in);
+    protected Scanner scan = new Scanner(System.in);
     UserManager userManager;
     EventManager eventManager;
     MessageManager messageManager;
