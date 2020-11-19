@@ -181,7 +181,6 @@ public class AttendeeController{
      * @param username: The username of this Attendee
      */
     public void viewSignedUpForEvent(String username) {
-        // Should try and make this chronological as well
         List<String> signedUpFor = userManager.getAttendingEvents(username);
         p.displaySignedUpEvents(signedUpFor);
     }
@@ -204,5 +203,25 @@ public class AttendeeController{
         Event event = eventManager.getEvent(eventName);
         userManager.signUpForEvent(this.username, event, eventManager);
         p.displayEventSignUp();
+    }
+
+    /**
+     * Queries the user for an integer
+     * @return int
+     */
+    protected int nextInt() {
+        int input = 0;
+
+        do {
+            try {
+                input = Integer.parseInt(scan.nextLine());
+                break;
+            } catch (NumberFormatException e) {
+                p.displayInvalidInputError();
+                e.printStackTrace();
+            }
+        } while(true);
+
+        return input;
     }
 }

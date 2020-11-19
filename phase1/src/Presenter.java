@@ -84,9 +84,7 @@ public class Presenter {
     public void displayEventList(List<Event> events){
         System.out.println("Here is a list of all the available events at this conference: ");
         for (Event curr : events){
-            DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
-            String date = curr.getTime().format(formatter);
-            System.out.println(date + ": " + curr);
+            System.out.println(curr);
         }
     }
 

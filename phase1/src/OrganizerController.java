@@ -84,11 +84,9 @@ public class OrganizerController extends AttendeeController {
                 p.displaySuccessfulMessage();
                 break;
             case 3:
-                p.displayEventList();
                 viewEventList();
                 break;
             case 4:
-                p.displaySignedUpEvents();
                 viewSignedUpForEvent(this.username);
                 break;
             case 5:
@@ -375,20 +373,4 @@ public class OrganizerController extends AttendeeController {
         messageManager.addUserInbox(username);
     }
 
-
-    private int nextInt() {
-        int input = 0;
-
-        do {
-            try {
-                input = Integer.parseInt(scan.nextLine());
-                break;
-            } catch (NumberFormatException e) {
-                p.displayInvalidInputError();
-                e.printStackTrace();
-            }
-        } while(true);
-
-        return input;
-    }
 }
