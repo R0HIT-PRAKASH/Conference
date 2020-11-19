@@ -48,6 +48,11 @@ public class OrganizerController extends AttendeeController {
                 viewMessages(this.username);
                 break;
             case 1:
+                if(userManager.getUserMap().size() == 1) {
+                    p.displayConferenceError();
+                    p.displayNextTaskPrompt();
+                    break;
+                }
                 p.displayMethodPrompt();
                 String recipient = scan.nextLine();
                 if(messageManager.checkIsMessageable(recipient, this.username, userManager)) {
@@ -61,6 +66,14 @@ public class OrganizerController extends AttendeeController {
                 }
                 break;
             case 2:
+                if(messageManager.getAllUserMessages().get(this.username).size() == 0){
+                    p.displayNoReply();
+                    break;
+                }
+                else if(userManager.getUserMap().size() == 1) {
+                    p.displayConferenceError();
+                    break;
+                }
                 p.displayOldestInboxMessage(messageManager.viewMessages(this.username).
                         get(messageManager.viewMessages(this.username).size()
                                 -  1).toString());
