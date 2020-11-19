@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -123,14 +124,22 @@ public class AttendeeController{
                 break;
 
             case 6:
-                p.displayEventSignUpPrompt();
-                String eventSignedUp = scan.nextLine();
-                if(!eventManager.getAllEvents().containsKey(eventSignedUp)) {
-                    p.displaySignUpError1();
+                List<Event> future = viewFutureEventList();
+                p.displayAllFutureEvents(future);
+                if (future.size() == 0){
                     break;
                 }
-                else if(eventManager.getAllEvents().size() == 0){
-                    p.displaySignUpError2();
+                p.displayEventSignUpPrompt();
+                String eventSignedUp = scan.nextLine();
+                while (eventManager.getEvent(eventSignedUp) == null ||
+                        !future.contains(eventManager.getEvent(eventSignedUp))){
+                    p.displayInvalidEventSignUp();
+                    eventSignedUp = scan.nextLine();
+                    if (eventSignedUp.equalsIgnoreCase("q")){
+                        break;
+                    }
+                }
+                if (eventSignedUp.equalsIgnoreCase("q")){
                     break;
                 }
                 signUp(eventSignedUp);
@@ -152,7 +161,7 @@ public class AttendeeController{
      * Prints all the messages that this attendee has received
      * @param username: The username of the Attendee
      */
-    public void viewMessages(String username) {
+    protected void viewMessages(String username) {
         List<Message> allMessages = messageManager.viewMessages(username);
         p.displayPrintMessages(allMessages);
     }
@@ -162,7 +171,7 @@ public class AttendeeController{
      * @param recipient: The username of the recipient
      * @param messageContents: The content of the message the Attendee is sending
      */
-    public void sendMessage(String recipient, String messageContents) {
+    protected void sendMessage(String recipient, String messageContents) {
         Message newMessage = messageManager.createNewMessage(messageContents, this.username, recipient);
         messageManager.addMessage(recipient, newMessage);
     }
@@ -172,7 +181,7 @@ public class AttendeeController{
      * @param message: The content of the message the Attendee is sending
      * @param originalMessenger: The username of the User we are replying too
      */
-    public void replyMessage(String message, String originalMessenger) {
+    protected void replyMessage(String message, String originalMessenger) {
         List<Message> userInbox = messageManager.allUserMessages.get(this.username);
         Message replyMessage = messageManager.createNewMessage(message, this.username, originalMessenger);
         messageManager.addMessage(originalMessenger, replyMessage);
@@ -182,16 +191,28 @@ public class AttendeeController{
     /**
      * Prints the event list for the entire conference
      */
-    public void viewEventList() {
+    protected void viewEventList() {
         List<Event> chronological = eventManager.chronologicalEvents(eventManager.getAllEventNamesOnly());
         p.displayEventList(chronological);
+    }
+
+    protected List<Event> viewFutureEventList() {
+        List<Event> chronological = eventManager.chronologicalEvents(eventManager.getAllEventNamesOnly());
+        List<Event> future = new ArrayList<>();
+        LocalDateTime now = LocalDateTime.now();
+        for (Event curr: chronological){
+            if (eventManager.getTime(curr).compareTo(now) > 0){
+                future.add(curr);
+            }
+        }
+        return future;
     }
 
     /**
      * Prints the scheduled events of an attendee
      * @param username: The username of this Attendee
      */
-    public void viewSignedUpForEvent(String username) {
+    protected void viewSignedUpForEvent(String username) {
         List<String> signedUpFor = userManager.getAttendingEvents(username);
         List<Event> chronological = eventManager.chronologicalEvents(signedUpFor);
         p.displaySignedUpEvents(chronological);
@@ -201,7 +222,7 @@ public class AttendeeController{
      * Removes an attendee from an event they were signed up for
      * @param eventName: The name of the Event we want to cancel our spot in
      */
-    public void cancelSpotInEvent(String eventName) {
+    protected void cancelSpotInEvent(String eventName) {
         Event event = eventManager.getEvent(eventName);
         userManager.cancelEventSpot(this.username, event, eventManager);
         p.displaySuccessfulCancellation();
@@ -211,7 +232,7 @@ public class AttendeeController{
      * Signs an attendee up for a new event
      * @param eventName: The name of the Event we want to sign up for
      */
-    public void signUp(String eventName) {
+    protected void signUp(String eventName) {
         Event event = eventManager.getEvent(eventName);
         userManager.signUpForEvent(this.username, event, eventManager);
         p.displayEventSignUp();

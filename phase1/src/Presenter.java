@@ -216,6 +216,19 @@ public class Presenter {
                 "signed up for an event to use this feature.");
     }
 
+    public void displayAllFutureEvents(List<Event> events){
+        if (events.size() == 0){
+            displaySignUpError2();
+            return;
+        }
+        System.out.println("Here is the list of all future events: ");
+        int counter = 1;
+        for (Event curr : events){
+            System.out.println(counter + ". " + curr);
+        }
+
+    }
+
     /**
      * Prompts an Attendee or Organizer for the name of the Event they would like to sign up for.
      */
@@ -231,18 +244,26 @@ public class Presenter {
     }
 
     /**
-     * Prints an error message that the Event cancellation was unsuccessful since this Event does not exist in the conference.
+     * Prints an error message that the Event sign up was unsuccessful since this Event does not exist in the conference.
      */
     public void displaySignUpError1(){
-        System.out.println("Sign Up was unsuccessful as the event you are trying to sign up for does not" +
-                "exist");
+        System.out.println("Sign Up was unsuccessful as the event you are trying to sign up for is not" +
+                "valid");
     }
 
     /**
-     * Prints an error message that the Event cancellation was unsuccessful since there are no events in this conference.
+     * Prints an error message that user cannot sign up for this event
+     */
+    public void displayInvalidEventSignUp(){
+        System.out.println("That is not an Event you can sign up for. Please re-enter the name " +
+                "(it is case sensitive) or enter 'q' to quit");
+    }
+
+    /**
+     * Prints an error message that the Event sign up was unsuccessful since there are no events in this conference.
      */
     public void displaySignUpError2(){
-        System.out.println("There are currently no events in this conference. Please wait until event(s)" +
+        System.out.println("There are currently no future events in this conference. Please wait until event(s)" +
                 "have been added to use this feature.");
     }
 
@@ -385,7 +406,7 @@ public class Presenter {
      * Prompts the Organizer to enter the hour of the Event they are creating/rescheduling.
      */
     public void displayEnterHourPrompt(){
-        System.out.println("Enter an hour (0-23):");
+        System.out.println("Enter an hour (9-16):");
     }
 
     /**
@@ -544,7 +565,7 @@ public class Presenter {
      * Prints all future events which this Speaker is attending.
      * @param events: a List of events which the Speaker will be attending
      */
-    public void displayAllFutureEvents(List<Event> events){
+    public void displayAllFutureEventsGiving(List<Event> events){
         if (events.size() == 0){
             System.out.println("You aren't currently signed up to give any future events");
             return;

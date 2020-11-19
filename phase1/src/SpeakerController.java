@@ -180,7 +180,7 @@ public class SpeakerController{
         List<String> allEvents = userManager.getSpeakingEvents(username);
         List<String> notHappened = eventManager.eventNotHappened(allEvents);
         List<Event> chronological  = eventManager.chronologicalEvents(notHappened);
-        p.displayAllFutureEvents(chronological);
+        p.displayAllFutureEventsGiving(chronological);
     }
 
     /**

@@ -106,14 +106,25 @@ public class OrganizerController extends AttendeeController {
                 }
                 break;
             case 6:
+                List<Event> future = viewFutureEventList();
+                p.displayAllFutureEvents(future);
+                if (future.size() == 0){
+                    break;
+                }
                 p.displayEventSignUpPrompt();
                 String eventSignedUp = scan.nextLine();
-                if(eventManager.getAllEvents().containsKey(eventSignedUp)) {
-                    signUp(eventSignedUp);
+                while (eventManager.getEvent(eventSignedUp) == null ||
+                        !future.contains(eventManager.getEvent(eventSignedUp))){
+                    p.displayInvalidEventSignUp();
+                    eventSignedUp = scan.nextLine();
+                    if (eventSignedUp.equalsIgnoreCase("q")){
+                        break;
+                    }
                 }
-                else{
-                    p.displaySignUpError1();
+                if (eventSignedUp.equalsIgnoreCase("q")){
+                    break;
                 }
+                signUp(eventSignedUp);
                 break;
 
             case 7:
