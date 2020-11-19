@@ -72,9 +72,10 @@ public class UserManager implements java.io.Serializable {
             userMap.put(username, new Organizer(name, address, email, username, password));
         }else if(usertype.toLowerCase().equals("speaker")){
             userMap.put(username, new Speaker(name, address, email, username, password));
-        }else{
+        }else {
             userMap.put(username, new Attendee(name, address, email, username, password));
         }
+
         return true;
     }
 
