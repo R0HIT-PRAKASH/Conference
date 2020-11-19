@@ -147,6 +147,22 @@ public class EventManager implements Serializable {
         return false;
     }
 
+
+    /**
+     * @param time Refers to the time that you want to see if it is after the current time.
+     * @return Returns true if the time is after the current time, otherwise returns false.
+     */
+    public boolean checkTimeIsAfterNow(LocalDateTime time){
+        LocalDateTime currentTime = LocalDateTime.now();
+
+        int compare = time.compareTo(currentTime);
+
+        if (compare > 0){
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Creates a new Speaker user.
      * @param name Refers to the name of the speaker.
