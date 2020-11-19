@@ -353,7 +353,7 @@ public class OrganizerController extends AttendeeController {
         String email = scan.nextLine();
         Pattern email_pattern = Pattern.compile("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");
         while(!email_pattern.matcher(email).matches()){
-            System.out.println("The email is not up to RFC 5322 standards. Try another");
+            p.displayInvalidEmail();
             email = scan.nextLine();
         }
         createSpeakerAccount(name, address, email, username, password);

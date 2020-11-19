@@ -247,6 +247,10 @@ public class Presenter {
         System.out.println("Error, email must be at least 3 characters.\nPlease enter again:");
     }
 
+    public void displayInvalidEmail() {
+        System.out.println("The email is not up to RFC 5322 standards. Try another:");
+    }
+
     public void displayRoomCreationPrompt(){ System.out.println("What is the number of the Room you would like to add?");
     }
 
