@@ -8,77 +8,77 @@ public class Presenter {
     // Common Methods For All User Controllers (Attendees, Speakers, Organizers) --------------------------------------
 
     /**
-     * Prompts a User to choose a task
+     * Prompts a User to choose a task.
      */
     public void displayTaskInput(){
         System.out.println("What would you like to do?\nEnter the corresponding number:");
     }
 
     /**
-     * Prompts an Attendee to choose another task once they have completed a task
+     * Prompts an Attendee to choose another task once they have completed a task.
      */
     public void displayNextTaskPromptAttendee(){
         System.out.println("Please enter next task (reminder, you can type '7' to see what you can do): ");
     }
 
     /**
-     * Prompts an Organizer to choose another task once they have completed a task
+     * Prompts an Organizer to choose another task once they have completed a task.
      */
     public void displayNextTaskPromptOrganizer(){
         System.out.println("Please enter next task (reminder, you can type '14' to see what you can do): ");
     }
 
     /**
-     * Prompts a Speaker to choose another task once they have completed a task
+     * Prompts a Speaker to choose another task once they have completed a task.
      */
     public void displayNextTaskPromptSpeaker(){
         System.out.println("Please enter next task (reminder, you can type '4' to see what you can do): ");
     }
 
     /**
-     * Prints an error message when a User inputs an invalid task
+     * Prints an error message when a User inputs an invalid task.
      */
     public void displayInvalidInputError(){
         System.out.println("Invalid Input, please try again.");
     }
 
     /**
-     * Notifies a User that their message has been sent successfully
+     * Notifies a User that their message has been sent successfully.
      */
     public void displayMessageSentPrompt(){
         System.out.println("Message Sent\n");
     }
 
     /**
-     * Notifies a User that their message has been sent successfully
+     * Notifies a User that their message has been sent successfully.
      */
     public void displayMessageSentPrompt2(){
         System.out.println("Messages Sent");
     }
 
     /**
-     * Notifies a User that their reply was successful
+     * Notifies a User that their reply was successful.
      */
     public void displaySuccessfulMessage(){
         System.out.println("Successfully Replied to Message");
     }
 
     /**
-     * Notifies a User that they successfully canceled their spot in an event
+     * Notifies a User that they successfully canceled their spot in an event.
      */
     public void displaySuccessfulCancellation(){
         System.out.println("Successfully Cancelled Spot in Event");
     }
 
     /**
-     * Prints an error message when a User inputs an invalid Event
+     * Prints an error message when a User inputs an invalid Event.
      */
     public void displayInvalidEventError(){
         System.out.println("Invalid Event. Please try again");
     }
 
     /**
-     * Prints an error message when a User inputs an invalid date
+     * Prints an error message when a User inputs an invalid date.
      */
     public void displayDateError(){
         System.out.println("Invalid Date. Please try again.");
@@ -91,7 +91,7 @@ public class Presenter {
     // These methods also work with the identical cases in the organizer controller
 
     /**
-     * Prints the tasks which an Attendee is able to do
+     * Prints the tasks which an Attendee is able to do.
      */
     public void displayOptions(){
         System.out.println("(0) See Inbox\n(1) Send Message\n(2) Reply to Message\n(3) View Event List" +
@@ -100,7 +100,7 @@ public class Presenter {
     }
 
     /**
-     * Prints an error message when an Organizer or Attendee tries to message another User when they are the only one in the conference
+     * Prints an error message when an Organizer or Attendee tries to message another User when they are the only one in the conference.
      */
     public void displayConferenceError(){
         System.out.println("There are currently no other users who are registered within this " +
@@ -108,14 +108,14 @@ public class Presenter {
     }
 
     /**
-     * Prompts an Organizer or Attendee on which User they would like to message
+     * Prompts an Organizer or Attendee on which User they would like to message.
      */
     public void displayMethodPrompt(){
         System.out.println("Who would you like to message? (Please enter the username of the recipient)");
     }
 
     /**
-     * Prints an error message when an Attendee or Organizer tries to message a User who has not registered for this conference
+     * Prints an error message when an Attendee or Organizer tries to message a User who has not registered for this conference.
      */
     public void displayMessageError(){ // use this for case2 in attendee controller as well
         System.out.println("Sorry, it seems you are unable to message this user. Please wait for this " +
@@ -123,22 +123,22 @@ public class Presenter {
     }
 
     /**
-     * Prompts an Attendee or Organizer to enter the contents of the message they would like to send
-     * @param recipient: The username of the User who is being messaged
+     * Prompts an Attendee or Organizer to enter the contents of the message they would like to send.
+     * @param recipient: The username of the User who is being messaged.
      */
     public void displayEnterMessagePrompt(String recipient){
         System.out.println("What message would you like to send to: " + recipient + ".");
     }
 
     /**
-     * Notifies an Organizer or Attendee that they have no messages to reply to
+     * Notifies an Organizer or Attendee that they have no messages to reply to.
      */
     public void displayNoReply(){
         System.out.println("You currently have no messages to reply to.");
     }
 
     /**
-     * Prompts an Attendee or Organizer to enter which User they want to reply to
+     * Prompts an Attendee or Organizer to enter which User they want to reply to.
      */
     public void displayEnterUserUsernamePrompt(){
         System.out.println("Which user are you replying to (it is case sensitive): ");
@@ -150,8 +150,8 @@ public class Presenter {
 //    }
 
     /**
-     * Prints the event list for the conference
-     * @param events:
+     * Prints the event list for the conference.
+     * @param events: a List of all events in this conference.
      */
     public void displayEventList(List<Event> events){
         System.out.println("Here is a list of all the available events at this conference: ");
@@ -160,6 +160,10 @@ public class Presenter {
         }
     }
 
+    /**
+     * Prints all the events that an Attendee or Organizer has signed up for.
+     * @param signedUpFor: a List of all events that this User has signed up for.
+     */
     public void displaySignedUpEvents(List<Event> signedUpFor){
         if (signedUpFor.size() == 0){
             System.out.println("You haven't signed up for any events yet. ");
@@ -172,34 +176,54 @@ public class Presenter {
         }
     }
 
+    /**
+     * Prompts an Attendee or Organizer on which Event they would like to cancel their spot in.
+     */
     public void displayEventCancelPrompt(){
         System.out.println("What is the name of the event you no longer want to attend?");
     }
 
-
+    /**
+     * Prints an error message that tells an Attendee or Organizer that the Event they are trying to cancel is not in the included events for the conference.
+     */
     public void displayEventCancellationError1(){
         System.out.println("Cancellation was unsuccessful since this event is not included in the events " +
                 "you are attending. Please try again.");
     }
 
+    /**
+     * Prints an error message that tells an Attendee or Organizer that the Event they are trying to cancel is not one of the events they have signed up for.
+     */
     public void displayEventCancellationError2(){
         System.out.println("You are currently not attending any events. For future use, you must be " +
                 "signed up for an event to use this feature.");
     }
 
+    /**
+     * Prompts an Attendee or Organizer for the name of the Event they would like to sign up for.
+     */
     public void displayEventSignUpPrompt(){
         System.out.println("What is the name of the event you would like to sign up for?");
     }
 
+    /**
+     * Notifies the Attendee or Organizer that they have successfully signed up for an Event.
+     */
     public void displayEventSignUp(){
         System.out.println("Successfully signed up for the event");
     }
 
+    /**
+     * Prints an error message that the Event cancellation was unsuccessful since this Event does not exist in the conference.
+     */
     public void displaySignUpError1(){
         System.out.println("Sign Up was unsuccessful as the event you are trying to sign up for does not" +
                 "exist");
     }
 
+    /**
+     * Prints an error message that the Event cancellation was unsuccessful since there are no events in this conference.
+     */
     public void displaySignUpError2(){
         System.out.println("There are currently no events in this conference. Please wait until event(s)" +
                 "have been added to use this feature.");
@@ -209,6 +233,9 @@ public class Presenter {
 
     // Methods for Organizer Controller --------------------------------------------------------------------------------
 
+    /**
+     * Prints all the tasks which an Organizer can do.
+     */
     public void displayOptions2(){
         System.out.println("(0) See Inbox\n(1) Send Message\n(2) Reply to Message\n(3) View Event List" +
                 "\n(4) View My Scheduled Events\n(5) Cancel Event Reservation\n(6) Sign up for Event" +
@@ -217,134 +244,234 @@ public class Presenter {
                 "\n(14) View Options" + "\n(15) Add Room \n(16) View All Rooms \n(17) End");
     }
 
+    /**
+     * Prompts the Organizer that the process of adding an Event will now begin.
+     */
     public void displayAddConferencePrompt(){
         System.out.println("To Add an Event to the Conference, Enter the following");
     }
 
+    /**
+     * Prompts the Organizer to add the Title of the Event they want to create.
+     */
     public void displayEventTitlePrompt(){
         System.out.println("Enter an Event Title:");
     }
 
+    /**
+     * Prompts the Organizer to enter the name of the Speaker for the Event they want to create.
+     */
     public void displayEnterSpeakerPrompt(){
         System.out.println("Enter a Speaker's username:");
     }
 
+    /**
+     * Prompts the Organizer to enter the room number for the Event they want to create.
+     */
     public void displayEnterRoomNumberPrompt(){
         System.out.println("Enter a room number:");
     }
 
+    /**
+     * Prints an error message notifying the Organizer that the Speaker they tried to add to their Event does not exist.
+     */
     public void displaySpeakerCredentialError(){
         System.out.println("This speaker does not exist. You will be asked to create an account for them.");
     }
 
+    /**
+     * Prints an error message notifying the Organizer that the Speaker or Room for the Event they are trying to create will be double booked.
+     */
     public void displayEventCreationError(){
         System.out.println("The event was invalid. Either the speaker or the room would be double booked. " +
                 "Please try again.");
     }
 
+    /**
+     * Notifies the Organizer that the Event was created successfully.
+     */
     public void displaySuccessfulEventCreation(){
         System.out.println("Event created successfully. ");
     }
 
+    /**
+     * Prompts the Organizer to enter the Message they want to send to all Attendees in the conference.
+     */
     public void displayAllAttendeeMessagePrompt(){
         System.out.println("What do you want to say to all the attendees? (1 line)");
     }
 
+    /**
+     * Prompts the Organizer to enter the Message they want to send to all Attendees in the Event they created.
+     */
     public void displayAllAttendeeEventMessagePrompt() {
         System.out.println("What do you want to say to all the attendees at this event? (1 line)");
     }
 
+    /**
+     * Prompts the Organizer on which Event they want to send a Message to.
+     */
     public void displayEventMessagePrompt(){
         System.out.println("Enter the event you want to message");
     }
 
+    /**
+     * Prompts the Organizer what Message they want to send to all speakers in the conference.
+     */
     public void displayAllSpeakerMessagePrompt(){
         System.out.println("What do you want to say to all the speakers? (1 line)");
     }
 
+    /**
+     * Prompts the Organizer as to what Event they want to remove.
+     */
     public void displayEventRemovalPrompt(){
         System.out.println("What event do you want to remove?");
     }
 
+    /**
+     * Prompts the Organizer on which Event they want to reschedule.
+     */
     public void displayEventReschedulePrompt(){
         System.out.println("What Event do you want to reschedule?");
     }
 
+    /**
+     * Prints an error message which notifies the Organizer that a User they are trying to Message is not in their contacts list.
+     */
     public void displayContactListError(){
         System.out.println("Sorry, this person is not in your contact list. Please try again");
     }
 
+    /**
+     * Prompts the Organizer to enter the year of the Event they are creating/rescheduling.
+     */
     public void displayEnterYearPrompt(){
         System.out.println("Enter a year:");
     }
 
+    /**
+     * Prompts the Organizer to enter the month of the Event they are creating/rescheduling.
+     */
     public void displayEnterMonthPrompt(){
         System.out.println("Enter a month (1-12):");
     }
 
+    /**
+     * Prompts the Organizer to enter the day of the Event they are creating/rescheduling.
+     */
     public void displayEnterDayPrompt(){
         System.out.println("Enter a day:");
     }
 
+    /**
+     * Prompts the Organizer to enter the hour of the Event they are creating/rescheduling.
+     */
     public void displayEnterHourPrompt(){
         System.out.println("Enter an hour (0-23):");
     }
 
+    /**
+     * Prompts the Organizer to enter the minute of the Event they are creating/rescheduling.
+     */
     public void displayEnterMinutePrompt(){
         System.out.println("Enter a minute (0-59):");
     }
 
+    /**
+     * Prompts the Organizer to enter the username of the Speaker account they want to add to the conference
+     */
     public void displayEnterUsernamePrompt(){
         System.out.println("Enter Username: ");
     }
 
+    /**
+     * Prints an error message that notifies the Organizer that the Speaker account username they tried to add was already taken.
+     */
     public void displayRepeatUsernameError(){
         System.out.println("That username is already taken, please enter another one: ");
     }
 
+    /**
+     * Prints an error message which notifies the Organizer that the Speaker account they are trying to create needs a username of at least 3 characters.
+     */
     public void displayUsernameLengthError(){
         System.out.println("Error, username must be at least 3 characters. please enter another one: ");
     }
 
+    /**
+     * Prompts the Organizer to enter the password for the Speaker account they are creating.
+     */
     public void displayEnterPasswordPrompt(){
         System.out.println("Enter Password: ");
     }
 
+    /**
+     * Prints an error message notifying the Organizer that the password for the Speaker account must be at least three characters.
+     */
     public void displayPasswordLengthError(){
         System.out.println("Error, password must be at least 3 characters.\nPlease enter again:");
     }
 
+    /**
+     * Prompts the Organizer to enter the name of the Speaker for the Speaker account they are creating.
+     */
     public void displayEnterSpeakerNamePrompt(){
         System.out.println("Enter the speaker name");
     }
 
+    /**
+     * Prints an error message that notifies the Organizer that a Speaker must have a name of at least 2 characters.
+     */
     public void displaySpeakerNameError(){
         System.out.println("Error, name must be at least 2 characters.\nPlease enter again:");
     }
 
+    /**
+     * Prompts the Organizer to enter the address of the Speaker for the Speaker account they are creating.
+     */
     public void displayEnterSpeakerAddressPrompt(){
         System.out.println("Enter the speaker address");
     }
 
+    /**
+     * Prints an error message notifying an Organizer that the address of a Speaker must be at least six characters.
+     */
     public void displayAddressLengthError(){
         System.out.println("Error, address must be at least 6 characters.\nPlease enter again:");
     }
 
+    /**
+     * Prompts the Organizer to enter the email of the Speaker for the Speaker account they are creating.
+     */
     public void displayEnterSpeakerEmailPrompt(){
         System.out.println("Enter the speaker Email");
     }
 
+    /**
+     * Prints an error message notifying the Organizer that the email address of the Speaker does not match specific requirements.
+     */
     public void displayInvalidEmail() {
         System.out.println("The email is not up to RFC 5322 standards. Try another:");
     }
 
+    /**
+     * Prompts the Organizer to enter the number of the Room they would like to create.
+     */
     public void displayRoomCreationPrompt(){ System.out.println("What is the number of the Room you would like to add?");
     }
 
+    /**
+     * Prints an error message which notifies the Organizer that the Room they are trying to create already exists.
+     */
     public void displayRoomAlreadyExists(){
         System.out.println("This room already exists! Please try again.");
     }
 
+    /**
+     * Prints all the rooms in this conference.
+     * @param rooms: a List of rooms in this conference.
+     */
     public void displayRoomList(Object rooms){
         System.out.println(rooms);
     }
@@ -354,11 +481,18 @@ public class Presenter {
 
     // Methods for Speaker Controller --------------------------------------------------------------------------------
 
+    /**
+     * Prints all the tasks which a Speaker can do.
+     */
     public void displayOptions3(){
         System.out.println("(0) See Inbox, \n(1) View My Events, \n(2) Message Event Attendees, " +
                 "\n(3) Reply to Attendee, \n(4) Options, \n(5) End: ");
     }
 
+    /**
+     * Prints all the Users who have messaged this Speaker.
+     * @param attendees: a List of User usernames that have messaged this Speaker.
+     */
     public void displayAllSenders(List<String> attendees){
         System.out.println("These are all the users who have messaged you: ");
         int counter = 1;
@@ -368,6 +502,10 @@ public class Presenter {
         }
     }
 
+    /**
+     * Prints all events that a Speaker is speaking at.
+     * @param events: a List of events which the Speaker is attending.
+     */
     public void displayAllEventsGiven(List<Event> events){
         System.out.println("Here are all the events that you have given: ");
         int counter = 1;
@@ -377,6 +515,10 @@ public class Presenter {
         }
     }
 
+    /**
+     * Prints all future events which this Speaker is attending.
+     * @param events: a List of events which the Speaker will be attending
+     */
     public void displayAllFutureEvents(List<Event> events){
         for (Event curr : events){
             DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
@@ -384,6 +526,7 @@ public class Presenter {
             System.out.println(date + ": " + curr);
         }
     }
+
 
     public void displayEnterNumberOfEventsPrompt(){
         System.out.println("Please enter the number of events or type 'q' to quit: ");
