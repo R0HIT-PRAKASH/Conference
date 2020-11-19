@@ -119,6 +119,11 @@ public class OrganizerController extends AttendeeController {
             case 7:
                 p.displayAddConferencePrompt();
                 LocalDateTime time = askTime();
+                while(!eventManager.between9to5(time)) {
+                    System.out.println("Invalid time. The event must begin between 9:00 and 16:00");
+                    // NEED TO ADD THIS TO PRESENTER
+                    LocalDateTime newtime = askTime();
+                }
                 p.displayEventTitlePrompt();
                 String name = scan.nextLine();
                 p.displayEnterSpeakerPrompt();
@@ -126,15 +131,22 @@ public class OrganizerController extends AttendeeController {
                 if(!userManager.checkCredentials(speaker)) {
                     p.displaySpeakerCredentialError();
                     makeSpeaker();
-                } else if (!(userManager.getUserType(speaker) == "speaker")){
+                } while (!(userManager.getUserType(speaker) == "speaker")){
                     // NEED TO ADD THIS TO PRESENTER
-                    System.out.println("This user is not a speaker! Please try again.");
+                    System.out.println("This user is not a speaker! Please try again or enter 'q' to quit.");
+                    speaker = scan.nextLine();
+                    if (speaker.equalsIgnoreCase("q")) {
+                        break;
+                    }
+                }
+                if (speaker.equalsIgnoreCase("q")) {
                     break;
                 }
                 p.displayEnterRoomNumberPrompt();
                 int num = nextInt();
 
                 boolean added = addEvent(name, speaker, time, num);
+                userManager.addSpeakingEvent(speaker, name);
                 if(!added) p.displayEventCreationError();
 
                 break;
