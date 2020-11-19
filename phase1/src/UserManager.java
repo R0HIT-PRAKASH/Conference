@@ -13,6 +13,9 @@ public class UserManager implements java.io.Serializable {
 
     private HashMap<String, User> userMap;
 
+    /**
+     * Constructs a UserManager Object.
+     */
     public UserManager(){
         userMap = new HashMap<>();
     }

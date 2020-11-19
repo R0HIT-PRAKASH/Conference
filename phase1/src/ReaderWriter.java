@@ -45,6 +45,10 @@ public class ReaderWriter {
         }
     }
 
+    /**
+     * Writes the rooms.ser file
+     * @param rooms The list of Rooms to write into the file
+     */
     public void writeRoom(List<Room> rooms) {
         if (rooms.isEmpty()) return;
         try {
@@ -109,7 +113,15 @@ public class ReaderWriter {
         return events;
 
         // I think I can make all these readhashmaps into one method
-}
+    }
+
+    /**
+     * Reads the rooms.ser file
+     * @param filename the name of the file we want to read
+     * @return returns the deserialized ArrayList object containing the rooms
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public ArrayList<Room> readRooms(String filename) throws IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream("rooms.ser");
         ObjectInputStream ois = new ObjectInputStream(fis);
