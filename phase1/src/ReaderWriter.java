@@ -83,7 +83,7 @@ public class ReaderWriter {
      * Reads the messages.ser file
      * @param filename name of the file we want to read (excluding .ser part)
      * @return returns the deserialized HashMap object containing usernames as keys and the corresponding
-     * user's messages received (List<Message> type) as values
+     * user's messages received as values.
      * @throws IOException Refers to the exception that is raised when the program can't get input or output from messages.
      * @throws ClassNotFoundException Refers to the exception that is raised when the program can't find messages.
      */

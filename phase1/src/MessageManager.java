@@ -31,8 +31,8 @@ public class MessageManager implements java.io.Serializable {
 
     /**
      * Adds a new message to the list of all messages a user has (their "inbox").
+     * @param username Refers to the username of the user.
      * @param newMessage Refers to the message to be added.
-     * @return Returns nothing, as the message will always be added.
      */
     public void addMessage(String username, Message newMessage){ this.allUserMessages.get(username).add(newMessage); }
 
