@@ -6,46 +6,80 @@ public class Presenter {
     public Presenter(){}
 
     // Common Methods For All User Controllers (Attendees, Speakers, Organizers) --------------------------------------
+
+    /**
+     * Prompts a User to choose a task
+     */
     public void displayTaskInput(){
         System.out.println("What would you like to do?\nEnter the corresponding number:");
     }
 
+    /**
+     * Prompts an Attendee to choose another task once they have completed a task
+     */
     public void displayNextTaskPromptAttendee(){
         System.out.println("Please enter next task (reminder, you can type '7' to see what you can do): ");
     }
 
+    /**
+     * Prompts an Organizer to choose another task once they have completed a task
+     */
     public void displayNextTaskPromptOrganizer(){
         System.out.println("Please enter next task (reminder, you can type '14' to see what you can do): ");
     }
 
+    /**
+     * Prompts a Speaker to choose another task once they have completed a task
+     */
     public void displayNextTaskPromptSpeaker(){
         System.out.println("Please enter next task (reminder, you can type '4' to see what you can do): ");
     }
 
+    /**
+     * Prints an error message when a User inputs an invalid task
+     */
     public void displayInvalidInputError(){
         System.out.println("Invalid Input, please try again.");
     }
 
+    /**
+     * Notifies a User that their message has been sent successfully
+     */
     public void displayMessageSentPrompt(){
         System.out.println("Message Sent\n");
     }
 
+    /**
+     * Notifies a User that their message has been sent successfully
+     */
     public void displayMessageSentPrompt2(){
         System.out.println("Messages Sent");
     }
 
+    /**
+     * Notifies a User that their reply was successful
+     */
     public void displaySuccessfulMessage(){
         System.out.println("Successfully Replied to Message");
     }
 
+    /**
+     * Notifies a User that they successfully canceled their spot in an event
+     */
     public void displaySuccessfulCancellation(){
         System.out.println("Successfully Cancelled Spot in Event");
     }
 
+    /**
+     * Prints an error message when a User inputs an invalid Event
+     */
     public void displayInvalidEventError(){
         System.out.println("Invalid Event. Please try again");
     }
 
+    /**
+     * Prints an error message when a User inputs an invalid date
+     */
     public void displayDateError(){
         System.out.println("Invalid Date. Please try again.");
     }
@@ -56,34 +90,56 @@ public class Presenter {
     // Methods for Attendee Controller --------------------------------------------------------------------------------
     // These methods also work with the identical cases in the organizer controller
 
+    /**
+     * Prints the tasks which an Attendee is able to do
+     */
     public void displayOptions(){
         System.out.println("(0) See Inbox\n(1) Send Message\n(2) Reply to Message\n(3) View Event List" +
                 "\n(4) View My Scheduled Events\n(5) Cancel Event Reservation\n" +
                 "(6) Sign up for an event\n(7) View Options \n(8) End");
     }
 
+    /**
+     * Prints an error message when an Organizer or Attendee tries to message another User when they are the only one in the conference
+     */
     public void displayConferenceError(){
         System.out.println("There are currently no other users who are registered within this " +
                 "conference. Please try at a later time.");
     }
 
+    /**
+     * Prompts an Organizer or Attendee on which User they would like to message
+     */
     public void displayMethodPrompt(){
         System.out.println("Who would you like to message? (Please enter the username of the recipient)");
     }
 
+    /**
+     * Prints an error message when an Attendee or Organizer tries to message a User who has not registered for this conference
+     */
     public void displayMessageError(){ // use this for case2 in attendee controller as well
         System.out.println("Sorry, it seems you are unable to message this user. Please wait for this " +
                 "user to register for the conference.");
     }
 
+    /**
+     * Prompts an Attendee or Organizer to enter the contents of the message they would like to send
+     * @param recipient: The username of the User who is being messaged
+     */
     public void displayEnterMessagePrompt(String recipient){
         System.out.println("What message would you like to send to: " + recipient + ".");
     }
 
+    /**
+     * Notifies an Organizer or Attendee that they have no messages to reply to
+     */
     public void displayNoReply(){
         System.out.println("You currently have no messages to reply to.");
     }
 
+    /**
+     * Prompts an Attendee or Organizer to enter which User they want to reply to
+     */
     public void displayEnterUserUsernamePrompt(){
         System.out.println("Which user are you replying to (it is case sensitive): ");
     }
@@ -93,6 +149,10 @@ public class Presenter {
 //                message + "'. How would you like to respond?");
 //    }
 
+    /**
+     * Prints the event list for the conference
+     * @param events:
+     */
     public void displayEventList(List<Event> events){
         System.out.println("Here is a list of all the available events at this conference: ");
         for (Event curr : events){
