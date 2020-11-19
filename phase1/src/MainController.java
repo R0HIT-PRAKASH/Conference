@@ -3,6 +3,9 @@ import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Refers to the controller class that handles all of the other controller classes.
+ */
 public class MainController {
     protected MessageManager messageManager;
     protected UserManager userManager;
@@ -10,6 +13,10 @@ public class MainController {
     protected String username;
     protected ReaderWriter RW;
 
+    /**
+     * Constructs a MainController object with MessageManager, UserManager, EventManager, ReaderWriter objects,
+     * and a String username.
+     */
     public MainController() {
         messageManager = new MessageManager();
         userManager = new UserManager();
@@ -26,6 +33,11 @@ public class MainController {
     // Should I even check first if the files exist? If they do, then prompt them?
 
     // Check if the files even exist before even prompting the User to choose
+    /**
+     * This method declares three new files for users, messages, and events and returns 0, 1 or 2 based on which files
+     * exist.
+     * @return Returns 0 if only the users is a file, 1 if users, messages, and events are files, and 2 otherwise.
+     */
     public int filesExist() {
 
         File users = new File("users.ser");
@@ -43,6 +55,10 @@ public class MainController {
         }
     }
 
+    /**
+     * This method is responsible for determining whether or not the program will use pre-existing files. If the user
+     * wants to, they can load all of the pre-existing files, except for events and rooms.
+     */
     public void fileQUserMssgExists() {
         Scanner question = new Scanner(System.in);
         try {
@@ -65,6 +81,10 @@ public class MainController {
         }
     }
 
+    /**
+     * This method is responsible for determining whether or not the program will use pre-existing files. If the user
+     * wants to, they can load all of the pre-existing files, except for events.
+     */
     public void fileQUserMssgRoomsExists() {
         Scanner question = new Scanner(System.in);
         try {
@@ -87,6 +107,10 @@ public class MainController {
         }
     }
 
+    /**
+     * This method is responsible for determining whether or not the program will use pre-existing files. If the user
+     * wants to, they can load all of the pre-existing files.
+     */
     public void fileQAllExists() {
         Scanner question = new Scanner(System.in);
         try {
@@ -109,7 +133,10 @@ public class MainController {
         }
     }
 
-
+    /**
+     * This method is responsible for calling the appropriate controller depending on the user. At the end, it saves
+     * all the users, messages, events, and rooms to the appropriate files.
+     */
     public void run() {
         LoginController log = new LoginController();
         this.username = log.login(userManager, messageManager);
