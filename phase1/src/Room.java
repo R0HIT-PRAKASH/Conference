@@ -43,4 +43,9 @@ public class Room implements Serializable {
     public int getRoomNumber(){
         return roomNumber;
     }
+
+    public String toString(){
+        return "Room " + this.roomNumber + " - Capacity: " + this.capacity;
+    }
 }
+
