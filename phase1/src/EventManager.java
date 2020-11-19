@@ -1,4 +1,5 @@
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
@@ -295,5 +296,18 @@ public class EventManager implements Serializable {
             }
         }
         return priorEvents;
+    }
+
+    public List<Event> chronologicalEvents(){
+        List<Event> onlyEvents = new ArrayList<>();
+        for (String key : events.keySet()) {
+            onlyEvents.add(events.get(key));
+        }
+        Collections.sort(onlyEvents);
+        return onlyEvents;
+    }
+
+    public LocalDateTime getTime(Event event){
+        return event.getTime();
     }
 }

@@ -85,7 +85,21 @@ public class MainPresenter {
 
     // Methods for the Main Controller --------------------------------------------------------------------------------
 
+    public void displayPreExisitingFilePrompt(){
+        System.out.println("Do you want to use pre-existing files? Please type 'Yes' or 'No'");
+    }
 
+    public void displayInvalidFileChoice(){
+        System.out.println("Invalid Input: Please type 'Yes' or 'No'");
+    }
+
+    public void displayDownloadCompletion(){
+        System.out.println("Files downloaded.");
+    }
+
+    public void displayInvalidInputError(){
+        System.out.println("Error: Please type 'Yes' or 'No'");
+    }
 
     // -----------------------------------------------------------------------------------------------------------------
 }

@@ -33,7 +33,7 @@ public class AttendeeController{
      * Runs the Attendee controller by asking for input and performing the actions
      */
     public void run(){
-        viewOptions();
+        p.displayOptions();
         System.out.println("What would you like to do?\nEnter the corresponding number:");
         int input = 0;
         input = scan.nextInt();
@@ -55,36 +55,35 @@ public class AttendeeController{
 
             case 1:
                 if(userManager.getUserMap().size() == 1) {
-                    System.out.println("There are currently no other users who are registered within this " +
-                            "conference. Please try at a later time.");
+                    p.displayConferenceError();
+                    p.displayNextTaskPrompt();
                     break;
                 }
-                System.out.println("Who would you like to message? (Please enter the username of the recipient)");
+                p.displayMethodPrompt();
                 String recipient = scan.nextLine();
-                if(!messageManager.checkIsMessageable(recipient, this.username, userManager)){
-                    System.out.println("Sorry, it seems you are unable to message this user. Please wait for this " +
-                            "user to register for the conference.");
-                    break;
+                if(messageManager.checkIsMessageable(recipient, this.username, userManager)) {
+                    p.displayEnterMessagePrompt(recipient);
+                    String messageContents = scan.nextLine();
+                    sendMessages(recipient, messageContents);
+                    p.displayMessageSentPrompt();
                 }
-                System.out.println("What message would you like to send to: " + recipient + ".");
-                String messageContents = scan.nextLine();
-                sendMessages(recipient, messageContents);
+                else{
+                    p.displayContactListError();
+                }
                 break;
 
             case 2:
                 if(messageManager.getAllUserMessages().get(this.username).size() == 0){
-                    System.out.println("You currently have no messages to reply to.");
+                    p.displayNoReply();
                     break;
                 }
                 else if(userManager.getUserMap().size() == 1) {
-                    System.out.println("You are unable to reply to any messages as there are currently no other " +
-                            "registered users. Please try at a later time.");
+                    p.displayConferenceError();
                     break;
                 }
-                System.out.println("This is the oldest message in your inbox: '" +
-                        messageManager.getMessageContent(messageManager.viewMessages
-                                (this.username).get(messageManager.viewMessages(this.username).size()
-                                -  1)) + "'. How would you like to respond?");
+                p.displayOldestInboxMessage(messageManager.viewMessages(this.username).
+                        get(messageManager.viewMessages(this.username).size()
+                                -  1).toString());
                 String response = scan.nextLine();
                 String responseUsername = messageManager.viewMessages(this.username).
                         get(messageManager.viewMessages(this.username).size() -  1).getSender();
@@ -100,63 +99,51 @@ public class AttendeeController{
                 break;
 
             case 5:
-                System.out.println("What is the name of the event you no longer want to attend?");
+                p.displayEventCancelPrompt();
                 String cancel = scan.nextLine();
                 if(!userManager.getAttendingEvents(this.username).contains(cancel)) {
-                    System.out.println("Cancellation was unsuccessful since this event is not included in the events " +
-                            "you are attending. Please try again.");
+                    p.displayEventCancelPrompt();
                     break;
                 }
                 else if(userManager.getAttendingEvents(this.username).size() == 0){
-                    System.out.println("You are currently not attending any events. For future use, you must be " +
-                            "signed up for an event to use this feature.");
+                    p.displayEventCancellationError2();
                     break;
                 }
                 cancelSpotInEvent(cancel);
                 break;
 
             case 6:
-                System.out.println("What is the name of the event you would like to sign up for?");
+                p.displayEventSignUpPrompt();
                 String eventSignedUp = scan.nextLine();
                 if(!eventManager.getAllEvents().containsKey(eventSignedUp)) {
-                    System.out.println("Sign Up was unsuccessful as the event you are trying to sign up for does not" +
-                            "exist");
+                    p.displaySignUpError1();
                     break;
                 }
                 else if(eventManager.getAllEvents().size() == 0){
-                    System.out.println("There are currently no events in this conference. Please wait until event(s)" +
-                            "have been added to use this feature.");
+                    p.displaySignUpError2();
                     break;
                 }
                 signUp(eventSignedUp);
                 break;
 
             case 14:
-                viewOptions();
+                p.displayOptions();
                 break;
 
             default:
-                System.out.println("Invalid Input, please try again.");
+                p.displayInvalidInputError();
                 break;
         }
         p.displayNextTaskPrompt();
     }
 
-    /**
-     * Prints all the options the user can perform
-     */
-    private void viewOptions(){
-        System.out.println("(0) See Inbox\n(1) Send Message\n(2) Reply to Message\n(3) View Event List" +
-                "\n(4) View My Scheduled Events\n(5) Cancel Event Reservation\n" +
-                "(6) Add User to Contact List\n(14) View Options \n(15) End");
-    }
 
     /**
      * Prints all the messages that this attendee has received
      * @param username: The username of the Attendee
      */
     public void viewMessages(String username) {
-        messageManager.printMessages(this.username);
+        messageManager.printMessages(username);
     }
 
     /**
@@ -167,7 +154,6 @@ public class AttendeeController{
     public void sendMessages(String recipient, String messageContents) {
         Message newMessage = messageManager.createNewMessage(messageContents, this.username, recipient);
         messageManager.addMessage(recipient, newMessage);
-        System.out.println("Message Sent");
     }
 
     /**
@@ -179,18 +165,15 @@ public class AttendeeController{
         List<Message> userInbox = messageManager.allUserMessages.get(this.username);
         Message replyMessage = messageManager.createNewMessage(message, this.username, originalMessenger);
         messageManager.addMessage(originalMessenger, replyMessage);
-        // Should we have a method in MessageManager to handle removing a message?
-        userInbox.remove(userInbox.size() - 1); //remove the message we just viewed from our inbox after replying
-        System.out.println("Successfully Replied to Message");
+        p.displaySuccessfulMessage();
     }
 
     /**
      * Prints the event list for the entire conference
      */
     public void viewEventList() {
-        HashMap<String, Event> events = eventManager.getAllEvents();
-        System.out.println("Here is a list of all the available events at this conference: ");
-        System.out.println(events.values());
+        List<Event> chronological = eventManager.chronologicalEvents();
+        p.displayEventList(chronological);
     }
 
     /**
@@ -198,9 +181,9 @@ public class AttendeeController{
      * @param username: The username of this Attendee
      */
     public void viewSignedUpForEvent(String username) {
-        System.out.println("Here is a list of events you have signed up for: ");
+        // Should try and make this chronological as well
         List<String> signedUpFor = userManager.getAttendingEvents(username);
-        System.out.println(signedUpFor);
+        p.displaySignedUpEvents(signedUpFor);
     }
 
     /**
@@ -210,7 +193,7 @@ public class AttendeeController{
     public void cancelSpotInEvent(String eventName) {
         Event event = eventManager.getEvent(eventName);
         userManager.cancelEventSpot(this.username, event, eventManager);
-        System.out.println("Successfully Cancelled Spot in Event");
+        p.displaySuccessfulCancellation();
     }
 
     /**
@@ -220,6 +203,6 @@ public class AttendeeController{
     public void signUp(String eventName) {
         Event event = eventManager.getEvent(eventName);
         userManager.signUpForEvent(this.username, event, eventManager);
-        System.out.println("Successfully Signed up for Event");
+        p.displayEventSignUp();
     }
 }

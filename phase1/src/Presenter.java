@@ -1,3 +1,6 @@
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.List;
 public class Presenter {
 
     public Presenter(){}
@@ -78,17 +81,24 @@ public class Presenter {
                 message + "'. How would you like to respond?");
     }
 
-    public void displayEventList(){
+    public void displayEventList(List<Event> events){
         System.out.println("Here is a list of all the available events at this conference: ");
+        for (Event curr : events){
+            DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
+            String date = curr.getTime().format(formatter);
+            System.out.println(date + ": " + curr);
+        }
     }
 
-    public void displaySignedUpEvents(){
+    public void displaySignedUpEvents(List<String> signedUpFor){
         System.out.println("Here is a list of events you have signed up for: ");
+        System.out.println(signedUpFor);
     }
 
     public void displayEventCancelPrompt(){
         System.out.println("What is the name of the event you no longer want to attend?");
     }
+
 
     public void displayEventCancellationError1(){
         System.out.println("Cancellation was unsuccessful since this event is not included in the events " +
@@ -102,6 +112,10 @@ public class Presenter {
 
     public void displayEventSignUpPrompt(){
         System.out.println("What is the name of the event you would like to sign up for?");
+    }
+
+    public void displayEventSignUp(){
+        System.out.println("Successfully signed up for the event");
     }
 
     public void displaySignUpError1(){
