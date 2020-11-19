@@ -34,12 +34,14 @@ public class AttendeeController{
      */
     public void run(){
         p.displayOptions();
-        System.out.println("What would you like to do?\nEnter the corresponding number:");
+        p.displayTaskInput();
         int input = 0;
         input = scan.nextInt();
+        scan.nextLine();
         while (input != 8){ // 15 is ending condition
             determineInput(input);
             input = scan.nextInt();
+            scan.nextLine();
         }
     }
 

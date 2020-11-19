@@ -23,7 +23,7 @@ public class LoginController {
         int input = Integer.parseInt(scan.nextLine());
         String username = "";
         String password = "";
-        while(input != 1 && input != 2){
+        while(input != 1 && input != 2 ){
             System.out.println("Not a valid input, please try again: ");
             input = scan.nextInt();
         }

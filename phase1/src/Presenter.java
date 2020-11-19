@@ -11,15 +11,15 @@ public class Presenter {
     }
 
     public void displayNextTaskPromptAttendee(){
-        System.out.println("Please enter next task (reminder, you can type '7' to see what you can do: ");
+        System.out.println("Please enter next task (reminder, you can type '7' to see what you can do): ");
     }
 
     public void displayNextTaskPromptOrganizer(){
-        System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
+        System.out.println("Please enter next task (reminder, you can type '14' to see what you can do): ");
     }
 
     public void displayNextTaskPromptSpeaker(){
-        System.out.println("Please enter next task (reminder, you can type '4' to see what you can do: ");
+        System.out.println("Please enter next task (reminder, you can type '4' to see what you can do): ");
     }
 
     public void displayInvalidInputError(){
@@ -280,7 +280,6 @@ public class Presenter {
     // Methods for Speaker Controller --------------------------------------------------------------------------------
 
     public void displayOptions3(){
-        System.out.println("What would you like to do? \nEnter the corresponding number: ");
         System.out.println("(0) See Inbox, \n(1) View My Events, \n(2) Message Event Attendees, " +
                 "\n(3) Reply to Attendee, \n(4) Options, \n(5) End: ");
     }

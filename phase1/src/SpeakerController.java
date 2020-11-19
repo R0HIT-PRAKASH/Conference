@@ -33,8 +33,8 @@ public class SpeakerController{
      * Runs the Speaker controller by asking for input and performing the actions
      */
     public void run(){
+        p.displayOptions3();
         p.displayTaskInput();
-        p.displayNextTaskPromptSpeaker();
         int input = scan.nextInt();
         while (input != 5){
             determineInput(input);
