@@ -9,6 +9,7 @@ public class LoginController {
     private Scanner scan = new Scanner(System.in);
     private UserManager userManager;
     private MessageManager messageManager;
+    MainPresenter p;
 
     /**
      * This constructs a login occurrence
@@ -19,12 +20,12 @@ public class LoginController {
     public String login(UserManager userManager, MessageManager messageManager){
         this.userManager = userManager;
         this.messageManager = messageManager;
-        System.out.print("Are you a (1)new user or (2)returning user: ");
+        p.displayNewOrReturningPrompt();
         int input = Integer.parseInt(scan.nextLine());
         String username = "";
         String password = "";
         while(input != 1 && input != 2 ){
-            System.out.print("Not a valid input, please try again: ");
+            p.displayNewOrReturningError();
             input = scan.nextInt();
         }
         switch (input){
@@ -32,10 +33,10 @@ public class LoginController {
                 username = createAccount();
                 break;
             case 2:
-                System.out.print("Enter Username: ");
+                p.displayEnterUsernamePrompt();
                 username = scan.nextLine();
                 while (!this.userManager.checkCredentials(username)){
-                    System.out.print("This username doesn't exist, please re-enter or type \"q\" to quit: ");
+                    p.displayUsernameExistanceError();
                     username = scan.nextLine();
                     if (username.equals("q")){
                         break;
@@ -44,14 +45,14 @@ public class LoginController {
                 if (username.equals("q")){
                     break;
                 }
-                System.out.print("Enter Password: ");
+                p.displayEnterPasswordPrompt();
                 password = scan.nextLine();
                 while(password.length() < 3) {
-                    System.out.print("Error, password must be at least 3 characters.\nPlease enter again: ");
+                    p.displayInvalidPasswordError();
                     password = scan.nextLine();
                 }
                 while(!this.checkLoginInfo(username, password) && !password.equals("q")) {
-                    System.out.print("Re-enter your password:\nTo quit, press \"q\": ");
+                    p.displayRedoPasswordPrompt();
                     password = scan.nextLine();
                     if(password.equals("q")){
                         username = "q";
@@ -78,49 +79,48 @@ public class LoginController {
 
     //creates an Account for a new User, and returns their username
     private String createAccount(){
-        System.out.println("It looks like you are a new user!\nPlease enter some information.");
-        System.out.print("Enter Username: ");
+        p.displayNewUserGreeting();
+        p.displayEnterUsernamePrompt();
         String username = scan.nextLine();
         while(this.userManager.checkCredentials(username) || username.length() < 3){
             if (this.userManager.checkCredentials(username)) {
-                System.out.print("That username is already taken, please enter another one: ");
+                p.displayUsernameTakenError();
             }
             else if (username.length() < 3) {
-                System.out.print("Error, username must be at least 3 characters. please enter another one: ");
+                p.displayInvalidUsernameError();
             }
             username = scan.nextLine();
         }
-        System.out.print("Enter Password: ");
+        p.displayEnterPasswordPrompt();
         String password = scan.nextLine();
         while(password.length() < 3){
-            System.out.print("Error, password must be at least 3 characters.\nPlease enter again: ");
+            p.displayInvalidPasswordError();
             password = scan.nextLine();
         }
-        System.out.print("Enter your name: ");
+        p.displayEnterNamePrompt();
         String name = scan.nextLine();
         while(name.length() < 2){
-            System.out.print("Error, name must be at least 2 characters.\nPlease enter again: ");
+            p.displayInvalidNameError();
             name = scan.nextLine();
         }
-        System.out.print("Enter your address: ");
+        p.displayEnterAddressPrompt();
         String address = scan.nextLine();
         while(address.length() < 3){
-            System.out.print("Error, address must be at least 6 characters.\nPlease enter again: ");
+            p.displayInvalidAddressError();
             address = scan.nextLine();
         }
-        System.out.print("Enter your Email: ");
+        p.displayEnterEmailPrompt();
         String email = scan.nextLine();
         Pattern email_pattern = Pattern.compile("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");
         while(!email_pattern.matcher(email).matches()){
             System.out.println("The email is not up to RFC 5322 standards. Try another ");
             email = scan.nextLine();
         }
-        System.out.print("Enter your status in the conference. \nThis can be \"organizer\", \"attendee\" or " +
-                "\"speaker\": ");
+        p.displayEnterStatusPrompt();
         String type = scan.nextLine();
         while(!type.equalsIgnoreCase("organizer") && !type.equalsIgnoreCase("attendee") &&
                 !type.equalsIgnoreCase("speaker")) {
-            System.out.print("That was an invalid input.\nPlease try again: ");
+            p.displayInvalidStatusError();
             type = scan.nextLine();
         }
         this.userManager.addUser(name, address, email, username, password, type);
