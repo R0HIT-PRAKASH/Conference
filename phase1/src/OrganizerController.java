@@ -80,6 +80,7 @@ public class OrganizerController extends AttendeeController {
                 String responseUsername = messageManager.viewMessages(this.username).
                         get(messageManager.viewMessages(this.username).size() -  1).getSender();
                 replyMessage(response, responseUsername);
+                p.displaySuccessfulMessage();
                 break;
             case 3:
                 viewEventList();
@@ -92,6 +93,7 @@ public class OrganizerController extends AttendeeController {
                 String cancel = scan.nextLine();
                 if(userManager.getAttendingEvents(this.username).contains(cancel)) {
                     cancelSpotInEvent(cancel);
+                    p.displaySuccessfulCancellation();
                 }
                 else{
                     p.displayEventCancellationError1();
@@ -111,8 +113,6 @@ public class OrganizerController extends AttendeeController {
             case 7:
                 p.displayAddConferencePrompt();
                 LocalDateTime time = askTime();
-
-                //scan.nextLine(); //fixes the problem where we can't enter the event title
                 p.displayEventTitlePrompt();
                 String name = scan.nextLine();
                 p.displayEnterSpeakerPrompt();
@@ -372,20 +372,4 @@ public class OrganizerController extends AttendeeController {
         messageManager.addUserInbox(username);
     }
 
-
-    private int nextInt() {
-        int input = 0;
-
-        do {
-            try {
-                input = Integer.parseInt(scan.nextLine());
-                break;
-            } catch (NumberFormatException e) {
-                p.displayInvalidInputError();
-                e.printStackTrace();
-            }
-        } while(true);
-
-        return input;
-    }
 }

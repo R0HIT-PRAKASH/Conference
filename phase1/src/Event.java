@@ -1,5 +1,7 @@
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -150,7 +152,11 @@ public class Event implements Comparable<Event>, Serializable {
     }
 
     public String toString() {
-        return "Title: " + getName() + "|Time: " + getTime() + "|Speaker: " + getSpeakerName() + "|Duration: "
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
+        String date = getTime().format(formatter);
+
+        return "Time: " + date + "|Title: " + getName() + "|Speaker: " + getSpeakerName() + "|Duration: "
                 + getDuration() + " hour/s|Room: " + getRoomNumber();
     }
 

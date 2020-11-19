@@ -92,9 +92,7 @@ public class Presenter {
     public void displayEventList(List<Event> events){
         System.out.println("Here is a list of all the available events at this conference: ");
         for (Event curr : events){
-            DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
-            String date = curr.getTime().format(formatter);
-            System.out.println(date + ": " + curr);
+            System.out.println(curr);
         }
     }
 
@@ -259,14 +257,6 @@ public class Presenter {
 
     public void displayEnterSpeakerEmailPrompt(){
         System.out.println("Enter the speaker Email");
-    }
-
-    public void displaySpeakerEmailError1(){
-        System.out.println("Error, email must contain '@'.\nPlease enter a valid email:");
-    }
-
-    public void displaySpeakerEmailError2(){
-        System.out.println("Error, email must be at least 3 characters.\nPlease enter again:");
     }
 
     public void displayInvalidEmail() {
