@@ -155,6 +155,10 @@ public class Presenter {
         System.out.println("What do you want to say to all the attendees? (1 line)");
     }
 
+    public void displayAllAttendeeEventMessagePrompt() {
+        System.out.println("What do you want to say to all the attendees at this event? (1 line)");
+    }
+
     public void displayEventMessagePrompt(){
         System.out.println("Enter the event you want to message");
     }
