@@ -1,7 +1,7 @@
 Welcome to the program! We begin in ProgramMain. Run the main method and let's begin.
 
 You will be asked if you would like to read from a file or not:
-If you choose to read from a file, you will be reading from the users.ser, messages.ser, and rooms.ser files that we have provided, and you will begin the program with defaults; 
+If you choose to read from a file, you will be reading from the users.ser, messages.ser, events.ser and rooms.ser files that we have provided, and you will begin the program with defaults;
 If you choose not to read from a file, you will not be starting from any defaults.
 Follow the prompts on screen for either option. 
 
