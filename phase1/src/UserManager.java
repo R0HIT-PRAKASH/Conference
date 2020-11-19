@@ -122,6 +122,7 @@ public class UserManager implements java.io.Serializable {
 
     }
 
+
     /**
      * This method returns a list of all of the organizers in userMap.
      * @return A list of all of the organizers in userMap.
