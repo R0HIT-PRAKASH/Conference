@@ -54,7 +54,7 @@ public class OrganizerController extends AttendeeController {
                 if(messageManager.checkIsMessageable(recipient, this.username, userManager)) {
                     p.displayEnterMessagePrompt(recipient);
                     String messageContents = scan.nextLine();
-                    sendMessages(recipient, messageContents);
+                    sendMessage(recipient, messageContents);
                     p.displayMessageSentPrompt();
                 }
                 else{

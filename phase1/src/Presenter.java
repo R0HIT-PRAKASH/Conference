@@ -153,8 +153,8 @@ public class Presenter {
         System.out.println("(0) See Inbox\n(1) Send Message\n(2) Reply to Message\n(3) View Event List" +
                 "\n(4) View My Scheduled Events\n(5) Cancel Event Reservation\n(6) Sign up for Event" +
                 "\n(7) Add Event\n(8) Message All Attendees\n(9) Message Event Attendees" +
-                "\n(10) Message All Speakers\n(11) Cancel Event\n(12) Reschedule Event\n(13) Add Speaker\n(14) View Options" +
-                "\n(15) Add Room \n(16) View All Rooms \n(17) End");
+                "\n(10) Message All Speakers\n(11) Cancel Event\n(12) Reschedule Event\n(13) Add Speaker" +
+                "\n(14) View Options" + "\n(15) Add Room \n(16) View All Rooms \n(17) End");
     }
 
     public void displayAddConferencePrompt(){

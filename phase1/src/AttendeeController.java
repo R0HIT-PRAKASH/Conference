@@ -66,7 +66,7 @@ public class AttendeeController{
                 if(messageManager.checkIsMessageable(recipient, this.username, userManager)) {
                     p.displayEnterMessagePrompt(recipient);
                     String messageContents = scan.nextLine();
-                    sendMessages(recipient, messageContents);
+                    sendMessage(recipient, messageContents);
                     p.displayMessageSentPrompt();
                 }
                 else{
@@ -154,8 +154,7 @@ public class AttendeeController{
      * Prints all the messages that this attendee has received
      * @param username: The username of the Attendee
      */
-    public void viewMessages(String username) {
-        messageManager.printMessages(username);
+    public void viewMessages(String username) { messageManager.printMessages(username);
     }
 
     /**
@@ -163,7 +162,7 @@ public class AttendeeController{
      * @param recipient: The username of the recipient
      * @param messageContents: The content of the message the Attendee is sending
      */
-    public void sendMessages(String recipient, String messageContents) {
+    public void sendMessage(String recipient, String messageContents) {
         Message newMessage = messageManager.createNewMessage(messageContents, this.username, recipient);
         messageManager.addMessage(recipient, newMessage);
     }
