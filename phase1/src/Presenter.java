@@ -135,7 +135,7 @@ public class Presenter {
     }
 
     public void displayEnterSpeakerPrompt(){
-        System.out.println("Enter a Speaker:");
+        System.out.println("Enter a Speaker's username:");
     }
 
     public void displayEnterRoomNumberPrompt(){
@@ -153,6 +153,10 @@ public class Presenter {
 
     public void displayAllAttendeeMessagePrompt(){
         System.out.println("What do you want to say to all the attendees? (1 line)");
+    }
+
+    public void displayAllAttendeeEventMessagePrompt() {
+        System.out.println("What do you want to say to all the attendees at this event? (1 line)");
     }
 
     public void displayEventMessagePrompt(){
