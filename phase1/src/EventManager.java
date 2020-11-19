@@ -62,7 +62,7 @@ public class EventManager implements Serializable {
      * @param event Refers to the event being checked.
      * @return Returns True if event is valid, otherwise return false.
      */
-    private boolean checkEventIsValid(Event event){
+    public boolean checkEventIsValid(Event event){
 
         if (!between9to5(event)){
             return false;
@@ -97,10 +97,10 @@ public class EventManager implements Serializable {
         int month = time.getMonthValue();
         int day = time.getDayOfMonth();
         LocalDateTime dateAt9AM = LocalDateTime.of(year, month, day, 9, 0);
-        LocalDateTime dateAt5PM = LocalDateTime.of(year, month, day, 17, 0);
+        LocalDateTime dateAt4PM = LocalDateTime.of(year, month, day, 16, 0);
 
         int compare1 = time.compareTo(dateAt9AM);
-        int compare2 = time.compareTo(dateAt5PM);
+        int compare2 = time.compareTo(dateAt4PM);
 
         if (compare1 < 0 || compare2 > 0){
             return false;
@@ -108,6 +108,21 @@ public class EventManager implements Serializable {
         return true;
     }
 
+    public boolean between9to5(LocalDateTime time){
+        int year = time.getYear();
+        int month = time.getMonthValue();
+        int day = time.getDayOfMonth();
+        LocalDateTime dateAt9AM = LocalDateTime.of(year, month, day, 9, 0);
+        LocalDateTime dateAt4PM = LocalDateTime.of(year, month, day, 16, 0);
+
+        int compare1 = time.compareTo(dateAt9AM);
+        int compare2 = time.compareTo(dateAt4PM);
+
+        if (compare1 < 0 || compare2 > 0){
+            return false;
+        }
+        return true;
+    }
     /**
      * @param e1 Refers to the event that is requested to be added.
      * @param e2 Refers to an already scheduled event.
