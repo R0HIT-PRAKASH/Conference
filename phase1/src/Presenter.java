@@ -494,6 +494,10 @@ public class Presenter {
      * @param attendees: a List of User usernames that have messaged this Speaker.
      */
     public void displayAllSenders(List<String> attendees){
+        if (attendees.size() == 0){
+            System.out.println("You haven't received any messages yet. ");
+            return;
+        }
         System.out.println("These are all the users who have messaged you: ");
         int counter = 1;
         for (String attendee: attendees){
@@ -507,6 +511,10 @@ public class Presenter {
      * @param events: a List of events which the Speaker is attending.
      */
     public void displayAllEventsGiven(List<Event> events){
+        if (events.size() == 0){
+            System.out.println("You haven't given any events yet. ");
+            return;
+        }
         System.out.println("Here are all the events that you have given: ");
         int counter = 1;
         for (Event curr : events){
@@ -520,6 +528,10 @@ public class Presenter {
      * @param events: a List of events which the Speaker will be attending
      */
     public void displayAllFutureEvents(List<Event> events){
+        if (events.size() == 0){
+            System.out.println("You aren't currently signed up to give any future events");
+            return;
+        }
         for (Event curr : events){
             DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
             String date = curr.getTime().format(formatter);
@@ -527,35 +539,58 @@ public class Presenter {
         }
     }
 
-
+    /**
+     * Asks how many events' attendees you'd like to message
+     */
     public void displayEnterNumberOfEventsPrompt(){
         System.out.println("Please enter the number of events or type 'q' to quit: ");
     }
 
+    /**
+     * Asks the name of the first event whose attendees you'd like to message
+     */
     public void displayEnterEventNamePrompt(){
         System.out.println("Please enter the name of the first event or type 'q' to go back: ");
     }
 
+    /**
+     * Asks the name of all other events (not the first one) whose attendees you'd like to message
+     */
     public void displayEnterEventNamePrompt2(){
         System.out.println("Please enter the name of the next event or type 'q' to go back: ");
     }
 
+    /**
+     * Prints that the Speaker has already selected this event's attendees to be messaged
+     */
     public void displayEventAlreadyAddedError(){
         System.out.println("You've already added that event. ");
     }
 
+    /**
+     * Prints that the Speaker hasn't given the named event
+     */
     public void displayEventNotGivenError(){
         System.out.println("That event isn't one you have given. ");
     }
 
+    /**
+     * Asks for the content of the message to be sent
+     */
     public void displayEnterMessagePrompt(){
         System.out.println("Please enter the message: ");
     }
 
+    /**
+     * Asks the name of the attendee that you are replying to
+     */
     public void displayEnterAttendeeUsernamePrompt(){
         System.out.println("Which attendee are you replying to (it is case sensitive): ");
     }
 
+    /**
+     * Prints that the username inputted belongs to a user that the Speaker cannot message
+     */
     public void displayUserReplyError(){
         System.out.println("That user is not one you can reply to, please re-enter the username " +
                 "of someone who has messaged you or enter \"q\" to go back to your options: ");

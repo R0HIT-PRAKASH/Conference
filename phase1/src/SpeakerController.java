@@ -59,6 +59,9 @@ public class SpeakerController{
                 List<Event> priorEvents = eventManager.chronologicalEvents(eventManager.eventHappened(allEvents));
                 List<String> priorEventNames = eventManager.eventHappened(allEvents);
                 p.displayAllEventsGiven(priorEvents);
+                if (priorEvents.size() == 0){
+                    break;
+                }
                 p.displayEnterNumberOfEventsPrompt();
                 String strnum = scan.nextLine();
                 if (strnum.equals("q")){
@@ -108,6 +111,9 @@ public class SpeakerController{
                 }
                 List<String> attendees = getAttendees(username);
                 p.displayAllSenders(attendees);
+                if (attendees.size() == 0){
+                    break;
+                }
                 p.displayEnterAttendeeUsernamePrompt();
                 scan.nextLine();
                 String recipient = scan.nextLine();
