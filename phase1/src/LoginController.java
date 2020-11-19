@@ -108,14 +108,14 @@ public class LoginController {
             System.out.print("Error, address must be at least 6 characters.\nPlease enter again: ");
             address = scan.nextLine();
         }
-        System.out.println("Enter your Email: ");
+        System.out.print("Enter your Email: ");
         String email = scan.nextLine();
         Pattern email_pattern = Pattern.compile("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");
         while(!email_pattern.matcher(email).matches()){
-            System.out.println("The email is not up to RFC 5322 standards. Try another");
+            System.out.println("The email is not up to RFC 5322 standards. Try another ");
             email = scan.nextLine();
         }
-        System.out.print("Enter your status in the conference. This can be \"organizer\", \"attendee\" or " +
+        System.out.print("Enter your status in the conference. \nThis can be \"organizer\", \"attendee\" or " +
                 "\"speaker\": ");
         String type = scan.nextLine();
         while(!type.equalsIgnoreCase("organizer") && !type.equalsIgnoreCase("attendee") &&
