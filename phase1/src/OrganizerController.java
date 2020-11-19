@@ -126,6 +126,10 @@ public class OrganizerController extends AttendeeController {
                 if(!userManager.checkCredentials(speaker)) {
                     p.displaySpeakerCredentialError();
                     makeSpeaker();
+                } else if (!(userManager.getUserType(speaker) == "speaker")){
+                    // NEED TO ADD THIS TO PRESENTER
+                    System.out.println("This user is not a speaker! Please try again.");
+                    break;
                 }
                 p.displayEnterRoomNumberPrompt();
                 int num = nextInt();
