@@ -65,11 +65,7 @@ public class MainPresenter {
     }
 
     public void displayInvalidEmailError(){
-        System.out.println("Error, email must contain '@'.\nPlease enter a valid email:");
-    }
-
-    public void displayInvalidEmailError2(){
-        System.out.println("Error, email must be at least 3 characters.\nPlease enter again:");
+        System.out.println("The email is not up to RFC 5322 standards. Try another ");
     }
 
     public void displayEnterStatusPrompt(){

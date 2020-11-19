@@ -113,7 +113,7 @@ public class LoginController {
         String email = scan.nextLine();
         Pattern email_pattern = Pattern.compile("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");
         while(!email_pattern.matcher(email).matches()){
-            System.out.println("The email is not up to RFC 5322 standards. Try another ");
+            p.displayInvalidEmailError();
             email = scan.nextLine();
         }
         p.displayEnterStatusPrompt();
