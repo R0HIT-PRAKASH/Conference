@@ -12,6 +12,7 @@ public class SpeakerController{
     public EventManager eventManager;
     public MessageManager messageManager;
     public String username;
+    Presenter p;
 
     /**
      * Creates a Speaker Controller
@@ -26,14 +27,14 @@ public class SpeakerController{
         this.eventManager = eventManager;
         this.messageManager = messageManager;
         this.username = username;
+        p = new Presenter();
     }
     /**
      * Runs the Speaker controller by asking for input and performing the actions
      */
     public void run(){
-        System.out.println("What would you like to do? \nEnter the corresponding number: ");
-        System.out.println("(0) See Inbox, \n(1) View My Events, \n(2) Message Event Attendees, " +
-                "\n(3) Reply to Attendee, \n(4) Options, \n(5) End: ");
+        p.displayTaskInput();
+        p.displayNextTaskPromptSpeaker();
         int input = scan.nextInt();
         while (input != 5){
             determineInput(input);
@@ -55,13 +56,11 @@ public class SpeakerController{
                 break;
             case 2:
                 List<String> allEvents = userManager.getSpeakingEvents(username);
-                List<String> priorEvents = eventManager.eventHappened(allEvents);
-                System.out.println("Here are all the events that you have given: ");
-                System.out.println(priorEvents);
-                System.out.println("Please enter the number of events or type 'q' to quit: ");
+                List<Event> priorEvents = eventManager.chronologicalEvents(eventManager.eventHappened(allEvents));
+                p.displayAllEventsGiven(priorEvents);
+                p.displayEnterNumberOfEventsPrompt();
                 String strnum = scan.nextLine();
                 if (strnum.equals("q")){
-                    System.out.println("Please enter next task (reminder, you can type '4' to see what you can do): ");
                     break;
                 }
                 int num = Integer.parseInt(strnum);
@@ -69,10 +68,10 @@ public class SpeakerController{
                 List<String> eventNames = new ArrayList<>();
                 for (int i = 0; i < num; i++) {
                     if (i == 0) {
-                        System.out.println("Please enter the name of the first event or type 'q' to go back: ");
+                        p.displayEnterEventNamePrompt();
                         }
                     else {
-                        System.out.println("Please enter the name of the next event or type 'q' to go back: ");
+                        p.displayEnterEventNamePrompt2();
                     }
                     next = scan.nextLine();
                     if (next.equals("q")){
@@ -82,42 +81,39 @@ public class SpeakerController{
                         eventNames.add(next);
                     }
                     else if(priorEvents.contains(next)){
-                        System.out.println("You've already added that event. ");
+                        p.displayEventAlreadyAddedError();
                         i--;
                     }
                     else if(!priorEvents.contains(next)){
-                        System.out.println("That event isn't one you have given. ");
+                        p.displayEventNotGivenError();
                         i--;
                     }
                 }
                 if(next.equals("q")) {
-                    System.out.println("Please enter next task (reminder, you can type '4' to see what you can do): ");
                     break;
                 }
-                System.out.println("Please enter the message: ");
+                p.displayEnterMessagePrompt();
                 String message = scan.nextLine();
                 sendBlastMessage(eventNames, message);
                 break;
             case 3:
-                System.out.println("Which attendee are you replying to (it is case sensitive): ");
+                p.displayEnterAttendeeUsernamePrompt();
                 List<String> attendees = getAttendees(username);
                 for (String attendee: attendees){
                     System.out.println(attendee);
                 }
                 String recipient = scan.nextLine();
                 while (!attendees.contains(recipient)){
-                    System.out.println("That user is not one you can reply to, please re-enter the username " +
-                            "of someone who has messaged you or enter \"q\" to go back to your options: ");
+                    p.displayUserReplyError();
                     recipient = scan.nextLine();
                     if (recipient.equals("q")){
                         break;
                     }
                 }
                 if (recipient.equals("q")){
-                    System.out.println("Please enter next task (reminder, you can type '4' to see what you can do): ");
                     break;
                 }
-                System.out.println("Please enter the message: ");
+                p.displayEnterMessagePrompt();
                 String content = scan.nextLine();
                 replyMessage(recipient, content);
                 break;
@@ -125,18 +121,18 @@ public class SpeakerController{
                 viewOptions();
                 break;
             default:
-                System.out.println("Not a valid input, please try again.");
+                p.displayInvalidInputError();
                 viewOptions();
                 break;
         }
+        p.displayNextTaskPromptSpeaker();
     }
 
     /**
      * Prints all the options the user can perform
      */
     private void viewOptions(){
-        System.out.println("See Inbox, \nView My Events, \nMessage Event Attendees, \nReply to Attendee, \nEnd");
-        System.out.println("Please enter next task: ");
+        p.displayOptions3();
     }
 
     /**
@@ -159,7 +155,6 @@ public class SpeakerController{
      */
     private void viewMessages(String username) {
         messageManager.printMessages(username);
-        System.out.println("Please enter next task (reminder, you can type '4' to see what you can do): ");
 
     }
 
@@ -169,8 +164,9 @@ public class SpeakerController{
      */
     private void viewScheduledEvents(String username){
         List<String> allEvents = userManager.getSpeakingEvents(username);
-        System.out.println(allEvents);
-        System.out.println("Please enter next task (reminder, you can type '4' to see what you can do): ");
+        List<String> notHappened = eventManager.eventNotHappened(allEvents);
+        List<Event> chronological  = eventManager.chronologicalEvents(notHappened);
+        p.displayAllFutureEvents(chronological);
     }
 
     /**
@@ -180,8 +176,7 @@ public class SpeakerController{
      */
     private void sendBlastMessage(List<String> eventNames, String message){
         messageManager.speakerBlastMessage(eventNames, message, eventManager, this.username);
-        System.out.println("Messages sent");
-        System.out.println("Please enter next task (reminder, you can type '4' to see what you can do): ");
+        p.displayMessageSentPrompt2();
     }
 
     /**
@@ -191,7 +186,6 @@ public class SpeakerController{
      */
     private void replyMessage(String recipient, String content){
         Message message = messageManager.createNewMessage(content, username, recipient);
-        System.out.println("Message sent");
-        System.out.println("Please enter next task (reminder, you can type '4' to see what you can do): ");
+        p.displayMessageSentPrompt();
     }
 }

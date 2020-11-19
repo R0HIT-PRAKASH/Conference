@@ -50,7 +50,6 @@ public class OrganizerController extends AttendeeController {
             case 1:
                 if(userManager.getUserMap().size() == 1) {
                     p.displayConferenceError();
-                    p.displayNextTaskPrompt();
                     break;
                 }
                 p.displayMethodPrompt();
@@ -193,7 +192,7 @@ public class OrganizerController extends AttendeeController {
                 p.displayInvalidInputError();
                 break;
         }
-        p.displayNextTaskPrompt();
+        p.displayNextTaskPromptOrganizer();
     }
 
 

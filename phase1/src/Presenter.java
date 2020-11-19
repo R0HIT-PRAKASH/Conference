@@ -10,8 +10,16 @@ public class Presenter {
         System.out.println("What would you like to do?\nEnter the corresponding number:");
     }
 
-    public void displayNextTaskPrompt(){
+    public void displayNextTaskPromptAttendee(){
+        System.out.println("Please enter next task (reminder, you can type '7' to see what you can do: ");
+    }
+
+    public void displayNextTaskPromptOrganizer(){
         System.out.println("Please enter next task (reminder, you can type '14' to see what you can do: ");
+    }
+
+    public void displayNextTaskPromptSpeaker(){
+        System.out.println("Please enter next task (reminder, you can type '4' to see what you can do: ");
     }
 
     public void displayInvalidInputError(){
@@ -51,7 +59,7 @@ public class Presenter {
     public void displayOptions(){
         System.out.println("(0) See Inbox\n(1) Send Message\n(2) Reply to Message\n(3) View Event List" +
                 "\n(4) View My Scheduled Events\n(5) Cancel Event Reservation\n" +
-                "(6) Add User to Contact List\n(14) View Options \n(15) End");
+                "(6) Add User to Contact List\n(7) View Options \n(8) End");
     }
 
     public void displayConferenceError(){
@@ -287,12 +295,21 @@ public class Presenter {
                 "\n(3) Reply to Attendee, \n(4) Options, \n(5) End: ");
     }
 
-    public void displayNextTaskPrompt2(){
-        System.out.println("Please enter next task (reminder, you can type '4' to see what you can do: ");
+    public void displayAllEventsGiven(List<Event> events){
+        System.out.println("Here are all the events that you have given: ");
+        for (Event curr : events){
+            DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
+            String date = curr.getTime().format(formatter);
+            System.out.println(date + ": " + curr);
+        }
     }
 
-    public void displayAllEventsEntered(){
-        System.out.println("Here are all the events that you have given: ");
+    public void displayAllFutureEvents(List<Event> events){
+        for (Event curr : events){
+            DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
+            String date = curr.getTime().format(formatter);
+            System.out.println(date + ": " + curr);
+        }
     }
 
     public void displayEnterNumberOfEventsPrompt(){

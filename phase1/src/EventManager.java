@@ -167,6 +167,12 @@ public class EventManager implements Serializable {
         return events;
     }
 
+    public List<String> getAllEventNamesOnly(){
+        List<String> allNames = new ArrayList<>();
+        allNames.addAll(events.keySet());
+        return allNames;
+    }
+
     /**
      * @return Returns list of all rooms
      */
@@ -298,15 +304,43 @@ public class EventManager implements Serializable {
         return priorEvents;
     }
 
-    public List<Event> chronologicalEvents(){
+    /**
+     * Yields the events that have yet to happen.
+     * @param allEvents Refers to all the events in this conference.
+     * @return All the events that have yet to happen
+     */
+    public List<String> eventNotHappened(List<String> allEvents){
+        LocalDateTime time = LocalDateTime.now();
+        List<String> futureEvents = new ArrayList<>();
+        for(String event: allEvents){
+            Event check = getEvent(event);
+            int compare = time.compareTo(check.getTime());
+            if (compare <= 0){
+                futureEvents.add(event);
+            }
+        }
+        return futureEvents;
+    }
+
+    /**
+     * Returns a List of events in chronological order based on the inputted event names
+     * @param theseEvents Names of the events to be sorted
+     * @return The list of chronologically sorted events
+     */
+    public List<Event> chronologicalEvents(List<String> theseEvents){
         List<Event> onlyEvents = new ArrayList<>();
-        for (String key : events.keySet()) {
+        for (String key : theseEvents) {
             onlyEvents.add(events.get(key));
         }
         Collections.sort(onlyEvents);
         return onlyEvents;
     }
 
+    /**
+     * Retrieves the date and time an event occurs
+     * @param event the event we want to get the date time for
+     * @return The event's date time
+     */
     public LocalDateTime getTime(Event event){
         return event.getTime();
     }

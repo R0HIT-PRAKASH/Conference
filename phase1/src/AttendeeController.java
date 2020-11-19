@@ -37,7 +37,7 @@ public class AttendeeController{
         System.out.println("What would you like to do?\nEnter the corresponding number:");
         int input = 0;
         input = scan.nextInt();
-        while (input != 15){ // 15 is ending condition
+        while (input != 8){ // 15 is ending condition
             determineInput(input);
             input = scan.nextInt();
         }
@@ -56,7 +56,6 @@ public class AttendeeController{
             case 1:
                 if(userManager.getUserMap().size() == 1) {
                     p.displayConferenceError();
-                    p.displayNextTaskPrompt();
                     break;
                 }
                 p.displayMethodPrompt();
@@ -134,7 +133,7 @@ public class AttendeeController{
                 p.displayInvalidInputError();
                 break;
         }
-        p.displayNextTaskPrompt();
+        p.displayNextTaskPromptAttendee();
     }
 
 
@@ -172,7 +171,7 @@ public class AttendeeController{
      * Prints the event list for the entire conference
      */
     public void viewEventList() {
-        List<Event> chronological = eventManager.chronologicalEvents();
+        List<Event> chronological = eventManager.chronologicalEvents(eventManager.getAllEventNamesOnly());
         p.displayEventList(chronological);
     }
 
