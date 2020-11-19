@@ -161,19 +161,20 @@ public class Presenter {
         System.out.println("Which user are you replying to (it is case sensitive): ");
     }
 
-//    public void displayOldestInboxMessage(String message){
-//        System.out.println("This is the oldest message in your inbox: '" +
-//                message + "'. How would you like to respond?");
-//    }
 
     /**
      * Prints the event list for the conference.
      * @param events: a List of all events in this conference.
      */
     public void displayEventList(List<Event> events){
+        if (events.size() == 0){
+            System.out.println("There are no events created yet. ");
+            return;
+        }
         System.out.println("Here is a list of all the available events at this conference: ");
+        int counter = 1;
         for (Event curr : events){
-            System.out.println(curr);
+            System.out.println(counter + ". " + curr);
         }
     }
 
