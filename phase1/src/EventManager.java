@@ -1,8 +1,5 @@
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.io.Serializable;
 
 /**
@@ -83,6 +80,10 @@ public class EventManager implements Serializable {
             }
         }
         return true;
+    }
+
+    public Set<User> getEventAttendees(String eventName){
+        return getEvent(eventName).getAttendeeSet();
     }
 
     /**

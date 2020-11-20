@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 
 /**
@@ -36,7 +34,7 @@ public class SpeakerController{
         p.displayOptions3();
         p.displayTaskInput();
         int input = nextInt();
-        while (input != 5){
+        while (input != 6){
             determineInput(input);
             input = nextInt();
         }
@@ -141,6 +139,30 @@ public class SpeakerController{
                 replyMessage(recipient, content);
                 break;
             case 4:
+                System.out.println("Type the name of the event who's attendee you want to message:");
+                viewScheduledEvents(username);
+                String eventName = scan.nextLine();
+                if(eventManager.events.containsKey(eventName)){
+                    Set<User> eventAttendees = eventManager.getEventAttendees(eventName);
+                    System.out.println(eventAttendees);
+                    System.out.println("Type the username of the attendee from this event you want to message:");
+                    String toMessage = scan.nextLine();
+                    System.out.print(userManager.getUser(toMessage));
+                    System.out.println(eventAttendees.contains(userManager.getUser(toMessage)));
+                    if(eventAttendees.contains(userManager.getUser(toMessage))){
+                        p.displayEnterMessagePrompt();
+                        String messageContent = scan.nextLine();
+                        replyMessage(toMessage, messageContent);
+                        break;
+                    } else {
+                        System.out.println("That is not a valid username! Please try again");
+                    }
+            } else{
+                    System.out.println("That is not a valid event! Please try again");
+                    break;
+                }
+
+            case 5:
                 viewOptions();
                 break;
             default:
