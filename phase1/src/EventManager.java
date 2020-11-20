@@ -193,7 +193,6 @@ public class EventManager implements Serializable {
                 return events.get(i);
             }
         }
-        System.out.println("Event not found.");
         return null;
     }
 

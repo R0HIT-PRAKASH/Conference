@@ -55,11 +55,9 @@ public class SpeakerController{
                 viewScheduledEvents(this.username);
                 break;
             case 2:
-                List<String> allEvents = userManager.getSpeakingEvents(username);
-                List<Event> priorEvents = eventManager.chronologicalEvents(eventManager.eventHappened(allEvents));
-                List<String> priorEventNames = eventManager.eventHappened(allEvents);
-                p.displayAllEventsGiven(priorEvents);
-                if (priorEvents.size() == 0){
+                List<Event> allEvents = eventManager.chronologicalEvents(userManager.getSpeakingEvents(username));
+                p.displayAllEventsGiven(allEvents);
+                if (allEvents.size() == 0){
                     break;
                 }
                 p.displayEnterNumberOfEventsPrompt();
@@ -68,6 +66,17 @@ public class SpeakerController{
                     break;
                 }
                 int num = Integer.parseInt(strnum);
+                while(num < 1 || num > allEvents.size()){
+                    p.displayNumberOfEventsError();
+                    strnum = scan.nextLine();
+                    if (strnum.equals("q")){
+                        break;
+                    }
+                    num = Integer.parseInt(strnum);
+                }
+                if (strnum.equals("q")){
+                    break;
+                }
                 String next = "";
                 List<String> eventNames = new ArrayList<>();
                 for (int i = 0; i < num; i++) {
@@ -81,14 +90,14 @@ public class SpeakerController{
                     if (next.equals("q")){
                         break;
                     }
-                    if (priorEventNames.contains(next) && !eventNames.contains(next)) {
+                    if (allEvents.contains(eventManager.getEvent(next)) && !eventNames.contains(next)) {
                         eventNames.add(next);
                     }
-                    else if(priorEventNames.contains(next)){
+                    else if(allEvents.contains(eventManager.getEvent(next))){
                         p.displayEventAlreadyAddedError();
                         i--;
                     }
-                    else if(!priorEventNames.contains(next)){
+                    else if(!allEvents.contains(next)){
                         p.displayEventNotGivenError();
                         i--;
                     }
@@ -158,7 +167,10 @@ public class SpeakerController{
         List<Message> allMessages = messageManager.viewMessages(username);
         List<String> attendees = new ArrayList<>();
         for (Message message: allMessages){
-            attendees.add(messageManager.getSender(message));
+            String name = messageManager.getSender(message);
+            if(!attendees.contains(name)){
+                attendees.add(name);
+            }
         }
         return attendees;
     }

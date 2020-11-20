@@ -263,8 +263,11 @@ public class AttendeeController{
     private List<String> getSenders(String username){
         List<Message> allMessages = messageManager.viewMessages(username);
         List<String> attendees = new ArrayList<>();
-        for (Message message: allMessages){
-            attendees.add(messageManager.getSender(message));
+        for (Message message: allMessages) {
+            String name = messageManager.getSender(message);
+            if (!attendees.contains(name)) {
+                attendees.add(name);
+            }
         }
         return attendees;
     }
