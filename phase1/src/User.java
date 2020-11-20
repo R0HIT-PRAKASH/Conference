@@ -115,6 +115,10 @@ public abstract class User implements Comparable<User>, Serializable {
         return this.getUsername().compareTo(u.getUsername());
     }
 
+    /**
+     * This method formats a user object into a string.
+     * @return Returns a string representation of the user's attributes.
+     */
     public String toString() {
         return "Username: " + getUsername() + "| Name: " + getName() + "| Email: " + getEmail();
     }

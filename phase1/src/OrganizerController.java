@@ -37,10 +37,6 @@ public class OrganizerController extends AttendeeController {
         }
     }
 
-    /**
-     * Looks at the input from user and decides what to do
-     * @param input: The input from the user
-     */
     private void determineInput(int input) {
         switch (input) {
             case 0:
@@ -336,7 +332,6 @@ public class OrganizerController extends AttendeeController {
     /**
      * This method sends a message to all the attendees at the conference.
      * @param message This parameter is the message text
-     * @return void
      */
     void messageAllAttendees(String message) {
         createBlastMessage("attendee", message);
@@ -346,7 +341,6 @@ public class OrganizerController extends AttendeeController {
      * This method sends a message to all the attendees at a particular event.
      * @param message This parameter is the message text
      * @param name This parameter is the event name
-     * @return void
      */
     void messageEventAttendees(String message, String name) {
         messageManager.speakerBlastMessage(Arrays.asList(name), message, eventManager, this.username);
@@ -355,7 +349,6 @@ public class OrganizerController extends AttendeeController {
     /**
      * This method sends a message to all the speakers at the conference.
      * @param message This parameter is the message text
-     * @return void
      */
     void messageAllSpeakers(String message) {
         createBlastMessage("speaker", message);
@@ -364,7 +357,6 @@ public class OrganizerController extends AttendeeController {
     /**
      * This method cancels an event
      * @param name This is the title of the event to be canceled
-     * @return void
      */
     void cancelEvent(String name) {
         eventManager.getAllEvents().remove(name);
@@ -389,7 +381,6 @@ public class OrganizerController extends AttendeeController {
      * @param email This parameter refers to the email of the speaker.
      * @param username This parameter refers to the username of the speaker.
      * @param password This parameter refers to the password of the speaker.
-     * @return Returns true if the user was added to userMap and false otherwise.
      */
     void createSpeakerAccount(String name, String address, String email, String username, String password) {
         userManager.addUser(name, address, email, username, password, "speaker");
@@ -414,11 +405,6 @@ public class OrganizerController extends AttendeeController {
 
     }
 
-    /**
-     * This method returns a LocalDateTime object queried from the user
-     * @return LocalDateTime
-     * @throws DateTimeException
-     */
     private LocalDateTime getTime() throws DateTimeException {
         p.displayEnterYearPrompt();
         int y = nextInt();
@@ -433,10 +419,6 @@ public class OrganizerController extends AttendeeController {
         return LocalDateTime.of(y, m, d, h, mi);
     }
 
-    /**
-     * This repeatedly asks a user for a LocalDateTime object until they make one that is valid
-     * @return LocalDateTime
-     */
     private LocalDateTime askTime() {
         LocalDateTime time = LocalDateTime.now();
         do {
@@ -451,9 +433,6 @@ public class OrganizerController extends AttendeeController {
         return time;
     }
 
-    /**
-     * This method makes a speaker account with data queried from the user.
-     */
     private void makeSpeaker() {
         p.displayEnterUsernamePrompt();
         String username = scan.nextLine();
@@ -499,11 +478,7 @@ public class OrganizerController extends AttendeeController {
         createSpeakerAccount(name, address, email, username, password);
         messageManager.addUserInbox(username);
     }
-    /**
-     * Gets all the usernames of users who have messaged this Organizer
-     * @param username of this Organizer
-     * @return Returns all the usernames
-     */
+
     private List<String> getSenders(String username){
         List<Message> allMessages = messageManager.viewMessages(username);
         List<String> users = new ArrayList<>();
@@ -513,11 +488,7 @@ public class OrganizerController extends AttendeeController {
         return users;
     }
 
-    /**
-     * Returns a list of Users of a specific type
-     * @param type The type of User
-     * @return List<User>
-     */
+
     private List<User> users(String type) {
         return userManager.getUserMap().values().stream()
                 .filter(user -> user.getUserType().equals(type))

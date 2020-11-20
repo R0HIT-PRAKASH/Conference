@@ -711,10 +711,16 @@ public class Presenter {
                 "of someone who has messaged you or enter \"q\" to go back to your options: ");
     }
 
+    /**
+     * Prints the message that the time input is invalid.
+     */
     public void displayInvalidHourError(){
         System.out.println("Invalid time. The event must begin between 9:00 and 16:00");
     }
 
+    /**
+     * Prints the message the date input is invalid.
+     */
     public void displayInvalidDateError(){
         LocalDateTime currentDateTime = LocalDateTime.now();
         LocalDate currentDate = currentDateTime.toLocalDate();
@@ -729,14 +735,25 @@ public class Presenter {
                     " any time before 5PM and any following date");
         }
     }
+
+    /**
+     * Prints the message that the user input is not a speaker.
+     */
     public void displayNotSpeakerError(){
         System.out.print("This user is not a speaker! Please try again or enter 'q' to quit: ");
     }
 
+    /**
+     * Prints the message that asks the user which attendee they want to message.
+     */
     public void displayEventSelectorPrompt(){
         System.out.println("Type the name of the event who's attendee you want to message");
     }
 
+    /**
+     * Prints the set of all users attending an event.
+     * @param eventAttendees Refers to the set of users attending the event.
+     */
     public void displayEventAttendeesList(Set<User> eventAttendees){
         System.out.println(eventAttendees);
         System.out.println("Type the username of the attendee from this event you want to message:");

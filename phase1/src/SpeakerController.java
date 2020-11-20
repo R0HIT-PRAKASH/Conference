@@ -40,10 +40,6 @@ public class SpeakerController{
         }
     }
 
-    /**
-     * Looks at the input from user and decides what to do
-     * @param input: The input from the user
-     */
     private void determineInput(int input){
         switch (input) {
             case 0:
@@ -175,18 +171,10 @@ public class SpeakerController{
         p.displayNextTaskPromptSpeaker();
     }
 
-    /**
-     * Prints all the options the user can perform
-     */
     private void viewOptions(){
         p.displayOptions3();
     }
 
-    /**
-     * Gets all the usernames of attendees who have messaged this Speaker
-     * @param username of this Speaker
-     * @return Returns all the usernames
-     */
     private List<String> getAttendees(String username){
         List<Message> allMessages = messageManager.viewMessages(username);
         List<String> attendees = new ArrayList<>();
@@ -199,19 +187,11 @@ public class SpeakerController{
         return attendees;
     }
 
-    /**
-     * Prints all the messages the Speaker has received
-     * @param username of the Speaker
-     */
     private void viewMessages(String username) {
         List<Message> allMessages = messageManager.viewMessages(username);
         p.displayPrintMessages(allMessages);
     }
 
-    /**
-     * Prints all the events the Speaker is scheduled for
-     * @param username of the Speaker
-     */
     private void viewScheduledEvents(String username){
         List<String> allEvents = userManager.getSpeakingEvents(username);
         List<String> notHappened = eventManager.eventNotHappened(allEvents);
@@ -219,31 +199,17 @@ public class SpeakerController{
         p.displayAllFutureEventsGiving(chronological);
     }
 
-    /**
-     * Sends a message to attendees of events that the Speaker has given
-     * @param eventNames: All the events whose attendees the Speaker wants to respond to
-     * @param message: What the Speaker is sending
-     */
     private void sendBlastMessage(List<String> eventNames, String message){
         messageManager.speakerBlastMessage(eventNames, message, eventManager, this.username);
         p.displayMessageSentPrompt2();
     }
 
-    /**
-     * Replies to an attendee that has sent a message to this Speaker
-     * @param recipient: The attendee to send to
-     * @param content: What the Speaker is sending
-     */
     private void replyMessage(String recipient, String content){
         Message message = messageManager.createNewMessage(content, username, recipient);
         messageManager.addMessage(recipient, message);
         p.displayMessageSentPrompt();
     }
 
-    /**
-     * Queries the user for an integer
-     * @return int
-     */
     private int nextInt() {
         int input = 0;
 

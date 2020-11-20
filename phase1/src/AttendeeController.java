@@ -45,10 +45,6 @@ public class AttendeeController{
         }
     }
 
-    /**
-     * Looks at the input from user and decides what to do
-     * @param input: The input from the user
-     */
     private void determineInput(int input) {
         switch (input) {
             case 0:
@@ -213,6 +209,10 @@ public class AttendeeController{
         p.displayEventList(chronological);
     }
 
+    /**
+     * This method returns a list of events that will occur.
+     * @return Returns a list of events that have not occurred yet.
+     */
     protected List<Event> viewFutureEventList() {
         List<Event> chronological = eventManager.chronologicalEvents(eventManager.getAllEventNamesOnly());
         List<Event> future = new ArrayList<>();
@@ -259,11 +259,6 @@ public class AttendeeController{
         }
     }
 
-    /**
-     * Gets all the usernames of users who have messaged this Attendee
-     * @param username of this Attendee
-     * @return Returns all the usernames
-     */
     private List<String> getSenders(String username){
         List<Message> allMessages = messageManager.viewMessages(username);
         List<String> attendees = new ArrayList<>();
@@ -278,7 +273,7 @@ public class AttendeeController{
 
     /**
      * Queries the user for an integer
-     * @return int
+     * @return Returns the integer that user input.
      */
     protected int nextInt() {
         int input = 0;
