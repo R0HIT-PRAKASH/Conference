@@ -102,10 +102,7 @@ public class EventManager implements Serializable {
         int compare1 = time.compareTo(dateAt9AM);
         int compare2 = time.compareTo(dateAt4PM);
 
-        if (compare1 < 0 || compare2 > 0){
-            return false;
-        }
-        return true;
+        return (compare1 >= 0 && compare2 <= 0);
     }
 
     /**
@@ -124,10 +121,7 @@ public class EventManager implements Serializable {
         int compare1 = time.compareTo(dateAt9AM);
         int compare2 = time.compareTo(dateAt4PM);
 
-        if (compare1 < 0 || compare2 > 0){
-            return false;
-        }
-        return true;
+        return (compare1 >= 0 && compare2 <= 0);
     }
     /**
      * @param e1 Refers to the event that is requested to be added.
@@ -239,15 +233,8 @@ public class EventManager implements Serializable {
      */
     public boolean checkEventFull(String eventName){
         Event event = this.getEvent(eventName);
-        if (event == null){
-            return true;
-        }
-        if (event.getAttendeeSet().size() == getRoom(event.getRoomNumber()).getCapacity()){
-            return true;
-        }
-        else{
-            return false;
-        }
+
+        return (event == null || event.getAttendeeSet().size() == getRoom(event.getRoomNumber()).getCapacity());
     }
 
     /**

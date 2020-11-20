@@ -149,10 +149,10 @@ public class OrganizerController extends AttendeeController {
                 } while (!(userManager.getUserType(speaker) == "speaker")){
                     p.displayNotSpeakerError();
                     speaker = scan.nextLine();
-                if (speaker.equalsIgnoreCase("q")) {
-                    break;
+                    if (speaker.equalsIgnoreCase("q")) {
+                        break;
+                    }
                 }
-            }
                 if (speaker.equalsIgnoreCase("q")) {
                     break;
                 }
