@@ -536,7 +536,8 @@ public class Presenter {
         }
         int counter = 1;
         for(Room room : rooms){
-            System.out.println("Room #" + room.getRoomNumber());
+            System.out.println("Room #" + room.getRoomNumber();
+            counter++;
         }
 
     }
