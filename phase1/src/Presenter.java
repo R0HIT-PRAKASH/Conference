@@ -559,7 +559,7 @@ public class Presenter {
             System.out.println("You haven't given any events yet. ");
             return;
         }
-        System.out.println("Here are all the events that you have given: ");
+        System.out.println("Here are all the events that you have given/will give: ");
         int counter = 1;
         for (Event curr : events){
             System.out.println(counter + ": " + curr);
@@ -576,10 +576,9 @@ public class Presenter {
             System.out.println("You aren't currently signed up to give any future events");
             return;
         }
+        System.out.println("These are all the events you will be giving: ");
         for (Event curr : events){
-            DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
-            String date = curr.getTime().format(formatter);
-            System.out.println(date + ": " + curr);
+            System.out.println(curr);
         }
     }
 
@@ -588,6 +587,13 @@ public class Presenter {
      */
     public void displayEnterNumberOfEventsPrompt(){
         System.out.println("Please enter the number of events or type 'q' to quit: ");
+    }
+
+    /**
+     * Asks how many events' attendees you'd like to message
+     */
+    public void displayNumberOfEventsError(){
+        System.out.println("Not an appropriate number of events, please re-enter or enter 'q' to quit: ");
     }
 
     /**
@@ -655,7 +661,7 @@ public class Presenter {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
             String date = currentDate.format(formatter);
             System.out.println("Invalid date entered. An event can only be scheduled for " + date +
-                    " any time before 5PM and any preceding date");
+                    " any time before 5PM and any following date");
         }
     }
     public void displayNotSpeakerError(){
