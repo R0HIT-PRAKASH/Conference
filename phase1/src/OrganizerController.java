@@ -1,3 +1,5 @@
+import oracle.jrockit.jfr.StringConstantPool;
+
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -177,6 +179,8 @@ public class OrganizerController extends AttendeeController {
                 if(!userManager.checkCredentials(speaker)) {
                     p.displaySpeakerCredentialError();
                     makeSpeaker();
+                    p.displayEnterNewSpeakerPrompt();
+                    speaker = scan.nextLine();
                 }
                 else{
                     while (!(userManager.getUserType(speaker) == "speaker")){
@@ -194,9 +198,13 @@ public class OrganizerController extends AttendeeController {
                 int num = nextInt();
 
                 boolean added = addEvent(name, speaker, time, num);
-                userManager.addSpeakingEvent(speaker, name);
-                if(!added) p.displayEventCreationError();
-                else p.displaySuccessfulEventCreation();
+
+                if(!added) {p.displayEventCreationError();}
+                else {
+                    p.displaySuccessfulEventCreation();
+                    userManager.addSpeakingEvent(speaker, name);
+                    userManager.createdEvent(eventManager.getEvent(name), (Organizer) userManager.getUser(this.username));
+                }
                 break;
 
             case 8:
@@ -235,8 +243,21 @@ public class OrganizerController extends AttendeeController {
                 break;
 
             case 11:
+                List<String> eventNames = userManager.allCreatedEvents(this.username);
+                List<Event> futureEvents = eventManager.chronologicalEvents(eventManager.eventNotHappened(eventNames));
+                p.displayYourCreatedEvents(futureEvents);
                 p.displayEventRemovalPrompt();
                 String event = scan.nextLine();
+                if (event.equalsIgnoreCase("q")) {
+                    break;
+                }
+                while(!futureEvents.contains(eventManager.getEvent(event))){
+                    p.displayCannotCancel();
+                    event = scan.nextLine();
+                    if (event.equalsIgnoreCase("q")) {
+                        break;
+                    }
+                }
                 if (event.equalsIgnoreCase("q")) {
                     break;
                 }
@@ -257,7 +278,7 @@ public class OrganizerController extends AttendeeController {
                 break;
 
             case 13:
-                // System.out.println("Are you sure you want to make a new Speaker? Type 'q' to exit");
+                p.displayEnsureNewSpeakerPrompt();
                 String answer = scan.nextLine();
                 if (answer.equalsIgnoreCase("q")) {
                     break;

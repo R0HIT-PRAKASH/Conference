@@ -566,6 +566,26 @@ public class Presenter {
         }
     }
 
+    /**
+     * Displays a list of events that this organizer created
+     * @param futureEvents The list of created events
+     */
+    public void displayYourCreatedEvents(List<Event> futureEvents){
+        if (futureEvents.size() == 0){
+            System.out.println("There are no upcoming events created by you. ");
+            return;
+        }
+        System.out.println("These are all the events coming up that you created: ");
+        int counter = 1;
+        for (Event named : futureEvents){
+            System.out.println(counter + ". " + named);
+        }
+    }
+
+    public void displayCannotCancel(){
+        System.out.print("You can't cancel that event, re-enter or type 'q' to quit: ");
+    }
+
     // ----------------------------------------------------------------------------------------------------------------
 
 
