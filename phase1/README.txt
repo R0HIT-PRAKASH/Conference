@@ -18,6 +18,9 @@ The corresponding numbers for these are provided for your reference:
      Attendees: 7 to be shown the menu of options, 8 to end the program
      Speakers: 4 to be shown the menu of options, 5 to end the program
 
+Once you are done using the program for the time being, and want to save your files, you MUST end the program using the
+reference above, or else your data will not be saved.
+
 DEFAULTS PROVIDED
 - we'll enter the usernames and passwords of the users that we have in the .ser files
 - outline the events, etc. that are provided as a default
