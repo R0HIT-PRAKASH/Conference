@@ -162,8 +162,6 @@ public class OrganizerController extends AttendeeController {
                         }
                     }
                 }
-                p.displayEnterNewSpeakerPrompt();
-                speaker = scan.nextLine();
                 if (speaker.equalsIgnoreCase("q")) {
                     break;
                 }
