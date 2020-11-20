@@ -59,7 +59,7 @@ public class MessageManager implements java.io.Serializable {
         if (userManager.getUserType(from).equals("attendee")){
             return userManager.getUserType(to).equals("attendee") || userManager.getUserType(to).equals("speaker");
         } else if (userManager.getUserType(from).equals("organizer")){
-            if (!(userManager.getUserType(to).equals("organizer"))){
+            if (userManager.getUserType(to).equals("organizer")){
                 return true;
             }
         }

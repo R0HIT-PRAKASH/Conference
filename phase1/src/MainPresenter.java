@@ -15,7 +15,7 @@ public class MainPresenter {
      * Prints a message welcoming the first user to the program.
      */
     public void displayNewFirstUserMessage(){
-        System.out.println("Welcome to the conference! : ");
+        System.out.println("Welcome to the conference! ");
     }
 
     /**
@@ -29,112 +29,112 @@ public class MainPresenter {
      * Prompts a user for their username.
      */
     public void displayEnterUsernamePrompt(){
-        System.out.println("Enter Username: ");
+        System.out.print("Enter Username: ");
     }
 
     /**
      * Prints an error message when the entered username does not exist.
      */
     public void displayUsernameExistanceError(){
-        System.out.println("This username doesn't exist, please re-enter or type \"q\" to quit: ");
+        System.out.print("This username doesn't exist, please re-enter or type \"q\" to quit: ");
     }
 
     /**
      * Prompts a user for their password.
      */
     public void displayEnterPasswordPrompt(){
-        System.out.println("Enter Password: ");
+        System.out.print("Enter Password: ");
     }
 
     /**
      * Prints an error message that the entered password must be at least 3 characters, asks user to enter another password.
      */
     public void displayInvalidPasswordError(){
-        System.out.println("Error, password must be at least 3 characters.\nPlease enter again:");
+        System.out.print("Error, password must be at least 3 characters.\nPlease enter again: ");
     }
 
     /**
      * Prompts user to re-enter password.
      */
     public void displayRedoPasswordPrompt(){
-        System.out.println("Re-enter your password:\nTo quit, press \"q\":");
+        System.out.print("Re-enter your password:\nTo quit, press \"q\": ");
     }
 
     /**
      * Greets a new user and asks user to enter information and sign up.
      */
     public void displayNewUserGreeting(){
-        System.out.println("It looks like you are a new user!\nPlease enter some information:");
+        System.out.println("It looks like you are a new user. Please enter some information");
     }
 
     /**
      * Prints to user that the entered username is already taken, and asks user to enter another username.
      */
     public void displayUsernameTakenError(){
-        System.out.println("That username is already taken, please enter another one: ");
+        System.out.print("That username is already taken, please enter another one: ");
     }
 
     /**
      * Prints an error message that the entered username must be at least 3 characters, asks user to enter another username.
      */
     public void displayInvalidUsernameError(){
-        System.out.println("Error, username must be at least 3 characters. please enter another one: ");
+        System.out.print("Error, username must be at least 3 characters. please enter another one: ");
     }
 
     /**
      * Prompts user to enter their name.
      */
     public void displayEnterNamePrompt(){
-        System.out.println("Enter your name: ");
+        System.out.print("Enter your name: ");
     }
 
     /**
      * Prints an error message that the name must be at least 2 characters.
      */
     public void displayInvalidNameError(){
-        System.out.println("Error, name must be at least 2 characters.\nPlease enter again:");
+        System.out.print("Error, name must be at least 2 characters.\nPlease enter again: ");
     }
 
     /**
      * Prompts the user to enter their address.
      */
     public void displayEnterAddressPrompt(){
-        System.out.println("Enter your address: ");
+        System.out.print("Enter your address: ");
     }
 
     /**
      * Prints an error message that the address must be at least 6 characters.
      */
     public void displayInvalidAddressError(){
-        System.out.println("Error, address must be at least 6 characters.\nPlease enter again:");
+        System.out.print("Error, address must be at least 6 characters.\nPlease enter again: ");
     }
 
     /**
      * Prompts the user to enter their email.
      */
     public void displayEnterEmailPrompt(){
-        System.out.println("Enter your Email: ");
+        System.out.print("Enter your Email: ");
     }
 
     /**
      * Prints an error message that the entered email is not up to RFC 5322 standards, asks user to enter another email.
      */
     public void displayInvalidEmailError(){
-        System.out.println("The email is not up to RFC 5322 standards. Try another ");
+        System.out.print("The email is not up to RFC 5322 standards. Try another: ");
     }
 
     /**
      * Prompts the user to specify their status in the conference: organizer, attendee, speaker.
      */
     public void displayEnterStatusPrompt(){
-        System.out.println("Enter your status in the conference. This can be \"organizer\", \"attendee\" or \"speaker\":");
+        System.out.print("Enter your status in the conference. This can be \"organizer\", \"attendee\" or \"speaker\": ");
     }
 
     /**
      * Prints an error message that the entered status is an invalid input.
      */
     public void displayInvalidStatusError(){
-        System.out.println("That was an invalid input.\nPlease try again:");
+        System.out.print("That was an invalid input.\nPlease try again: ");
     }
 
     // -----------------------------------------------------------------------------------------------------------------
