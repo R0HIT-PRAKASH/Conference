@@ -46,16 +46,25 @@ public class OrganizerController extends AttendeeController {
             case 0:
                 viewMessages(this.username);
                 break;
+
             case 1:
                 if(userManager.getUserMap().size() == 1) {
                     p.displayConferenceError();
                     break;
                 }
                 p.displayMethodPrompt();
+                // System.out.println("Who would you like to message? (Please enter the username of the recipient). Otherwise, type 'q' to exit");
                 String recipient = scan.nextLine();
-                if(messageManager.checkIsMessageable(recipient, this.username, userManager)) {
+                if (recipient.equals("q")){
+                    break;
+                }
+                else if(messageManager.checkIsMessageable(recipient, this.username, userManager)) {
                     p.displayEnterMessagePrompt(recipient);
+                    // System.out.println("What message would you like to send to: " + recipient + ". " + "If you would no longer like to send a message, type 'q' to exit");
                     String messageContents = scan.nextLine();
+                    if (messageContents.equals("q")){
+                        break;
+                    }
                     sendMessage(recipient, messageContents);
                     p.displayMessageSentPrompt();
                 }
@@ -63,6 +72,7 @@ public class OrganizerController extends AttendeeController {
                     p.displayNotMessageableError();
                 }
                 break;
+
             case 2:
                 if(messageManager.getAllUserMessages().get(this.username).size() == 0){
                     p.displayNoReply();
@@ -72,11 +82,12 @@ public class OrganizerController extends AttendeeController {
                     p.displayConferenceError();
                     break;
                 }
-                List<String> users = getSenders(username);
-                p.displayAllSenders(users);
+                List<String> attendees = getSenders(username);
+                p.displayAllSenders(attendees);
                 p.displayEnterUserUsernamePrompt();
+                // System.out.println("Which user are you replying to (it is case sensitive). If you no longer want to reply to a user, type 'q' to exit: ");
                 String recipients = scan.nextLine();
-                while (!users.contains(recipients)){
+                while (!attendees.contains(recipients)){
                     p.displayUserReplyError();
                     recipients = scan.nextLine();
                     if (recipients.equals("q")){
@@ -90,23 +101,33 @@ public class OrganizerController extends AttendeeController {
                 String content = scan.nextLine();
                 replyMessage(content, recipients);
                 break;
+
             case 3:
                 viewEventList();
                 break;
+
             case 4:
                 viewSignedUpForEvent(this.username);
                 break;
+
             case 5:
                 p.displayEventCancelPrompt();
+                // System.out.println("What is the name of the event you no longer want to attend? Type 'q' if you no longer want to cancel your spot in an event.");
                 String cancel = scan.nextLine();
-                if(userManager.getAttendingEvents(this.username).contains(cancel)) {
-                    cancelSpotInEvent(cancel);
-                    p.displaySuccessfulCancellation();
+                if (cancel.equals("q")){
+                    break;
                 }
-                else{
-                    p.displayEventCancellationError1();
+                if(!userManager.getAttendingEvents(this.username).contains(cancel)) {
+                    p.displayEventCancelPrompt();
+                    break;
                 }
+                else if(userManager.getAttendingEvents(this.username).size() == 0){
+                    p.displayEventCancellationError2();
+                    break;
+                }
+                cancelSpotInEvent(cancel);
                 break;
+
             case 6:
                 List<Event> future = viewFutureEventList();
                 p.displayAllFutureEvents(future);
@@ -114,7 +135,11 @@ public class OrganizerController extends AttendeeController {
                     break;
                 }
                 p.displayEventSignUpPrompt();
+                // System.out.println("What is the name of the event you would like to sign up for? Type 'q' if you would no longer like to sign up for an event.");
                 String eventSignedUp = scan.nextLine();
+                if (eventSignedUp.equals("q")){
+                    break;
+                }
                 while (eventManager.getEvent(eventSignedUp) == null ||
                         !future.contains(eventManager.getEvent(eventSignedUp))){
                     p.displayInvalidEventSignUp();
@@ -143,6 +168,10 @@ public class OrganizerController extends AttendeeController {
                 }
                 p.displayEventTitlePrompt();
                 String name = scan.nextLine();
+                // Adding the option to end the case early here in case a User wants to go back
+                if (name.equals("q")){
+                    break;
+                }
                 p.displayEnterSpeakerPrompt();
                 String speaker = scan.nextLine();
                 if(!userManager.checkCredentials(speaker)) {
@@ -158,8 +187,6 @@ public class OrganizerController extends AttendeeController {
                         }
                     }
                 }
-                p.displayEnterNewSpeakerPrompt();
-                speaker = scan.nextLine();
                 if (speaker.equalsIgnoreCase("q")) {
                     break;
                 }
@@ -169,19 +196,26 @@ public class OrganizerController extends AttendeeController {
                 boolean added = addEvent(name, speaker, time, num);
                 userManager.addSpeakingEvent(speaker, name);
                 if(!added) p.displayEventCreationError();
-
+                else p.displaySuccessfulEventCreation();
                 break;
 
             case 8:
                 p.displayAllAttendeeMessagePrompt();
-                messageAllAttendees(scan.nextLine());
+                String message = scan.nextLine();
+                if (message.equalsIgnoreCase("q")) {
+                    break;
+                }
+                messageAllAttendees(message);
                 p.displayMessageSentPrompt();
                 break;
 
             case 9:
                 p.displayEventMessagePrompt();
                 String eventname = scan.nextLine();
-                if(eventManager.getEvent(eventname) == null) {
+                if (eventname.equalsIgnoreCase("q")) {
+                    break;
+                }
+                else if(eventManager.getEvent(eventname) == null) {
                     p.displayInvalidEventError();
                 } else {
                     p.displayAllAttendeeEventMessagePrompt();
@@ -192,19 +226,30 @@ public class OrganizerController extends AttendeeController {
 
             case 10:
                 p.displayAllSpeakerMessagePrompt();
-                messageAllSpeakers(scan.nextLine());
+                String speakermessage = scan.nextLine();
+                if (speakermessage.equalsIgnoreCase("q")) {
+                break;
+                }
+                messageAllSpeakers(speakermessage);
                 p.displayMessageSentPrompt();
                 break;
 
             case 11:
                 p.displayEventRemovalPrompt();
-                cancelEvent(scan.nextLine());
+                String event = scan.nextLine();
+                if (event.equalsIgnoreCase("q")) {
+                    break;
+                }
+                cancelEvent(event);
                 break;
 
             case 12:
                 p.displayEventReschedulePrompt();
                 String eventname1 = scan.nextLine();
-                if(eventManager.getEvent(eventname1) == null) {
+                if (eventname1.equalsIgnoreCase("q")) {
+                    break;
+                }
+                else if(eventManager.getEvent(eventname1) == null) {
                     p.displayInvalidEventError();
                 }
                 LocalDateTime newTime = askTime();
@@ -212,6 +257,11 @@ public class OrganizerController extends AttendeeController {
                 break;
 
             case 13:
+                // System.out.println("Are you sure you want to make a new Speaker? Type 'q' to exit");
+                String answer = scan.nextLine();
+                if (answer.equalsIgnoreCase("q")) {
+                    break;
+                }
                 makeSpeaker();
                 break;
 
@@ -223,6 +273,9 @@ public class OrganizerController extends AttendeeController {
             case 15:
                 p.displayRoomCreationPrompt();
                 int roomNumber = nextInt();
+                if (roomNumber == -1) {
+                    break;
+                }
                 boolean roomAdded = eventManager.addRoom(roomNumber);
                 if(!roomAdded) p.displayRoomAlreadyExists();
 

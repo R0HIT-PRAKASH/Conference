@@ -258,4 +258,8 @@ public class UserManager implements java.io.Serializable {
                         (!event.getTime().isAfter(attendEvent.getTime()) || !(timeBetween < attendEvent.getDuration() * 60)) &&
                         (!event.getTime().isEqual(attendEvent.getTime())));
     }
+
+    public void createdEvent(Event event, Organizer organizer){
+        organizer.createdEvent(event);
+    }
 }
