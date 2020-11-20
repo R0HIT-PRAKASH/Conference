@@ -529,8 +529,16 @@ public class Presenter {
      * Prints all the rooms in this conference.
      * @param rooms: a List of rooms in this conference.
      */
-    public void displayRoomList(Object rooms){
-        System.out.println(rooms);
+    public void displayRoomList(List<Room> rooms){
+        if (rooms.size() == 0){
+            System.out.println("No rooms have been created yet. ");
+            return;
+        }
+        int counter = 1;
+        for(Room room : rooms){
+            System.out.println("Room #" + room.getRoomNumber());
+        }
+
     }
 
 
