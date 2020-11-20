@@ -12,6 +12,13 @@ public class MainPresenter {
     }
 
     /**
+     * Prints a message welcoming the first user to the program.
+     */
+    public void displayNewFirstUserMessage(){
+        System.out.println("Welcome to the conference! : ");
+    }
+
+    /**
      * Prints an error message when the user does not successfully specify if they are a new or returning user.
      */
     public void displayNewOrReturningError(){

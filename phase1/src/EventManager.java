@@ -367,4 +367,8 @@ public class EventManager implements Serializable {
     public LocalDateTime getTime(Event event){
         return event.getTime();
     }
+
+    public void addAttendee(Event event, User user) {
+           event.addAttendee(user);
+    }
 }

@@ -141,9 +141,9 @@ public class MainController {
      * This method is responsible for calling the appropriate controller depending on the user. At the end, it saves
      * all the users, messages, events, and rooms to the appropriate files.
      */
-    public void run() {
+    public void run(int value) {
         LoginController log = new LoginController();
-        this.username = log.login(userManager, messageManager);
+        this.username = log.login(userManager, messageManager, value);
         if (username.equals("q")){
             return;
         }
