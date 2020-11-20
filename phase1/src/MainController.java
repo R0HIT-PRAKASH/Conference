@@ -13,6 +13,7 @@ public class MainController {
     protected String username;
     protected ReaderWriter RW;
     MainPresenter p;
+    Scanner scan;
 
     /**
      * Constructs a MainController object with MessageManager, UserManager, EventManager, ReaderWriter objects,
@@ -25,6 +26,7 @@ public class MainController {
         RW = new ReaderWriter();
         username = "";
         p = new MainPresenter();
+        scan = new Scanner(System.in);
     }
 
 
@@ -163,6 +165,8 @@ public class MainController {
         RW.write(messageManager.getAllUserMessages());
         RW.write(eventManager.getAllEvents());
         RW.writeRoom(eventManager.getRooms());
+
+        p.displaySignedOut();
     }
 
     private void readInAllFiles(ReaderWriter RW, UserManager UM, MessageManager MM, EventManager EM) throws IOException, ClassNotFoundException {
