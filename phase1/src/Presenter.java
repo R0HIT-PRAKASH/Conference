@@ -658,6 +658,9 @@ public class Presenter {
                     " any time before 5PM and any preceding date");
         }
     }
+    public void displayNotSpeakerError(){
+        System.out.println("This user is not a speaker! Please try again or enter 'q' to quit.");
+    }
     // ----------------------------------------------------------------------------------------------------------------
 
 }
