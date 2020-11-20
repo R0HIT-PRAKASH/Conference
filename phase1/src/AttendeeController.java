@@ -251,8 +251,10 @@ public class AttendeeController{
      */
     protected void signUp(String eventName) {
         Event event = eventManager.getEvent(eventName);
-        userManager.signUpForEvent(this.username, event, eventManager);
-        p.displayEventSignUp();
+        if (userManager.signUpForEvent(this.username, event, eventManager)){
+            p.displayEventSignUp();
+        }
+        p.displayEventFull();
     }
 
     /**

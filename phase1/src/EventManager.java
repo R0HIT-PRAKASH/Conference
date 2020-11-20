@@ -368,6 +368,11 @@ public class EventManager implements Serializable {
         return event.getTime();
     }
 
+    /**
+     * Adds an user to the list of an event's attendees.
+     * @param event the event who's list of attendees we want to update.
+     * @param user the user being added to the list of attendees.
+     */
     public void addAttendee(Event event, User user) {
            event.addAttendee(user);
     }
