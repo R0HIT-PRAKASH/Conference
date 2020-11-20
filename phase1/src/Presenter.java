@@ -759,6 +759,10 @@ public class Presenter {
         System.out.println("Type the username of the attendee from this event you want to message:");
     }
 
+    public void displayNotAttendingAnyEvents(){
+        System.out.println("You aren't attending any events so there are no event reservations to cancel.");
+    }
+
 
     // ----------------------------------------------------------------------------------------------------------------
 
