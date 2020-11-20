@@ -267,4 +267,9 @@ public class UserManager implements java.io.Serializable {
     public void createdEvent(Event event, Organizer organizer){
         organizer.createdEvent(event);
     }
+
+    public List<String> allCreatedEvents(String organizer){
+        Organizer copy = (Organizer)getUser(organizer);
+        return copy.getOrganizingEvents();
+    }
 }
