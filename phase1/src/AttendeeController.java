@@ -254,7 +254,9 @@ public class AttendeeController{
         if (userManager.signUpForEvent(this.username, event, eventManager)){
             p.displayEventSignUp();
         }
-        p.displayEventFull();
+        else {
+            p.displayEventFull();
+        }
     }
 
     /**

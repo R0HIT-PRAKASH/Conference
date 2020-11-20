@@ -57,7 +57,7 @@ public class MainPresenter {
      * Prompts user to re-enter password.
      */
     public void displayRedoPasswordPrompt(){
-        System.out.print("Re-enter your password:\nTo quit, press \"q\": ");
+        System.out.print("Incorrect. Re-enter your password (to quit, press \"q\"): ");
     }
 
     /**
