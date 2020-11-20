@@ -71,3 +71,8 @@
         - name at least 2 characters, and
         - address at least 6 characters
     The email must also follow standard email conventions.
+
+
+===== QUESTIONS FOR TA =====
+(1) Are our controllers handling too much? If so, how should we go about fixing this?
+(2) In what ways can we improve our use of Clean Architecture (please specify which classes if possible)?
