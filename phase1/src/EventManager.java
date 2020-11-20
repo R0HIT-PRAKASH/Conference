@@ -82,7 +82,7 @@ public class EventManager implements Serializable {
         return true;
     }
 
-    public Set<User> getEventAttendees(String eventName){
+    public Set<String> getEventAttendees(String eventName){
         return getEvent(eventName).getAttendeeSet();
     }
 

@@ -143,13 +143,11 @@ public class SpeakerController{
                 viewScheduledEvents(username);
                 String eventName = scan.nextLine();
                 if(eventManager.events.containsKey(eventName)){
-                    Set<User> eventAttendees = eventManager.getEventAttendees(eventName);
+                    Set<String> eventAttendees = eventManager.getEventAttendees(eventName);
                     System.out.println(eventAttendees);
                     System.out.println("Type the username of the attendee from this event you want to message:");
                     String toMessage = scan.nextLine();
-                    System.out.print(userManager.getUser(toMessage));
-                    System.out.println(eventAttendees.contains(userManager.getUser(toMessage)));
-                    if(eventAttendees.contains(userManager.getUser(toMessage))){
+                    if(eventAttendees.contains(userManager.getUser(toMessage).getUsername())){
                         p.displayEnterMessagePrompt();
                         String messageContent = scan.nextLine();
                         replyMessage(toMessage, messageContent);
