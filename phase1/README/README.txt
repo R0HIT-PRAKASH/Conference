@@ -35,24 +35,35 @@
     sentence.
 
 ===== DEFAULTS PROVIDED =====
-    - we'll enter the usernames and passwords of the users that we have in the .ser files
-    - outline the events, etc. that are provided as a default
-
     ==Organizers==
     (1) username: esherman, password: hello11 [name: Ellis Sherman, address: 100 Demo Circle, email: ellis@email.com]
     (2) username: ablythe, password: this22 [name: Aizah Blythe, address: 22 CSC207 Road, email: aizah@email.com]
 
-    ==Attendees==:
+    ==Attendees==
     (1) username: mkent, password: is33 [name: Melody Kent, address: 16 Phase One Blvd, email: melody@email.com]
     (2) username: jdalton, password: a44 [name: Jillian Dalton, address: 48 Read Me Dr, email: jillian@email.com]
     (3) username: jframe, password: demo55 [name: Jamil Frame, address: 29 Attendee Street, email: jamil@email.com]
-    (4) username: abrowne, password: file66 [name: Aine Browne, address: 80 Git Road, email: aine@email.com]
-    (5) username: gdowns, password: and77 [name: Gilbert Downs, address: 13 Markus Crescent, email: gilbert@email.com]
 
-    ==Speakers==:
+    ==Speakers==
     (1) username: kmalone, password: its88 [name: Kerry Malone, address: 57 Program Main, email: kerry@email.com]
     (2) username: fwiley, password: user99 [name: Ferne Wiley, address: 92 Ser File, email: ferne@email.com]
     (3) username: cwhitmore, password: settings [name: Cat Whitmore, address: 58 Terminal Road, email: cat@email.com]
+
+    ==Messages==
+    jframe --> mkent 'Are you going to event1'
+    mkent --> jframe 'Yes!'
+
+    ==Rooms==
+    Rooms: [‘101’, ‘102’, ‘103’, ‘104’]
+
+    ==Events==
+    {name: event1, speakerName: kmalone, time: 2020-11-28-09:00, roomNumber: 101}
+    {name: event2, speakerName: fwiley, time: 2020-11-28-10:30, roomNumber: 102}
+    {name: event3, speakerName: kmalone, time: 2020-11-28-10:00, roomNumber: 103}
+    {name: event4, speakerName: fwiley, time: 2020-11-28-13:00, roomNumber: 102}
+    {name: event5, speakerName: fwiley, time: 2020-11-28-14:00, roomNumber: 104}
+
+    mkent and jdalton are both signed up for event 1.
 
 ===== NEW USER ACCOUNT CONDITIONS =====
     If you choose to create a new account, the following conditions MUST hold:
