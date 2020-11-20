@@ -268,6 +268,11 @@ public class UserManager implements java.io.Serializable {
         organizer.createdEvent(event);
     }
 
+    /**
+     * Returns a list of events that organizer has created.
+     * @param organizer Refers to the username of the organizer.
+     * @return The list of event names that specify the events the organizer is organizing.
+     */
     public List<String> allCreatedEvents(String organizer){
         Organizer copy = (Organizer)getUser(organizer);
         return copy.getOrganizingEvents();
