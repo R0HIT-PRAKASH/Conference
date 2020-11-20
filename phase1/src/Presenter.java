@@ -240,7 +240,7 @@ public class Presenter {
      * Prompts an Attendee or Organizer for the name of the Event they would like to sign up for.
      */
     public void displayEventSignUpPrompt(){
-        // System.out.println("What is the name of the event you would like to sign up for? Type 'q' if you would no longer like to sign up for an event.");
+        System.out.println("What is the name of the event you would like to sign up for? Type 'q' if you would no longer like to sign up for an event.");
     }
 
     /**
@@ -442,7 +442,7 @@ public class Presenter {
      * Prompts the Organizer to enter the username of the Speaker account they want to add to the conference
      */
     public void displayEnterUsernamePrompt(){
-        System.out.print("Enter the Speaker's username: ");
+        System.out.print("Enter the Speaker's username or type 'q' to quit: ");
     }
 
     /**
@@ -478,13 +478,6 @@ public class Presenter {
      */
     public void displayEnterSpeakerNamePrompt(){
         System.out.print("Enter the speaker name: ");
-    }
-
-    /**
-     * Prompts the Organizer if they actually want to create a new Speaker or if they want to exit.
-     */
-    public void displayEnsureNewSpeakerPrompt(){
-        System.out.println("Are you sure you want to make a new Speaker? Type 'q' to exit");
     }
 
     /**

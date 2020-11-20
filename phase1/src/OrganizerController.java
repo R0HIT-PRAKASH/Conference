@@ -276,11 +276,6 @@ public class OrganizerController extends AttendeeController {
                 break;
 
             case 13:
-                p.displayEnsureNewSpeakerPrompt();
-                String answer = scan.nextLine();
-                if (answer.equalsIgnoreCase("q")) {
-                    break;
-                }
                 makeSpeaker();
                 break;
 
@@ -412,7 +407,8 @@ public class OrganizerController extends AttendeeController {
 
         for(String user : userTypes.keySet()) {
             if(userTypes.get(user).equals(blastType)) {
-                messageManager.createNewMessage(message, this.username, user);
+                Message mssg = messageManager.createNewMessage(message, this.username, user);
+                messageManager.addMessage(user, mssg);
             }
         }
 
@@ -462,14 +458,19 @@ public class OrganizerController extends AttendeeController {
     private void makeSpeaker() {
         p.displayEnterUsernamePrompt();
         String username = scan.nextLine();
-        while(this.userManager.checkCredentials(username) || username.length() < 3){
-            if (this.userManager.checkCredentials(username)) {
+        while(this.userManager.checkCredentials(username) || (username.length() < 3 && username.equalsIgnoreCase("q"))){
+            if (username.equalsIgnoreCase("q")) {
+                break;
+            } else if (this.userManager.checkCredentials(username)) {
                 p.displayRepeatUsernameError();
             }
             else if (username.length() < 3) {
                 p.displayUsernameLengthError();
             }
             username = scan.nextLine();
+        }
+        if (username.equalsIgnoreCase("q")) {
+            return;
         }
         p.displayEnterPasswordPrompt();
         String password = scan.nextLine();
