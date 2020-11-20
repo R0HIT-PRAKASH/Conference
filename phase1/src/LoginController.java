@@ -22,12 +22,11 @@ public class LoginController {
         this.messageManager = messageManager;
         p = new MainPresenter();
         p.displayNewOrReturningPrompt();
-        int input = Integer.parseInt(scan.nextLine());
+        int input = nextInt();
         String username = "";
         String password = "";
         while(input != 1 && input != 2 ){
-            p.displayNewOrReturningError();
-            input = scan.nextInt();
+            input = nextInt();
         }
         switch (input){
             case 1:
@@ -127,5 +126,24 @@ public class LoginController {
         this.userManager.addUser(name, address, email, username, password, type);
         this.messageManager.addUserInbox(username);
         return username;
+    }
+
+    /**
+     * Queries the user for an integer
+     * @return int
+     */
+    protected int nextInt() {
+        int input = 0;
+
+        do {
+            try {
+                input = Integer.parseInt(scan.nextLine());
+                break;
+            } catch (NumberFormatException e) {
+                p.displayNewOrReturningError();
+            }
+        } while(true);
+
+        return input;
     }
 }

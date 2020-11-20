@@ -282,7 +282,6 @@ public class AttendeeController{
                 break;
             } catch (NumberFormatException e) {
                 p.displayInvalidInputError();
-                e.printStackTrace();
             }
         } while(true);
 

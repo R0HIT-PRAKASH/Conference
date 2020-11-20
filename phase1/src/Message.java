@@ -21,7 +21,7 @@ public class Message implements Serializable {
         this.content = content;
         this.senderUsername = senderUsername;
         this.recipientUsername = recipientUsername;
-}
+    }
 
     // Getters
 
