@@ -60,7 +60,7 @@ public class OrganizerController extends AttendeeController {
                     p.displayMessageSentPrompt();
                 }
                 else{
-                    p.displayContactListError();
+                    p.displayNotMessageableError();
                 }
                 break;
             case 2:

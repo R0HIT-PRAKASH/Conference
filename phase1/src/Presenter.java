@@ -392,8 +392,8 @@ public class Presenter {
     /**
      * Prints an error message which notifies the Organizer that a User they are trying to Message is not in their contacts list.
      */
-    public void displayContactListError(){
-        System.out.println("Sorry, this person is not in your contact list. Please try again");
+    public void displayNotMessageableError(){
+        System.out.println("Sorry, you are not allowed to message this User. Please try again");
     }
 
     /**
