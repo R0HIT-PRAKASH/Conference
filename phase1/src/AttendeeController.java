@@ -77,7 +77,7 @@ public class AttendeeController{
                     p.displayMessageSentPrompt();
                 }
                 else{
-                    p.displayContactListError();
+                    p.displayNotMessageableError();
                 }
                 break;
 

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.Collections;
 import java.util.List;
 public class Presenter {
 
@@ -132,7 +133,7 @@ public class Presenter {
      * Prompts an Organizer or Attendee on which User they would like to message.
      */
     public void displayMethodPrompt(){
-        System.out.println("Who would you like to message? (Please enter the username of the recipient)");
+        System.out.println("Who would you like to message? (Please enter the username of the recipient). Otherwise, type 'q' to exit");
     }
 
     /**
@@ -148,7 +149,7 @@ public class Presenter {
      * @param recipient: The username of the User who is being messaged.
      */
     public void displayEnterMessagePrompt(String recipient){
-        System.out.println("What message would you like to send to: " + recipient + ".");
+        System.out.println("What message would you like to send to: " + recipient + ". " + "If you would no longer like to send a message, type 'q' to exit");
     }
 
     /**
@@ -162,7 +163,7 @@ public class Presenter {
      * Prompts an Attendee or Organizer to enter which User they want to reply to.
      */
     public void displayEnterUserUsernamePrompt(){
-        System.out.println("Which user are you replying to (it is case sensitive): ");
+        System.out.println("Which user are you replying to (it is case sensitive). If you no longer want to reply to a user, type 'q' to exit: ");
     }
 
 
@@ -203,7 +204,7 @@ public class Presenter {
      * Prompts an Attendee or Organizer on which Event they would like to cancel their spot in.
      */
     public void displayEventCancelPrompt(){
-        System.out.println("What is the name of the event you no longer want to attend?");
+        System.out.println("What is the name of the event you no longer want to attend? Type 'q' if you no longer want to cancel your spot in an event.");
     }
 
     /**
@@ -239,7 +240,7 @@ public class Presenter {
      * Prompts an Attendee or Organizer for the name of the Event they would like to sign up for.
      */
     public void displayEventSignUpPrompt(){
-        System.out.println("What is the name of the event you would like to sign up for?");
+        // System.out.println("What is the name of the event you would like to sign up for? Type 'q' if you would no longer like to sign up for an event.");
     }
 
     /**
@@ -273,6 +274,10 @@ public class Presenter {
                 "have been added to use this feature.");
     }
 
+    public void displayEventFull(){
+        System.out.println("This event is full!");
+    }
+
     // ----------------------------------------------------------------------------------------------------------------
 
     // Methods for Organizer Controller --------------------------------------------------------------------------------
@@ -285,7 +290,8 @@ public class Presenter {
                 "\n(4) View My Scheduled Events\n(5) Cancel Event Reservation\n(6) Sign up for Event" +
                 "\n(7) Add Event\n(8) Message All Attendees\n(9) Message Event Attendees" +
                 "\n(10) Message All Speakers\n(11) Cancel Event\n(12) Reschedule Event\n(13) Add Speaker" +
-                "\n(14) View Options" + "\n(15) Add Room \n(16) View All Rooms \n(17) End");
+                "\n(14) View Options" + "\n(15) Add Room \n(16) View All Rooms \n(17) View Speakers\n(18) " +
+                "View Attendees\n(19) View Organizers\n(20) Quit");
     }
 
     /**
@@ -390,8 +396,8 @@ public class Presenter {
     /**
      * Prints an error message which notifies the Organizer that a User they are trying to Message is not in their contacts list.
      */
-    public void displayContactListError(){
-        System.out.println("Sorry, this person is not in your contact list. Please try again");
+    public void displayNotMessageableError(){
+        System.out.println("Sorry, you are not allowed to message this User. Please try again");
     }
 
     /**
@@ -523,8 +529,29 @@ public class Presenter {
      * Prints all the rooms in this conference.
      * @param rooms: a List of rooms in this conference.
      */
-    public void displayRoomList(Object rooms){
-        System.out.println(rooms);
+    public void displayRoomList(List<Room> rooms){
+        if (rooms.size() == 0){
+            System.out.println("No rooms have been created yet. ");
+            return;
+        }
+        for(Room room : rooms){
+            System.out.println("Room #" + room.getRoomNumber());
+        }
+
+    }
+
+
+    /**
+     * Displays a list of Users
+     * @param speaker The list to be displayed
+     * @param type The type of User
+     */
+    public void displayUserList(List<User> speaker, String type) {
+        Collections.sort(speaker);
+        System.out.println("Here is the " + type + " List");
+        for(User u : speaker) {
+            System.out.println(u);
+        }
     }
 
     // ----------------------------------------------------------------------------------------------------------------
@@ -674,6 +701,8 @@ public class Presenter {
     public void displayNotSpeakerError(){
         System.out.println("This user is not a speaker! Please try again or enter 'q' to quit.");
     }
+
+
     // ----------------------------------------------------------------------------------------------------------------
 
 }

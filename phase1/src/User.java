@@ -115,4 +115,8 @@ public abstract class User implements Comparable<User>, Serializable {
         return this.getUsername().compareTo(u.getUsername());
     }
 
+    public String toString() {
+        return "Username: " + getUsername() + "| Name: " + getName() + "| Email: " + getEmail();
+    }
+
 }

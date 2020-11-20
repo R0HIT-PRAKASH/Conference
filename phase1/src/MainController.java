@@ -14,6 +14,7 @@ public class MainController {
     protected ReaderWriter RW;
     MainPresenter p;
     Scanner scan;
+    boolean startingScratch;
 
     /**
      * Constructs a MainController object with MessageManager, UserManager, EventManager, ReaderWriter objects,
@@ -27,6 +28,7 @@ public class MainController {
         username = "";
         p = new MainPresenter();
         scan = new Scanner(System.in);
+        startingScratch = true;
     }
 
 
@@ -74,6 +76,7 @@ public class MainController {
             } if (answer.equalsIgnoreCase("Yes")) {
                 readInFiles(RW, userManager, messageManager);
                 p.displayDownloadCompletion();
+                startingScratch = false;
             }
         } catch (InputMismatchException ime) {
             p.displayInvalidInputError();
@@ -100,6 +103,7 @@ public class MainController {
             } if (answer.equalsIgnoreCase("Yes")) {
                 readInFiles(RW, userManager, messageManager, eventManager);
                 p.displayDownloadCompletion();
+                startingScratch = false;
             }
         } catch (InputMismatchException ime) {
             p.displayInvalidInputError();
@@ -126,6 +130,7 @@ public class MainController {
             } if (answer.equalsIgnoreCase("Yes")) {
                 readInAllFiles(RW, userManager, messageManager, eventManager);
                 p.displayDownloadCompletion();
+                startingScratch = false;
             }
         } catch (InputMismatchException ime) {
             p.displayInvalidInputError();
@@ -143,7 +148,12 @@ public class MainController {
      */
     public void run(int value) {
         LoginController log = new LoginController();
-        this.username = log.login(userManager, messageManager, value);
+        if (startingScratch){
+            this.username = log.login(userManager, messageManager, 3);
+        }
+        else {
+            this.username = log.login(userManager, messageManager, value);
+        }
         if (username.equals("q")){
             return;
         }
