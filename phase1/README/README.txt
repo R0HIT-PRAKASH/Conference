@@ -6,6 +6,11 @@
     files that we have provided, and you will begin the program with defaults;
     If you choose not to read from a file, you will not be starting with any defaults.
 
+    To read from the files and start with defaults, you will find an input folder in our submission file. You need to
+    move the four files in the input folder to the outermost group_0564 folder in order for the program to read them. If
+    you do not do this, the program will not be able to read the input files and you will not start the program with
+    any defaults.
+
     Follow the prompts on screen for either option. See the defaults provided and adding user section below for
     conditions and additional details.
 
