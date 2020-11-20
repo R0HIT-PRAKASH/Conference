@@ -379,7 +379,7 @@ public class Presenter {
      * Prompts the Organizer what Message they want to send to all speakers in the conference.
      */
     public void displayAllSpeakerMessagePrompt(){
-        System.out.println("Enter what want to say to all the speakers (1 line) or type 'q' to exit.");
+        System.out.println("Enter what you want to say to all the speakers (1 line) or type 'q' to exit.");
     }
 
     /**
