@@ -131,7 +131,7 @@ public class OrganizerController extends AttendeeController {
                 p.displayAddConferencePrompt();
                 LocalDateTime time = askTime();
                 while(!eventManager.between9to5(time) || !eventManager.checkTimeIsAfterNow(time)) {
-                    if (eventManager.between9to5(time)) {
+                    if (!eventManager.between9to5(time)) {
                         p.displayInvalidHourError();
                         time = askTime();
                     } else if (!eventManager.checkTimeIsAfterNow(time)) {
@@ -147,8 +147,8 @@ public class OrganizerController extends AttendeeController {
                     p.displaySpeakerCredentialError();
                     makeSpeaker();
                 } while (!(userManager.getUserType(speaker) == "speaker")){
-                System.out.println("This user is not a speaker! Please try again or enter 'q' to quit.");
-                speaker = scan.nextLine();
+                    p.displayNotSpeakerError();
+                    speaker = scan.nextLine();
                 if (speaker.equalsIgnoreCase("q")) {
                     break;
                 }
