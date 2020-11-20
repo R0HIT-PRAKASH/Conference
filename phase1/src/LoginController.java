@@ -13,8 +13,9 @@ public class LoginController {
 
     /**
      * This constructs a login occurrence
-     * @param userManager the instance of the User Manager
-     * @param messageManager the instance of the Message Manager
+     * @param userManager The instance of the User Manager
+     * @param messageManager The instance of the Message Manager
+     * @param value Whether or not to start from scratch
      * @return String username (of the user who was able to log in)
      */
     public String login(UserManager userManager, MessageManager messageManager, int value){
@@ -69,7 +70,12 @@ public class LoginController {
         return username;
     }
 
-    //returns if the password matches the password of the User who has given username
+    /**
+     * Returns true if the password matches the password of the user with the given username
+     * @param username The username to be checked
+     * @param password The password to be checked
+     * @return If the password matches the username
+     */
     private boolean checkLoginInfo(String username, String password){
         boolean username_valid = this.userManager.checkCredentials(username);
         boolean password_valid = false;
@@ -78,12 +84,20 @@ public class LoginController {
         }
         return password_valid;
     }
-    //returns the User who has the given username
+
+    /**
+     * Returns the user with the given username
+     * @param username The username to look for
+     * @return User
+     */
     private User getUserInfo(String username){
         return this.userManager.getUser(username);
     }
 
-    //creates an Account for a new User, and returns their username
+    /**
+     * Creates an Account for a new User, and returns their username
+     * @return The username
+     */
     private String createAccount(){
         p.displayNewUserGreeting();
         p.displayEnterUsernamePrompt();

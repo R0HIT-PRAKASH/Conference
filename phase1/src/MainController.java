@@ -145,6 +145,7 @@ public class MainController {
     /**
      * This method is responsible for calling the appropriate controller depending on the user. At the end, it saves
      * all the users, messages, events, and rooms to the appropriate files.
+     * @param value Whether or not to start from scratch
      */
     public void run(int value) {
         LoginController log = new LoginController();
