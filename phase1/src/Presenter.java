@@ -274,6 +274,9 @@ public class Presenter {
                 "have been added to use this feature.");
     }
 
+    /**
+     * Prints an error message that the Event sign up was unsuccessful as the Event is at capacity.
+     */
     public void displayEventFull(){
         System.out.println("This event is full!");
     }
