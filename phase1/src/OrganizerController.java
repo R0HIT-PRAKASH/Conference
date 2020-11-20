@@ -445,7 +445,6 @@ public class OrganizerController extends AttendeeController {
                 break;
             } catch (DateTimeException d) {
                 p.displayDateError();
-                d.printStackTrace();
             }
         } while(true);
 
