@@ -16,28 +16,28 @@ public class Presenter {
      * Prompts a User to choose a task.
      */
     public void displayTaskInput(){
-        System.out.println("What would you like to do?\nEnter the corresponding number:");
+        System.out.print("What would you like to do?\nEnter the corresponding number: ");
     }
 
     /**
      * Prompts an Attendee to choose another task once they have completed a task.
      */
     public void displayNextTaskPromptAttendee(){
-        System.out.println("Please enter next task (reminder, you can type '7' to see what you can do): ");
+        System.out.print("Please enter next task (reminder, you can type '7' to see what you can do): ");
     }
 
     /**
      * Prompts an Organizer to choose another task once they have completed a task.
      */
     public void displayNextTaskPromptOrganizer(){
-        System.out.println("Please enter next task (reminder, you can type '14' to see what you can do): ");
+        System.out.print("Please enter next task (reminder, you can type '14' to see what you can do): ");
     }
 
     /**
      * Prompts a Speaker to choose another task once they have completed a task.
      */
     public void displayNextTaskPromptSpeaker(){
-        System.out.println("Please enter next task (reminder, you can type '4' to see what you can do): ");
+        System.out.print("Please enter next task (reminder, you can type '4' to see what you can do): ");
     }
 
     /**
@@ -149,7 +149,7 @@ public class Presenter {
      * @param recipient: The username of the User who is being messaged.
      */
     public void displayEnterMessagePrompt(String recipient){
-        System.out.println("What message would you like to send to: " + recipient + ". " + "If you would no longer like to send a message, type 'q' to exit");
+        System.out.println("Enter the message you would like to send to " + recipient + ". " + "If you would no longer like to send a message, type 'q' to exit. ");
     }
 
     /**
@@ -163,7 +163,7 @@ public class Presenter {
      * Prompts an Attendee or Organizer to enter which User they want to reply to.
      */
     public void displayEnterUserUsernamePrompt(){
-        System.out.println("Which user are you replying to (it is case sensitive). If you no longer want to reply to a user, type 'q' to exit: ");
+        System.out.print("Which user are you replying to (it is case sensitive). If you no longer want to reply to a user, type 'q' to exit: ");
     }
 
 
@@ -204,7 +204,7 @@ public class Presenter {
      * Prompts an Attendee or Organizer on which Event they would like to cancel their spot in.
      */
     public void displayEventCancelPrompt(){
-        System.out.println("What is the name of the event you no longer want to attend? Type 'q' if you no longer want to cancel your spot in an event.");
+        System.out.println("What is the name of the event you no longer want to attend? Type 'q' if you no longer want to cancel your spot in an event. ");
     }
 
     /**
@@ -262,8 +262,8 @@ public class Presenter {
      * Prints an error message that user cannot sign up for this event
      */
     public void displayInvalidEventSignUp(){
-        System.out.println("That is not an Event you can sign up for. Please re-enter the name " +
-                "(it is case sensitive) or enter 'q' to quit");
+        System.out.print("That is not an Event you can sign up for. Please re-enter the name " +
+                "(it is case sensitive) or enter 'q' to quit: ");
     }
 
     /**
@@ -301,35 +301,35 @@ public class Presenter {
      * Prompts the Organizer that the process of adding an Event will now begin.
      */
     public void displayAddConferencePrompt(){
-        System.out.println("To Add an Event to the Conference, Enter the following");
+        System.out.println("To Add an Event to the Conference, enter the following");
     }
 
     /**
      * Prompts the Organizer to add the Title of the Event they want to create.
      */
     public void displayEventTitlePrompt(){
-        System.out.println("Enter an Event Title:");
+        System.out.print("Enter the Event Title (or type 'q' to exit): ");
     }
 
     /**
      * Prompts the Organizer to enter the name of the Speaker for the Event they want to create.
      */
     public void displayEnterSpeakerPrompt(){
-        System.out.println("Enter a Speaker's username:");
+        System.out.print("Enter a Speaker's username: ");
     }
 
     /**
      * Prompts the Organizer to enter the name of the newly created speaker.
      */
     public void displayEnterNewSpeakerPrompt(){
-        System.out.println("Enter the new Speaker's username:");
+        System.out.print("Enter the new Speaker's username: ");
     }
 
     /**
      * Prompts the Organizer to enter the room number for the Event they want to create.
      */
     public void displayEnterRoomNumberPrompt(){
-        System.out.println("Enter a room number:");
+        System.out.print("Enter a room number: ");
     }
 
     /**
@@ -358,7 +358,7 @@ public class Presenter {
      * Prompts the Organizer to enter the Message they want to send to all Attendees in the conference.
      */
     public void displayAllAttendeeMessagePrompt(){
-        System.out.println("What do you want to say to all the attendees? (1 line)");
+        System.out.println("Enter what you want to say to all the attendees (1 line) or type 'q' to exit.");
     }
 
     /**
@@ -372,28 +372,28 @@ public class Presenter {
      * Prompts the Organizer on which Event they want to send a Message to.
      */
     public void displayEventMessagePrompt(){
-        System.out.println("Enter the event you want to message");
+        System.out.print("Enter the event you want to message or type 'q' to exit: ");
     }
 
     /**
      * Prompts the Organizer what Message they want to send to all speakers in the conference.
      */
     public void displayAllSpeakerMessagePrompt(){
-        System.out.println("What do you want to say to all the speakers? (1 line)");
+        System.out.println("Enter what want to say to all the speakers (1 line) or type 'q' to exit.");
     }
 
     /**
      * Prompts the Organizer as to what Event they want to remove.
      */
     public void displayEventRemovalPrompt(){
-        System.out.println("What event do you want to remove?");
+        System.out.print("Enter the event you want to remove or type 'q' to exit: ");
     }
 
     /**
      * Prompts the Organizer on which Event they want to reschedule.
      */
     public void displayEventReschedulePrompt(){
-        System.out.println("What Event do you want to reschedule?");
+        System.out.println("Enter the event you want to reschedule, or type 'q' to exit: ");
     }
 
     /**
@@ -407,125 +407,126 @@ public class Presenter {
      * Prompts the Organizer to enter the year of the Event they are creating/rescheduling.
      */
     public void displayEnterYearPrompt(){
-        System.out.println("Enter a year:");
+        System.out.print("Enter a year: ");
     }
 
     /**
      * Prompts the Organizer to enter the month of the Event they are creating/rescheduling.
      */
     public void displayEnterMonthPrompt(){
-        System.out.println("Enter a month (1-12):");
+        System.out.print("Enter a month (1-12): ");
     }
 
     /**
      * Prompts the Organizer to enter the day of the Event they are creating/rescheduling.
      */
     public void displayEnterDayPrompt(){
-        System.out.println("Enter a day:");
+        System.out.print("Enter a day: ");
     }
 
     /**
      * Prompts the Organizer to enter the hour of the Event they are creating/rescheduling.
      */
     public void displayEnterHourPrompt(){
-        System.out.println("Enter an hour (9-16):");
+        System.out.print("Enter an hour (9-16): ");
     }
 
     /**
      * Prompts the Organizer to enter the minute of the Event they are creating/rescheduling.
      */
     public void displayEnterMinutePrompt(){
-        System.out.println("Enter a minute (0-59):");
+        System.out.print("Enter a minute (0-59): ");
     }
 
     /**
      * Prompts the Organizer to enter the username of the Speaker account they want to add to the conference
      */
     public void displayEnterUsernamePrompt(){
-        System.out.println("Enter Username: ");
+        System.out.print("Enter the Speaker's username: ");
     }
 
     /**
      * Prints an error message that notifies the Organizer that the Speaker account username they tried to add was already taken.
      */
     public void displayRepeatUsernameError(){
-        System.out.println("That username is already taken, please enter another one: ");
+        System.out.print("That username is already taken, please enter another one: ");
     }
 
     /**
      * Prints an error message which notifies the Organizer that the Speaker account they are trying to create needs a username of at least 3 characters.
      */
     public void displayUsernameLengthError(){
-        System.out.println("Error, username must be at least 3 characters. please enter another one: ");
+        System.out.print("Error, username must be at least 3 characters. please enter another one: ");
     }
 
     /**
      * Prompts the Organizer to enter the password for the Speaker account they are creating.
      */
     public void displayEnterPasswordPrompt(){
-        System.out.println("Enter Password: ");
+        System.out.print("Enter Password: ");
     }
 
     /**
      * Prints an error message notifying the Organizer that the password for the Speaker account must be at least three characters.
      */
     public void displayPasswordLengthError(){
-        System.out.println("Error, password must be at least 3 characters.\nPlease enter again:");
+        System.out.print("Error, password must be at least 3 characters.\nPlease enter again: ");
     }
 
     /**
      * Prompts the Organizer to enter the name of the Speaker for the Speaker account they are creating.
      */
     public void displayEnterSpeakerNamePrompt(){
-        System.out.println("Enter the speaker name");
+        System.out.print("Enter the speaker name: ");
     }
 
     /**
      * Prints an error message that notifies the Organizer that a Speaker must have a name of at least 2 characters.
      */
     public void displaySpeakerNameError(){
-        System.out.println("Error, name must be at least 2 characters.\nPlease enter again:");
+        System.out.print("Error, name must be at least 2 characters.\nPlease enter again: ");
     }
 
     /**
      * Prompts the Organizer to enter the address of the Speaker for the Speaker account they are creating.
      */
     public void displayEnterSpeakerAddressPrompt(){
-        System.out.println("Enter the speaker address");
+        System.out.print("Enter the speaker's address: ");
     }
 
     /**
      * Prints an error message notifying an Organizer that the address of a Speaker must be at least six characters.
      */
     public void displayAddressLengthError(){
-        System.out.println("Error, address must be at least 6 characters.\nPlease enter again:");
+        System.out.print("Error, address must be at least 6 characters.\nPlease enter again: ");
     }
 
     /**
      * Prompts the Organizer to enter the email of the Speaker for the Speaker account they are creating.
      */
     public void displayEnterSpeakerEmailPrompt(){
-        System.out.println("Enter the speaker Email");
+        System.out.print("Enter the speaker's email: ");
     }
 
     /**
      * Prints an error message notifying the Organizer that the email address of the Speaker does not match specific requirements.
      */
     public void displayInvalidEmail() {
-        System.out.println("The email is not up to RFC 5322 standards. Try another:");
+        System.out.print("The email is not up to RFC 5322 standards. Try another: ");
     }
 
     /**
      * Prompts the Organizer to enter the number of the Room they would like to create.
      */
-    public void displayRoomCreationPrompt(){ System.out.println("What is the number of the Room you would like to add?");
+    public void displayRoomCreationPrompt(){ System.out.println("Enter the number of the Room you would " +
+            "like to add, or type '-1' to quit: ");
     }
 
     /**
      * Prints an error message which notifies the Organizer that the Room they are trying to create already exists.
      */
     public void displayRoomAlreadyExists(){
-        System.out.println("This room already exists! Please try again.");
+        System.out.println("This room already exists!");
     }
 
     /**
@@ -537,6 +538,7 @@ public class Presenter {
             System.out.println("No rooms have been created yet. ");
             return;
         }
+        System.out.println("These are all the created rooms");
         for(Room room : rooms){
             System.out.println("Room #" + room.getRoomNumber());
         }
@@ -623,28 +625,28 @@ public class Presenter {
      * Asks how many events' attendees you'd like to message
      */
     public void displayEnterNumberOfEventsPrompt(){
-        System.out.println("Please enter the number of events or type 'q' to quit: ");
+        System.out.print("Please enter the number of events or type 'q' to quit: ");
     }
 
     /**
      * Asks how many events' attendees you'd like to message
      */
     public void displayNumberOfEventsError(){
-        System.out.println("Not an appropriate number of events, please re-enter or enter 'q' to quit: ");
+        System.out.print("Not an appropriate number of events, please re-enter or enter 'q' to quit: ");
     }
 
     /**
      * Asks the name of the first event whose attendees you'd like to message
      */
     public void displayEnterEventNamePrompt(){
-        System.out.println("Please enter the name of the first event or type 'q' to go back: ");
+        System.out.print("Please enter the name of the first event or type 'q' to go back: ");
     }
 
     /**
      * Asks the name of all other events (not the first one) whose attendees you'd like to message
      */
     public void displayEnterEventNamePrompt2(){
-        System.out.println("Please enter the name of the next event or type 'q' to go back: ");
+        System.out.print("Please enter the name of the next event or type 'q' to go back: ");
     }
 
     /**
@@ -665,21 +667,21 @@ public class Presenter {
      * Asks for the content of the message to be sent
      */
     public void displayEnterMessagePrompt(){
-        System.out.println("Please enter the message: ");
+        System.out.println("Please enter the message. ");
     }
 
     /**
      * Asks the name of the attendee that you are replying to
      */
     public void displayEnterAttendeeUsernamePrompt(){
-        System.out.println("Which attendee are you replying to (it is case sensitive): ");
+        System.out.print("Which attendee are you replying to (it is case sensitive): ");
     }
 
     /**
      * Prints that the username inputted belongs to a user that the Speaker cannot message
      */
     public void displayUserReplyError(){
-        System.out.println("That user is not one you can reply to, please re-enter the username " +
+        System.out.print("That user is not one you can reply to, please re-enter the username " +
                 "of someone who has messaged you or enter \"q\" to go back to your options: ");
     }
 
@@ -702,7 +704,7 @@ public class Presenter {
         }
     }
     public void displayNotSpeakerError(){
-        System.out.println("This user is not a speaker! Please try again or enter 'q' to quit.");
+        System.out.print("This user is not a speaker! Please try again or enter 'q' to quit: ");
     }
 
 
