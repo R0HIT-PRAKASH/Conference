@@ -133,7 +133,7 @@ public class Presenter {
      * Prompts an Organizer or Attendee on which User they would like to message.
      */
     public void displayMethodPrompt(){
-        System.out.println("Who would you like to message? (Please enter the username of the recipient)");
+        System.out.println("Who would you like to message? (Please enter the username of the recipient). Otherwise, type 'q' to exit");
     }
 
     /**
@@ -149,7 +149,7 @@ public class Presenter {
      * @param recipient: The username of the User who is being messaged.
      */
     public void displayEnterMessagePrompt(String recipient){
-        System.out.println("What message would you like to send to: " + recipient + ".");
+        System.out.println("What message would you like to send to: " + recipient + ". " + "If you would no longer like to send a message, type 'q' to exit");
     }
 
     /**
@@ -163,7 +163,7 @@ public class Presenter {
      * Prompts an Attendee or Organizer to enter which User they want to reply to.
      */
     public void displayEnterUserUsernamePrompt(){
-        System.out.println("Which user are you replying to (it is case sensitive): ");
+        System.out.println("Which user are you replying to (it is case sensitive). If you no longer want to reply to a user, type 'q' to exit: ");
     }
 
 
@@ -204,7 +204,7 @@ public class Presenter {
      * Prompts an Attendee or Organizer on which Event they would like to cancel their spot in.
      */
     public void displayEventCancelPrompt(){
-        System.out.println("What is the name of the event you no longer want to attend?");
+        System.out.println("What is the name of the event you no longer want to attend? Type 'q' if you no longer want to cancel your spot in an event.");
     }
 
     /**
@@ -240,7 +240,7 @@ public class Presenter {
      * Prompts an Attendee or Organizer for the name of the Event they would like to sign up for.
      */
     public void displayEventSignUpPrompt(){
-        System.out.println("What is the name of the event you would like to sign up for?");
+        // System.out.println("What is the name of the event you would like to sign up for? Type 'q' if you would no longer like to sign up for an event.");
     }
 
     /**
@@ -272,6 +272,10 @@ public class Presenter {
     public void displaySignUpError2(){
         System.out.println("There are currently no future events in this conference. Please wait until event(s)" +
                 "have been added to use this feature.");
+    }
+
+    public void displayEventFull(){
+        System.out.println("This event is full!");
     }
 
     // ----------------------------------------------------------------------------------------------------------------
