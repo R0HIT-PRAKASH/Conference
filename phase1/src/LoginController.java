@@ -70,12 +70,6 @@ public class LoginController {
         return username;
     }
 
-    /**
-     * Returns true if the password matches the password of the user with the given username
-     * @param username The username to be checked
-     * @param password The password to be checked
-     * @return If the password matches the username
-     */
     private boolean checkLoginInfo(String username, String password){
         boolean username_valid = this.userManager.checkCredentials(username);
         boolean password_valid = false;
@@ -85,19 +79,10 @@ public class LoginController {
         return password_valid;
     }
 
-    /**
-     * Returns the user with the given username
-     * @param username The username to look for
-     * @return User
-     */
     private User getUserInfo(String username){
         return this.userManager.getUser(username);
     }
 
-    /**
-     * Creates an Account for a new User, and returns their username
-     * @return The username
-     */
     private String createAccount(){
         p.displayNewUserGreeting();
         p.displayEnterUsernamePrompt();
@@ -150,7 +135,7 @@ public class LoginController {
 
     /**
      * Queries the user for an integer
-     * @return int
+     * @return Returns the integer the user input.
      */
     protected int nextInt() {
         int input = 0;

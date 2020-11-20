@@ -44,6 +44,10 @@ public class Room implements Serializable {
         return roomNumber;
     }
 
+    /**
+     * This method formats a room object into a string.
+     * @return Returns a string representation of the room's attributes.
+     */
     public String toString(){
         return "Room " + this.roomNumber + " - Capacity: " + this.capacity;
     }

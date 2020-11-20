@@ -151,6 +151,10 @@ public class Event implements Comparable<Event>, Serializable {
         return this.getTime().compareTo(e.getTime());
     }
 
+    /**
+     * This method formats an event object into a string.
+     * @return Returns a string representation of the attributes of an event.
+     */
     public String toString() {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
