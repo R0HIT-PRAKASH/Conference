@@ -554,13 +554,13 @@ public class Presenter {
 
     /**
      * Displays a list of Users
-     * @param speaker The list to be displayed
+     * @param userList The list to be displayed
      * @param type The type of User
      */
-    public void displayUserList(List<User> speaker, String type) {
-        Collections.sort(speaker);
+    public void displayUserList(List<User> userList, String type) {
+        Collections.sort(userList);
         System.out.println("Here is the " + type + " List");
-        for(User u : speaker) {
+        for(User u : userList) {
             System.out.println(u);
         }
     }
