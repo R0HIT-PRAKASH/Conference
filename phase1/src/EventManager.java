@@ -108,6 +108,12 @@ public class EventManager implements Serializable {
         return true;
     }
 
+    /**
+     * Checks if the time of a LocalDateTime object is between 9AM and 5PM.
+     * @param time Refers to the time being evaluated
+     * @return Returns true if the time of the LocalDateTime object is between 9AM and 5PM
+     */
+
     public boolean between9to5(LocalDateTime time){
         int year = time.getYear();
         int month = time.getMonthValue();

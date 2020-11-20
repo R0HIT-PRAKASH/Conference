@@ -1,3 +1,7 @@
+import javax.swing.text.DateFormatter;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.List;
@@ -175,6 +179,7 @@ public class Presenter {
         int counter = 1;
         for (Event curr : events){
             System.out.println(counter + ". " + curr);
+            counter ++;
         }
     }
 
@@ -635,6 +640,24 @@ public class Presenter {
                 "of someone who has messaged you or enter \"q\" to go back to your options: ");
     }
 
+    public void displayInvalidHourError(){
+        System.out.println("Invalid time. The event must begin between 9:00 and 16:00");
+    }
+
+    public void displayInvalidDateError(){
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        LocalDate currentDate = currentDateTime.toLocalDate();
+        LocalTime currentTime = currentDateTime.toLocalTime();
+        LocalTime endTime = LocalTime.of(16, 0);
+        if (currentTime.isAfter(endTime)) {
+            System.out.println("Invalid date entered. The soonest you may schedule an event is tomorrow at 9AM.");
+        } else {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+            String date = currentDate.format(formatter);
+            System.out.println("Invalid date entered. An event can only be scheduled for " + date +
+                    " any time before 5PM and any preceding date");
+        }
+    }
     // ----------------------------------------------------------------------------------------------------------------
 
 }
