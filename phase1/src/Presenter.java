@@ -16,28 +16,28 @@ public class Presenter {
      * Prompts a User to choose a task.
      */
     public void displayTaskInput(){
-        System.out.println("What would you like to do?\nEnter the corresponding number:");
+        System.out.print("What would you like to do?\nEnter the corresponding number: ");
     }
 
     /**
      * Prompts an Attendee to choose another task once they have completed a task.
      */
     public void displayNextTaskPromptAttendee(){
-        System.out.println("Please enter next task (reminder, you can type '7' to see what you can do): ");
+        System.out.print("Please enter next task (reminder, you can type '7' to see what you can do): ");
     }
 
     /**
      * Prompts an Organizer to choose another task once they have completed a task.
      */
     public void displayNextTaskPromptOrganizer(){
-        System.out.println("Please enter next task (reminder, you can type '14' to see what you can do): ");
+        System.out.print("Please enter next task (reminder, you can type '14' to see what you can do): ");
     }
 
     /**
      * Prompts a Speaker to choose another task once they have completed a task.
      */
     public void displayNextTaskPromptSpeaker(){
-        System.out.println("Please enter next task (reminder, you can type '4' to see what you can do): ");
+        System.out.print("Please enter next task (reminder, you can type '4' to see what you can do): ");
     }
 
     /**
