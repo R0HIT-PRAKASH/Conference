@@ -138,17 +138,15 @@ public class SpeakerController{
                 String content = scan.nextLine();
                 replyMessage(recipient, content);
                 break;
-            case 4:
-                System.out.println("Type the name of the event who's attendee you want to message");
+
+                case 4:
+                p.displayEventSelectorPrompt();
                 viewScheduledEvents(username);
                 String eventName = scan.nextLine();
                 if(eventManager.events.containsKey(eventName)){
                     Set<User> eventAttendees = eventManager.getEventAttendees(eventName);
-                    System.out.println(eventAttendees);
-                    System.out.println("Type the username of the attendee from this event you want to message:");
+                    p.displayEventAttendeesList(eventAttendees);
                     String toMessage = scan.nextLine();
-                    System.out.print(userManager.getUser(toMessage));
-                    System.out.println(eventAttendees.contains(userManager.getUser(toMessage)));
                     ArrayList<String> usernameList = new ArrayList<String>();
                     for (User user: eventAttendees){
                         usernameList.add(userManager.getUsername(user));
@@ -159,10 +157,10 @@ public class SpeakerController{
                         replyMessage(toMessage, messageContent);
                         break;
                     } else {
-                        System.out.println("That is not a valid username! Please try again");
+                        p.displayInvalidInputError();
                     }
                 } else{
-                    System.out.println("That is not a valid event! Please try again");
+                    p.displayInvalidInputError();
                     break;
                 }
 

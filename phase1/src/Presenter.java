@@ -10,6 +10,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+
 public class Presenter {
 
     public Presenter(){}
@@ -41,7 +43,7 @@ public class Presenter {
      * Prompts a Speaker to choose another task once they have completed a task.
      */
     public void displayNextTaskPromptSpeaker(){
-        System.out.print("Please enter next task (reminder, you can type '4' to see what you can do): ");
+        System.out.print("Please enter next task (reminder, you can type '5' to see what you can do): ");
     }
 
     /**
@@ -729,6 +731,15 @@ public class Presenter {
     }
     public void displayNotSpeakerError(){
         System.out.print("This user is not a speaker! Please try again or enter 'q' to quit: ");
+    }
+
+    public void displayEventSelectorPrompt(){
+        System.out.println("Type the name of the event who's attendee you want to message");
+    }
+
+    public void displayEventAttendeesList(Set<User> eventAttendees){
+        System.out.println(eventAttendees);
+        System.out.println("Type the username of the attendee from this event you want to message:");
     }
 
 
