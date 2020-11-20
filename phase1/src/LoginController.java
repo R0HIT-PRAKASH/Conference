@@ -17,13 +17,19 @@ public class LoginController {
      * @param messageManager the instance of the Message Manager
      * @return String username (of the user who was able to log in)
      */
-    public String login(UserManager userManager, MessageManager messageManager){
+    public String login(UserManager userManager, MessageManager messageManager, int value){
         this.userManager = userManager;
         this.messageManager = messageManager;
         p = new MainPresenter();
+        String username = "";
+        if (value != 0 && value != 1 && value != 2){
+            p.displayNewFirstUserMessage();
+            username = createAccount();
+            return username;
+        }
         p.displayNewOrReturningPrompt();
         int input = nextInt();
-        String username = "";
+
         String password = "";
         while(input != 1 && input != 2 ){
             input = nextInt();
