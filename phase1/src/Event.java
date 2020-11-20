@@ -16,7 +16,7 @@ public class Event implements Comparable<Event>, Serializable {
     private LocalDateTime time;
     private int duration;
     private int roomNumber;
-    private Set<String> attendeeSet;
+    private Set<User> attendeeSet;
 
     /**
      * This constructs an event
@@ -33,7 +33,7 @@ public class Event implements Comparable<Event>, Serializable {
         this.time = time;
         this.duration = duration;
         this.roomNumber = roomNumber;
-        attendeeSet = new HashSet<String>();
+        attendeeSet = new HashSet<User>();
     }
 
     public Event(String name, String speakerName, LocalDateTime time, int roomNumber) {
@@ -42,7 +42,7 @@ public class Event implements Comparable<Event>, Serializable {
         this.time = time;
         this.duration = 1;
         this.roomNumber = roomNumber;
-        attendeeSet = new HashSet<String>();
+        attendeeSet = new HashSet<User>();
     }
 
     /**
@@ -89,7 +89,7 @@ public class Event implements Comparable<Event>, Serializable {
      * This method is a getter for the set of attendees
      * @return attendeeSet
      */
-    public Set<String> getAttendeeSet() {
+    public Set<User> getAttendeeSet() {
         return attendeeSet;
     }
 
@@ -139,7 +139,7 @@ public class Event implements Comparable<Event>, Serializable {
      * @param attendee The attendee to be added
      */
     public void addAttendee(User attendee) {
-        this.attendeeSet.add(attendee.getUsername());
+        this.attendeeSet.add(attendee);
     }
 
     /**

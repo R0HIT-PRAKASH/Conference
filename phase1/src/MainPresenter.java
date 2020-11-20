@@ -1,3 +1,7 @@
+/**
+ * This class is the Presenter Class for the Main and Login Controllers.
+ * It handles asking for user input and printing any error messages.
+ */
 public class MainPresenter {
 
     public MainPresenter() {}

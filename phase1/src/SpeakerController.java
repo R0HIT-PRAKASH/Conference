@@ -139,15 +139,21 @@ public class SpeakerController{
                 replyMessage(recipient, content);
                 break;
             case 4:
-                System.out.println("Type the name of the event who's attendee you want to message:");
+                System.out.println("Type the name of the event who's attendee you want to message");
                 viewScheduledEvents(username);
                 String eventName = scan.nextLine();
                 if(eventManager.events.containsKey(eventName)){
-                    Set<String> eventAttendees = eventManager.getEventAttendees(eventName);
+                    Set<User> eventAttendees = eventManager.getEventAttendees(eventName);
                     System.out.println(eventAttendees);
                     System.out.println("Type the username of the attendee from this event you want to message:");
                     String toMessage = scan.nextLine();
-                    if(eventAttendees.contains(userManager.getUser(toMessage).getUsername())){
+                    System.out.print(userManager.getUser(toMessage));
+                    System.out.println(eventAttendees.contains(userManager.getUser(toMessage)));
+                    ArrayList<String> usernameList = new ArrayList<String>();
+                    for (User user: eventAttendees){
+                        usernameList.add(userManager.getUsername(user));
+                    }
+                    if(usernameList.contains(toMessage)){
                         p.displayEnterMessagePrompt();
                         String messageContent = scan.nextLine();
                         replyMessage(toMessage, messageContent);
@@ -155,7 +161,7 @@ public class SpeakerController{
                     } else {
                         System.out.println("That is not a valid username! Please try again");
                     }
-            } else{
+                } else{
                     System.out.println("That is not a valid event! Please try again");
                     break;
                 }

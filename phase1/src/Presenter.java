@@ -1,3 +1,7 @@
+/**
+ * This class is the Presenter Class for the Attendee, Organizer and Speaker Controllers.
+ * It handles asking for user input and printing any error messages.
+ */
 import javax.swing.text.DateFormatter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
