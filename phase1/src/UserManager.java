@@ -259,6 +259,11 @@ public class UserManager implements java.io.Serializable {
                         (!event.getTime().isEqual(attendEvent.getTime())));
     }
 
+    /**
+     * Adds an event to the list of events that organizer has created.
+     * @param event Refers to the event that is to be added to the list of events that organizer has organized.
+     * @param organizer Refers to the organizer organizing the event.
+     */
     public void createdEvent(Event event, Organizer organizer){
         organizer.createdEvent(event);
     }

@@ -54,7 +54,7 @@ public class Organizer extends User implements Serializable {
      * This method adds an event to the list of events the organizer has created.
      * @param event Refers to the event the organizer has created.
      */
-    public void createdEvent(Event event){ this.attendingEvents.add(event.getName());}
+    public void createdEvent(Event event){ this.organizingEvents.add(event.getName());}
 
     /**
      * This method returns a string representation of the type of user this person is.
