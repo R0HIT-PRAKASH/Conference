@@ -61,10 +61,18 @@ public class AttendeeController{
                     break;
                 }
                 p.displayMethodPrompt();
+                // System.out.println("Who would you like to message? (Please enter the username of the recipient). Otherwise, type 'q' to exit");
                 String recipient = scan.nextLine();
-                if(messageManager.checkIsMessageable(recipient, this.username, userManager)) {
+                if (recipient.equals("q")){
+                    break;
+                }
+                else if(messageManager.checkIsMessageable(recipient, this.username, userManager)) {
                     p.displayEnterMessagePrompt(recipient);
+                    // System.out.println("What message would you like to send to: " + recipient + ". " + "If you would no longer like to send a message, type 'q' to exit");
                     String messageContents = scan.nextLine();
+                    if (messageContents.equals("q")){
+                        break;
+                    }
                     sendMessage(recipient, messageContents);
                     p.displayMessageSentPrompt();
                 }
@@ -85,6 +93,7 @@ public class AttendeeController{
                 List<String> attendees = getSenders(username);
                 p.displayAllSenders(attendees);
                 p.displayEnterUserUsernamePrompt();
+                // System.out.println("Which user are you replying to (it is case sensitive). If you no longer want to reply to a user, type 'q' to exit: ");
                 String recipients = scan.nextLine();
                 while (!attendees.contains(recipients)){
                     p.displayUserReplyError();
@@ -111,7 +120,11 @@ public class AttendeeController{
 
             case 5:
                 p.displayEventCancelPrompt();
+                // System.out.println("What is the name of the event you no longer want to attend? Type 'q' if you no longer want to cancel your spot in an event.");
                 String cancel = scan.nextLine();
+                if (cancel.equals("q")){
+                    break;
+                }
                 if(!userManager.getAttendingEvents(this.username).contains(cancel)) {
                     p.displayEventCancelPrompt();
                     break;
@@ -130,7 +143,11 @@ public class AttendeeController{
                     break;
                 }
                 p.displayEventSignUpPrompt();
+                // System.out.println("What is the name of the event you would like to sign up for? Type 'q' if you would no longer like to sign up for an event.");
                 String eventSignedUp = scan.nextLine();
+                if (eventSignedUp.equals("q")){
+                    break;
+                }
                 while (eventManager.getEvent(eventSignedUp) == null ||
                         !future.contains(eventManager.getEvent(eventSignedUp))){
                     p.displayInvalidEventSignUp();
