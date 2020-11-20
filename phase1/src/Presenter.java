@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.Collections;
 import java.util.List;
 public class Presenter {
 
@@ -285,7 +286,8 @@ public class Presenter {
                 "\n(4) View My Scheduled Events\n(5) Cancel Event Reservation\n(6) Sign up for Event" +
                 "\n(7) Add Event\n(8) Message All Attendees\n(9) Message Event Attendees" +
                 "\n(10) Message All Speakers\n(11) Cancel Event\n(12) Reschedule Event\n(13) Add Speaker" +
-                "\n(14) View Options" + "\n(15) Add Room \n(16) View All Rooms \n(17) End");
+                "\n(14) View Options" + "\n(15) Add Room \n(16) View All Rooms \n(17) View Speakers\n(18) " +
+                "View Attendees\n(19) View Organizers\n(20) Quit");
     }
 
     /**
@@ -520,6 +522,20 @@ public class Presenter {
         System.out.println(rooms);
     }
 
+
+    /**
+     * Displays a list of Users
+     * @param speaker The list to be displayed
+     * @param type The type of User
+     */
+    public void displayUserList(List<User> speaker, String type) {
+        Collections.sort(speaker);
+        System.out.println("Here is the " + type + " List");
+        for(User u : speaker) {
+            System.out.println(u);
+        }
+    }
+
     // ----------------------------------------------------------------------------------------------------------------
 
 
@@ -667,6 +683,8 @@ public class Presenter {
     public void displayNotSpeakerError(){
         System.out.println("This user is not a speaker! Please try again or enter 'q' to quit.");
     }
+
+
     // ----------------------------------------------------------------------------------------------------------------
 
 }
