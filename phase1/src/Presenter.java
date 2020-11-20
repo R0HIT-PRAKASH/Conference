@@ -481,6 +481,13 @@ public class Presenter {
     }
 
     /**
+     * Prompts the Organizer if they actually want to create a new Speaker or if they want to exit.
+     */
+    public void displayEnsureNewSpeakerPrompt(){
+        System.out.println("Are you sure you want to make a new Speaker? Type 'q' to exit");
+    }
+
+    /**
      * Prints an error message that notifies the Organizer that a Speaker must have a name of at least 2 characters.
      */
     public void displaySpeakerNameError(){
