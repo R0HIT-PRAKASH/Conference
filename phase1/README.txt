@@ -27,4 +27,4 @@ DEFAULTS PROVIDED
 
 NEW USER ACCOUNT CONDITIONS
 If you choose to create a new account, the following conditions hold:
-username and password must be at least 3 characters, name at least 2 characters, and address at least 6 characters
+username and password must be at least 3 characters, name at least 2 characters, and address at least 6 characters. The email must also follow standard email conventions.
