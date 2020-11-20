@@ -146,13 +146,18 @@ public class OrganizerController extends AttendeeController {
                 if(!userManager.checkCredentials(speaker)) {
                     p.displaySpeakerCredentialError();
                     makeSpeaker();
-                } while (!(userManager.getUserType(speaker) == "speaker")){
-                    p.displayNotSpeakerError();
-                    speaker = scan.nextLine();
-                    if (speaker.equalsIgnoreCase("q")) {
-                        break;
+                }
+                else{
+                    while (!(userManager.getUserType(speaker) == "speaker")){
+                        p.displayNotSpeakerError();
+                        speaker = scan.nextLine();
+                        if (speaker.equalsIgnoreCase("q")) {
+                            break;
+                        }
                     }
                 }
+                p.displayEnterNewSpeakerPrompt();
+                speaker = scan.nextLine();
                 if (speaker.equalsIgnoreCase("q")) {
                     break;
                 }

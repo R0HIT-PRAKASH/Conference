@@ -310,6 +310,13 @@ public class Presenter {
     }
 
     /**
+     * Prompts the Organizer to enter the name of the newly created speaker.
+     */
+    public void displayEnterNewSpeakerPrompt(){
+        System.out.println("Enter the new Speaker's username:");
+    }
+
+    /**
      * Prompts the Organizer to enter the room number for the Event they want to create.
      */
     public void displayEnterRoomNumberPrompt(){
