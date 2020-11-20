@@ -21,9 +21,9 @@
     After completing a task, you can enter ask to be shown the menu again, or end the program.
 
     The corresponding numbers for these are provided for your reference:
-         Organizers: 14 to be shown the menu of options, 17 to end the program
+         Organizers: 14 to be shown the menu of options, 20 to end the program
          Attendees: 7 to be shown the menu of options, 8 to end the program
-         Speakers: 4 to be shown the menu of options, 5 to end the program
+         Speakers: 5 to be shown the menu of options, 6 to end the program
 
 ===== DETAILS AND WARNINGS ABOUT SAVING =====
     Once you are done using the program for the time being, and want to save your files, you MUST end the program using
