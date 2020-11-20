@@ -120,6 +120,7 @@ public class AttendeeController{
                     p.displayNotAttendingAnyEvents();
                     break;
                 }
+                viewSignedUpForEvent(this.username);
                 p.displayEventCancelPrompt();
                 // System.out.println("What is the name of the event you no longer want to attend? Type 'q' if you no longer want to cancel your spot in an event.");
                 String cancel = scan.nextLine();
