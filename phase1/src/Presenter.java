@@ -538,6 +538,7 @@ public class Presenter {
             System.out.println("No rooms have been created yet. ");
             return;
         }
+        System.out.println("These are all the created rooms");
         for(Room room : rooms){
             System.out.println("Room #" + room.getRoomNumber());
         }
