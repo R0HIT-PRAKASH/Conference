@@ -1,7 +1,5 @@
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -132,14 +130,10 @@ public class OrganizerController extends AttendeeController {
             case 7:
                 p.displayAddConferencePrompt();
                 LocalDateTime time = askTime();
-                while(!eventManager.between9to5(time) || !eventManager.checkTimeIsAfterNow(time)) {
-                    if (eventManager.between9to5(time)) {
-                        p.displayInvalidHourError();
-                        time = askTime();
-                    } else if (!eventManager.checkTimeIsAfterNow(time)) {
-                        p.displayInvalidDateError();
-                        time = askTime();
-                    }
+                while(!eventManager.between9to5(time)) {
+                    System.out.println("Invalid time. The event must begin between 9:00 and 16:00");
+                    // NEED TO ADD THIS TO PRESENTER
+                    time = askTime();
                 }
                 p.displayEventTitlePrompt();
                 String name = scan.nextLine();
@@ -149,6 +143,7 @@ public class OrganizerController extends AttendeeController {
                     p.displaySpeakerCredentialError();
                     makeSpeaker();
                 } while (!(userManager.getUserType(speaker) == "speaker")){
+                    // NEED TO ADD THIS TO PRESENTER
                     System.out.println("This user is not a speaker! Please try again or enter 'q' to quit.");
                     speaker = scan.nextLine();
                     if (speaker.equalsIgnoreCase("q")) {
@@ -418,10 +413,7 @@ public class OrganizerController extends AttendeeController {
         List<Message> allMessages = messageManager.viewMessages(username);
         List<String> users = new ArrayList<>();
         for (Message message: allMessages){
-            String name = messageManager.getSender(message);
-            if(!users.contains(name)){
-                users.add(name);
-            }
+            users.add(messageManager.getSender(message));
         }
         return users;
     }

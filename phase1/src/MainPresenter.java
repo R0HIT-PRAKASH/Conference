@@ -163,5 +163,11 @@ public class MainPresenter {
         System.out.println("Error: Please type 'Yes' or 'No'");
     }
 
+    /**
+     * Prints an  message when a User signs out
+     */
+    public void displaySignedOut(){System.out.println("You have signed out successfully. ");}
+
+
     // -----------------------------------------------------------------------------------------------------------------
 }
