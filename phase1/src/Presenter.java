@@ -534,10 +534,8 @@ public class Presenter {
             System.out.println("No rooms have been created yet. ");
             return;
         }
-        int counter = 1;
         for(Room room : rooms){
-            System.out.println("Room #" + room.getRoomNumber();
-            counter++;
+            System.out.println("Room #" + room.getRoomNumber());
         }
 
     }
