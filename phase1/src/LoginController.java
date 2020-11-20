@@ -111,7 +111,7 @@ public class LoginController {
         }
         p.displayEnterAddressPrompt();
         String address = scan.nextLine();
-        while(address.length() < 3){
+        while(address.length() < 6){
             p.displayInvalidAddressError();
             address = scan.nextLine();
         }

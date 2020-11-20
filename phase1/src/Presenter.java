@@ -566,8 +566,8 @@ public class Presenter {
      * Prints all the tasks which a Speaker can do.
      */
     public void displayOptions3(){
-        System.out.println("(0) See Inbox, \n(1) View My Events, \n(2) Message Event Attendees, " +
-                "\n(3) Reply to Attendee, \n(4) Options, \n(5) End: ");
+        System.out.println("(0) See Inbox \n(1) View My Events \n(2) Message Event Attendees " +
+                "\n(3) Reply to Attendee \n(4) Options \n(5) End ");
     }
 
     /**
