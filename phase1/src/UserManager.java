@@ -199,6 +199,7 @@ public class UserManager implements java.io.Serializable {
                 }
             }
             ((Attendee) user).signUpForEvent(event);
+            eventManager.addAttendee(event, user);
 
         }else if(user.getUserType().equals("organizer")){
             for(String eventName : ((Organizer) user).getAttendingEvents()){
@@ -207,6 +208,7 @@ public class UserManager implements java.io.Serializable {
                 }
             }
             ((Organizer) user).signUpForEvent(event);
+            eventManager.addAttendee(event, user);
 
         }else{
             return false;

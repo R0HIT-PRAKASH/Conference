@@ -2,6 +2,7 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * Refers to the controller class that will deal with the actions of an organizer object.
@@ -28,8 +29,9 @@ public class OrganizerController extends AttendeeController {
     public void run(){
         p.displayOptions2();
         p.displayTaskInput();
+        final int END_CONDITION = 20;
         int input = nextInt();
-        while (input != 17){ // 17 is ending condition
+        while (input != END_CONDITION){ // 20 is ending condition
             determineInput(input);
             input = nextInt();
         }
@@ -229,6 +231,19 @@ public class OrganizerController extends AttendeeController {
             case 16:
                 p.displayRoomList(eventManager.getRooms());
                 break;
+
+            case 17:
+                p.displayUserList(users("speaker"), "Speaker");
+                break;
+
+            case 18:
+                p.displayUserList(users("attendee"), "Attendee");
+                break;
+
+            case 19:
+                p.displayUserList(users("organizer"), "Organizer");
+                break;
+
             default:
                 p.displayInvalidInputError();
                 break;
@@ -424,5 +439,16 @@ public class OrganizerController extends AttendeeController {
             users.add(messageManager.getSender(message));
         }
         return users;
+    }
+
+    /**
+     * Returns a list of Users of a specific type
+     * @param type The type of User
+     * @return List<User>
+     */
+    private List<User> users(String type) {
+        return userManager.getUserMap().values().stream()
+                .filter(user -> user.getUserType().equals(type))
+                .collect(Collectors.toList());
     }
 }
