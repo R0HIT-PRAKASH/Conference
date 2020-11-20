@@ -564,7 +564,7 @@ public class Presenter {
      */
     public void displayOptions3(){
         System.out.println("(0) See Inbox \n(1) View My Events \n(2) Message Event Attendees " +
-                "\n(3) Reply to Attendee \n(4) Options \n(5) End: ");
+                "\n(3) Reply to Attendee \n(4) Options \n(5) End ");
     }
 
     /**
