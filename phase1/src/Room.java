@@ -13,13 +13,19 @@ public class Room implements Serializable {
      * This method constructs a room with capacity 2 and room number roomNumber.
      * @param roomNumber Stores the room number of the room.
      */
-    public Room(int roomNumber, Integer capacity){
+    public Room(int roomNumber){
         this.roomNumber = roomNumber;
-        if(capacity == null){
-            this.capacity = 2;
-        }else{
-            this.capacity = capacity;
-        }
+        this.capacity = 2;
+    }
+
+    /**
+     * This method constructs a room with room number roomNumber and a capacity.
+     * @param roomNumber Refers to the room number of the room.
+     * @param capacity Refers to the capacity of the room.
+     */
+    public Room(int roomNumber, int capacity){
+        this.roomNumber = roomNumber;
+        this.capacity = capacity;
     }
 
     /**

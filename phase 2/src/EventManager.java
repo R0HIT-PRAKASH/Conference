@@ -26,12 +26,17 @@ public class EventManager implements Serializable {
      * @param speakerName Refers to the name of the speaker of this event.
      * @param time Refers to the starting time of the event.
      * @param roomNumber Refers to the room number of this event
+     * @param computers Refers to the number of computers in the room.
+     * @param projector Refers to whether or not the room has a projector.
+     * @param chairs Refers to the number of chairs in the room.
+     * @param tables Refers to the number of tables in the room.
      * @return Returns the created event.
      */
-    public Event createNewEvent(String name, String speakerName, LocalDateTime time, int roomNumber){
-        Event event = new Event(name, speakerName, time, roomNumber);
+    public Event createNewEvent(String name, String speakerName, LocalDateTime time, Integer duration, int roomNumber,
+                                int capacity, int computers, boolean projector, int chairs, int tables){
+        Event event = new Event(name, speakerName, time, duration, roomNumber, capacity, computers, projector, chairs, tables);
         if (getRoom(roomNumber) == null){
-            addRoom(roomNumber);
+            addRoom(roomNumber, capacity, computers, projector, chairs, tables);
         }
 
         return event;
@@ -45,11 +50,13 @@ public class EventManager implements Serializable {
      * @param roomNumber Refers to the room number of this event.
      * @return Returns true if the event is successfully added. Otherwise, it returns false.
      */
-    public boolean addEvent(String name, String speakerName, LocalDateTime time, int roomNumber){
-        Event event = createNewEvent(name, speakerName, time, roomNumber);
+    public boolean addEvent(String name, String speakerName, LocalDateTime time, Integer duration, int roomNumber,
+                            int capacity, int computers, boolean projector, int chairs, int tables){
+        Event event = createNewEvent(name, speakerName, time, duration, roomNumber, capacity, computers, projector, chairs, tables);
         if (!checkEventIsValid(event)){
             return false;
         }
+
 
         events.put(event.getName(), event);
         return true;
@@ -61,9 +68,20 @@ public class EventManager implements Serializable {
      */
     public boolean checkEventIsValid(Event event){
 
-        if (!between9to5(event)){
+        if (!between9to5(event) || event.getCapacity() <= 0 || event.getDuration() <= 0 || !requiredEquipment(event)){
             return false;
         }
+
+        for(Room room : rooms){
+            if(room.getRoomNumber() == event.getRoomNumber() && room.getCapacity() < event.getCapacity()){
+                return false;
+            }
+        }
+
+        if(event.getTime().plusHours(event.getDuration()).getHour() > 16){
+            return false;
+        }
+
         for (String i: events.keySet()){
             if (event.getName().equals(i)){
                 return false;
@@ -82,15 +100,32 @@ public class EventManager implements Serializable {
         return true;
     }
 
+    /**
+     * This method gets the attendees attending the event.
+     * @param eventName Refers to the name of the event you want the attending attendees of.
+     * @return Returns a list of attendee usernames of those attending the event.
+     */
     public Set<User> getEventAttendees(String eventName){
         return getEvent(eventName).getAttendeeSet();
     }
 
-    /**
-     * Checks if the time of the event is between 9AM and 5PM.
-     * @param event Refers to the event being evaluated
-     * @return Returns true if the time of the event is between 9AM and 5PM
-     */
+    private boolean requiredEquipment(Event event){
+        Room foundRoom = null;
+        for(Room room : rooms){
+            if(event.getRoomNumber() == room.getRoomNumber()){
+                foundRoom = room;
+            }else{
+                return false;
+            }
+        }
+        if(foundRoom == null){
+            return false;
+        }
+        return event.getRequiredChairs() <= foundRoom.getChairs() && event.getRequiredComputers() <=
+                foundRoom.getComputers() && event.getRequiredTables() <= foundRoom.getTables() &&
+                (!event.getRequiredProjector() || (event.getRequiredProjector() && foundRoom.getProjector()));
+    }
+
     private boolean between9to5(Event event){
         LocalDateTime time = event.getTime();
 
@@ -234,35 +269,21 @@ public class EventManager implements Serializable {
     public boolean checkEventFull(String eventName){
         Event event = this.getEvent(eventName);
 
-        return (event == null || event.getAttendeeSet().size() == getRoom(event.getRoomNumber()).getCapacity());
+        return (event == null || event.getAttendeeSet().size() == event.getCapacity());
     }
 
     /**
      * Adds a room to the list of rooms.
      * @param roomNumber Refers to the room number.
      * @param capacity Refers to the capacity of the room.
+     * @param computers Refers to the number of computers in the room.
+     * @param projector Refers to whether or not the room has a projector.
+     * @param chairs Refers to the number of chairs in the room.
+     * @param tables Refers to the number of tables in the room.
      * @return Returns true if adding room was successful. Otherwise, returns false.
      */
-    public boolean addRoom(int roomNumber, int capacity){
-        Room room = createNewRoom(roomNumber, capacity);
-        int i = 0;
-        while (i < rooms.size()){
-            if (rooms.get(i).getRoomNumber() == room.getRoomNumber()) {
-                return false;
-            }
-            i++;
-        }
-        rooms.add(room);
-        return true;
-    }
-
-    /**
-     * Adds a room to the list of rooms (Fixed Capacity).
-     * @param roomNumber Refers to the room number.
-     * @return Returns true if adding room was successful. Otherwise, returns false.
-     */
-    public boolean addRoom(int roomNumber){
-        Room room = createNewRoom(roomNumber);
+    public boolean addRoom(int roomNumber, Integer capacity, int computers, boolean projector, int chairs, int tables){
+        Room room = createNewRoom(roomNumber, capacity, computers, projector, chairs, tables);
         int i = 0;
         while (i < rooms.size()){
             if (rooms.get(i).getRoomNumber() == room.getRoomNumber()) {
@@ -278,20 +299,14 @@ public class EventManager implements Serializable {
      * Creates a new room.
      * @param roomNumber Refers to the room number.
      * @param capacity Refers to the capacity of the room.
+     * @param computers Refers to the number of computers in the room.
+     * @param projector Refers to whether or not the room has a projector.
+     * @param chairs Refers to the number of chairs in the room.
+     * @param tables Refers to the number of tables in the room.
      * @return Returns the room object.
      */
-    public Room createNewRoom(int roomNumber, int capacity){
-        Room room = new Room(roomNumber, capacity);
-        return room;
-    }
-
-    /**
-     * Creates a new room (Fixed Capacity).
-     * @param roomNumber Refers to the room number.
-     * @return Returns the room object.
-     */
-    public Room createNewRoom(int roomNumber){
-        Room room = new Room(roomNumber);
+    public Room createNewRoom(int roomNumber, Integer capacity, int computers, boolean projector, int chairs, int tables){
+        Room room = new Room(roomNumber, capacity, computers, projector, chairs, tables);
         return room;
     }
 
@@ -375,6 +390,20 @@ public class EventManager implements Serializable {
      * @param user the user being added to the list of attendees.
      */
     public void addAttendee(Event event, User user) {
-           event.addAttendee(user);
+        event.addAttendee(user);
+    }
+
+    /**
+     * Changes the capacity of an event.
+     * @param event Refers to the event for which you want to change the capacity.
+     * @param capacity Refers to the new capacity of the event.
+     * @return Returns true if the capacity was changed and false otherwise.
+     */
+    public boolean changeEventCapacity(Event event, int capacity){
+        if(event.getAttendeeSet().size() > capacity){
+            return false;
+        }
+        event.setCapacity(capacity);
+        return true;
     }
 }

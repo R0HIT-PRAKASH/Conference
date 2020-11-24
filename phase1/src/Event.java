@@ -16,7 +16,6 @@ public class Event implements Comparable<Event>, Serializable {
     private LocalDateTime time;
     private int duration;
     private int roomNumber;
-    private int capacity;
     private Set<User> attendeeSet;
 
     /**
@@ -26,20 +25,23 @@ public class Event implements Comparable<Event>, Serializable {
      * @param time The event time
      * @param duration The event duration(in hours).
      * @param roomNumber The event room number
-     * @param capacity This refers to the capacity of the event.
      */
 
-    public Event(String name, String speakerName, LocalDateTime time, Integer duration, int roomNumber, int capacity) {
+    public Event(String name, String speakerName, LocalDateTime time, int duration, int roomNumber) {
         this.name = name;
         this.speakerName = speakerName;
         this.time = time;
-        if(duration == null){
-            this.duration = 1;
-        }else{
-            this.duration = duration;
-        }
+        this.duration = duration;
         this.roomNumber = roomNumber;
-        this.capacity = capacity;
+        attendeeSet = new HashSet<User>();
+    }
+
+    public Event(String name, String speakerName, LocalDateTime time, int roomNumber) {
+        this.name = name;
+        this.speakerName = speakerName;
+        this.time = time;
+        this.duration = 1;
+        this.roomNumber = roomNumber;
         attendeeSet = new HashSet<User>();
     }
 
@@ -130,22 +132,6 @@ public class Event implements Comparable<Event>, Serializable {
      */
     public void setRoomNumber(int roomNumber) {
         this.roomNumber = roomNumber;
-    }
-
-    /**
-     * This method sets the capacity of the event.
-     * @param capacity Refers to the new capacity of the event.
-     */
-    public void setCapacity(int capacity){
-        this.capacity = capacity;
-    }
-
-    /**
-     * This method gets the capacity of the event.
-     * @return Returns the capacity of the event.
-     */
-    public int getCapacity(){
-        return this.capacity;
     }
 
     /**

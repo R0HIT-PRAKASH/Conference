@@ -347,8 +347,7 @@ public class Presenter {
      * Prints an error message notifying the Organizer that the Speaker or Room for the Event they are trying to create will be double booked.
      */
     public void displayEventCreationError(){
-        System.out.println("The event was invalid. Either the speaker or the room would be double booked. " +
-                "Please try again.");
+        System.out.println("The event was invalid. Please try again.");
     }
 
     /**
@@ -579,9 +578,97 @@ public class Presenter {
         }
     }
 
+    /**
+     * Displays the message that the user can't cancel the event specified.
+     */
     public void displayCannotCancel(){
         System.out.print("You can't cancel that event, re-enter or type 'q' to quit: ");
     }
+
+    /**
+     * Displays the message that prompts the user for the specified capacity.
+     */
+    public void displayCapacityPrompt(){
+        System.out.println("Enter the capacity of the event you would like to add or -1 if you want to quit.");
+    }
+
+    /**
+     * Displays the message that informs the user that the capacity specified is invalid.
+     */
+    public void displayInvalidCapacity(){
+        System.out.println("That is not a valid capacity. Please enter again.");
+    }
+
+    /**
+     * Displays the message that prompts the user for the wanted duration.
+     */
+    public void displayDurationPrompt(){
+        System.out.println("How long would you like the event to last(in hours)? You can enter -1 to quit.");
+    }
+
+    /**
+     * Displays the message that informs the user that the duration specified is invalid.
+     */
+    public void displayInvalidDuration(){
+        System.out.println("This is an invalid duration. Please try again.");
+    }
+
+    /**
+     * Displays the message that prompts the user to enter the number of computers in the room.
+     */
+    public void displayComputersPrompt(){
+        System.out.println("How many computers? Enter -1 to quit.");
+    }
+
+    /**
+     * Displays the message that informs the user that the number of computers entered is invalid.
+     */
+    public void displayInvalidComputers(){
+        System.out.println("This is an invalid number of computers. Enter -1 to quit.");
+    }
+
+    /**
+     * Displays the message that prompts the user to enter whether or not there is a computer in the room.
+     */
+    public void displayProjectorPrompt(){
+        System.out.println("Does this event need/room have a projector? Enter yes if there is and no if there isn't. Press q to quit.");
+    }
+
+    /**
+     * Displays the message that informs the user that the answer to whether or not the room has a projector is invalid.
+     */
+    public void displayInvalidProjector(){
+        System.out.println("You can only answer yes or no. Enter again or 'q' to quit.");
+    }
+
+    /**
+     * Displays the message that prompts the user to enter the number of chairs in the room.
+     */
+    public void displayChairsPrompt(){
+        System.out.println("How many chairs? Enter -1 to quit.");
+    }
+
+    /**
+     * Displays the message that informs the user that the number of chairs entered is invalid.
+     */
+    public void displayInvalidChairs(){
+        System.out.println("This is an invalid number of chairs. Enter -1 to quit.");
+    }
+
+    /**
+     * Displays the message that prompts the user to enter the number of tables in the room.
+     */
+    public void displayTablesPrompt(){
+        System.out.println("How many tables? Enter -1 to quit.");
+    }
+
+    /**
+     * Displays the message that informs the user that the number of tables entered is invalid.
+     */
+    public void displayInvalidTables(){
+        System.out.println("This is an invalid number of tables. Enter -1 to quit.");
+    }
+
 
     // ----------------------------------------------------------------------------------------------------------------
 

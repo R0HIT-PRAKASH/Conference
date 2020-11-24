@@ -177,6 +177,19 @@ public class OrganizerController extends AttendeeController {
                 if (name.equals("q")){
                     break;
                 }
+                p.displayDurationPrompt();
+                int duration = nextInt();
+                while(duration <= 0){
+                    if(duration == -1){
+                        break;
+                    }
+                    p.displayInvalidDuration();
+                    duration = nextInt();
+                }
+                if(duration == -1){
+                    break;
+                }
+
                 p.displayEnterSpeakerPrompt();
                 String speaker = scan.nextLine();
                 if(!userManager.checkCredentials(speaker)) {
@@ -200,7 +213,76 @@ public class OrganizerController extends AttendeeController {
                 p.displayEnterRoomNumberPrompt();
                 int num = nextInt();
 
-                boolean added = addEvent(name, speaker, time, num);
+                p.displayCapacityPrompt();
+                int capacity = nextInt();
+                while(capacity <= 0){
+                    if(capacity == -1){
+                        break;
+                    }
+                    p.displayInvalidCapacity();
+                    capacity = nextInt();
+                }
+                if(capacity == -1){
+                    break;
+                }
+
+                p.displayComputersPrompt();
+                int comp = nextInt();
+                while(comp < 0){
+                    if(comp == -1){
+                        break;
+                    }
+                    p.displayInvalidComputers();
+                    comp = nextInt();
+                }
+                if(comp == -1){
+                    break;
+                }
+
+                p.displayProjectorPrompt();
+                String answerProject = scan.nextLine();
+                boolean project = false;
+                while(!answerProject.equalsIgnoreCase("yes") && !answerProject.equalsIgnoreCase("no")){
+                    if(answerProject.equalsIgnoreCase("q")){
+                        break;
+                    }
+                    p.displayInvalidProjector();
+                    answerProject = scan.nextLine();
+                }
+
+                if(answerProject.equalsIgnoreCase("q")){
+                    break;
+                }else if(answerProject.equalsIgnoreCase("yes")) {
+                    project = true;
+                }
+
+                p.displayChairsPrompt();
+                int cha = nextInt();
+                while(cha < 0){
+                    if(cha == -1){
+                        break;
+                    }
+                    p.displayInvalidChairs();
+                    cha = nextInt();
+                }
+                if(cha == -1){
+                    break;
+                }
+
+                p.displayTablesPrompt();
+                int tab = nextInt();
+                while(tab < 0){
+                    if(tab == -1){
+                        break;
+                    }
+                    p.displayInvalidTables();
+                    tab = nextInt();
+                }
+                if(tab == -1){
+                    break;
+                }
+
+                boolean added = addEvent(name, speaker, time, duration, num, capacity, comp, project, cha, tab);
 
                 if(!added) {p.displayEventCreationError();}
                 else {
@@ -295,10 +377,81 @@ public class OrganizerController extends AttendeeController {
                 if (roomNumber == -1) {
                     break;
                 }
-                boolean roomAdded = eventManager.addRoom(roomNumber);
-                if(!roomAdded) p.displayRoomAlreadyExists();
+                p.displayCapacityPrompt();
+                int capac = nextInt();
+                while(capac <= 0){
+                    if(capac == -1){
+                        break;
+                    }
+                    p.displayInvalidCapacity();
+                    capac = nextInt();
+                }
+                if(capac == -1){
+                    break;
+                }
 
+                p.displayComputersPrompt();
+                int computers = nextInt();
+                while(computers < 0){
+                    if(computers == -1){
+                        break;
+                    }
+                    p.displayInvalidComputers();
+                    computers = nextInt();
+                }
+                if(computers == -1){
+                    break;
+                }
+
+                p.displayProjectorPrompt();
+                String answerProjector = scan.nextLine();
+                boolean projector = false;
+                while(!answerProjector.equalsIgnoreCase("yes") && !answerProjector.equalsIgnoreCase("no")){
+                    if(answerProjector.equalsIgnoreCase("q")){
+                        break;
+                    }
+                    p.displayInvalidProjector();
+                    answerProjector = scan.nextLine();
+                }
+
+                if(answerProjector.equalsIgnoreCase("q")){
+                    break;
+                }else if(answerProjector.equalsIgnoreCase("yes")) {
+                    projector = true;
+                }
+
+                p.displayChairsPrompt();
+                int chairs = nextInt();
+                while(chairs < 0){
+                    if(chairs == -1){
+                        break;
+                    }
+                    p.displayInvalidChairs();
+                    chairs = nextInt();
+                }
+                if(chairs == -1){
+                    break;
+                }
+
+                p.displayTablesPrompt();
+                int tables = nextInt();
+                while(tables < 0){
+                    if(tables == -1){
+                        break;
+                    }
+                    p.displayInvalidTables();
+                    tables = nextInt();
+                }
+                if(tables == -1){
+                    break;
+                }
+
+                boolean roomAdded = eventManager.addRoom(roomNumber, capac, computers, projector, chairs, tables);
+                if (!roomAdded) {
+                    p.displayRoomAlreadyExists();
+                }
                 break;
+
 
             case 16:
                 p.displayRoomList(eventManager.getRooms());
@@ -334,8 +487,9 @@ public class OrganizerController extends AttendeeController {
      * @param roomNumber This parameter refers to the room number.
      * @return Returns true if the user was added to events map and false otherwise.
      */
-    boolean addEvent(String name, String speaker, LocalDateTime time, int roomNumber) {
-        return eventManager.addEvent(name, speaker, time, roomNumber);
+    boolean addEvent(String name, String speaker, LocalDateTime time, Integer duration, int roomNumber, int capacity,
+                     int computers, boolean projector, int chairs, int tables) {
+        return eventManager.addEvent(name, speaker, time, duration, roomNumber, capacity, computers, projector, chairs, tables);
     }
 
     /**
