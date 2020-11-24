@@ -369,13 +369,13 @@ public class OrganizerController extends AttendeeController {
     }
 
     /**
-     * This method reschedules an event
+     * This method reschedules an event if the event is in the list of events and the new time is after the current time
      * @param name The name of the event
      * @param newTime The new time
      */
     void rescheduleEvent(String name, LocalDateTime newTime) {
 
-        if(eventManager.getAllEvents().containsKey(name)) {
+        if(eventManager.getAllEvents().containsKey(name) && !newTime.isBefore(LocalDateTime.now())){
             eventManager.getAllEvents().get(name).setTime(newTime);
         }
     }
@@ -430,7 +430,11 @@ public class OrganizerController extends AttendeeController {
         do {
             try {
                 time = getTime();
-                break;
+                if(time.isBefore(LocalDateTime.now())){
+                    p.displayInvalidEventError();
+                }else{
+                    break;
+                }
             } catch (DateTimeException d) {
                 p.displayDateError();
             }
