@@ -28,10 +28,10 @@ public class EventManager implements Serializable {
      * @param roomNumber Refers to the room number of this event
      * @return Returns the created event.
      */
-    public Event createNewEvent(String name, String speakerName, LocalDateTime time, int roomNumber){
-        Event event = new Event(name, speakerName, time, roomNumber);
+    public Event createNewEvent(String name, String speakerName, LocalDateTime time, Integer duration, int roomNumber, int capacity){
+        Event event = new Event(name, speakerName, time, duration, roomNumber, capacity);
         if (getRoom(roomNumber) == null){
-            addRoom(roomNumber);
+            addRoom(roomNumber, capacity);
         }
 
         return event;
@@ -45,11 +45,12 @@ public class EventManager implements Serializable {
      * @param roomNumber Refers to the room number of this event.
      * @return Returns true if the event is successfully added. Otherwise, it returns false.
      */
-    public boolean addEvent(String name, String speakerName, LocalDateTime time, int roomNumber){
-        Event event = createNewEvent(name, speakerName, time, roomNumber);
+    public boolean addEvent(String name, String speakerName, LocalDateTime time, Integer duration, int roomNumber, int capacity){
+        Event event = createNewEvent(name, speakerName, time, duration, roomNumber, capacity);
         if (!checkEventIsValid(event)){
             return false;
         }
+
 
         events.put(event.getName(), event);
         return true;
@@ -61,9 +62,20 @@ public class EventManager implements Serializable {
      */
     public boolean checkEventIsValid(Event event){
 
-        if (!between9to5(event)){
+        if (!between9to5(event) || event.getCapacity() <= 0 || event.getDuration() <= 0){
             return false;
         }
+
+        for(Room room : rooms){
+            if(room.getRoomNumber() == event.getRoomNumber() && room.getCapacity() < event.getCapacity()){
+                return false;
+            }
+        }
+
+        if(event.getTime().plusHours(event.getDuration()).getHour() > 16){
+            return false;
+        }
+
         for (String i: events.keySet()){
             if (event.getName().equals(i)){
                 return false;
@@ -243,26 +255,8 @@ public class EventManager implements Serializable {
      * @param capacity Refers to the capacity of the room.
      * @return Returns true if adding room was successful. Otherwise, returns false.
      */
-    public boolean addRoom(int roomNumber, int capacity){
+    public boolean addRoom(int roomNumber, Integer capacity){
         Room room = createNewRoom(roomNumber, capacity);
-        int i = 0;
-        while (i < rooms.size()){
-            if (rooms.get(i).getRoomNumber() == room.getRoomNumber()) {
-                return false;
-            }
-            i++;
-        }
-        rooms.add(room);
-        return true;
-    }
-
-    /**
-     * Adds a room to the list of rooms (Fixed Capacity).
-     * @param roomNumber Refers to the room number.
-     * @return Returns true if adding room was successful. Otherwise, returns false.
-     */
-    public boolean addRoom(int roomNumber){
-        Room room = createNewRoom(roomNumber);
         int i = 0;
         while (i < rooms.size()){
             if (rooms.get(i).getRoomNumber() == room.getRoomNumber()) {
@@ -280,18 +274,8 @@ public class EventManager implements Serializable {
      * @param capacity Refers to the capacity of the room.
      * @return Returns the room object.
      */
-    public Room createNewRoom(int roomNumber, int capacity){
+    public Room createNewRoom(int roomNumber, Integer capacity){
         Room room = new Room(roomNumber, capacity);
-        return room;
-    }
-
-    /**
-     * Creates a new room (Fixed Capacity).
-     * @param roomNumber Refers to the room number.
-     * @return Returns the room object.
-     */
-    public Room createNewRoom(int roomNumber){
-        Room room = new Room(roomNumber);
         return room;
     }
 

@@ -174,6 +174,19 @@ public class OrganizerController extends AttendeeController {
                 if (name.equals("q")){
                     break;
                 }
+                p.displayDurationPrompt();
+                int duration = nextInt();
+                while(duration <= 0){
+                    if(duration == -1){
+                        break;
+                    }
+                    p.displayInvalidDuration();
+                    duration = nextInt();
+                }
+                if(duration == -1){
+                    break;
+                }
+
                 p.displayEnterSpeakerPrompt();
                 String speaker = scan.nextLine();
                 if(!userManager.checkCredentials(speaker)) {
@@ -197,7 +210,20 @@ public class OrganizerController extends AttendeeController {
                 p.displayEnterRoomNumberPrompt();
                 int num = nextInt();
 
-                boolean added = addEvent(name, speaker, time, num);
+                p.displayCapacityPrompt();
+                int capacity = nextInt();
+                while(capacity <= 0){
+                    if(capacity == -1){
+                        break;
+                    }
+                    p.displayInvalidCapacity();
+                    capacity = nextInt();
+                }
+                if(capacity == -1){
+                    break;
+                }
+
+                boolean added = addEvent(name, speaker, time, duration, num, capacity);
 
                 if(!added) {p.displayEventCreationError();}
                 else {
@@ -292,8 +318,20 @@ public class OrganizerController extends AttendeeController {
                 if (roomNumber == -1) {
                     break;
                 }
-                boolean roomAdded = eventManager.addRoom(roomNumber);
-                if(!roomAdded) p.displayRoomAlreadyExists();
+                p.displayCapacityPrompt();
+                int capac = nextInt();
+                while(capac <= 0){
+                    if(capac == -1){
+                        break;
+                    }
+                    p.displayInvalidCapacity();
+                    capac = nextInt();
+                }
+
+                if(capac != -1) {
+                    boolean roomAdded = eventManager.addRoom(roomNumber, capac);
+                    if (!roomAdded) p.displayRoomAlreadyExists();
+                }
 
                 break;
 
@@ -331,8 +369,8 @@ public class OrganizerController extends AttendeeController {
      * @param roomNumber This parameter refers to the room number.
      * @return Returns true if the user was added to events map and false otherwise.
      */
-    boolean addEvent(String name, String speaker, LocalDateTime time, int roomNumber) {
-        return eventManager.addEvent(name, speaker, time, roomNumber);
+    boolean addEvent(String name, String speaker, LocalDateTime time, Integer duration, int roomNumber, int capacity) {
+        return eventManager.addEvent(name, speaker, time, duration, roomNumber, capacity);
     }
 
     /**
