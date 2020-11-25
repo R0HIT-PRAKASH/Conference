@@ -38,6 +38,7 @@ public class Event implements Comparable<Event>, Serializable {
      * @param requiredProjector Refers to whether or not a projector is required for the event.
      * @param requiredChairs Refers to number of chairs required for the event.
      * @param requiredTables Refers to the number of tables required for the event.
+     * @param creators Refers to the list of usernames of users that created the event.
      */
     public Event(String name, String speakerName, LocalDateTime time, Integer duration, int roomNumber, int capacity,
                  int requiredComputers, boolean requiredProjector, int requiredChairs, int requiredTables,

@@ -721,6 +721,15 @@ public class Presenter {
         System.out.println("This is an invalid number of tables. Enter -1 to quit.");
     }
 
+    /**
+     * Displays the message that displays all of the recommended rooms.
+     * @param capacity Refers to the capacity of the event.
+     * @param computers Refers to the amount of computers required for the event.
+     * @param projector Refers to whether or not the event requires a projector.
+     * @param chairs Refers to the number of chairs required for the event.
+     * @param tables Refers to the number of tables required for the event.
+     * @param rooms Refers to the list of rooms.
+     */
     public void displayRecommendedRooms(int capacity, int computers, boolean projector, int chairs, int tables, List<Room> rooms){
         ArrayList<Room> recommendRooms = new ArrayList<>();
         for(Room room : rooms){
