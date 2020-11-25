@@ -6,9 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Presenter {
 
@@ -395,8 +393,26 @@ public class Presenter {
     /**
      * Prompts the Organizer on which Event they want to reschedule.
      */
-    public void displayEventReschedulePrompt(){
+    public void displayEventReschedulePrompt(String[] responses, List<String> responsibleEvents){
+        Scanner scan = new Scanner(System.in);
+        if (responsibleEvents.size() == 0){
+            System.out.println("You are not responsible for any events. ");
+            responses[0] = "qq";
+            return;
+        }
+        System.out.println("Here are all the events you are responsible for ");
+        for (int i = 0; i < responsibleEvents.size(); i++){
+            System.out.print(i + ". " + responsibleEvents.get(i) + "   ");
+            if ((i+1)% 5 == 0){
+                System.out.println();
+            }
+        }
         System.out.println("Enter the event you want to reschedule, or type 'q' to exit: ");
+        responses[0] = scan.nextLine();
+        while(!responsibleEvents.contains(responses[0]) && !responses[0].equalsIgnoreCase("q")){
+            System.out.println("This is not an event you can reschedule, please try again or type 'q' to exit: ");
+            responses[0] = scan.nextLine();
+        }
     }
 
     /**
@@ -546,6 +562,42 @@ public class Presenter {
             System.out.println("Room #" + room.getRoomNumber());
         }
 
+    }
+
+    public void displayAndGetCreators(List<String> creators, List<Organizer> organizers){
+        Scanner scan = new Scanner(System.in);
+        List<String> allUsernames = new ArrayList<>();
+        if (organizers.size() > 1){
+            System.out.println("Here is the list of all the other organizers at this conference: ");
+            for (int i = 0; i < organizers.size(); i++){
+                System.out.print(i + ". " + organizers.get(i).getUsername() + "   ");
+                allUsernames.add(organizers.get(i).getUsername());
+                if (i < organizers.size() - 1 && (i+1)%5 == 0){
+                    System.out.println();
+                }
+            }
+        }
+        else{
+            return;
+        }
+        System.out.println("Would you like to add any of them as additional organizers for this event " +
+                "(this gives them the ability to reschedule or cancel this event)? Type their usernames here" +
+                "or enter \"done\" when the list is complete ");
+        String text = scan.nextLine();
+        while(!text.equalsIgnoreCase("done")) {
+            if (allUsernames.contains(text) && !creators.contains(text)) {
+                creators.add(text);
+                System.out.println("Organizer added");
+            } else if (allUsernames.contains(text)) {
+                System.out.println("This organizer is allowed to edit this event already, please re-enter a " +
+                        "valid username");
+            } else if (!allUsernames.contains(text)) {
+                System.out.println("This user is not allowed to edit this event, please re-enter a " +
+                        "valid username");
+            }
+            System.out.print("Next username (or 'done' to finish): ");
+            text = scan.nextLine();
+        }
     }
 
 

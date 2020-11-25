@@ -1,3 +1,5 @@
+import com.sun.tools.corba.se.idl.constExpr.Or;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -140,11 +142,11 @@ public class UserManager implements Serializable {
      * This method returns a list of all of the organizers in userMap.
      * @return A list of all of the organizers in userMap.
      */
-    public List<User> getOrganizers(){
-        List<User> organizers = new ArrayList<>();
+    public List<Organizer> getOrganizers(){
+        List<Organizer> organizers = new ArrayList<>();
         for(String username : userMap.keySet()){
             if(userMap.get(username) instanceof Organizer){
-                organizers.add(userMap.get(username));
+                organizers.add((Organizer) userMap.get(username));
             }
         }
         return organizers;
@@ -262,10 +264,13 @@ public class UserManager implements Serializable {
     /**
      * Adds an event to the list of events that organizer has created.
      * @param event Refers to the event that is to be added to the list of events that organizer has organized.
-     * @param organizer Refers to the organizer organizing the event.
+     * @param organizers Refers to the organizers organizing the event.
      */
-    public void createdEvent(Event event, Organizer organizer){
-        organizer.createdEvent(event);
+    public void createdEvent(Event event, List<String> organizers){
+        for (String name : organizers){
+            Organizer curr = (Organizer)getUser(name);
+            curr.createdEvent(event);
+        }
     }
 
     /**

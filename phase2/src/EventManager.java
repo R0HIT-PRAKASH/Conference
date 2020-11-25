@@ -33,8 +33,10 @@ public class EventManager implements Serializable {
      * @return Returns the created event.
      */
     public Event createNewEvent(String name, String speakerName, LocalDateTime time, Integer duration, int roomNumber,
-                                int capacity, int computers, boolean projector, int chairs, int tables){
-        Event event = new Event(name, speakerName, time, duration, roomNumber, capacity, computers, projector, chairs, tables);
+                                int capacity, int computers, boolean projector, int chairs, int tables,
+                                List<String> creators){
+        Event event = new Event(name, speakerName, time, duration, roomNumber, capacity, computers, projector,
+                chairs, tables, creators);
         if (getRoom(roomNumber) == null){
             addRoom(roomNumber, capacity, computers, projector, chairs, tables);
         }
@@ -51,8 +53,10 @@ public class EventManager implements Serializable {
      * @return Returns true if the event is successfully added. Otherwise, it returns false.
      */
     public boolean addEvent(String name, String speakerName, LocalDateTime time, Integer duration, int roomNumber,
-                            int capacity, int computers, boolean projector, int chairs, int tables){
-        Event event = createNewEvent(name, speakerName, time, duration, roomNumber, capacity, computers, projector, chairs, tables);
+                            int capacity, int computers, boolean projector, int chairs, int tables,
+                            List<String> creators){
+        Event event = createNewEvent(name, speakerName, time, duration, roomNumber, capacity, computers, projector,
+                chairs, tables, creators);
         if (!checkEventIsValid(event)){
             return false;
         }
