@@ -172,10 +172,10 @@ public class EventManager implements Serializable {
      */
     public boolean compareTimes(Event e1, Event e2){
         LocalDateTime beginningTime1 = e1.getTime();
-        LocalDateTime endTime1 = e1.getTime().plusMinutes(59);
+        LocalDateTime endTime1 = e1.getTime().plusMinutes(e1.getDuration());
 
         LocalDateTime beginningTime2 = e2.getTime();
-        LocalDateTime endTime2 = e2.getTime().plusMinutes(59);
+        LocalDateTime endTime2 = e2.getTime().plusMinutes(e2.getDuration());
 
         int compare1 = beginningTime1.compareTo(beginningTime2);
         int compare2 = beginningTime1.compareTo(endTime2);
