@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
  */
 public class OrganizerController extends AttendeeController {
 
+
     /**
      * Constructs an OrganizerController object.
      * @param userManager Refers to the UserManager object.
@@ -22,6 +23,8 @@ public class OrganizerController extends AttendeeController {
     public OrganizerController(UserManager userManager, EventManager eventManager, MessageManager messageManager, String username) {
         super(userManager, eventManager, messageManager, username);
     }
+
+
 
     /**
      * Runs the OrganizerController by asking for input and performing the actions
@@ -207,6 +210,8 @@ public class OrganizerController extends AttendeeController {
                 if (speaker.equalsIgnoreCase("q")) {
                     break;
                 }
+                p.displayEnterRoomNumberPrompt();
+                int num = nextInt();
 
                 p.displayCapacityPrompt();
                 int capacity = nextInt();
@@ -277,19 +282,19 @@ public class OrganizerController extends AttendeeController {
                     break;
                 }
 
-                if(!eventManager.getRooms().isEmpty()){
-                    p.displayRecommendedRoomList(comp, project, cha, tab, eventManager.getRooms());
-                }
-                p.displayEnterRoomNumberPrompt();
-                int num = nextInt();
+                List<Organizer> organizers = userManager.getOrganizers();
+                List<String> creators = new ArrayList<>();
+                creators.add(this.username);
+                p.displayAndGetCreators(creators, organizers);
 
-                boolean added = addEvent(name, speaker, time, duration, num, capacity, comp, project, cha, tab);
+                boolean added = addEvent(name, speaker, time, duration, num, capacity, comp, project, cha, tab,
+                        creators);
 
                 if(!added) {p.displayEventCreationError();}
                 else {
                     p.displaySuccessfulEventCreation();
                     userManager.addSpeakingEvent(speaker, name);
-                    userManager.createdEvent(eventManager.getEvent(name), (Organizer) userManager.getUser(this.username));
+                    userManager.createdEvent(eventManager.getEvent(name), creators);
                 }
                 break;
 
@@ -343,6 +348,7 @@ public class OrganizerController extends AttendeeController {
                     if (event.equalsIgnoreCase("q")) {
                         break;
                     }
+
                 }
                 if (event.equalsIgnoreCase("q")) {
                     break;
@@ -351,16 +357,16 @@ public class OrganizerController extends AttendeeController {
                 break;
 
             case 12:
-                p.displayEventReschedulePrompt();
-                String eventname1 = scan.nextLine();
-                if (eventname1.equalsIgnoreCase("q")) {
+                String[] responses = new String[1];
+                responses[0] = this.username;
+                List<String> responsibleEvents = userManager.allCreatedEvents(this.username);
+                p.displayEventReschedulePrompt(responses, responsibleEvents);
+                String eventName1 = responses[0];
+                if (eventName1.equalsIgnoreCase("q")) {
                     break;
                 }
-                else if(eventManager.getEvent(eventname1) == null) {
-                    p.displayInvalidEventError();
-                }
                 LocalDateTime newTime = askTime();
-                rescheduleEvent(eventname1, newTime);
+                rescheduleEvent(eventName1, newTime);
                 break;
 
             case 13:
@@ -489,8 +495,9 @@ public class OrganizerController extends AttendeeController {
      * @return Returns true if the user was added to events map and false otherwise.
      */
     boolean addEvent(String name, String speaker, LocalDateTime time, Integer duration, int roomNumber, int capacity,
-                     int computers, boolean projector, int chairs, int tables) {
-        return eventManager.addEvent(name, speaker, time, duration, roomNumber, capacity, computers, projector, chairs, tables);
+                     int computers, boolean projector, int chairs, int tables, List<String> creators) {
+        return eventManager.addEvent(name, speaker, time, duration, roomNumber, capacity, computers, projector,
+                chairs, tables, creators);
     }
 
     /**

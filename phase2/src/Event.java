@@ -3,6 +3,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -23,6 +24,7 @@ public class Event implements Comparable<Event>, Serializable {
     private int requiredChairs;
     private int requiredTables;
     private Set<User> attendeeSet;
+    private List<String> creators;
 
     /**
      * This constructs an event
@@ -38,7 +40,8 @@ public class Event implements Comparable<Event>, Serializable {
      * @param requiredTables Refers to the number of tables required for the event.
      */
     public Event(String name, String speakerName, LocalDateTime time, Integer duration, int roomNumber, int capacity,
-                 int requiredComputers, boolean requiredProjector, int requiredChairs, int requiredTables) {
+                 int requiredComputers, boolean requiredProjector, int requiredChairs, int requiredTables,
+                 List<String> creators) {
         this.name = name;
         this.speakerName = speakerName;
         this.time = time;
@@ -54,6 +57,7 @@ public class Event implements Comparable<Event>, Serializable {
         this.requiredChairs = requiredChairs;
         this.requiredTables = requiredTables;
         attendeeSet = new HashSet<User>();
+        this.creators = creators;
     }
 
     /**
