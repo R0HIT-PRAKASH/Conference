@@ -257,7 +257,7 @@ public class Event implements Comparable<Event>, Serializable {
         }
 
         return "Title: " + getName() + "| Time: " + date + "| Speaker: " + getSpeakerName() + "| Duration: "
-                + getDuration() + " hour/s| Room: " + getRoomNumber() + "Equipment Required: " +
+                + getDuration() + " hour/s| Room: " + getRoomNumber() + ", Equipment Required: " +
                 getRequiredComputers() + " Computers, " + projector + " Projector(s), " + getRequiredChairs() +
                 " Chairs, " + getRequiredTables() + " Tables ";
     }

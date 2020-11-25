@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
  */
 public class OrganizerController extends AttendeeController {
 
-
     /**
      * Constructs an OrganizerController object.
      * @param userManager Refers to the UserManager object.
@@ -23,8 +22,6 @@ public class OrganizerController extends AttendeeController {
     public OrganizerController(UserManager userManager, EventManager eventManager, MessageManager messageManager, String username) {
         super(userManager, eventManager, messageManager, username);
     }
-
-
 
     /**
      * Runs the OrganizerController by asking for input and performing the actions
@@ -210,8 +207,6 @@ public class OrganizerController extends AttendeeController {
                 if (speaker.equalsIgnoreCase("q")) {
                     break;
                 }
-                p.displayEnterRoomNumberPrompt();
-                int num = nextInt();
 
                 p.displayCapacityPrompt();
                 int capacity = nextInt();
@@ -281,6 +276,12 @@ public class OrganizerController extends AttendeeController {
                 if(tab == -1){
                     break;
                 }
+
+                if(!eventManager.getRooms().isEmpty()){
+                    p.displayRecommendedRoomList(comp, project, cha, tab, eventManager.getRooms());
+                }
+                p.displayEnterRoomNumberPrompt();
+                int num = nextInt();
 
                 boolean added = addEvent(name, speaker, time, duration, num, capacity, comp, project, cha, tab);
 

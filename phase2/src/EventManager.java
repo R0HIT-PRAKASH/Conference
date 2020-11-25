@@ -112,10 +112,8 @@ public class EventManager implements Serializable {
     private boolean requiredEquipment(Event event){
         Room foundRoom = null;
         for(Room room : rooms){
-            if(event.getRoomNumber() == room.getRoomNumber()){
+            if(event.getRoomNumber() == room.getRoomNumber()) {
                 foundRoom = room;
-            }else{
-                return false;
             }
         }
         if(foundRoom == null){

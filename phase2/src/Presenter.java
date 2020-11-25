@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -546,6 +547,28 @@ public class Presenter {
             System.out.println("Room #" + room.getRoomNumber());
         }
 
+    }
+
+    /**
+     * Displays the list of rooms that are recommended for the event that the organizer wants to add.
+     * @param comp Refers to the amount of computers required for the event.
+     * @param project Refers to whether or not a projector is required for the event.
+     * @param chair Refers to the amount of chairs required for the event.
+     * @param table Refers to the number ob tables required for the event.
+     * @param rooms Refers to the list of all of the rooms.
+     */
+    public void displayRecommendedRoomList(int comp, boolean project, int chair, int table, List<Room> rooms){
+        ArrayList<Room> recommendRooms = new ArrayList<>();
+        for(Room room : rooms){
+            if(room.getComputers() >= comp && room.getChairs() >= chair && room.getTables() >= table && (!project ||
+                    (project && room.getProjector()))){
+                recommendRooms.add(room);
+            }
+        }
+        System.out.println("Recommended Rooms:");
+        for(Room room : recommendRooms){
+            System.out.println(room.getRoomNumber());
+        }
     }
 
 
