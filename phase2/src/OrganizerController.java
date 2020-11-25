@@ -32,9 +32,9 @@ public class OrganizerController extends AttendeeController {
     public void run(){
         p.displayOptions2();
         p.displayTaskInput();
-        final int END_CONDITION = 20;
+        final int END_CONDITION = 21;
         int input = nextInt();
-        while (input != END_CONDITION){ // 20 is ending condition
+        while (input != END_CONDITION){ // 21 is ending condition
             determineInput(input);
             input = nextInt();
         }
@@ -211,97 +211,151 @@ public class OrganizerController extends AttendeeController {
                     break;
                 }
 
-                p.displayCapacityPrompt();
-                int capacity = nextInt();
-                while(capacity <= 0){
+                p.displayEnterRoomNumberPrompt();
+                int num = nextInt();
+                Room room = eventManager.getRoom(num);
+                String ans;
+                if(eventManager.getRoom(num) == null) {
+                    if (eventManager.getRooms().isEmpty()) {
+                        p.displayRoomNumberErrorQuestion1();
+                        ans = scan.nextLine();
+                        while (!ans.equalsIgnoreCase("create") && !ans.equalsIgnoreCase("q")) {
+                            p.displayRoomDecisionQError1();
+                            ans = scan.nextLine();
+                        }
+                    } else {
+                        p.displayRoomNumberErrorQuestion2();
+                        ans = scan.nextLine();
+                        while (!ans.equalsIgnoreCase("create") && !ans.equalsIgnoreCase("suggestions") // need to fix it so it doesnt give suggestions as option when empty
+                                && !ans.equalsIgnoreCase("q")) {
+                            p.displayRoomDecisionQError2();
+                            ans = scan.nextLine();
+                        }
+                    }
+                    if (ans.equalsIgnoreCase("q")) {
+                        break;
+                    }
+                    p.displayCapacityPrompt();
+                    int capacity = nextInt();
+                    while(capacity <= 0){
+                        if(capacity == -1){
+                            break;
+                        }
+                        p.displayInvalidCapacity();
+                        capacity = nextInt();
+                    }
                     if(capacity == -1){
                         break;
                     }
-                    p.displayInvalidCapacity();
-                    capacity = nextInt();
-                }
-                if(capacity == -1){
-                    break;
-                }
 
-                p.displayComputersPrompt();
-                int comp = nextInt();
-                while(comp < 0){
+                    p.displayComputersPrompt();
+                    int comp = nextInt();
+                    while(comp < 0){
+                        if(comp == -1){
+                            break;
+                        }
+                        p.displayInvalidComputers();
+                        comp = nextInt();
+                    }
                     if(comp == -1){
                         break;
                     }
-                    p.displayInvalidComputers();
-                    comp = nextInt();
-                }
-                if(comp == -1){
-                    break;
-                }
 
-                p.displayProjectorPrompt();
-                String answerProject = scan.nextLine();
-                boolean project = false;
-                while(!answerProject.equalsIgnoreCase("yes") && !answerProject.equalsIgnoreCase("no")){
+                    p.displayProjectorPrompt();
+                    String answerProject = scan.nextLine();
+                    boolean project = false;
+                    while(!answerProject.equalsIgnoreCase("yes") && !answerProject.equalsIgnoreCase("no")){
+                        if(answerProject.equalsIgnoreCase("q")){
+                            break;
+                        }
+                        p.displayInvalidProjector();
+                        answerProject = scan.nextLine();
+                    }
+
                     if(answerProject.equalsIgnoreCase("q")){
                         break;
+                    }else if(answerProject.equalsIgnoreCase("yes")) {
+                        project = true;
                     }
-                    p.displayInvalidProjector();
-                    answerProject = scan.nextLine();
-                }
 
-                if(answerProject.equalsIgnoreCase("q")){
-                    break;
-                }else if(answerProject.equalsIgnoreCase("yes")) {
-                    project = true;
-                }
-
-                p.displayChairsPrompt();
-                int cha = nextInt();
-                while(cha < 0){
+                    p.displayChairsPrompt();
+                    int cha = nextInt();
+                    while(cha < 0){
+                        if(cha == -1){
+                            break;
+                        }
+                        p.displayInvalidChairs();
+                        cha = nextInt();
+                    }
                     if(cha == -1){
                         break;
                     }
-                    p.displayInvalidChairs();
-                    cha = nextInt();
-                }
-                if(cha == -1){
-                    break;
-                }
 
-                p.displayTablesPrompt();
-                int tab = nextInt();
-                while(tab < 0){
+                    p.displayTablesPrompt();
+                    int tab = nextInt();
+                    while(tab < 0){
+                        if(tab == -1){
+                            break;
+                        }
+                        p.displayInvalidTables();
+                        tab = nextInt();
+                    }
                     if(tab == -1){
                         break;
                     }
-                    p.displayInvalidTables();
-                    tab = nextInt();
-                }
-                if(tab == -1){
+
+                    if (ans.equalsIgnoreCase("create")) {
+                        p.displayEnterRoomNumberPrompt();
+                        int numNew = nextInt();
+
+                        List<Organizer> organizers = userManager.getOrganizers();
+                        List<String> creators = new ArrayList<>();
+                        creators.add(this.username);
+                        p.displayAndGetCreators(creators, organizers);
+
+                        boolean added = addEvent(name, speaker, time, duration, numNew, capacity, comp, project, cha, tab,
+                                creators);
+
+                        if(!added) {p.displayEventCreationError();}
+                        else {
+                            p.displaySuccessfulEventCreation();
+                            userManager.addSpeakingEvent(speaker, name);
+                            userManager.createdEvent(eventManager.getEvent(name), creators);
+                        }
+                        break;
+                    }
+
+                    else if(!eventManager.getRooms().isEmpty()){ // ans = suggestions
+                        p.displayRecommendedRooms(capacity, comp, project, cha, tab, eventManager.getRooms());
+                    } // should probably add functionality to take this recommendation and use it immediately
                     break;
                 }
-
-                List<Organizer> organizers = userManager.getOrganizers();
-                List<String> creators = new ArrayList<>();
-                creators.add(this.username);
-                p.displayAndGetCreators(creators, organizers);
-
-                if(!eventManager.getRooms().isEmpty()){
-                    p.displayRecommendedRooms(capacity, comp, project, cha, tab, eventManager.getRooms());
+                else { // room exists
+                    p.displayEnterEventCapacityPrompt(room.getCapacity());  // need to ask what they want capcity to be and cannot be more then room can hold
+                    int cap = nextInt();
+                    while (cap > room.getCapacity()) {
+                        p.displayRoomCapacityError(room.getCapacity());
+                        cap = scan.nextInt();
+                    }
+                    List<Organizer> organizers = userManager.getOrganizers();
+                    List<String> creators = new ArrayList<>();
+                    creators.add(this.username);
+                    p.displayAndGetCreators(creators, organizers);
+                    boolean added = addEvent(name, speaker, time, duration, num, cap, room.getComputers(), room.getProjector(), room.getChairs(), room.getTables(), // do we even use this boolean?
+                            creators);
                 }
-                    p.displayEnterRoomNumberPrompt();
-                int num = nextInt();
-
-
-                boolean added = addEvent(name, speaker, time, duration, num, capacity, comp, project, cha, tab,
-                        creators);
-
-                if(!added) {p.displayEventCreationError();}
-                else {
-                    p.displaySuccessfulEventCreation();
-                    userManager.addSpeakingEvent(speaker, name);
-                    userManager.createdEvent(eventManager.getEvent(name), creators);
+                        if (speaker.equalsIgnoreCase("q")) {
+                    // what do you want the events capacity to be?
+                    // if more than the room can hold, give error and prompt again
+                    List<Organizer> organizers = userManager.getOrganizers();
+                    List<String> creators = new ArrayList<>();
+                    creators.add(this.username);
+                    p.displayAndGetCreators(creators, organizers);
+                    boolean added = addEvent(name, speaker, time, duration, num, room.getCapacity(), room.getComputers(), room.getProjector(), room.getChairs(), room.getTables(),
+                            creators);
+                    break;
                 }
-                break;
+            break;
 
             case 8:
                 p.displayAllAttendeeMessagePrompt();
@@ -464,20 +518,60 @@ public class OrganizerController extends AttendeeController {
                 }
                 break;
 
+            case 16: // I would suggest putting this in a Modify Event Tab for GUI
+                List<String> namesOfEvents = userManager.allCreatedEvents(this.username);
+                List<Event> usersFutureEvents = eventManager.chronologicalEvents(eventManager.eventNotHappened(namesOfEvents));
+                p.displayYourCreatedEvents(usersFutureEvents);
 
-            case 16:
+                p.displayEventModifyPrompt();
+                String eventNameToModify = scan.nextLine();
+                if (eventNameToModify.equalsIgnoreCase("q")) {
+                    break;
+                }
+                while(!namesOfEvents.contains(eventNameToModify)){
+                    p.displayCannotModifyEvent();
+                    // extend so you handle when they do an event you didnt create with specific error
+                    eventNameToModify = scan.nextLine();
+                    if (eventNameToModify.equalsIgnoreCase("q")) {
+                        break;
+                    }
+
+                }
+                if (eventNameToModify.equalsIgnoreCase("q")) {
+                    break;
+                }
+
+                Event eventToModify = eventManager.getEvent(eventNameToModify);
+                Room room1 = eventManager.getRoom(eventToModify.getRoomNumber());
+                // display new capacity prompt
+                p.displayEnterNewEventCapacityPrompt(room1.getCapacity());
+                int newCapacity = nextInt();
+                while (newCapacity > room1.getCapacity() || newCapacity < eventToModify.getAttendeeSet().size()) {
+                    p.displayModifyRoomCapacityError(room1.getCapacity(), eventToModify.getAttendeeSet().size());
+                    newCapacity = scan.nextInt();}
+                eventManager.changeEventCapacity(eventToModify, newCapacity);
+                break;
+                // Here are the FUTURE events which you can modify:
+
+
+                // display only event for which they are an organizer of (have access to)
+
+                //choose one of them
+                // choose an event
+
+            case 17:
                 p.displayRoomList(eventManager.getRooms());
                 break;
 
-            case 17:
+            case 18:
                 p.displayUserList(users("speaker"), "Speaker");
                 break;
 
-            case 18:
+            case 19:
                 p.displayUserList(users("attendee"), "Attendee");
                 break;
 
-            case 19:
+            case 20:
                 p.displayUserList(users("organizer"), "Organizer");
                 break;
 

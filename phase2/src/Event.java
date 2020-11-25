@@ -230,6 +230,10 @@ public class Event implements Comparable<Event>, Serializable {
         this.requiredTables = requiredTables;
     }
 
+    public List<String> getCreators(){
+        return this.creators;
+    }
+
     /**
      * This method adds an attendee
      * @param attendee The attendee to be added
