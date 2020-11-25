@@ -121,8 +121,14 @@ public class Room implements Serializable {
      * @return Returns a string representation of the room's attributes.
      */
     public String toString(){
+        int projector = 0;
+
+        if(getProjector()){
+            projector = 1;
+        }
+
         return "Room " + this.roomNumber + " - Capacity: " + this.capacity + ", Equipment: " +
-                this.computers + " Computers, " + this.projector + " Projector(s), " + this.chairs +
+                this.computers + " Computers, " + projector + " Projector(s), " + this.chairs +
                 " Chairs, " + this.tables + " Tables ";
     }
 }

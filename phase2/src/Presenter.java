@@ -721,6 +721,20 @@ public class Presenter {
         System.out.println("This is an invalid number of tables. Enter -1 to quit.");
     }
 
+    public void displayRecommendedRooms(int capacity, int computers, boolean projector, int chairs, int tables, List<Room> rooms){
+        ArrayList<Room> recommendRooms = new ArrayList<>();
+        for(Room room : rooms){
+            if(room.getCapacity() >= capacity && room.getComputers() >= computers && room.getChairs() >= chairs &&
+                    room.getTables() >= tables && (!projector || projector && room.getProjector())){
+                recommendRooms.add(room);
+            }
+        }
+        System.out.println("Recommended Rooms:");
+        for(Room room : recommendRooms){
+            System.out.println(room);
+        }
+    }
+
 
     // ----------------------------------------------------------------------------------------------------------------
 

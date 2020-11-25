@@ -210,8 +210,6 @@ public class OrganizerController extends AttendeeController {
                 if (speaker.equalsIgnoreCase("q")) {
                     break;
                 }
-                p.displayEnterRoomNumberPrompt();
-                int num = nextInt();
 
                 p.displayCapacityPrompt();
                 int capacity = nextInt();
@@ -286,6 +284,13 @@ public class OrganizerController extends AttendeeController {
                 List<String> creators = new ArrayList<>();
                 creators.add(this.username);
                 p.displayAndGetCreators(creators, organizers);
+
+                if(!eventManager.getRooms().isEmpty()){
+                    p.displayRecommendedRooms(capacity, comp, project, cha, tab, eventManager.getRooms());
+                }
+                    p.displayEnterRoomNumberPrompt();
+                int num = nextInt();
+
 
                 boolean added = addEvent(name, speaker, time, duration, num, capacity, comp, project, cha, tab,
                         creators);
