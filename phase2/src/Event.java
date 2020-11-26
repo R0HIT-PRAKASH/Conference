@@ -230,6 +230,10 @@ public class Event implements Comparable<Event>, Serializable {
         this.requiredTables = requiredTables;
     }
 
+    /**
+     * This method gets the list of creator usernames that were responsible for creating the event.
+     * @return Returns the list of creators.
+     */
     public List<String> getCreators(){
         return this.creators;
     }

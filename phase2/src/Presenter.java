@@ -578,6 +578,12 @@ public class Presenter {
 
     }
 
+    /**
+     * Displays a series of messages that prompts the user to add more organizers to the list of people responsible
+     * for creating the event.
+     * @param creators Refers to the list of creators responsible for creating the event.
+     * @param organizers Refers to the list of all of the organizers.
+     */
     public void displayAndGetCreators(List<String> creators, List<Organizer> organizers){
         Scanner scan = new Scanner(System.in);
         List<String> allUsernames = new ArrayList<>();
@@ -933,35 +939,63 @@ public class Presenter {
         System.out.println("Type the username of the attendee from this event you want to message:");
     }
 
+    /**
+     * Prints the message that the attendee is not attending any events.
+     */
     public void displayNotAttendingAnyEvents(){
         System.out.println("You aren't attending any events so there are no event reservations to cancel.");
     }
 
+    /**
+     * Displays the message that prompts the user to enter the maximum capacity of the event.
+     * @param maxCapacity Refers to the capacity of the room which must be greater than or equal to the capacity of the event.
+     */
     public void displayEnterEventCapacityPrompt(int maxCapacity){
         System.out.println("Enter the number of people that can attend the event: (it cannot be greater than the room's capacity which is " + maxCapacity);
     }
 
+    /**
+     * Displays the message that prompts the user to enter the new capacity of the event.
+     * @param maxCapacity Refers to the capacity of the room which cannot be less than that of the event.
+     */
     public void displayEnterNewEventCapacityPrompt(int maxCapacity){
         System.out.println("Enter the NEW number of people that can attend the event: (it cannot be greater than the room's capacity which is " + maxCapacity);
     }
 
+    /**
+     * Displays the message that informs the user that the capacity entered is too high.
+     * @param maxCapacity Refers to the maximum capacity of the room.
+     */
     public void displayRoomCapacityError(int maxCapacity){
         System.out.println("Error: The room this event is taking place in has a maximum capacity of " + maxCapacity +
                 ". Please Enter the number of people that can attend the event:");
     }
 
+    /**
+     * Displays the message that informs the user that their new capacity is too low.
+     * @param maxCapacity Refers to he maximum capacity of the room.
+     * @param numberUsersAlreadyAttending Refers to the amount of people already attending the event.
+     */
     public void displayModifyRoomCapacityError(int maxCapacity, int numberUsersAlreadyAttending){
         System.out.println("Error: The room this event is taking place in has a maximum capacity of " + maxCapacity +
                 ". There new capacity must be greater than or equal to " + numberUsersAlreadyAttending + "; the number" +
                 "of users already attending the event. Please Enter the new number of people that can attend the event:");
     }
 
+    /**
+     * Displays a message that informs the user that the room number they entered doesn't exist.
+     */
     public void displayRoomNumberErrorQuestion1(){
         System.out.println("There is no room with this room number. \nDo you want to create a new room" +
                 "or do you want to be suggested a room from the existing ones? Please enter " +
                 "\n(1) 'create' to create a room \n(2) 'q' to quit");
 
     }
+
+    /**
+     * Displays the message that informs the user that the room number they entered doesn't exist and asks if they
+     * want to get a list of suggestions.
+     */
     public void displayRoomNumberErrorQuestion2(){
         System.out.println("There is no room with this room number. \nDo you want to create a new room" +
                 "or do you want to be suggested a room from the existing ones? Please enter " +
@@ -969,12 +1003,18 @@ public class Presenter {
 
     }
 
+    /**
+     * Displays the message that their room decision is invalid.
+     */
     public void displayRoomDecisionQError1(){
         System.out.println("Error: Invalid response. Please enter + \n(1) 'create' to create a room " +
                 "\n(2) 'q' to quit");
 
     }
 
+    /**
+     * Displays the message that their response to displayRoomNumberErrorQuestion2() is invalid.
+     */
     public void displayRoomDecisionQError2(){
         System.out.println("Error: Invalid response. Please enter + \n(1) 'create' to create a room " +
                 "\n(2) 'suggestions' to get a list of suggestions \n(3) 'q' to quit");
@@ -982,12 +1022,15 @@ public class Presenter {
     }
 
     /**
+     * Displays the message that prompts the user to enter the event they want to change the capacity of.
      */
     public void displayEventModifyPrompt(){
         System.out.print("Enter the event whose capacity you want to modify or type 'q' to exit: ");
     }
 
-
+    /**
+     * Displays the message that informs the user that the event they entered isn't an event.
+     */
     public void displayCannotModifyEvent(){
         System.out.print("Error: Please enter the name of an event that you created or press 'q' to quit:");
     }
