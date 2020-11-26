@@ -121,10 +121,11 @@ public class LoginController {
             p.displayInvalidEmailError();
             email = scan.nextLine();
         }
+        //Modify prompt to allow for VIP
         p.displayEnterStatusPrompt();
         String type = scan.nextLine();
         while(!type.equalsIgnoreCase("organizer") && !type.equalsIgnoreCase("attendee") &&
-                !type.equalsIgnoreCase("speaker")) {
+                !type.equalsIgnoreCase("speaker") && !type.equalsIgnoreCase("vip")) {
             p.displayInvalidStatusError();
             type = scan.nextLine();
         }
