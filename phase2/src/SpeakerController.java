@@ -13,7 +13,7 @@ public class SpeakerController{
     public EventManager eventManager;
     public MessageManager messageManager;
     public String username;
-    Presenter p;
+    SpeakerPresenter p;
 
     /**
      * Creates a Speaker Controller
@@ -28,7 +28,7 @@ public class SpeakerController{
         this.eventManager = eventManager;
         this.messageManager = messageManager;
         this.username = username;
-        p = new Presenter();
+        p = new SpeakerPresenter();
     }
     /**
      * Runs the Speaker controller by asking for input and performing the actions

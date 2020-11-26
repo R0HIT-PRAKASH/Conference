@@ -12,7 +12,7 @@ public class AttendeeController{
     EventManager eventManager;
     MessageManager messageManager;
     String username;
-    Presenter p;
+    AttendeePresenter p;
 
     /**
      * This constructs an AttendeeController object
@@ -27,7 +27,7 @@ public class AttendeeController{
         this.eventManager = eventManager;
         this.messageManager = messageManager;
         this.username = username;
-        this.p = new Presenter();
+        this.p = new AttendeePresenter();
     }
 
     /**

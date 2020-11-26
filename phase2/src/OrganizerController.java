@@ -1,6 +1,7 @@
+import com.sun.org.apache.xpath.internal.operations.Or;
+
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -9,7 +10,12 @@ import java.util.stream.Collectors;
  * Refers to the controller class that will deal with the actions of an organizer object.
  */
 public class OrganizerController extends AttendeeController {
-
+    private Scanner scan = new Scanner(System.in);
+    public UserManager userManager;
+    public EventManager eventManager;
+    public MessageManager messageManager;
+    public String username;
+    OrganizerPresenter p;
 
     /**
      * Constructs an OrganizerController object.
@@ -20,6 +26,7 @@ public class OrganizerController extends AttendeeController {
      */
     public OrganizerController(UserManager userManager, EventManager eventManager, MessageManager messageManager, String username) {
         super(userManager, eventManager, messageManager, username);
+        p = new OrganizerPresenter();
     }
 
 

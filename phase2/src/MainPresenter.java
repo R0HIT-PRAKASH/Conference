@@ -131,7 +131,7 @@ public class MainPresenter {
      * Prompts the user to specify their status in the conference: organizer, attendee, speaker.
      */
     public void displayEnterStatusPrompt(){
-        System.out.print("Enter your status in the conference. This can be \"organizer\", \"attendee\" or \"speaker\": ");
+        System.out.print("Enter your status in the conference. This can be \"organizer\", \"attendee\", \"VIP\" or \"speaker\": ");
     }
 
     /**
