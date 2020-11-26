@@ -13,7 +13,7 @@ public class AttendeeController{
     MessageManager messageManager;
     String username;
     boolean vip;
-    Presenter p;
+    AttendeePresenter p;
 
     /**
      * This constructs an AttendeeController object
@@ -29,7 +29,7 @@ public class AttendeeController{
         this.messageManager = messageManager;
         this.username = username;
         this.vip = false;
-        this.p = new Presenter();
+        this.p = new AttendeePresenter();
     }
 
     // Alternate constructor when attendee is also a VIP
@@ -40,7 +40,7 @@ public class AttendeeController{
         this.messageManager = messageManager;
         this.username = username;
         this.vip = vip;
-        this.p = new Presenter();
+        this.p = new AttendeePresenter();
     }
 
     /**
