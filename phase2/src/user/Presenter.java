@@ -1,7 +1,12 @@
-/**
+package user; /**
  * This class is the Presenter Class for the Attendee, Organizer and Speaker Controllers.
  * It handles asking for user input and printing any error messages.
  */
+import event.Event;
+import message.Message;
+import room.Room;
+import user.organizer.Organizer;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;

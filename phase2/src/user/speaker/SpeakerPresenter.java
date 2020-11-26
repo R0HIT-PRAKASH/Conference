@@ -1,3 +1,9 @@
+package user.speaker;
+
+import event.Event;
+import user.User;
+import user.UserPresenter;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -149,7 +155,7 @@ public class SpeakerPresenter extends UserPresenter {
      * Prints the set of all users attending an event.
      * @param eventAttendees Refers to the set of users attending the event.
      */
-    public void displayEventAttendeesList(Set<User> eventAttendees){
+    public void displayEventAttendeesList(Set<String> eventAttendees){
         System.out.println(eventAttendees);
         System.out.println("Type the username of the attendee from this event you want to message:");
     }

@@ -1,3 +1,5 @@
+package user;
+
 import java.io.Serializable;
 
 /**

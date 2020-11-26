@@ -1,3 +1,13 @@
+package user;
+
+import event.Event;
+import event.EventManager;
+import user.User;
+import user.attendee.Attendee;
+import user.organizer.Organizer;
+import user.speaker.Speaker;
+import user.vip.Vip;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

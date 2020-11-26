@@ -1,7 +1,9 @@
-/**
+package user; /**
  * This class is a Presenter Class with common functionality between Attendee, Organizer and Speaker Controllers.
  * It handles asking for user input and printing any error messages.
  */
+import message.Message;
+
 import java.util.*;
 
 public class UserPresenter {
@@ -159,7 +161,7 @@ public class UserPresenter {
      * Queries the user for an integer
      * @return Returns the integer that user input.
      */
-    protected int nextInt() {
+    public int nextInt() {
         int input = 0;
 
         do {

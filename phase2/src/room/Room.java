@@ -1,3 +1,5 @@
+package room;
+
 import java.io.Serializable;
 
 /**

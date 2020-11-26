@@ -1,3 +1,9 @@
+package main;
+
+import message.MessageManager;
+import user.User;
+import user.UserManager;
+
 import java.util.Scanner;
 import java.util.regex.Pattern;
 

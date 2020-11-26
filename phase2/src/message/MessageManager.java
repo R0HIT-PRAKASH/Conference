@@ -1,6 +1,13 @@
+package message;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import event.EventManager;
+import user.User;
+import user.UserManager;
 
 /**
  * The MessageManager class is responsible for handling message-related actions. allUserMessages
@@ -119,9 +126,9 @@ public class MessageManager implements java.io.Serializable {
      */
     public void speakerBlastMessage(List<String> eventNames, String message, EventManager eventManager, String sender){
         for(String name : eventNames) {
-            for (User receiver : eventManager.getEvent(name).getAttendeeSet()) {
-                Message toBeSent = createNewMessage(message, sender, receiver.getUsername());
-                this.addMessage(receiver.getUsername(), toBeSent);
+            for (String receiver : eventManager.getEvent(name).getAttendeeSet()) {
+                Message toBeSent = createNewMessage(message, sender, receiver);
+                this.addMessage(receiver, toBeSent);
             }
         }
     }
@@ -133,4 +140,5 @@ public class MessageManager implements java.io.Serializable {
     public void addUserInbox(String username) {
         this.allUserMessages.put(username, new ArrayList<Message>());
 }
+
 }

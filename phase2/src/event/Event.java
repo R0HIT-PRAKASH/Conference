@@ -1,3 +1,5 @@
+package event;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -5,6 +7,7 @@ import java.time.format.FormatStyle;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import user.User;
 
 /**
  * This class represents an Event object. An Event can have a name, speaker, time, duration(in hours), room,
@@ -23,7 +26,7 @@ public class Event implements Comparable<Event>, Serializable {
     private boolean requiredProjector;
     private int requiredChairs;
     private int requiredTables;
-    private Set<User> attendeeSet;
+    private Set<String> attendeeSet;
     private List<String> creators;
 
     /**
@@ -57,7 +60,7 @@ public class Event implements Comparable<Event>, Serializable {
         this.requiredProjector = requiredProjector;
         this.requiredChairs = requiredChairs;
         this.requiredTables = requiredTables;
-        attendeeSet = new HashSet<User>();
+        attendeeSet = new HashSet<String>();
         this.creators = creators;
     }
 
@@ -105,7 +108,7 @@ public class Event implements Comparable<Event>, Serializable {
      * This method is a getter for the set of attendees
      * @return attendeeSet
      */
-    public Set<User> getAttendeeSet() {
+    public Set<String> getAttendeeSet() {
         return attendeeSet;
     }
 
@@ -243,7 +246,7 @@ public class Event implements Comparable<Event>, Serializable {
      * @param attendee The attendee to be added
      */
     public void addAttendee(User attendee) {
-        this.attendeeSet.add(attendee);
+        this.attendeeSet.add(attendee.getUsername());
     }
 
     /**

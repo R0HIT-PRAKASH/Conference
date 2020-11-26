@@ -1,3 +1,10 @@
+package user.organizer;
+
+import event.Event;
+import room.Room;
+import user.User;
+import user.attendee.AttendeePresenter;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;

@@ -1,3 +1,5 @@
+package main;
+
 /**
  * Refers to the controller class that can run the entire program. It calls the MainController, when run, which calls
  * all of the other classes.

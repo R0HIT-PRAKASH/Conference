@@ -1,6 +1,11 @@
+package event;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
+import room.Room;
+import user.User;
+import user.speaker.Speaker;
 
 /**
  * The EventManager class is responsible for handling event-related actions. events is a map that stores
@@ -109,7 +114,7 @@ public class EventManager implements Serializable {
      * @param eventName Refers to the name of the event you want the attending attendees of.
      * @return Returns a list of attendee usernames of those attending the event.
      */
-    public Set<User> getEventAttendees(String eventName){
+    public Set<String> getEventAttendees(String eventName){
         return getEvent(eventName).getAttendeeSet();
     }
 

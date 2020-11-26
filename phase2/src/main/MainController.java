@@ -1,3 +1,13 @@
+package main;
+
+import event.EventManager;
+import message.MessageManager;
+import saver.ReaderWriter;
+import user.UserManager;
+import user.attendee.AttendeeController;
+import user.organizer.OrganizerController;
+import user.speaker.SpeakerController;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.InputMismatchException;

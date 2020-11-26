@@ -1,3 +1,7 @@
+package user.speaker;
+
+import user.User;
+
 import java.util.ArrayList;
 import java.util.List;
 

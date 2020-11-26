@@ -1,3 +1,12 @@
+package user.speaker;
+
+import event.Event;
+import event.EventManager;
+import message.Message;
+import message.MessageManager;
+import user.User;
+import user.UserManager;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -143,12 +152,12 @@ public class SpeakerController{
                 viewScheduledEvents(username);
                 String eventName = scan.nextLine();
                 if(eventManager.events.containsKey(eventName)){
-                    Set<User> eventAttendees = eventManager.getEventAttendees(eventName);
+                    Set<String> eventAttendees = eventManager.getEventAttendees(eventName);
                     p.displayEventAttendeesList(eventAttendees);
                     String toMessage = scan.nextLine();
                     ArrayList<String> usernameList = new ArrayList<String>();
-                    for (User user: eventAttendees){
-                        usernameList.add(userManager.getUsername(user));
+                    for (String user: eventAttendees){
+                        usernameList.add(user);
                     }
                     if(usernameList.contains(toMessage)){
                         p.displayEnterMessagePrompt();

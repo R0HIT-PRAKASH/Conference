@@ -1,3 +1,11 @@
+package user.attendee;
+
+import event.Event;
+import event.EventManager;
+import message.Message;
+import message.MessageManager;
+import user.UserManager;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -220,7 +228,7 @@ public class AttendeeController{
      * @param originalMessenger: The username of the User we are replying too
      */
     protected void replyMessage(String message, String originalMessenger) {
-        List<Message> userInbox = messageManager.allUserMessages.get(this.username);
+        List<Message> userInbox = messageManager.getAllUserMessages().get(this.username);
         Message replyMessage = messageManager.createNewMessage(message, this.username, originalMessenger);
         messageManager.addMessage(originalMessenger, replyMessage);
         p.displaySuccessfulMessage();

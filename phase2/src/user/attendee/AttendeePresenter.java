@@ -1,10 +1,15 @@
+package user.attendee;
+
+import event.Event;
+import user.UserPresenter;
+
 import java.util.List;
 
 /**
  * This class is a Presenter Class with specific functionality for Attendee Controllers.
  * It handles asking for user input and printing any error messages.
  */
-public class AttendeePresenter extends UserPresenter{
+public class AttendeePresenter extends UserPresenter {
 
     public AttendeePresenter(){
     }
