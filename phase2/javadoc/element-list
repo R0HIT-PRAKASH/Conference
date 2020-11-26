@@ -1,0 +1,11 @@
+event
+main
+message
+request
+room
+saver
+user
+user.attendee
+user.organizer
+user.speaker
+user.vip

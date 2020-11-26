@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"event"},{"l":"main"},{"l":"message"},{"l":"request"},{"l":"room"},{"l":"saver"},{"l":"user"},{"l":"user.attendee"},{"l":"user.organizer"},{"l":"user.speaker"},{"l":"user.vip"}]

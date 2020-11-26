@@ -30,11 +30,14 @@ public class EventManager implements Serializable {
      * @param name Refers to the name of the event.
      * @param speakerName Refers to the name of the speaker of this event.
      * @param time Refers to the starting time of the event.
-     * @param roomNumber Refers to the room number of this event
+     * @param duration The Event Duration.
+     * @param roomNumber Refers to the room number of this event.
+     * @param capacity The room capacity.
      * @param computers Refers to the number of computers in the room.
      * @param projector Refers to whether or not the room has a projector.
      * @param chairs Refers to the number of chairs in the room.
      * @param tables Refers to the number of tables in the room.
+     * @param creators The list of creators.
      * @return Returns the created event.
      */
     public Event createNewEvent(String name, String speakerName, LocalDateTime time, Integer duration, int roomNumber,
@@ -50,11 +53,18 @@ public class EventManager implements Serializable {
     }
 
     /**
-     * Adds an event to the events map.
+     * Creates a new event object.
      * @param name Refers to the name of the event.
      * @param speakerName Refers to the name of the speaker of this event.
      * @param time Refers to the starting time of the event.
+     * @param duration The Event Duration.
      * @param roomNumber Refers to the room number of this event.
+     * @param capacity The room capacity.
+     * @param computers Refers to the number of computers in the room.
+     * @param projector Refers to whether or not the room has a projector.
+     * @param chairs Refers to the number of chairs in the room.
+     * @param tables Refers to the number of tables in the room.
+     * @param creators The list of creators.
      * @return Returns true if the event is successfully added. Otherwise, it returns false.
      */
     public boolean addEvent(String name, String speakerName, LocalDateTime time, Integer duration, int roomNumber,

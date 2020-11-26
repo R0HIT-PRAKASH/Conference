@@ -411,6 +411,8 @@ public class Presenter {
 
     /**
      * Prompts the Organizer on which Event they want to reschedule.
+     * @param responses Thee responses
+     * @param responsibleEvents The responsible events
      */
     public void displayEventReschedulePrompt(String[] responses, List<String> responsibleEvents){
         Scanner scan = new Scanner(System.in);

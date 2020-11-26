@@ -13,6 +13,8 @@ public class Request {
 
     /**
      * This method constructs a Request object
+     * @param content The request content
+     * @param requesterUsername The requester username
      */
     public Request(String content, String requesterUsername){
         this.content = content;
