@@ -658,9 +658,16 @@ public class Presenter {
     }
 
     /**
-     * Displays the message that prompts the user for the specified capacity.
+     * Displays the message that prompts the user for the specified capacity of the event.
      */
-    public void displayCapacityPrompt(){
+    public void displayEventCapacityPrompt(){
+        System.out.println("Enter the capacity of the event you would like to add or -1 if you want to quit." );
+    }
+
+    /**
+     * Displays the message that prompts the user for the specified capacity of the room.
+     */
+    public void displayRoomCapacityPrompt(){
         System.out.println("Enter the capacity of the room you would like to add or -1 if you want to quit." );
     }
 
@@ -762,6 +769,13 @@ public class Presenter {
         for(Room room : recommendRooms){
             System.out.println(room);
         }
+    }
+
+    /**
+     * Displays the message that tells the user that they cannot change the capacity of any events.
+     */
+    public void displayNoOrganizedEvents(){
+        System.out.println("You have not created any events. You cannot change the capacity of anything.");
     }
 
 
@@ -979,14 +993,14 @@ public class Presenter {
     public void displayModifyRoomCapacityError(int maxCapacity, int numberUsersAlreadyAttending){
         System.out.println("Error: The room this event is taking place in has a maximum capacity of " + maxCapacity +
                 ". There new capacity must be greater than or equal to " + numberUsersAlreadyAttending + "; the number" +
-                "of users already attending the event. Please Enter the new number of people that can attend the event:");
+                " of users already attending the event. Please Enter the new number of people that can attend the event:");
     }
 
     /**
      * Displays a message that informs the user that the room number they entered doesn't exist.
      */
     public void displayRoomNumberErrorQuestion1(){
-        System.out.println("There is no room with this room number. \nDo you want to create a new room" +
+        System.out.println("There is no room with this room number. \nDo you want to create a new room " +
                 "or do you want to be suggested a room from the existing ones? Please enter " +
                 "\n(1) 'create' to create a room \n(2) 'q' to quit");
 
@@ -1007,7 +1021,7 @@ public class Presenter {
      * Displays the message that their room decision is invalid.
      */
     public void displayRoomDecisionQError1(){
-        System.out.println("Error: Invalid response. Please enter + \n(1) 'create' to create a room " +
+        System.out.println("Error: Invalid response. Please enter: \n(1) 'create' to create a room " +
                 "\n(2) 'q' to quit");
 
     }
@@ -1016,7 +1030,7 @@ public class Presenter {
      * Displays the message that their response to displayRoomNumberErrorQuestion2() is invalid.
      */
     public void displayRoomDecisionQError2(){
-        System.out.println("Error: Invalid response. Please enter + \n(1) 'create' to create a room " +
+        System.out.println("Error: Invalid response. Please enter: \n(1) 'create' to create a room " +
                 "\n(2) 'suggestions' to get a list of suggestions \n(3) 'q' to quit");
 
     }

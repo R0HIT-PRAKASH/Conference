@@ -235,7 +235,7 @@ public class OrganizerController extends AttendeeController {
                     if (ans.equalsIgnoreCase("q")) {
                         break;
                     }
-                    p.displayCapacityPrompt();
+                    p.displayEventCapacityPrompt();
                     int capacity = nextInt();
                     while(capacity <= 0){
                         if(capacity == -1){
@@ -306,32 +306,26 @@ public class OrganizerController extends AttendeeController {
 
                     if (ans.equalsIgnoreCase("create")) {
                         p.displayEnterRoomNumberPrompt();
-                        int numNew = nextInt();
-
-                        List<Organizer> organizers = userManager.getOrganizers();
-                        List<String> creators = new ArrayList<>();
-                        creators.add(this.username);
-                        p.displayAndGetCreators(creators, organizers);
-
-                        boolean added = addEvent(name, speaker, time, duration, numNew, capacity, comp, project, cha, tab,
-                                creators);
-
-                        if(!added) {p.displayEventCreationError();}
-                        else {
-                            p.displaySuccessfulEventCreation();
-                            userManager.addSpeakingEvent(speaker, name);
-                            userManager.createdEvent(eventManager.getEvent(name), creators);
-                        }
-                        break;
-                    }
-
-                    else if(!eventManager.getRooms().isEmpty()){ // ans = suggestions
+                    }else if(ans.equalsIgnoreCase("suggestions")) {
                         p.displayRecommendedRooms(capacity, comp, project, cha, tab, eventManager.getRooms());
-                    } // should probably add functionality to take this recommendation and use it immediately
+                        p.displayEnterRoomNumberPrompt();
+                    }
+                    num = nextInt();
+                    List<Organizer> organizers = userManager.getOrganizers();
+                    List<String> creators = new ArrayList<>();
+                    creators.add(this.username);
+                    p.displayAndGetCreators(creators, organizers);
+                    boolean added = addEvent(name, speaker, time, duration, num, capacity, comp, project, cha, tab, creators);
+                    if(!added) {p.displayEventCreationError();}
+                    else {
+                        p.displaySuccessfulEventCreation();
+                        userManager.addSpeakingEvent(speaker, name);
+                        userManager.createdEvent(eventManager.getEvent(name), creators);
+                    }
                     break;
                 }
                 else { // room exists
-                    p.displayEnterEventCapacityPrompt(room.getCapacity());  // need to ask what they want capcity to be and cannot be more then room can hold
+                    p.displayEnterEventCapacityPrompt(room.getCapacity());  // need to ask what they want capacity to be and cannot be more then room can hold
                     int cap = nextInt();
                     while (cap > room.getCapacity()) {
                         p.displayRoomCapacityError(room.getCapacity());
@@ -341,21 +335,15 @@ public class OrganizerController extends AttendeeController {
                     List<String> creators = new ArrayList<>();
                     creators.add(this.username);
                     p.displayAndGetCreators(creators, organizers);
-                    boolean added = addEvent(name, speaker, time, duration, num, cap, room.getComputers(), room.getProjector(), room.getChairs(), room.getTables(), // do we even use this boolean?
-                            creators);
-                }
-                        if (speaker.equalsIgnoreCase("q")) {
-                    // what do you want the events capacity to be?
-                    // if more than the room can hold, give error and prompt again
-                    List<Organizer> organizers = userManager.getOrganizers();
-                    List<String> creators = new ArrayList<>();
-                    creators.add(this.username);
-                    p.displayAndGetCreators(creators, organizers);
-                    boolean added = addEvent(name, speaker, time, duration, num, room.getCapacity(), room.getComputers(), room.getProjector(), room.getChairs(), room.getTables(),
-                            creators);
+                    boolean added = addEvent(name, speaker, time, duration, num, room.getCapacity(), room.getComputers(), room.getProjector(), room.getChairs(), room.getChairs(), creators);
+                    if(!added) {p.displayEventCreationError();}
+                    else {
+                        p.displaySuccessfulEventCreation();
+                        userManager.addSpeakingEvent(speaker, name);
+                        userManager.createdEvent(eventManager.getEvent(name), creators);
+                    }
                     break;
                 }
-            break;
 
             case 8:
                 p.displayAllAttendeeMessagePrompt();
@@ -443,7 +431,7 @@ public class OrganizerController extends AttendeeController {
                 if (roomNumber == -1) {
                     break;
                 }
-                p.displayCapacityPrompt();
+                p.displayRoomCapacityPrompt();
                 int capac = nextInt();
                 while(capac <= 0){
                     if(capac == -1){
@@ -520,6 +508,11 @@ public class OrganizerController extends AttendeeController {
 
             case 16: // I would suggest putting this in a Modify Event Tab for GUI
                 List<String> namesOfEvents = userManager.allCreatedEvents(this.username);
+                if(namesOfEvents.isEmpty()){
+                    p.displayNoOrganizedEvents();
+                    break;
+                }
+                System.out.println(namesOfEvents);
                 List<Event> usersFutureEvents = eventManager.chronologicalEvents(eventManager.eventNotHappened(namesOfEvents));
                 p.displayYourCreatedEvents(usersFutureEvents);
 

@@ -123,9 +123,6 @@ public class EventManager implements Serializable {
         if(foundRoom == null){
             return false;
         }
-        System.out.println(event.getRequiredChairs() <= foundRoom.getChairs() && event.getRequiredComputers() <=
-                foundRoom.getComputers() && event.getRequiredTables() <= foundRoom.getTables() &&
-                (!event.getRequiredProjector() || (event.getRequiredProjector() && foundRoom.getProjector())));
 
         return event.getRequiredChairs() <= foundRoom.getChairs() && event.getRequiredComputers() <=
                 foundRoom.getComputers() && event.getRequiredTables() <= foundRoom.getTables() &&
