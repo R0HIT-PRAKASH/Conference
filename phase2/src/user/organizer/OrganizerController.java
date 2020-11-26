@@ -598,12 +598,19 @@ public class OrganizerController extends AttendeeController {
 
 
     /**
-     * This method adds an event to the set of events in the conference
-     * @param name This parameter refers to the name of the event.
-     * @param speaker This parameter refers to the speaker at the event.
-     * @param time This parameter refers to the event time.
-     * @param roomNumber This parameter refers to the room number.
-     * @return Returns true if the user was added to events map and false otherwise.
+     * Adds an event to the event list.
+     * @param name Refers to the name of the event.
+     * @param speaker Refers to the name of the speaker of this event.
+     * @param time Refers to the starting time of the event.
+     * @param duration The Event Duration.
+     * @param roomNumber Refers to the room number of this event.
+     * @param capacity The room capacity.
+     * @param computers Refers to the number of computers in the room.
+     * @param projector Refers to whether or not the room has a projector.
+     * @param chairs Refers to the number of chairs in the room.
+     * @param tables Refers to the number of tables in the room.
+     * @param creators The list of creators.
+     * @return Returns the created event.
      */
     boolean addEvent(String name, String speaker, LocalDateTime time, Integer duration, int roomNumber, int capacity,
                      int computers, boolean projector, int chairs, int tables, List<String> creators) {

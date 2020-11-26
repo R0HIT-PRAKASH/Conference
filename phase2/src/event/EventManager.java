@@ -53,7 +53,7 @@ public class EventManager implements Serializable {
     }
 
     /**
-     * Creates a new event object.
+     * Adds an event to the event list.
      * @param name Refers to the name of the event.
      * @param speakerName Refers to the name of the speaker of this event.
      * @param time Refers to the starting time of the event.

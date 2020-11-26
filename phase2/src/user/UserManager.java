@@ -79,14 +79,19 @@ public class UserManager implements Serializable {
             return false;
         }
 
-        if(usertype.toLowerCase().equals("organizer")){
-            userMap.put(username, new Organizer(name, address, email, username, password));
-        }else if(usertype.toLowerCase().equals("speaker")){
-            userMap.put(username, new Speaker(name, address, email, username, password));
-        }else if(usertype.toLowerCase().equals("vip")){
-            userMap.put(username, new Vip(name, address, email, username, password));
-        } else {
-            userMap.put(username, new Attendee(name, address, email, username, password));
+        switch (usertype.toLowerCase()) {
+            case "organizer":
+                userMap.put(username, new Organizer(name, address, email, username, password));
+                break;
+            case "speaker":
+                userMap.put(username, new Speaker(name, address, email, username, password));
+                break;
+            case "vip":
+                userMap.put(username, new Vip(name, address, email, username, password));
+                break;
+            default:
+                userMap.put(username, new Attendee(name, address, email, username, password));
+                break;
         }
 
         return true;
