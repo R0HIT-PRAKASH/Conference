@@ -1,9 +1,7 @@
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -32,7 +30,7 @@ public class OrganizerController extends AttendeeController {
     public void run(){
         p.displayOptions2();
         p.displayTaskInput();
-        final int END_CONDITION = 21;
+        final int END_CONDITION = 22;
         int input = nextInt();
         while (input != END_CONDITION){ // 21 is ending condition
             determineInput(input);
@@ -568,6 +566,10 @@ public class OrganizerController extends AttendeeController {
                 p.displayUserList(users("organizer"), "Organizer");
                 break;
 
+            case 21:
+                getStats();
+                break;
+
             default:
                 p.displayInvalidInputError();
                 break;
@@ -761,4 +763,48 @@ public class OrganizerController extends AttendeeController {
                 .filter(user -> user.getUserType().equals(type))
                 .collect(Collectors.toList());
     }
+
+    private void getStats() {
+
+        Map<String, Double> stats = new HashMap<>();
+        Map<String, List<String>> lists = new HashMap<>();
+
+        double numSpeakers = users("organizer").size();
+        stats.put("Number of Organizers: ", numSpeakers);
+        stats.put("Number of Speakers: ", (double) users("speaker").size());
+        stats.put("Number of Attendees: ", (double) users("attendee").size());
+
+        stats.put("Average Event Size: ", eventManager.numberOfEvents() == 0 ? 0
+                : 1.0 * (eventManager.getAllEventNamesOnly().stream()
+                .map(event -> eventManager.getEventAttendees(event).size())
+                .reduce(0, Integer::sum)) / eventManager.getAllEventNamesOnly().size()
+        );
+
+        stats.put("Average Number of Events Per Speaker: ", numSpeakers == 0.0 ? 0
+                : 1.0 * eventManager.numberOfEvents() / numSpeakers
+        );
+
+        stats.put("Number of events that have yet to start", (double) eventManager.getAllEvents().values().stream()
+                .filter(e -> e.getTime().isAfter(LocalDateTime.now())).count()
+        );
+
+
+        lists.put("Top Five Events (By Capacity):", eventManager.getAllEvents().values().stream()
+                .sorted(Comparator.comparingInt(Event::getSize))
+                .map(e -> e.toString())
+                .collect(Collectors.toList())
+                .subList(0, 4)
+        );
+
+        lists.put("Most Popular Speakers (By Number of Events):", users("speaker").stream()
+                .map(s1 -> (Speaker) s1)
+                .sorted(Comparator.comparingInt(Speaker::getNumberOfEvents))
+                .map(e -> e.toString())
+                .collect(Collectors.toList())
+                .subList(0, 4)
+        );
+
+
+    }
+
 }

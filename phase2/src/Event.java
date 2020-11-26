@@ -275,4 +275,7 @@ public class Event implements Comparable<Event>, Serializable {
                 " Chairs, " + getRequiredTables() + " Tables ";
     }
 
+    public int getSize() {
+        return attendeeSet.size();
+    }
 }

@@ -409,4 +409,12 @@ public class EventManager implements Serializable {
         event.setCapacity(capacity);
         return true;
     }
+
+    /**
+     * Returns the number of scheduled events
+     * @return int
+     */
+    public int numberOfEvents() {
+        return events.size();
+    }
 }
