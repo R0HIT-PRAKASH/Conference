@@ -45,4 +45,10 @@ public class Speaker extends User {
     public void addSpeakingEvent(String eventName) {
         speakingEvents.add(eventName);
     }
+
+    /**
+     * Returns the number of events assigned to this speaker
+     * @return int
+     */
+    public int getNumberOfEvents() { return this.speakingEvents.size(); }
 }

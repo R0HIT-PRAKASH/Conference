@@ -12,7 +12,6 @@ public class AttendeeController{
     EventManager eventManager;
     MessageManager messageManager;
     String username;
-    boolean vip;
     AttendeePresenter p;
 
     /**
@@ -28,18 +27,6 @@ public class AttendeeController{
         this.eventManager = eventManager;
         this.messageManager = messageManager;
         this.username = username;
-        this.vip = false;
-        this.p = new AttendeePresenter();
-    }
-
-    // Alternate constructor when attendee is also a VIP
-    public AttendeeController(UserManager userManager, EventManager eventManager, MessageManager messageManager,
-                              String username, boolean vip){
-        this.userManager = userManager;
-        this.eventManager = eventManager;
-        this.messageManager = messageManager;
-        this.username = username;
-        this.vip = vip;
         this.p = new AttendeePresenter();
     }
 
