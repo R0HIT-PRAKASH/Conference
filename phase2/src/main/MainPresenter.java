@@ -41,7 +41,7 @@ public class MainPresenter {
     /**
      * Prints an error message when the entered username does not exist.
      */
-    public void displayUsernameExistanceError(){
+    public void displayUsernameExistenceError(){
         System.out.print("This username doesn't exist, please re-enter or type \"q\" to quit: ");
     }
 

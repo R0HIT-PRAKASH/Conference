@@ -21,7 +21,7 @@ public class EventManager implements Serializable {
      * and an empty list of rooms.
      */
     public EventManager(){
-        events = new HashMap<String, Event>();
+        events = new HashMap<>();
         rooms =  new ArrayList<Room>();
     }
 
@@ -165,7 +165,7 @@ public class EventManager implements Serializable {
         int compare1 = time.compareTo(dateAt9AM);
         int compare2 = time.compareTo(dateAt4PM);
 
-        return (compare1 >= 0 && compare2 <= 0);
+        return (compare1 < 0 || compare2 > 0);
     }
     /**
      * @param e1 Refers to the event that is requested to be added.
@@ -185,10 +185,7 @@ public class EventManager implements Serializable {
         int compare3 = endTime1.compareTo(beginningTime2);
         int compare4 = endTime1.compareTo(endTime2);
 
-        if (compare1 == 0 || compare3 == 0 || (compare1 > 0 && compare2 < 0) || (compare3 > 0 && compare4 < 0)){
-            return true;
-        }
-        return false;
+        return compare1 == 0 || compare3 == 0 || (compare1 > 0 && compare2 < 0) || (compare3 > 0 && compare4 < 0);
     }
 
 
@@ -201,10 +198,7 @@ public class EventManager implements Serializable {
 
         int compare = time.compareTo(currentTime);
 
-        if (compare > 0){
-            return true;
-        }
-        return false;
+        return compare <= 0;
     }
 
     /**
@@ -314,8 +308,7 @@ public class EventManager implements Serializable {
      * @return Returns the room object.
      */
     public Room createNewRoom(int roomNumber, Integer capacity, int computers, boolean projector, int chairs, int tables){
-        Room room = new Room(roomNumber, capacity, computers, projector, chairs, tables);
-        return room;
+        return new Room(roomNumber, capacity, computers, projector, chairs, tables);
     }
 
     /**

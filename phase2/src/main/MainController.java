@@ -91,9 +91,7 @@ public class MainController {
         } catch (InputMismatchException ime) {
             p.displayInvalidInputError();
             question.nextLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -118,9 +116,7 @@ public class MainController {
         } catch (InputMismatchException ime) {
             p.displayInvalidInputError();
             question.nextLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -145,11 +141,9 @@ public class MainController {
         } catch (InputMismatchException ime) {
             p.displayInvalidInputError();
             question.nextLine();
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } 
+        }
     }
 
     /**
@@ -169,17 +163,22 @@ public class MainController {
             return;
         }
         String type = this.userManager.getUserType(this.username);
-        if(type.equals("organizer")){
-            OrganizerController controller = new OrganizerController(userManager, eventManager, messageManager, username);
-            controller.run();
-        }
-        else if(type.equals("attendee")){
-            AttendeeController controller = new AttendeeController(userManager, eventManager, messageManager, username);
-            controller.run();
-        }
-        else if(type.equals("speaker")){
-            SpeakerController controller = new SpeakerController(userManager, eventManager, messageManager, username);
-            controller.run();
+        switch (type) {
+            case "organizer": {
+                OrganizerController controller = new OrganizerController(userManager, eventManager, messageManager, username);
+                controller.run();
+                break;
+            }
+            case "attendee": {
+                AttendeeController controller = new AttendeeController(userManager, eventManager, messageManager, username);
+                controller.run();
+                break;
+            }
+            case "speaker": {
+                SpeakerController controller = new SpeakerController(userManager, eventManager, messageManager, username);
+                controller.run();
+                break;
+            }
         }
 
         RW.write(userManager.getUserMap());

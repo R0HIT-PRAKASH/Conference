@@ -177,11 +177,11 @@ public class OrganizerController extends AttendeeController {
             case 7:
                 p.displayAddConferencePrompt();
                 LocalDateTime time = askTime();
-                while(!eventManager.between9to5(time) || !eventManager.checkTimeIsAfterNow(time)) {
-                    if (!eventManager.between9to5(time)) {
+                while(eventManager.between9to5(time) || eventManager.checkTimeIsAfterNow(time)) {
+                    if (eventManager.between9to5(time)) {
                         p.displayInvalidHourError();
                         time = askTime();
-                    } else if (!eventManager.checkTimeIsAfterNow(time)) {
+                    } else if (eventManager.checkTimeIsAfterNow(time)) {
                         p.displayInvalidDateError();
                         time = askTime();
                     }
@@ -214,7 +214,7 @@ public class OrganizerController extends AttendeeController {
                     speaker = scan.nextLine();
                 }
                 else{
-                    while (!(userManager.getUserType(speaker) == "speaker")){
+                    while (!(userManager.getUserType(speaker).equals("speaker"))){
                         p.displayNotSpeakerError();
                         speaker = scan.nextLine();
                         if (speaker.equalsIgnoreCase("q")) {
@@ -808,7 +808,7 @@ public class OrganizerController extends AttendeeController {
 
         lists.put("Top Five Events (By Capacity):", eventManager.getAllEvents().values().stream()
                 .sorted(Comparator.comparingInt(Event::getSize))
-                .map(e -> e.toString())
+                .map(Event::toString)
                 .collect(Collectors.toList())
                 .subList(0, 4)
         );
@@ -816,7 +816,7 @@ public class OrganizerController extends AttendeeController {
         lists.put("Most Popular Speakers (By Number of Events):", users("speaker").stream()
                 .map(s1 -> (Speaker) s1)
                 .sorted(Comparator.comparingInt(Speaker::getNumberOfEvents))
-                .map(e -> e.toString())
+                .map(User::toString)
                 .collect(Collectors.toList())
                 .subList(0, 4)
         );

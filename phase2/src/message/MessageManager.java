@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import event.EventManager;
-import user.User;
 import user.UserManager;
 
 /**
@@ -15,7 +14,7 @@ import user.UserManager;
  */
 public class MessageManager implements java.io.Serializable {
 
-    protected HashMap<String, List<Message>> allUserMessages;
+    protected Map<String, List<Message>> allUserMessages;
 
     /**
      * This method constructs a MessageManager object with an empty allUserMessages.
@@ -32,8 +31,7 @@ public class MessageManager implements java.io.Serializable {
      * @return Return the created message.
      */
     public Message createNewMessage(String message, String senderUsername, String recipientUsername){
-        Message newMessage = new Message(message, senderUsername, recipientUsername);
-        return newMessage;
+        return new Message(message, senderUsername, recipientUsername);
     }
 
     /**
@@ -66,9 +64,7 @@ public class MessageManager implements java.io.Serializable {
         if (userManager.getUserType(from).equals("attendee")){
             return userManager.getUserType(to).equals("attendee") || userManager.getUserType(to).equals("speaker");
         } else if (userManager.getUserType(from).equals("organizer")){
-            if (userManager.getUserType(to).equals("organizer")){
-                return true;
-            }
+            return userManager.getUserType(to).equals("organizer");
         }
     return false;
     }
@@ -88,8 +84,8 @@ public class MessageManager implements java.io.Serializable {
      * @return Refers to the map allUserMessages.
      */
     public HashMap<String, List<Message>> getAllUserMessages(){
-    return allUserMessages;
-}
+        return (HashMap<String, List<Message>>) allUserMessages;
+    }
 
     /**
      * This method sets the map of usernames to the list of messages relating to the user.

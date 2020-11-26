@@ -37,7 +37,7 @@ public class LoginController {
         p.displayNewOrReturningPrompt();
         int input = nextInt();
 
-        String password = "";
+        String password;
         while(input != 1 && input != 2 ){
             input = nextInt();
         }
@@ -49,7 +49,7 @@ public class LoginController {
                 p.displayEnterUsernamePrompt();
                 username = scan.nextLine();
                 while (!this.userManager.checkCredentials(username)){
-                    p.displayUsernameExistanceError();
+                    p.displayUsernameExistenceError();
                     username = scan.nextLine();
                     if (username.equals("q")){
                         break;
@@ -145,7 +145,7 @@ public class LoginController {
      * @return Returns the integer the user input.
      */
     protected int nextInt() {
-        int input = 0;
+        int input;
 
         do {
             try {

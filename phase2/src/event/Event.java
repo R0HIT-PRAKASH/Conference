@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import user.User;
 
@@ -49,11 +50,7 @@ public class Event implements Comparable<Event>, Serializable {
         this.name = name;
         this.speakerName = speakerName;
         this.time = time;
-        if(duration == null){
-            this.duration = 1;
-        }else{
-            this.duration = duration;
-        }
+        this.duration = Objects.requireNonNullElse(duration, 1);
         this.roomNumber = roomNumber;
         this.capacity = capacity;
         this.requiredComputers = requiredComputers;
