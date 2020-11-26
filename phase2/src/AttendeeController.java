@@ -37,10 +37,10 @@ public class AttendeeController{
         p.displayOptions();
         p.displayTaskInput();
         int input = 0;
-        input = nextInt();
+        input = p.nextInt();
         while (input != 8){ // 8 is ending condition
             determineInput(input);
-            input = nextInt();
+            input = p.nextInt();
         }
     }
 
@@ -296,22 +296,4 @@ public class AttendeeController{
         return attendees;
     }
 
-    /**
-     * Queries the user for an integer
-     * @return Returns the integer that user input.
-     */
-    protected int nextInt() {
-        int input = 0;
-
-        do {
-            try {
-                input = Integer.parseInt(scan.nextLine());
-                break;
-            } catch (NumberFormatException e) {
-                p.displayInvalidInputError();
-            }
-        } while(true);
-
-        return input;
-    }
 }

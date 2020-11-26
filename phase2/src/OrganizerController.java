@@ -36,10 +36,10 @@ public class OrganizerController extends AttendeeController {
         p.displayOptions2();
         p.displayTaskInput();
         final int END_CONDITION = 22;
-        int input = nextInt();
+        int input = p.nextInt();
         while (input != END_CONDITION){ // 21 is ending condition
             determineInput(input);
-            input = nextInt();
+            input = p.nextInt();
         }
     }
 
@@ -181,13 +181,13 @@ public class OrganizerController extends AttendeeController {
                     break;
                 }
                 p.displayDurationPrompt();
-                int duration = nextInt();
+                int duration = p.nextInt();
                 while(duration <= 0){
                     if(duration == -1){
                         break;
                     }
                     p.displayInvalidDuration();
-                    duration = nextInt();
+                    duration = p.nextInt();
                 }
                 if(duration == -1){
                     break;
@@ -215,7 +215,7 @@ public class OrganizerController extends AttendeeController {
                 }
 
                 p.displayEnterRoomNumberPrompt();
-                int num = nextInt();
+                int num = p.nextInt();
                 Room room = eventManager.getRoom(num);
                 String ans;
                 if(eventManager.getRoom(num) == null) {
@@ -239,26 +239,26 @@ public class OrganizerController extends AttendeeController {
                         break;
                     }
                     p.displayEventCapacityPrompt();
-                    int capacity = nextInt();
+                    int capacity = p.nextInt();
                     while(capacity <= 0){
                         if(capacity == -1){
                             break;
                         }
                         p.displayInvalidCapacity();
-                        capacity = nextInt();
+                        capacity = p.nextInt();
                     }
                     if(capacity == -1){
                         break;
                     }
 
                     p.displayComputersPrompt();
-                    int comp = nextInt();
+                    int comp = p.nextInt();
                     while(comp < 0){
                         if(comp == -1){
                             break;
                         }
                         p.displayInvalidComputers();
-                        comp = nextInt();
+                        comp = p.nextInt();
                     }
                     if(comp == -1){
                         break;
@@ -282,26 +282,26 @@ public class OrganizerController extends AttendeeController {
                     }
 
                     p.displayChairsPrompt();
-                    int cha = nextInt();
+                    int cha = p.nextInt();
                     while(cha < 0){
                         if(cha == -1){
                             break;
                         }
                         p.displayInvalidChairs();
-                        cha = nextInt();
+                        cha = p.nextInt();
                     }
                     if(cha == -1){
                         break;
                     }
 
                     p.displayTablesPrompt();
-                    int tab = nextInt();
+                    int tab = p.nextInt();
                     while(tab < 0){
                         if(tab == -1){
                             break;
                         }
                         p.displayInvalidTables();
-                        tab = nextInt();
+                        tab = p.nextInt();
                     }
                     if(tab == -1){
                         break;
@@ -313,7 +313,7 @@ public class OrganizerController extends AttendeeController {
                         p.displayRecommendedRooms(capacity, comp, project, cha, tab, eventManager.getRooms());
                         p.displayEnterRoomNumberPrompt();
                     }
-                    num = nextInt();
+                    num = p.nextInt();
                     List<Organizer> organizers = userManager.getOrganizers();
                     List<String> creators = new ArrayList<>();
                     creators.add(this.username);
@@ -329,10 +329,10 @@ public class OrganizerController extends AttendeeController {
                 }
                 else { // room exists
                     p.displayEnterEventCapacityPrompt(room.getCapacity());  // need to ask what they want capacity to be and cannot be more then room can hold
-                    int cap = nextInt();
+                    int cap = p.nextInt();
                     while (cap > room.getCapacity()) {
                         p.displayRoomCapacityError(room.getCapacity());
-                        cap = scan.nextInt();
+                        cap = p.nextInt();
                     }
                     List<Organizer> organizers = userManager.getOrganizers();
                     List<String> creators = new ArrayList<>();
@@ -377,7 +377,7 @@ public class OrganizerController extends AttendeeController {
                 p.displayAllSpeakerMessagePrompt();
                 String speakermessage = scan.nextLine();
                 if (speakermessage.equalsIgnoreCase("q")) {
-                break;
+                    break;
                 }
                 messageAllSpeakers(speakermessage);
                 p.displayMessageSentPrompt();
@@ -430,31 +430,31 @@ public class OrganizerController extends AttendeeController {
 
             case 15:
                 p.displayRoomCreationPrompt();
-                int roomNumber = nextInt();
+                int roomNumber = p.nextInt();
                 if (roomNumber == -1) {
                     break;
                 }
                 p.displayRoomCapacityPrompt();
-                int capac = nextInt();
+                int capac = p.nextInt();
                 while(capac <= 0){
                     if(capac == -1){
                         break;
                     }
                     p.displayInvalidCapacity();
-                    capac = nextInt();
+                    capac = p.nextInt();
                 }
                 if(capac == -1){
                     break;
                 }
 
                 p.displayComputersPrompt();
-                int computers = nextInt();
+                int computers = p.nextInt();
                 while(computers < 0){
                     if(computers == -1){
                         break;
                     }
                     p.displayInvalidComputers();
-                    computers = nextInt();
+                    computers = p.nextInt();
                 }
                 if(computers == -1){
                     break;
@@ -478,26 +478,26 @@ public class OrganizerController extends AttendeeController {
                 }
 
                 p.displayChairsPrompt();
-                int chairs = nextInt();
+                int chairs = p.nextInt();
                 while(chairs < 0){
                     if(chairs == -1){
                         break;
                     }
                     p.displayInvalidChairs();
-                    chairs = nextInt();
+                    chairs = p.nextInt();
                 }
                 if(chairs == -1){
                     break;
                 }
 
                 p.displayTablesPrompt();
-                int tables = nextInt();
+                int tables = p.nextInt();
                 while(tables < 0){
                     if(tables == -1){
                         break;
                     }
                     p.displayInvalidTables();
-                    tables = nextInt();
+                    tables = p.nextInt();
                 }
                 if(tables == -1){
                     break;
@@ -541,19 +541,19 @@ public class OrganizerController extends AttendeeController {
                 Room room1 = eventManager.getRoom(eventToModify.getRoomNumber());
                 // display new capacity prompt
                 p.displayEnterNewEventCapacityPrompt(room1.getCapacity());
-                int newCapacity = nextInt();
+                int newCapacity = p.nextInt();
                 while (newCapacity > room1.getCapacity() || newCapacity < eventToModify.getAttendeeSet().size()) {
                     p.displayModifyRoomCapacityError(room1.getCapacity(), eventToModify.getAttendeeSet().size());
-                    newCapacity = scan.nextInt();}
+                    newCapacity = p.nextInt();}
                 eventManager.changeEventCapacity(eventToModify, newCapacity);
                 break;
-                // Here are the FUTURE events which you can modify:
+            // Here are the FUTURE events which you can modify:
 
 
-                // display only event for which they are an organizer of (have access to)
+            // display only event for which they are an organizer of (have access to)
 
-                //choose one of them
-                // choose an event
+            //choose one of them
+            // choose an event
 
             case 17:
                 p.displayRoomList(eventManager.getRooms());
@@ -677,15 +677,15 @@ public class OrganizerController extends AttendeeController {
 
     private LocalDateTime getTime() throws DateTimeException {
         p.displayEnterYearPrompt();
-        int y = nextInt();
+        int y = p.nextInt();
         p.displayEnterMonthPrompt();
-        int m = nextInt();
+        int m = p.nextInt();
         p.displayEnterDayPrompt();
-        int d = nextInt();
+        int d = p.nextInt();
         p.displayEnterHourPrompt();
-        int h = nextInt();
+        int h = p.nextInt();
         p.displayEnterMinutePrompt();
-        int mi = nextInt();
+        int mi = p.nextInt();
         return LocalDateTime.of(y, m, d, h, mi);
     }
 

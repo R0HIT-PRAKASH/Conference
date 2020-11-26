@@ -20,7 +20,7 @@ public class Vip extends Attendee {
      */
     public Vip(String name, String address, String email, String userName, String password) {
         super(name, address, email, userName, password);
-        this.attendingEvents = new ArrayList<String>();
+        this.attendingEvents = new ArrayList<>();
     }
 
     /**

@@ -6,7 +6,11 @@ import java.util.*;
 
 public class UserPresenter {
 
-    public UserPresenter(){}
+    private Scanner scan;
+
+    public UserPresenter(){
+        scan = new Scanner(System.in);
+    }
 
     /**
      * Prompts a User to choose a task.
@@ -151,5 +155,23 @@ public class UserPresenter {
                 "conference. Please try at a later time.");
     }
 
+    /**
+     * Queries the user for an integer
+     * @return Returns the integer that user input.
+     */
+    protected int nextInt() {
+        int input = 0;
+
+        do {
+            try {
+                input = Integer.parseInt(scan.nextLine());
+                break;
+            } catch (NumberFormatException e) {
+                displayInvalidInputError();
+            }
+        } while(true);
+
+        return input;
+    }
 
 }
