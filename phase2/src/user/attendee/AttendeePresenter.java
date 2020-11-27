@@ -4,12 +4,14 @@ import event.Event;
 import user.UserPresenter;
 
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * This class is a Presenter Class with specific functionality for Attendee Controllers.
  * It handles asking for user input and printing any error messages.
  */
 public class AttendeePresenter extends UserPresenter {
+
 
     public AttendeePresenter(){
     }
@@ -28,8 +30,9 @@ public class AttendeePresenter extends UserPresenter {
     /**
      * Prompts an Organizer or Attendee on which User they would like to message.
      */
-    public void displayMethodPrompt(){
+    public String displayMethodPrompt(){
         System.out.println("Who would you like to message? (Please enter the username of the recipient). Otherwise, type 'q' to exit");
+        return scan.nextLine();
     }
 
     /**
@@ -51,8 +54,9 @@ public class AttendeePresenter extends UserPresenter {
      * Prompts an Attendee or Organizer to enter the contents of the message they would like to send.
      * @param recipient: The username of the User who is being messaged.
      */
-    public void displayEnterMessagePrompt(String recipient){
+    public String displayEnterMessagePrompt(String recipient){
         System.out.println("Enter the message you would like to send to " + recipient + ". " + "If you would no longer like to send a message, type 'q' to exit. ");
+        return scan.nextLine();
     }
 
 
@@ -60,9 +64,11 @@ public class AttendeePresenter extends UserPresenter {
 
     /**
      * Prompts an Attendee or Organizer to enter which User they want to reply to.
+     * @return The username of the recipient
      */
-    public void displayEnterUserUsernamePrompt(){
+    public String displayEnterUserUsernamePrompt(){
         System.out.print("Which user are you replying to (it is case sensitive). If you no longer want to reply to a user, type 'q' to exit: ");
+        return scan.nextLine();
     }
 
 
@@ -108,9 +114,11 @@ public class AttendeePresenter extends UserPresenter {
 
     /**
      * Prompts an Attendee or Organizer on which Event they would like to cancel their spot in.
+     * @return The event
      */
-    public void displayEventCancelPrompt(){
+    public String displayEventCancelPrompt(){
         System.out.println("What is the name of the event you no longer want to attend? Type 'q' if you no longer want to cancel your spot in an event. ");
+        return scan.nextLine();
     }
 
     /**
@@ -145,8 +153,9 @@ public class AttendeePresenter extends UserPresenter {
     /**
      * Prompts an Attendee or Organizer for the name of the Event they would like to sign up for.
      */
-    public void displayEventSignUpPrompt(){
+    public String displayEventSignUpPrompt(){
         System.out.println("What is the name of the event you would like to sign up for? Type 'q' if you would no longer like to sign up for an event.");
+        return scan.nextLine();
     }
 
     /**
@@ -167,9 +176,10 @@ public class AttendeePresenter extends UserPresenter {
     /**
      * Prints an error message that user cannot sign up for this event
      */
-    public void displayInvalidEventSignUp(){
+    public String displayInvalidEventSignUp(){
         System.out.print("That is not an Event you can sign up for. Please re-enter the name " +
                 "(it is case sensitive) or enter 'q' to quit: ");
+        return scan.nextLine();
     }
 
     /**

@@ -1,7 +1,6 @@
 package user.speaker;
 
 import event.Event;
-import user.User;
 import user.UserPresenter;
 
 import java.time.LocalDate;
@@ -65,28 +64,32 @@ public class SpeakerPresenter extends UserPresenter {
      * Asks how many events' attendees you'd like to message
      */
     public void displayEnterNumberOfEventsPrompt(){
-        System.out.print("Please enter the number of events or type 'q' to quit: ");
+        System.out.print("Please enter the number of events or enter -1 to quit: ");
     }
 
     /**
      * Asks how many events' attendees you'd like to message
      */
     public void displayNumberOfEventsError(){
-        System.out.print("Not an appropriate number of events, please re-enter or enter 'q' to quit: ");
+        System.out.print("Not an appropriate number of events, please re-enter or enter -1 to quit: ");
     }
 
     /**
      * Asks the name of the first event whose attendees you'd like to message
+     * @return The event
      */
-    public void displayEnterEventNamePrompt(){
+    public String displayEnterEventNamePrompt(){
         System.out.print("Please enter the name of the first event or type 'q' to go back: ");
+        return scan.nextLine();
     }
 
     /**
      * Asks the name of all other events (not the first one) whose attendees you'd like to message
+     * @return The event
      */
-    public void displayEnterEventNamePrompt2(){
+    public String displayEnterEventNamePrompt2(){
         System.out.print("Please enter the name of the next event or type 'q' to go back: ");
+        return scan.nextLine();
     }
 
     /**
@@ -105,16 +108,20 @@ public class SpeakerPresenter extends UserPresenter {
 
     /**
      * Asks for the content of the message to be sent
+     * @return
      */
-    public void displayEnterMessagePrompt(){
+    public String displayEnterMessagePrompt(){
         System.out.println("Please enter the message. ");
+        return null;
     }
 
     /**
      * Asks the name of the attendee that you are replying to
+     * @return The name
      */
-    public void displayEnterAttendeeUsernamePrompt(){
+    public String displayEnterAttendeeUsernamePrompt(){
         System.out.print("Which attendee are you replying to (it is case sensitive): ");
+        return scan.nextLine();
     }
 
 
@@ -146,18 +153,22 @@ public class SpeakerPresenter extends UserPresenter {
 
     /**
      * Prints the message that asks the user which attendee they want to message.
+     * @return The event
      */
-    public void displayEventSelectorPrompt(){
+    public String displayEventSelectorPrompt(){
         System.out.println("Type the name of the event who's attendee you want to message");
+        return scan.nextLine();
     }
 
     /**
      * Prints the set of all users attending an event.
      * @param eventAttendees Refers to the set of users attending the event.
+     * @return The username
      */
-    public void displayEventAttendeesList(Set<String> eventAttendees){
+    public String displayEventAttendeesList(Set<String> eventAttendees){
         System.out.println(eventAttendees);
         System.out.println("Type the username of the attendee from this event you want to message:");
+        return scan.nextLine();
     }
 
 

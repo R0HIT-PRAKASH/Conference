@@ -8,7 +8,7 @@ import java.util.*;
 
 public class UserPresenter {
 
-    private Scanner scan;
+    protected final Scanner scan;
 
     public UserPresenter(){
         scan = new Scanner(System.in);
@@ -65,9 +65,11 @@ public class UserPresenter {
 
     /**
      * Asks for the content of the message to be sent
+     * @return The message text
      */
-    public void displayEnterMessagePrompt(){
+    public String displayEnterMessagePrompt(){
         System.out.println("Please enter the message. ");
+        return scan.nextLine();
     }
 
 
@@ -135,10 +137,12 @@ public class UserPresenter {
 
     /**
      * Prints that the username inputted belongs to a user that the Speaker cannot message
+     * @return The username
      */
-    public void displayUserReplyError(){
+    public String displayUserReplyError(){
         System.out.print("That user is not one you can reply to, please re-enter the username " +
                 "of someone who has messaged you or enter \"q\" to go back to your options: ");
+        return scan.nextLine();
     }
 
     /**

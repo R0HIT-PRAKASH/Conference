@@ -9,7 +9,6 @@ import user.UserManager;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Set;
 
 
@@ -17,7 +16,6 @@ import java.util.Set;
  * A controller that deals with Speaker users
  */
 public class SpeakerController{
-    private Scanner scan = new Scanner(System.in);
     public UserManager userManager;
     public EventManager eventManager;
     public MessageManager messageManager;
@@ -45,10 +43,10 @@ public class SpeakerController{
     public void run(){
         p.displayOptions3();
         p.displayTaskInput();
-        int input = nextInt();
+        int input = p.nextInt();
         while (input != 6){
             determineInput(input);
-            input = nextInt();
+            input = p.nextInt();
         }
     }
 
@@ -66,33 +64,26 @@ public class SpeakerController{
                 if (allEvents.size() == 0){
                     break;
                 }
-                p.displayEnterNumberOfEventsPrompt();
-                String strnum = scan.nextLine();
-                if (strnum.equals("q")){
-                    break;
-                }
-                int num = Integer.parseInt(strnum);
+                int num = p.nextInt();
+
                 while(num < 1 || num > allEvents.size()){
-                    p.displayNumberOfEventsError();
-                    strnum = scan.nextLine();
-                    if (strnum.equals("q")){
+                    num = p.nextInt();
+                    if (num == -1){
                         break;
                     }
-                    num = Integer.parseInt(strnum);
                 }
-                if (strnum.equals("q")){
+                if (num == -1){
                     break;
                 }
                 String next = "";
                 List<String> eventNames = new ArrayList<>();
                 for (int i = 0; i < num; i++) {
                     if (i == 0) {
-                        p.displayEnterEventNamePrompt();
-                        }
-                    else {
-                        p.displayEnterEventNamePrompt2();
+                        next = p.displayEnterEventNamePrompt();
                     }
-                    next = scan.nextLine();
+                    else {
+                        next = p.displayEnterEventNamePrompt2();
+                    }
                     if (next.equals("q")){
                         break;
                     }
@@ -111,8 +102,8 @@ public class SpeakerController{
                 if(next.equals("q")) {
                     break;
                 }
-                p.displayEnterMessagePrompt();
-                String message = scan.nextLine();
+                String message = p.displayEnterMessagePrompt();
+
                 sendBlastMessage(eventNames, message);
                 break;
             case 3:
@@ -129,12 +120,11 @@ public class SpeakerController{
                 if (attendees.size() == 0){
                     break;
                 }
-                p.displayEnterAttendeeUsernamePrompt();
-                scan.nextLine();
-                String recipient = scan.nextLine();
+                String recipient = p.displayEnterAttendeeUsernamePrompt();
+
                 while (!attendees.contains(recipient)){
-                    p.displayUserReplyError();
-                    recipient = scan.nextLine();
+                    recipient = p.displayUserReplyError();
+
                     if (recipient.equals("q")){
                         break;
                     }
@@ -142,26 +132,23 @@ public class SpeakerController{
                 if (recipient.equals("q")){
                     break;
                 }
-                p.displayEnterMessagePrompt();
-                String content = scan.nextLine();
+                String content = p.displayEnterMessagePrompt();
+
                 replyMessage(recipient, content);
                 break;
 
-                case 4:
-                p.displayEventSelectorPrompt();
+            case 4:
+                String eventName = p.displayEventSelectorPrompt();
                 viewScheduledEvents(username);
-                String eventName = scan.nextLine();
                 if(eventManager.events.containsKey(eventName)){
                     Set<String> eventAttendees = eventManager.getEventAttendees(eventName);
-                    p.displayEventAttendeesList(eventAttendees);
-                    String toMessage = scan.nextLine();
+                    String toMessage = p.displayEventAttendeesList(eventAttendees);
                     ArrayList<String> usernameList = new ArrayList<String>();
                     for (String user: eventAttendees){
                         usernameList.add(user);
                     }
                     if(usernameList.contains(toMessage)){
-                        p.displayEnterMessagePrompt();
-                        String messageContent = scan.nextLine();
+                        String messageContent = p.displayEnterMessagePrompt();
                         replyMessage(toMessage, messageContent);
                         break;
                     } else {
@@ -169,8 +156,8 @@ public class SpeakerController{
                     }
                 } else{
                     p.displayInvalidInputError();
-                    break;
                 }
+                break;
 
             case 5:
                 viewOptions();
@@ -222,19 +209,4 @@ public class SpeakerController{
         p.displayMessageSentPrompt();
     }
 
-    private int nextInt() {
-        int input = 0;
-
-        do {
-            try {
-                input = Integer.parseInt(scan.nextLine());
-                break;
-            } catch (NumberFormatException e) {
-                p.displayInvalidInputError();
-                e.printStackTrace();
-            }
-        } while(true);
-
-        return input;
-    }
 }

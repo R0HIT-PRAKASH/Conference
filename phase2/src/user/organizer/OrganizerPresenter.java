@@ -46,8 +46,9 @@ public class OrganizerPresenter extends AttendeePresenter {
     /**
      * Prompts the Organizer to add the Title of the Event they want to create.
      */
-    public void displayEventTitlePrompt() {
+    public String displayEventTitlePrompt() {
         System.out.print("Enter the Event Title (or type 'q' to exit): ");
+        return scan.nextLine();
     }
 
     /**
@@ -59,16 +60,20 @@ public class OrganizerPresenter extends AttendeePresenter {
 
     /**
      * Prompts the Organizer to enter the name of the Speaker for the Event they want to create.
+     * @return The speaker username
      */
-    public void displayEnterSpeakerPrompt() {
+    public String displayEnterSpeakerPrompt() {
         System.out.print("Enter a Speaker's username: ");
+        return scan.nextLine();
     }
 
     /**
      * Prompts the Organizer to enter the name of the newly created speaker.
+     * @return The speaker username
      */
-    public void displayEnterNewSpeakerPrompt() {
+    public String displayEnterNewSpeakerPrompt() {
         System.out.print("Enter the new Speaker's username: ");
+        return scan.nextLine();
     }
 
     /**
@@ -133,37 +138,47 @@ public class OrganizerPresenter extends AttendeePresenter {
 
     /**
      * Prompts the Organizer to enter the Message they want to send to all Attendees in the conference.
+     * @return The message
      */
-    public void displayAllAttendeeMessagePrompt() {
+    public String displayAllAttendeeMessagePrompt() {
         System.out.println("Enter what you want to say to all the attendees (1 line) or type 'q' to exit.");
+        return scan.nextLine();
     }
 
     /**
      * Prompts the Organizer to enter the Message they want to send to all Attendees in the Event they created.
+     * @return The message
      */
-    public void displayAllAttendeeEventMessagePrompt() {
+    public String displayAllAttendeeEventMessagePrompt() {
         System.out.println("What do you want to say to all the attendees at this event? (1 line)");
+        return scan.nextLine();
     }
 
     /**
      * Prompts the Organizer on which Event they want to send a Message to.
+     * @return The Event
      */
-    public void displayEventMessagePrompt() {
+    public String displayEventMessagePrompt() {
         System.out.print("Enter the event you want to message or type 'q' to exit: ");
+        return scan.nextLine();
     }
 
     /**
      * Prompts the Organizer what Message they want to send to all speakers in the conference.
+     * @return The message
      */
-    public void displayAllSpeakerMessagePrompt() {
+    public String displayAllSpeakerMessagePrompt() {
         System.out.println("Enter what you want to say to all the speakers (1 line) or type 'q' to exit.");
+        return scan.nextLine();
     }
 
     /**
      * Prompts the Organizer as to what Event they want to remove.
+     * @return The event
      */
-    public void displayEventRemovalPrompt() {
+    public String displayEventRemovalPrompt() {
         System.out.print("Enter the event you want to remove or type 'q' to exit: ");
+        return scan.nextLine();
     }
 
     /**
@@ -230,9 +245,11 @@ public class OrganizerPresenter extends AttendeePresenter {
 
     /**
      * Prompts the Organizer to enter the username of the Speaker account they want to add to the conference
+     * @return The username
      */
-    public void displayEnterUsernamePrompt() {
+    public String displayEnterUsernamePrompt() {
         System.out.print("Enter the Speaker's username or type 'q' to quit: ");
+        return scan.nextLine();
     }
 
     /**
@@ -244,65 +261,83 @@ public class OrganizerPresenter extends AttendeePresenter {
 
     /**
      * Prints an error message which notifies the Organizer that the Speaker account they are trying to create needs a username of at least 3 characters.
+     * @return The username
      */
-    public void displayUsernameLengthError() {
+    public String displayUsernameLengthError() {
         System.out.print("Error, username must be at least 3 characters. please enter another one: ");
+        return scan.nextLine();
     }
 
     /**
      * Prompts the Organizer to enter the password for the Speaker account they are creating.
+     * @return The Password
      */
-    public void displayEnterPasswordPrompt() {
+    public String displayEnterPasswordPrompt() {
         System.out.print("Enter Password: ");
+        return scan.nextLine();
     }
 
     /**
      * Prints an error message notifying the Organizer that the password for the Speaker account must be at least three characters.
+     * @return The password
      */
-    public void displayPasswordLengthError() {
+    public String displayPasswordLengthError() {
         System.out.print("Error, password must be at least 3 characters.\nPlease enter again: ");
+        return scan.nextLine();
     }
 
     /**
      * Prompts the Organizer to enter the name of the Speaker for the Speaker account they are creating.
+     * @return The speaker
      */
-    public void displayEnterSpeakerNamePrompt() {
+    public String displayEnterSpeakerNamePrompt() {
         System.out.print("Enter the speaker name: ");
+        return scan.nextLine();
     }
 
     /**
      * Prints an error message that notifies the Organizer that a Speaker must have a name of at least 2 characters.
+     * @return The name
      */
-    public void displaySpeakerNameError() {
+    public String displaySpeakerNameError() {
         System.out.print("Error, name must be at least 2 characters.\nPlease enter again: ");
+        return scan.nextLine();
     }
 
     /**
      * Prompts the Organizer to enter the address of the Speaker for the Speaker account they are creating.
+     * @return The address
      */
-    public void displayEnterSpeakerAddressPrompt() {
+    public String displayEnterSpeakerAddressPrompt() {
         System.out.print("Enter the speaker's address: ");
+        return scan.nextLine();
     }
 
     /**
      * Prints an error message notifying an Organizer that the address of a Speaker must be at least six characters.
+     * @return The address
      */
-    public void displayAddressLengthError() {
+    public String displayAddressLengthError() {
         System.out.print("Error, address must be at least 6 characters.\nPlease enter again: ");
+        return scan.nextLine();
     }
 
     /**
      * Prompts the Organizer to enter the email of the Speaker for the Speaker account they are creating.
+     * @return The email
      */
-    public void displayEnterSpeakerEmailPrompt() {
+    public String displayEnterSpeakerEmailPrompt() {
         System.out.print("Enter the speaker's email: ");
+        return scan.nextLine();
     }
 
     /**
      * Prints an error message notifying the Organizer that the email address of the Speaker does not match specific requirements.
+     * @return The email
      */
-    public void displayInvalidEmail() {
+    public String displayInvalidEmail() {
         System.out.print("The email is not up to RFC 5322 standards. Try another: ");
+        return scan.nextLine();
     }
 
     /**
@@ -413,9 +448,11 @@ public class OrganizerPresenter extends AttendeePresenter {
 
     /**
      * Displays the message that the user can't cancel the event specified.
+     * @return The event
      */
-    public void displayCannotCancel() {
+    public String displayCannotCancel() {
         System.out.print("You can't cancel that event, re-enter or type 'q' to quit: ");
+        return scan.nextLine();
     }
 
     /**
@@ -469,16 +506,21 @@ public class OrganizerPresenter extends AttendeePresenter {
 
     /**
      * Displays the message that prompts the user to enter whether or not there is a computer in the room.
+     * @return
      */
-    public void displayProjectorPrompt() {
+    public String displayProjectorPrompt() {
         System.out.println("Does this event need/room have a projector? Enter yes if there is and no if there isn't. Press q to quit.");
+        return scan.nextLine();
+
     }
 
     /**
      * Displays the message that informs the user that the answer to whether or not the room has a projector is invalid.
+     * @return New Projector
      */
-    public void displayInvalidProjector() {
+    public String displayInvalidProjector() {
         System.out.println("You can only answer yes or no. Enter again or 'q' to quit.");
+        return scan.nextLine();
     }
 
     /**
@@ -542,49 +584,59 @@ public class OrganizerPresenter extends AttendeePresenter {
 
     /**
      * Prints the message that the user input is not a speaker.
+     * @return The message
      */
-    public void displayNotSpeakerError(){
+    public String displayNotSpeakerError(){
         System.out.print("This user is not a speaker! Please try again or enter 'q' to quit: ");
+        return scan.nextLine();
     }
 
     /**
      * Displays a message that informs the user that the room number they entered doesn't exist.
+     * @return The room number
      */
-    public void displayRoomNumberErrorQuestion1(){
+    public String displayRoomNumberErrorQuestion1(){
         System.out.println("There is no room with this room number. \nDo you want to create a new room " +
                 "or do you want to be suggested a room from the existing ones? Please enter " +
                 "\n(1) 'create' to create a room \n(2) 'q' to quit");
 
+        return scan.nextLine();
     }
 
 
     /**
      * Displays the message that their room decision is invalid.
+     * @return The room
      */
-    public void displayRoomDecisionQError1(){
+    public String displayRoomDecisionQError1(){
         System.out.println("Error: Invalid response. Please enter: \n(1) 'create' to create a room " +
                 "\n(2) 'q' to quit");
+        return scan.nextLine();
 
     }
 
     /**
      * Displays the message that informs the user that the room number they entered doesn't exist and asks if they
      * want to get a list of suggestions.
+     * @return The room number
      */
-    public void displayRoomNumberErrorQuestion2(){
+    public String displayRoomNumberErrorQuestion2(){
         System.out.println("There is no room with this room number. \nDo you want to create a new room" +
                 "or do you want to be suggested a room from the existing ones? Please enter " +
                 "\n(1) 'create' to create a room \n(2) 'suggestions' to get a list of suggestions \n(3) 'q' to quit");
 
+        return scan.nextLine();
     }
 
 
     /**
      * Displays the message that their response to displayRoomNumberErrorQuestion2() is invalid.
+     * @return The room
      */
-    public void displayRoomDecisionQError2(){
+    public String displayRoomDecisionQError2(){
         System.out.println("Error: Invalid response. Please enter: \n(1) 'create' to create a room " +
                 "\n(2) 'suggestions' to get a list of suggestions \n(3) 'q' to quit");
+        return scan.nextLine();
 
     }
 
@@ -629,16 +681,20 @@ public class OrganizerPresenter extends AttendeePresenter {
 
     /**
      * Displays the message that prompts the user to enter the event they want to change the capacity of.
+     * @return The event
      */
-    public void displayEventModifyPrompt(){
+    public String displayEventModifyPrompt(){
         System.out.print("Enter the event whose capacity you want to modify or type 'q' to exit: ");
+        return scan.nextLine();
     }
 
     /**
      * Displays the message that informs the user that the event they entered isn't an event.
+     * @return The event
      */
-    public void displayCannotModifyEvent(){
+    public String displayCannotModifyEvent(){
         System.out.print("Error: Please enter the name of an event that you created or press 'q' to quit:");
+        return scan.nextLine();
     }
 
 

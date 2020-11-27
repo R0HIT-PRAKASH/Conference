@@ -4,7 +4,6 @@ import message.MessageManager;
 import user.User;
 import user.UserManager;
 
-import java.util.Scanner;
 import java.util.regex.Pattern;
 
 /**
@@ -12,7 +11,6 @@ import java.util.regex.Pattern;
  */
 public class LoginController {
 
-    private Scanner scan = new Scanner(System.in);
     private UserManager userManager;
     private MessageManager messageManager;
     MainPresenter p;
@@ -35,22 +33,21 @@ public class LoginController {
             return username;
         }
         p.displayNewOrReturningPrompt();
-        int input = nextInt();
+        int input = p.nextInt();
 
         String password;
         while(input != 1 && input != 2 ){
-            input = nextInt();
+            input = p.nextInt();
         }
         switch (input){
             case 1:
                 username = createAccount();
                 break;
             case 2:
-                p.displayEnterUsernamePrompt();
-                username = scan.nextLine();
+                username = p.displayEnterUsernamePrompt();
+
                 while (!this.userManager.checkCredentials(username)){
-                    p.displayUsernameExistenceError();
-                    username = scan.nextLine();
+                    username = p.displayUsernameExistenceError();
                     if (username.equals("q")){
                         break;
                     }
@@ -58,15 +55,13 @@ public class LoginController {
                 if (username.equals("q")){
                     break;
                 }
-                p.displayEnterPasswordPrompt();
-                password = scan.nextLine();
+                password = p.displayEnterPasswordPrompt();
+
                 while(password.length() < 3) {
-                    p.displayInvalidPasswordError();
-                    password = scan.nextLine();
+                    password = p.displayInvalidPasswordError();
                 }
                 while(!this.checkLoginInfo(username, password) && !password.equals("q")) {
-                    p.displayRedoPasswordPrompt();
-                    password = scan.nextLine();
+                    password = p.displayRedoPasswordPrompt();
                     if(password.equals("q")){
                         username = "q";
                     }
@@ -91,71 +86,51 @@ public class LoginController {
 
     private String createAccount(){
         p.displayNewUserGreeting();
-        p.displayEnterUsernamePrompt();
-        String username = scan.nextLine();
+        String username = p.displayEnterUsernamePrompt();
+
         while(this.userManager.checkCredentials(username) || username.length() < 3){
             if (this.userManager.checkCredentials(username)) {
-                p.displayUsernameTakenError();
+                username = p.displayUsernameTakenError();
             }
             else if (username.length() < 3) {
-                p.displayInvalidUsernameError();
+                username = p.displayInvalidUsernameError();
             }
-            username = scan.nextLine();
+
         }
-        p.displayEnterPasswordPrompt();
-        String password = scan.nextLine();
+
+        String password = p.displayEnterPasswordPrompt();
+
         while(password.length() < 3){
-            p.displayInvalidPasswordError();
-            password = scan.nextLine();
+            password = p.displayInvalidPasswordError();
+
         }
-        p.displayEnterNamePrompt();
-        String name = scan.nextLine();
+        String name = p.displayEnterNamePrompt();
+
         while(name.length() < 2){
-            p.displayInvalidNameError();
-            name = scan.nextLine();
+            name = p.displayInvalidNameError();
         }
-        p.displayEnterAddressPrompt();
-        String address = scan.nextLine();
+        String address = p.displayEnterAddressPrompt();
+
         while(address.length() < 6){
-            p.displayInvalidAddressError();
-            address = scan.nextLine();
+            address = p.displayInvalidAddressError();
         }
-        p.displayEnterEmailPrompt();
-        String email = scan.nextLine();
+        String email = p.displayEnterEmailPrompt();
+
         Pattern email_pattern = Pattern.compile("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");
         while(!email_pattern.matcher(email).matches()){
-            p.displayInvalidEmailError();
-            email = scan.nextLine();
+            email = p.displayInvalidEmailError();
         }
         //Modify prompt to allow for VIP
-        p.displayEnterStatusPrompt();
-        String type = scan.nextLine();
+        String type = p.displayEnterStatusPrompt();
+
         while(!type.equalsIgnoreCase("organizer") && !type.equalsIgnoreCase("attendee") &&
                 !type.equalsIgnoreCase("speaker") && !type.equalsIgnoreCase("vip")) {
-            p.displayInvalidStatusError();
-            type = scan.nextLine();
+            type = p.displayInvalidStatusError();
+
         }
         this.userManager.addUser(name, address, email, username, password, type);
         this.messageManager.addUserInbox(username);
         return username;
     }
 
-    /**
-     * Queries the user for an integer
-     * @return Returns the integer the user input.
-     */
-    protected int nextInt() {
-        int input;
-
-        do {
-            try {
-                input = Integer.parseInt(scan.nextLine());
-                break;
-            } catch (NumberFormatException e) {
-                p.displayNewOrReturningError();
-            }
-        } while(true);
-
-        return input;
-    }
 }

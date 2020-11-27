@@ -23,7 +23,6 @@ public class MainController {
     protected String username;
     protected ReaderWriter RW;
     MainPresenter p;
-    Scanner scan;
     boolean startingScratch;
 
     /**
@@ -37,7 +36,6 @@ public class MainController {
         RW = new ReaderWriter();
         username = "";
         p = new MainPresenter();
-        scan = new Scanner(System.in);
         startingScratch = true;
     }
 
@@ -76,13 +74,12 @@ public class MainController {
      * wants to, they can load all of the pre-existing files, except for events and rooms.
      */
     public void fileQUserMssgExists() {
-        Scanner question = new Scanner(System.in);
+
         try {
-            p.displayPreExistingFilePrompt();
-            String answer = question.nextLine();  // This reads the answer they give
+            String answer = p.displayPreExistingFilePrompt(); // This reads the answer they give
             while(!answer.equalsIgnoreCase("Yes") && !answer.equalsIgnoreCase("No")) {
-                p.displayInvalidFileChoice();
-                answer = question.nextLine();
+                answer = p.displayInvalidFileChoice();
+
             } if (answer.equalsIgnoreCase("Yes")) {
                 readInFiles(RW, userManager, messageManager);
                 p.displayDownloadCompletion();
@@ -90,7 +87,6 @@ public class MainController {
             }
         } catch (InputMismatchException ime) {
             p.displayInvalidInputError();
-            question.nextLine();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -101,13 +97,11 @@ public class MainController {
      * wants to, they can load all of the pre-existing files, except for events.
      */
     public void fileQUserMssgRoomsExists() {
-        Scanner question = new Scanner(System.in);
+
         try {
-            p.displayPreExistingFilePrompt();
-            String answer = question.nextLine();  // This reads the answer they give
+            String answer = p.displayPreExistingFilePrompt(); // This reads the answer they give
             while(!answer.equalsIgnoreCase("Yes") && !answer.equalsIgnoreCase("No")) {
-                p.displayInvalidFileChoice();
-                answer = question.nextLine();
+                answer = p.displayInvalidFileChoice();
             } if (answer.equalsIgnoreCase("Yes")) {
                 readInFiles(RW, userManager, messageManager, eventManager);
                 p.displayDownloadCompletion();
@@ -115,7 +109,6 @@ public class MainController {
             }
         } catch (InputMismatchException ime) {
             p.displayInvalidInputError();
-            question.nextLine();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -126,13 +119,10 @@ public class MainController {
      * wants to, they can load all of the pre-existing files.
      */
     public void fileQAllExists() {
-        Scanner question = new Scanner(System.in);
         try {
-            p.displayPreExistingFilePrompt();
-            String answer = question.nextLine();  // This reads the answer they give
+            String answer = p.displayPreExistingFilePrompt(); // This reads the answer they give
             while(!answer.equalsIgnoreCase("Yes") && !answer.equalsIgnoreCase("No")) {
-                p.displayInvalidFileChoice();
-                answer = question.nextLine();
+                answer = p.displayInvalidFileChoice();
             } if (answer.equalsIgnoreCase("Yes")) {
                 readInAllFiles(RW, userManager, messageManager, eventManager);
                 p.displayDownloadCompletion();
@@ -140,7 +130,6 @@ public class MainController {
             }
         } catch (InputMismatchException ime) {
             p.displayInvalidInputError();
-            question.nextLine();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
