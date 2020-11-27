@@ -30,7 +30,7 @@ public class OrganizerPresenter extends AttendeePresenter {
                 "\n(7) Add Event\n(8) Message All Attendees\n(9) Message Event Attendees" +
                 "\n(10) Message All Speakers\n(11) Cancel Event\n(12) Reschedule Event\n(13) Add Speaker" +
                 "\n(14) View Options" + "\n(15) Add Room \n(16) Modify an Event's capacity \n(17) View All Rooms \n(18) View Speakers\n(19) " +
-                "View Attendees\n(20) View Organizers\n(21) Quit");
+                "View Attendees\n(20) View Organizers\n(21) Display Conference Statistics\n(22) Quit");
     }
 
     /**
@@ -695,7 +695,7 @@ public class OrganizerPresenter extends AttendeePresenter {
     }
 
 
-    public void displayNumberStats(Map<String, Double> stats) {
+    void displayNumberStats(Map<String, Double> stats) {
 
         stats.entrySet().stream()
                 .sorted()
@@ -703,10 +703,14 @@ public class OrganizerPresenter extends AttendeePresenter {
                 .forEach(System.out::println);
     }
 
-    public void displayListStats(Map<String, List<String>> lists) {
+    void displayListStats(Map<String, List<String>> lists) {
         lists.entrySet().stream()
                 .sorted()
                 .map(e -> e.getKey()+" "+e.getValue())
                 .forEach(System.out::println);
+    }
+
+    public void displayNoStats() {
+        System.out.println("There are no Events or Stats to display!");
     }
 }

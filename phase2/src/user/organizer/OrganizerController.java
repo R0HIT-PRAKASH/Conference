@@ -751,6 +751,9 @@ public class OrganizerController extends AttendeeController {
 
 
     private List<User> users(String type) {
+
+        if(userManager == null || userManager.getUserMap() == null) return new ArrayList<>();
+
         return userManager.getUserMap().values().stream()
                 .filter(user -> user.getUserType().equals(type))
                 .collect(Collectors.toList());
@@ -765,6 +768,11 @@ public class OrganizerController extends AttendeeController {
         stats.put("Number of Organizers: ", numSpeakers);
         stats.put("Number of Speakers: ", (double) users("speaker").size());
         stats.put("Number of Attendees: ", (double) users("attendee").size());
+
+        if(stats.get("Number of Speakers: ") == 0) {
+            p.displayNoStats();
+            return;
+        }
 
         stats.put("Average Event Size: ", eventManager.numberOfEvents() == 0 ? 0
                 : 1.0 * (eventManager.getAllEventNamesOnly().stream()
