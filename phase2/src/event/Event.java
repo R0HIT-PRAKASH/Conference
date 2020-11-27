@@ -50,7 +50,7 @@ public class Event implements Comparable<Event>, Serializable {
         this.name = name;
         this.speakerName = speakerName;
         this.time = time;
-        this.duration = Objects.requireNonNullElse(duration, 1);
+        this.duration = duration;
         this.roomNumber = roomNumber;
         this.capacity = capacity;
         this.requiredComputers = requiredComputers;
