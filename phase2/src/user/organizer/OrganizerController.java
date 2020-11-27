@@ -800,6 +800,8 @@ public class OrganizerController extends AttendeeController {
 
         lists.put("Most Popular Speakers (By Number of Events):", speakers.subList(0, 4));
 
+        p.displayNumberStats(stats);
+        p.displayListStats(lists);
 
     }
 

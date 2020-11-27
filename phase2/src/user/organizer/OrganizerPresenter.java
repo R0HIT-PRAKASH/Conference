@@ -9,10 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * This class is a Presenter Class with specific functionality for Organizer Controllers.
@@ -698,4 +695,18 @@ public class OrganizerPresenter extends AttendeePresenter {
     }
 
 
+    public void displayNumberStats(Map<String, Double> stats) {
+
+        stats.entrySet().stream()
+                .sorted()
+                .map(e -> e.getKey()+" "+e.getValue())
+                .forEach(System.out::println);
+    }
+
+    public void displayListStats(Map<String, List<String>> lists) {
+        lists.entrySet().stream()
+                .sorted()
+                .map(e -> e.getKey()+" "+e.getValue())
+                .forEach(System.out::println);
+    }
 }
