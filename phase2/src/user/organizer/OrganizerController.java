@@ -813,20 +813,22 @@ public class OrganizerController extends AttendeeController {
         );
 
 
-        lists.put("Top Five Events (By Capacity):", eventManager.getAllEvents().values().stream()
+        List<String> events = eventManager.getAllEvents().values().stream()
                 .sorted(Comparator.comparingInt(Event::getSize))
                 .map(Event::toString)
-                .collect(Collectors.toList())
-                .subList(0, 4)
-        );
+                .collect(Collectors.toList());
 
-        lists.put("Most Popular Speakers (By Number of Events):", users("speaker").stream()
+        lists.put("Top Five Events (By Capacity):", events.subList(0, 4));
+
+        List<String> speakers = users("speaker").stream()
                 .map(s1 -> (Speaker) s1)
                 .sorted(Comparator.comparingInt(Speaker::getNumberOfEvents))
                 .map(User::toString)
-                .collect(Collectors.toList())
-                .subList(0, 4)
-        );
+                .collect(Collectors.toList());
+
+        Collections.reverse(speakers);
+
+        lists.put("Most Popular Speakers (By Number of Events):", speakers.subList(0, 4));
 
 
     }

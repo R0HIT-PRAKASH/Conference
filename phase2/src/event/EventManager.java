@@ -175,7 +175,7 @@ public class EventManager implements Serializable {
         int compare1 = time.compareTo(dateAt9AM);
         int compare2 = time.compareTo(dateAt4PM);
 
-        return (compare1 < 0 || compare2 > 0);
+        return (compare1 >= 0 && compare2 <= 0);
     }
     /**
      * @param e1 Refers to the event that is requested to be added.
@@ -208,7 +208,7 @@ public class EventManager implements Serializable {
 
         int compare = time.compareTo(currentTime);
 
-        return compare <= 0;
+        return compare < 0;
     }
 
     /**
@@ -246,8 +246,7 @@ public class EventManager implements Serializable {
     }
 
     public List<String> getAllEventNamesOnly(){
-        List<String> allNames = new ArrayList<>();
-        allNames.addAll(events.keySet());
+        List<String> allNames = new ArrayList<>(events.keySet());
         return allNames;
     }
 
