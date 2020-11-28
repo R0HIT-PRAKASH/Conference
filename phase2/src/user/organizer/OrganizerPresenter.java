@@ -411,6 +411,24 @@ public class OrganizerPresenter extends AttendeePresenter {
         }
     }
 
+    /**
+     * Displays the message that prompts the user to enter whether or not the event is VIP exclusive.
+     * @return VIP exclusivity
+     */
+    public String displayVipPrompt() {
+        System.out.println("Is this event exclusive to VIP's? Enter yes if there is and no if there isn't. Press q to quit.");
+        return scan.nextLine();
+    }
+
+    /**
+     * Displays the message that informs the user that the answer to whether or not the event is VIP exclusive is invalid.
+     * @return VIP exclusivity
+     */
+    public String displayInvalidVip() {
+        System.out.println("You can only answer yes or no. Enter again or 'q' to quit.");
+        return scan.nextLine();
+    }
+
 
     /**
      * Displays a list of Users

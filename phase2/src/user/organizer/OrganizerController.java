@@ -178,6 +178,23 @@ public class OrganizerController extends AttendeeController {
                         time = askTime();
                     }
                 }
+
+                String answerVip = p.displayVipPrompt();
+                boolean vip = false;
+                while(!answerVip.equalsIgnoreCase("yes") && !answerVip.equalsIgnoreCase("no")){
+                    if(answerVip.equalsIgnoreCase("q")){
+                        break;
+                    }
+                    answerVip = p.displayInvalidVip();
+                }
+
+                if(answerVip.equalsIgnoreCase("q")){
+                    break;
+                }else if(answerVip.equalsIgnoreCase("yes")) {
+                    vip = true;
+                }
+
+
                 String name = p.displayEventTitlePrompt();
                 // Adding the option to end the case early here in case a User wants to go back
                 if (name.equals("q")){
@@ -313,7 +330,7 @@ public class OrganizerController extends AttendeeController {
                     List<String> creators = new ArrayList<>();
                     creators.add(this.username);
                     p.displayAndGetCreators(creators, organizers);
-                    boolean added = addEvent(name, speaker, time, duration, num, capacity, comp, project, cha, tab, creators);
+                    boolean added = addEvent(name, speaker, time, duration, num, capacity, comp, project, cha, tab, creators, vip);
                     if(!added) {p.displayEventCreationError();}
                     else {
                         p.displaySuccessfulEventCreation();
@@ -333,7 +350,7 @@ public class OrganizerController extends AttendeeController {
                     List<String> creators = new ArrayList<>();
                     creators.add(this.username);
                     p.displayAndGetCreators(creators, organizers);
-                    boolean added = addEvent(name, speaker, time, duration, num, room.getCapacity(), room.getComputers(), room.getProjector(), room.getChairs(), room.getChairs(), creators);
+                    boolean added = addEvent(name, speaker, time, duration, num, room.getCapacity(), room.getComputers(), room.getProjector(), room.getChairs(), room.getChairs(), creators, vip);
                     if(!added) {p.displayEventCreationError();}
                     else {
                         p.displaySuccessfulEventCreation();
@@ -585,12 +602,13 @@ public class OrganizerController extends AttendeeController {
      * @param chairs Refers to the number of chairs in the room.
      * @param tables Refers to the number of tables in the room.
      * @param creators The list of creators.
+     * @param vip Refers to whether or not this event is VIP exclusive.
      * @return Returns the created event.
      */
     boolean addEvent(String name, String speaker, LocalDateTime time, Integer duration, int roomNumber, int capacity,
-                     int computers, boolean projector, int chairs, int tables, List<String> creators) {
+                     int computers, boolean projector, int chairs, int tables, List<String> creators, boolean vip) {
         return eventManager.addEvent(name, speaker, time, duration, roomNumber, capacity, computers, projector,
-                chairs, tables, creators);
+                chairs, tables, creators, vip);
     }
 
     /**
@@ -731,7 +749,7 @@ public class OrganizerController extends AttendeeController {
         while(address.length() < 6) {
             address = p.displayAddressLengthError();
         }
-        String email = p.displayEnterSpeakerEmailPrompt();;
+        String email = p.displayEnterSpeakerEmailPrompt();
         Pattern email_pattern = Pattern.compile("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");
         while(!email_pattern.matcher(email).matches()){
             email = p.displayInvalidEmail();

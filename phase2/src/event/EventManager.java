@@ -38,13 +38,14 @@ public class EventManager implements Serializable {
      * @param chairs Refers to the number of chairs in the room.
      * @param tables Refers to the number of tables in the room.
      * @param creators The list of creators.
+     * @param vip Refers to whether or not this event is VIP exclusive.
      * @return Returns the created event.
      */
     public Event createNewEvent(String name, String speakerName, LocalDateTime time, Integer duration, int roomNumber,
                                 int capacity, int computers, boolean projector, int chairs, int tables,
-                                List<String> creators){
+                                List<String> creators, boolean vip){
         Event event = new Event(name, speakerName, time, duration, roomNumber, capacity, computers, projector,
-                chairs, tables, creators);
+                chairs, tables, creators, vip);
         if (getRoom(roomNumber) == null){
             addRoom(roomNumber, capacity, computers, projector, chairs, tables);
         }
@@ -65,13 +66,14 @@ public class EventManager implements Serializable {
      * @param chairs Refers to the number of chairs in the room.
      * @param tables Refers to the number of tables in the room.
      * @param creators The list of creators.
+     * @param vip Refers to whether or not the event is VIP exclusive.
      * @return Returns true if the event is successfully added. Otherwise, it returns false.
      */
     public boolean addEvent(String name, String speakerName, LocalDateTime time, Integer duration, int roomNumber,
                             int capacity, int computers, boolean projector, int chairs, int tables,
-                            List<String> creators){
+                            List<String> creators, boolean vip){
         Event event = createNewEvent(name, speakerName, time, duration, roomNumber, capacity, computers, projector,
-                chairs, tables, creators);
+                chairs, tables, creators, vip);
         if (!checkEventIsValid(event)){
             return false;
         }
