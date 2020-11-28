@@ -34,6 +34,16 @@ public class Party extends Event{
         return "party";
     }
 
+    @Override
+    public String getSpeakerName() {
+        return null;
+    }
+
+    @Override
+    public List<String> getSpeakersList() {
+        return null;
+    }
+
     /**
      * This method formats an event object into a string.
      * @return Returns a string representation of the attributes of an event.
@@ -48,7 +58,7 @@ public class Party extends Event{
             projector = 1;
         }
 
-        return "Title: " + getName() + "| Time: " + date + "| Duration: "
+        return "Title: " + getName() + "| Type: " + getEventType() + "| Time: " + date + "| Duration: "
                 + getDuration() + " hour/s| Room: " + getRoomNumber() + ", Equipment Required: " +
                 getRequiredComputers() + " Computers, " + projector + " Projector(s), " + getRequiredChairs() +
                 " Chairs, " + getRequiredTables() + " Tables ";

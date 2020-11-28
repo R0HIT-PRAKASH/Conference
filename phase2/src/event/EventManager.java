@@ -89,6 +89,9 @@ public class EventManager implements Serializable {
      */
     public boolean checkEventIsValid(Event event){
 
+        //GET EVENT TYPE
+        String eventType = event.getEventType();
+
         if (!between9to5(event) || event.getCapacity() <= 0 || event.getDuration() <= 0 || !requiredEquipment(event)){
             return false;
         }
@@ -104,22 +107,88 @@ public class EventManager implements Serializable {
         }
 
         for (String i: events.keySet()){
+            //Checks Name
             if (event.getName().equals(i)){
                 return false;
             }
             Event e = events.get(i);
 
+            //Checks if times are conflicting
             boolean invalidTime = compareTimes(event, e);
 
+            //If the times are conflicting and the room numbers are the same: return false.
             if (invalidTime && e.getRoomNumber() == event.getRoomNumber() ){
                 return false;
             }
-            if (invalidTime && e.getSpeakerName().equals(event.getSpeakerName())){
-                return false;
+            //e TYPE
+            String eType = e.getEventType();
+
+            //If the times are conflicting and the speakers are the same: return false.
+            if (eventType.equals("talk") && eType.equals("talk")){
+               if (invalidTime && compareSpeakersTalkTalk(event, e)){
+                   return false;
+               }
             }
+            else if (eventType.equals("talk") && eType.equals("panel")){
+                if (invalidTime && compareSpeakersTalkPanel(event, e)){
+                    return false;
+                }
+            }
+            else if (eventType.equals("panel") && eType.equals("talk")){
+                if (invalidTime && compareSpeakersTalkPanel(e, event)){
+                    return false;
+                }
+            }
+            else if (eventType.equals("panel") && eType.equals("panel")){
+                if (invalidTime && compareSpeakersPanelPanel(event, e)){
+                    return false;
+                }
+            }
+
         }
         return true;
     }
+
+    private boolean compareSpeakersTalkTalk(Event event, Event e){
+        if (event.getSpeakerName().equals(e.getSpeakerName())){
+            return true;
+        }
+        return false;
+    }
+
+    private boolean compareSpeakersTalkPanel(Event event, Event e){
+        String eventSpeakerName = event.getSpeakerName();
+
+        List<String> eSpeakersList = e.getSpeakersList();
+
+        for (int i = 0; i < eSpeakersList.size(); i++){
+            String eSpeakerName = eSpeakersList.get(0);
+            if (eventSpeakerName.equals(eSpeakerName)){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean compareSpeakersPanelPanel(Event event, Event e){
+
+        List<String> eventSpeakersList = event.getSpeakersList();
+        List<String> eSpeakersList = e.getSpeakersList();
+
+        for (int i = 0; i < eventSpeakersList.size(); i++){
+            String eventSpeakerName = eventSpeakersList.get(i);
+            for (int k=0; k < eSpeakersList.size(); k++){
+                String eSpeakerName = eSpeakersList.get(k);
+                if (eventSpeakerName.equals(eSpeakerName)){
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
 
     /**
      * This method gets the attendees attending the event.

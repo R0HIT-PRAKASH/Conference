@@ -47,6 +47,11 @@ public class Panel extends Event{
         return "panel";
     }
 
+    @Override
+    public String getSpeakerName() {
+        return null;
+    }
+
     private String speakersToString(){
 
         String string = speakers.get(0);
@@ -74,7 +79,7 @@ public class Panel extends Event{
             projector = 1;
         }
 
-        return "Title: " + getName() + "| Time: " + date + "| Speakers: " + speakersToString() + "| Duration: "
+        return "Title: " + getName() + "| Type: " + getEventType() + "| Time: " + date + "| Speakers: " + speakersToString() + "| Duration: "
                 + getDuration() + " hour/s| Room: " + getRoomNumber() + ", Equipment Required: " +
                 getRequiredComputers() + " Computers, " + projector + " Projector(s), " + getRequiredChairs() +
                 " Chairs, " + getRequiredTables() + " Tables ";

@@ -38,6 +38,11 @@ public class Talk extends Event{
         return speakerName;
     }
 
+    @Override
+    public List<String> getSpeakersList() {
+        return null;
+    }
+
     /**
      * This method is a setter for the speaker's username
      */
@@ -67,7 +72,7 @@ public class Talk extends Event{
             projector = 1;
         }
 
-        return "Title: " + getName() + "| Time: " + date + "| Speaker: " + getSpeakerName() + "| Duration: "
+        return "Title: " + getName() + "| Type: " + getEventType() + "| Time: " + date + "| Speaker: " + getSpeakerName() + "| Duration: "
                 + getDuration() + " hour/s| Room: " + getRoomNumber() + ", Equipment Required: " +
                 getRequiredComputers() + " Computers, " + projector + " Projector(s), " + getRequiredChairs() +
                 " Chairs, " + getRequiredTables() + " Tables ";

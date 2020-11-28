@@ -262,4 +262,16 @@ public abstract class Event implements Comparable<Event>, Serializable {
      * @return Will return a string representation of the Event type.
      */
     public abstract String getEventType();
+
+    /**
+     * This method is a getter for the speaker's username (Only applicable for Talk)
+     * @return Returns speaker's username (Only applicable for Talk)
+     */
+    public abstract String getSpeakerName();
+
+    /**
+     * This method is a getter for the list of speakers (Only applicable for Panel)
+     * @return Returns the list of speakers (Only applicable for Panel)
+     */
+    public abstract List<String> getSpeakersList();
 }
