@@ -55,4 +55,6 @@ public class Request {
     public void editStatus(int newStatus){
         this.requestStatus = newStatus;
     }
+
+    // didn't include setter for content and username, because those should not be changed
 }
