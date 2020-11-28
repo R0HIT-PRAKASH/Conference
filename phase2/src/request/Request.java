@@ -1,7 +1,5 @@
 package request;
 
-import java.util.List;
-
 /**
  * This class represents a Request object. Request objects have a string content, username of the requester, and an int
  * requestStatus that contains the status of the request.
@@ -46,7 +44,6 @@ public class Request {
     public int getRequestStatus(){
         return this.requestStatus;
     }
-
     //Setter Methods
     /**
      * Sets the request status of the request
