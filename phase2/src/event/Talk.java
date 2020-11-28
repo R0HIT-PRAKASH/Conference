@@ -39,6 +39,21 @@ public class Talk extends Event{
     }
 
     /**
+     * This method is a setter for the speaker's username
+     */
+    public void setSpeakerName(String speakerName) {
+        this.speakerName = speakerName;
+    }
+
+    /**
+     * This method returns a string representation of the type of Event this event is.
+     * @return Returns "talk".
+     */
+    public String getEventType(){
+        return "talk";
+    }
+
+    /**
      * This method formats an event object into a string.
      * @return Returns a string representation of the attributes of an event.
      */

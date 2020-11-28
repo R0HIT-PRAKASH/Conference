@@ -39,6 +39,14 @@ public class Panel extends Event{
         return speakers;
     }
 
+    /**
+     * This method returns a string representation of the type of Event this event is.
+     * @return Returns "panel".
+     */
+    public String getEventType(){
+        return "panel";
+    }
+
     private String speakersToString(){
 
         String string = speakers.get(0);

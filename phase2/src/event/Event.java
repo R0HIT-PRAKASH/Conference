@@ -256,4 +256,10 @@ public abstract class Event implements Comparable<Event>, Serializable {
     public int getSize() {
         return attendeeSet.size();
     }
+
+    /**
+     * This method returns the type of Event this event is.
+     * @return Will return a string representation of the Event type.
+     */
+    public abstract String getEventType();
 }
