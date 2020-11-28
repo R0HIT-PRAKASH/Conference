@@ -15,10 +15,10 @@ import user.User;
  * capacity, and set of attendees attending. The event also contains how many computers, chairs, tables, and
  * whether or not a projector is required for the event to run.
  */
-public class Event implements Comparable<Event>, Serializable {
+public abstract class Event implements Comparable<Event>, Serializable {
 
     private String name;
-    private String speakerName;
+    //private String speakerName;
     private LocalDateTime time;
     private int duration;
     private int roomNumber;
@@ -34,7 +34,6 @@ public class Event implements Comparable<Event>, Serializable {
     /**
      * This constructs an event
      * @param name The name of the event
-     * @param speakerName The speaker at the event
      * @param time The event time
      * @param duration The event duration(in hours).
      * @param roomNumber The event room number
@@ -46,11 +45,11 @@ public class Event implements Comparable<Event>, Serializable {
      * @param creators Refers to the list of usernames of users that created the event.
      * @param vipEvent Refers to whether or not this event is limited to VIP's only
      */
-    public Event(String name, String speakerName, LocalDateTime time, Integer duration, int roomNumber, int capacity,
+    public Event(String name,  LocalDateTime time, Integer duration, int roomNumber, int capacity,
                  int requiredComputers, boolean requiredProjector, int requiredChairs, int requiredTables,
                  List<String> creators, boolean vipEvent) {
         this.name = name;
-        this.speakerName = speakerName;
+        //this.speakerName = speakerName;
         this.time = time;
         this.duration = duration;
         this.roomNumber = roomNumber;
@@ -70,14 +69,6 @@ public class Event implements Comparable<Event>, Serializable {
      */
     public String getName() {
         return name;
-    }
-
-    /**
-     * This method is a getter for name
-     * @return String name
-     */
-    public String getSpeakerName() {
-        return speakerName;
     }
 
     /**
@@ -119,14 +110,6 @@ public class Event implements Comparable<Event>, Serializable {
      */
     public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * This method is a setter for the speaker
-     * @param speakerName The Speaker Name
-     */
-    public void setSpeakerName(String speakerName) {
-        this.speakerName = speakerName;
     }
 
     /**
@@ -268,26 +251,6 @@ public class Event implements Comparable<Event>, Serializable {
      */
     public int compareTo(Event e) {
         return this.getTime().compareTo(e.getTime());
-    }
-
-    /**
-     * This method formats an event object into a string.
-     * @return Returns a string representation of the attributes of an event.
-     */
-    public String toString() {
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
-        String date = getTime().format(formatter);
-        int projector = 0;
-
-        if(getRequiredProjector()){
-            projector = 1;
-        }
-
-        return "Title: " + getName() + "| Time: " + date + "| Speaker: " + getSpeakerName() + "| Duration: "
-                + getDuration() + " hour/s| Room: " + getRoomNumber() + ", Equipment Required: " +
-                getRequiredComputers() + " Computers, " + projector + " Projector(s), " + getRequiredChairs() +
-                " Chairs, " + getRequiredTables() + " Tables ";
     }
 
     public int getSize() {
