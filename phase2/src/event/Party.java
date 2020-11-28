@@ -27,6 +27,14 @@ public class Party extends Event{
     }
 
     /**
+     * This method returns a string representation of the type of Event this event is.
+     * @return Returns "party".
+     */
+    public String getEventType(){
+        return "party";
+    }
+
+    /**
      * This method formats an event object into a string.
      * @return Returns a string representation of the attributes of an event.
      */
