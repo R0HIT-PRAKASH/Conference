@@ -29,6 +29,7 @@ public class Event implements Comparable<Event>, Serializable {
     private int requiredTables;
     private Set<String> attendeeSet;
     private List<String> creators;
+    private boolean vipEvent;
 
     /**
      * This constructs an event
@@ -43,10 +44,11 @@ public class Event implements Comparable<Event>, Serializable {
      * @param requiredChairs Refers to number of chairs required for the event.
      * @param requiredTables Refers to the number of tables required for the event.
      * @param creators Refers to the list of usernames of users that created the event.
+     * @param vipEvent Refers to whether or not this event is limited to VIP's only
      */
     public Event(String name, String speakerName, LocalDateTime time, Integer duration, int roomNumber, int capacity,
                  int requiredComputers, boolean requiredProjector, int requiredChairs, int requiredTables,
-                 List<String> creators) {
+                 List<String> creators, boolean vipEvent) {
         this.name = name;
         this.speakerName = speakerName;
         this.time = time;
@@ -59,6 +61,7 @@ public class Event implements Comparable<Event>, Serializable {
         this.requiredTables = requiredTables;
         attendeeSet = new HashSet<String>();
         this.creators = creators;
+        this.vipEvent = vipEvent;
     }
 
     /**
@@ -245,6 +248,18 @@ public class Event implements Comparable<Event>, Serializable {
     public void addAttendee(User attendee) {
         this.attendeeSet.add(attendee.getUsername());
     }
+
+    /**
+     * This method gets whether or not the event is VIP exclusive.
+     * @return Refers to whether or not this event is exclusive to VIP's only.
+     */
+    public boolean getVipEvent(){ return this.vipEvent; }
+
+    /**
+     * This methods sets whether or not the event is VIP exclusive.
+     * @param vipEvent The status of whether or not the event is VIP exclusive.
+     */
+    public void setVipEvent(boolean vipEvent){ this.vipEvent = vipEvent;}
 
     /**
      * CompareTo
