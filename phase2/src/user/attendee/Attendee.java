@@ -1,6 +1,7 @@
 package user.attendee;
 
 import event.Event;
+import request.Request;
 import user.User;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.List;
 public class Attendee extends User {
 
     private List<String> attendingEvents;
+    private List<Request> requestsMade;
 
     /**
      * This method constructs a new attendee object with an empty list of attendingEvents.
@@ -26,6 +28,7 @@ public class Attendee extends User {
     public Attendee(String name, String address, String email, String userName, String password) {
         super(name, address, email, userName, password);
         this.attendingEvents = new ArrayList<String>();
+        this.requestsMade = new ArrayList<Request>();
     }
 
     /**
@@ -50,6 +53,14 @@ public class Attendee extends User {
      */
     public String getUserType(){
         return "attendee";
+    }
+
+    /**
+     * This method gets the list of requests this attendee has made
+     * @return Returns the list of requests the attendee has made
+     */
+    public List<Request> getRequestsMade(){
+        return this.requestsMade;
     }
 }
 

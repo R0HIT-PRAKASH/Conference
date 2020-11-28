@@ -1,7 +1,5 @@
 package request;
 
-import message.Message;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +10,6 @@ import java.util.List;
  */
 public class RequestManager {
     protected HashMap<String, List<Request>> allRequests;
-
     /**
      * This constructs a RequestManager object with an empty allRequests.
      */
@@ -71,5 +68,9 @@ public class RequestManager {
      */
     public HashMap<String, List<Request>> getAllRequests(){
         return allRequests;
+    }
+
+    public List<Request> getUserRequests(String username){
+        return this.allRequests.get(username);
     }
 }
