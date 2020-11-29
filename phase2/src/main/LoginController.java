@@ -3,6 +3,7 @@ package main;
 import message.MessageManager;
 import user.User;
 import user.UserManager;
+import user.UserFactory;
 
 import java.util.regex.Pattern;
 
@@ -13,6 +14,7 @@ public class LoginController {
 
     private UserManager userManager;
     private MessageManager messageManager;
+    UserFactory userFactory;
     MainPresenter p;
 
     /**
@@ -26,6 +28,7 @@ public class LoginController {
         this.userManager = userManager;
         this.messageManager = messageManager;
         p = new MainPresenter();
+        userFactory = new UserFactory();
         String username = "";
         if (value != 0 && value != 1 && value != 2){
             p.displayNewFirstUserMessage();
@@ -128,8 +131,9 @@ public class LoginController {
             type = p.displayInvalidStatusError();
 
         }
-        this.userManager.addUser(name, address, email, username, password, type);
-        this.messageManager.addUserInbox(username);
+        User newUser = userFactory.createNewUser(name, address, email, username, password, type);
+        userManager.addUser(newUser);
+        messageManager.addUserInbox(username);
         return username;
     }
 

@@ -6,6 +6,7 @@ import message.Message;
 import message.MessageManager;
 import room.Room;
 import user.User;
+import user.UserFactory;
 import user.UserManager;
 import user.attendee.AttendeeController;
 import user.speaker.Speaker;
@@ -25,6 +26,7 @@ public class OrganizerController extends AttendeeController {
     public EventManager eventManager;
     public MessageManager messageManager;
     public String username;
+    UserFactory userFactory;
     OrganizerPresenter p;
 
     /**
@@ -37,6 +39,7 @@ public class OrganizerController extends AttendeeController {
     public OrganizerController(UserManager userManager, EventManager eventManager, MessageManager messageManager, String username) {
         super(userManager, eventManager, messageManager, username);
         p = new OrganizerPresenter();
+        userFactory = new UserFactory();
     }
 
 
@@ -227,7 +230,7 @@ public class OrganizerController extends AttendeeController {
 
                 if(!userManager.checkCredentials(speaker)) {
                     p.displaySpeakerCredentialError();
-                    makeSpeaker();
+                    makeUser("speaker");
                     speaker = p.displayEnterNewSpeakerPrompt();
                 }
                 else{
@@ -437,7 +440,14 @@ public class OrganizerController extends AttendeeController {
                 break;
 
             case 13:
-                makeSpeaker();
+                String newUserType = p.displayNewUserCreation();
+                while (!(newUserType.equalsIgnoreCase("ORGANIZER") ||
+                        newUserType.equalsIgnoreCase("ATTENDEE") ||
+                        newUserType.equalsIgnoreCase("SPEAKER") ||
+                        newUserType.equalsIgnoreCase("VIP"))){
+                    newUserType = p.displayInvalidUserTypeError();
+                }
+                makeUser(newUserType);
                 break;
 
             case 14:
@@ -666,18 +676,6 @@ public class OrganizerController extends AttendeeController {
         }
     }
 
-    /**
-     * This method creates a speaker account
-     * @param name This parameter refers to the name of the speaker.
-     * @param address This parameter refers to the address of the speaker.
-     * @param email This parameter refers to the email of the speaker.
-     * @param username This parameter refers to the username of the speaker.
-     * @param password This parameter refers to the password of the speaker.
-     */
-    void createSpeakerAccount(String name, String address, String email, String username, String password) {
-        userManager.addUser(name, address, email, username, password, "speaker");
-    }
-
 
     /**
      * This method sends messages to all people of a specific type
@@ -729,7 +727,7 @@ public class OrganizerController extends AttendeeController {
         return time;
     }
 
-    private void makeSpeaker() {
+    private void makeUser(String usertype) {
         String username = p.displayEnterUsernamePrompt();
         while(this.userManager.checkCredentials(username) || (username.length() < 3 && username.equalsIgnoreCase("q"))){
             if (username.equalsIgnoreCase("q")) {
@@ -764,8 +762,10 @@ public class OrganizerController extends AttendeeController {
         while(!email_pattern.matcher(email).matches()){
             email = p.displayInvalidEmail();
         }
-        createSpeakerAccount(name, address, email, username, password);
+        User newUser = userFactory.createNewUser(name, address, email, username, password, usertype);
+        userManager.addUser(newUser);
         messageManager.addUserInbox(username);
+        p.displayNewUserCreated(newUser.getUsername(), newUser.getPassword());
     }
 
     private List<String> getSenders(String username){

@@ -28,7 +28,7 @@ public class OrganizerPresenter extends AttendeePresenter {
         System.out.println("(0) See Inbox\n(1) Send Message\n(2) Reply to Message\n(3) View Event List" +
                 "\n(4) View My Scheduled Events\n(5) Cancel Event Reservation\n(6) Sign up for Event" +
                 "\n(7) Add Event\n(8) Message All Attendees\n(9) Message Event Attendees" +
-                "\n(10) Message All Speakers\n(11) Cancel Event\n(12) Reschedule Event\n(13) Add Speaker" +
+                "\n(10) Message All Speakers\n(11) Cancel Event\n(12) Reschedule Event\n(13) Add New User" +
                 "\n(14) View Options" + "\n(15) Add Room \n(16) Modify an Event's capacity \n(17) View All Rooms \n(18) View Speakers\n(19) " +
                 "View Attendees\n(20) View Organizers\n(21) Display Conference Statistics\n(22) Quit");
     }
@@ -730,5 +730,24 @@ public class OrganizerPresenter extends AttendeePresenter {
 
     public void displayNoStats() {
         System.out.println("There are no Events or Stats to display!");
+    }
+
+    /**
+     * Asks the organizer what type of user they would like to create.
+     * @return The type of the new user.
+     */
+    public String displayNewUserCreation() {
+        System.out.println("What kind of new user would you like to create? (Organizer, Attendee, Speaker, VIP): ");
+        return scan.nextLine();
+    }
+
+    public String displayInvalidUserTypeError(){
+        System.out.println("Sorry, that is not a valid user type. Please try again:");
+        return scan.nextLine();
+    }
+
+    public void displayNewUserCreated(String username, String password) {
+        System.out.println("New user successfully created with the following details:\n" +
+                "Username: " + username + "| Password: " + password);
     }
 }
