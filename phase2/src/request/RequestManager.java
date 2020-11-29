@@ -56,12 +56,12 @@ public class RequestManager {
     }
 
     /**
-     * Determines if the status of the request is valid or not
+     * Determines if the status of the request is valid or not when organizers go to mark it
      * @param status refers to the intended status of the request
-     * @return returns if the status is valid (is 0, 1, or 2)
+     * @return returns if the new status is valid
      */
     public boolean checkIsValidStatus(String status){
-        return status.equals("pending") || status.equals("addressed") || status.equals("rejected");
+        return status.equals("addressed") || status.equals("rejected");
     }
 
     /**
