@@ -1,6 +1,7 @@
 package user.speaker;
 
 import event.Event;
+import request.Request;
 import user.UserPresenter;
 
 import java.time.LocalDate;
@@ -23,7 +24,8 @@ public class SpeakerPresenter extends UserPresenter {
      */
     public void displayOptions3(){
         System.out.println("(0) See Inbox \n(1) View My Events \n(2) Message Event Attendees " +
-                "\n(3) Reply to Attendee \n(4) Message Specific Attendee \n(5) Options \n(6) End");
+                "\n(3) Reply to Attendee \n(4) Message Specific Attendee \n(5) Options \n (6) View My Requests" +
+                "\n (7) Make a Request \n (8) End");
     }
 
 
@@ -171,6 +173,24 @@ public class SpeakerPresenter extends UserPresenter {
         return scan.nextLine();
     }
 
+    public void displayRequests(List<Request> requests){
+        System.out.println("Requests you have made: ");
+        for (Request request : requests){
+            System.out.print(request.getRequestStatus() + " : ");
+            System.out.println(request.getContent());
+        }
+    }
 
+    public String displayMakeRequest(){
+        System.out.println("Please enter your request (< 200 characters)");
+        return scan.nextLine();
+    }
 
+    public void invalidRequest(){
+        System.out.println("Requests must be less than 200 characters. Please re-enter content");
+    }
+
+    public void displaySuccessfulRequestSubmission(){
+        System.out.println("Your request was successfully submitted.");
+    }
 }

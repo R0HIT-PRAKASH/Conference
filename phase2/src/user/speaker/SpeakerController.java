@@ -4,6 +4,8 @@ import event.Event;
 import event.EventManager;
 import message.Message;
 import message.MessageManager;
+import request.Request;
+import request.RequestManager;
 import user.User;
 import user.UserManager;
 
@@ -20,6 +22,7 @@ public class SpeakerController{
     public EventManager eventManager;
     public MessageManager messageManager;
     public String username;
+    public RequestManager requestManager;
     SpeakerPresenter p;
 
     /**
@@ -30,12 +33,15 @@ public class SpeakerController{
      * @param username username of the user
      */
     public SpeakerController(UserManager userManager, EventManager eventManager, MessageManager messageManager,
-                             String username){
+                             String username, RequestManager request){
         this.userManager = userManager;
         this.eventManager = eventManager;
         this.messageManager = messageManager;
         this.username = username;
+        this.requestManager = request;
         p = new SpeakerPresenter();
+        // TODO: update MainController to have a request manager
+        // TODO: update instances of speakerController in MainController
     }
     /**
      * Runs the Speaker controller by asking for input and performing the actions
@@ -162,6 +168,23 @@ public class SpeakerController{
             case 5:
                 viewOptions();
                 break;
+
+            case 6:
+                viewRequests(username);
+                break;
+
+            case 7:
+                String req = p.displayMakeRequest();
+                boolean valid = requestManager.checkIsValidRequest(req);
+                while(!valid){
+                    p.invalidRequest();
+                    req = p.displayMakeRequest();
+                    valid = requestManager.checkIsValidRequest(req);
+                }
+                makeRequest(req, username);
+                p.displaySuccessfulRequestSubmission();
+                break;
+
             default:
                 p.displayInvalidInputError();
                 viewOptions();
@@ -209,4 +232,14 @@ public class SpeakerController{
         p.displayMessageSentPrompt();
     }
 
+    private void viewRequests(String username){
+        List<Request> requests = requestManager.getUserRequests(username);
+        p.displayRequests(requests);
+    }
+
+    private void makeRequest(String content, String username){
+        Request request = requestManager.createNewRequest(content, username);
+        requestManager.addRequest(username, request);
+        ((Speaker)userManager.getUser(username)).addRequest(request);
+    }
 }

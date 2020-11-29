@@ -102,7 +102,17 @@ public class MainPresenter {
      * @return The username
      */
     public String displayInvalidUsernameError(){
-        System.out.print("Error, username must be at least 3 characters. please enter another one: ");
+        System.out.print("Error, username must be at least 3 characters. Please enter another one: ");
+        return scan.nextLine();
+    }
+
+    /**
+     * Prints an error message that the username cannot be entirely composed of space characters,
+     * asks user to enter another username.
+     * @return The username
+     */
+    public String displayEmptyUsernameError(){
+        System.out.print("Error, username cannot be composed entirely of space characters. Please enter another one: ");
         return scan.nextLine();
     }
 
@@ -125,6 +135,16 @@ public class MainPresenter {
     }
 
     /**
+     * Prints an error message that the name cannot be entirely composed of space characters,
+     * asks user to enter another username.
+     * @return The username
+     */
+    public String displayEmptyNameError(){
+        System.out.print("Error, name cannot be composed entirely of space characters. Please enter another one: ");
+        return scan.nextLine();
+    }
+
+    /**
      * Prompts the user to enter their address.
      * @return The address
      */
@@ -139,6 +159,16 @@ public class MainPresenter {
      */
     public String displayInvalidAddressError(){
         System.out.print("Error, address must be at least 6 characters.\nPlease enter again: ");
+        return scan.nextLine();
+    }
+
+    /**
+     * Prints an error message that the address cannot be entirely composed of space characters,
+     * asks user to enter another username.
+     * @return The username
+     */
+    public String displayEmptyAddressError(){
+        System.out.print("Error, address cannot be composed entirely of space characters. Please enter another one: ");
         return scan.nextLine();
     }
 
