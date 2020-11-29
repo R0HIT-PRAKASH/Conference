@@ -20,7 +20,9 @@ public class ConferenceGUI extends JFrame{
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                String username = textField1.getText();
+                char[] pass = passwordField1.getPassword();
+                String password = new String(pass);
             }
         });
         createAccount.addActionListener(new ActionListener() {

@@ -1,7 +1,6 @@
 package user.organizer;
 
 import event.Event;
-import request.Request;
 import room.Room;
 import user.User;
 import user.attendee.AttendeePresenter;
@@ -32,8 +31,7 @@ public class OrganizerPresenter extends AttendeePresenter {
                 "\n(7) Add Event\n(8) Message All Attendees\n(9) Message Event Attendees" +
                 "\n(10) Message All Speakers\n(11) Cancel Event\n(12) Reschedule Event\n(13) Add New User" +
                 "\n(14) View Options" + "\n(15) Add Room \n(16) Modify an Event's capacity \n(17) View All Rooms \n(18) View Speakers\n(19) " +
-                "View Attendees\n(20) View Organizers\n(21) Display Conference Statistics\n(22) Address Requests " +
-                "\n(23) View Addressed Request \n(24) View User Requests\n(25) Quit");
+                "View Attendees\n(20) View Organizers\n(21) Display Conference Statistics\n(22) Quit");
     }
 
     /**
@@ -64,6 +62,15 @@ public class OrganizerPresenter extends AttendeePresenter {
      */
     public String displayEnterSpeakerPrompt() {
         System.out.print("Enter a Speaker's username: ");
+        return scan.nextLine();
+    }
+
+    /**
+     * Prompts the Organizer to enter the name of the Speaker for the Event they want to create.
+     * @return The speaker username AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+     */
+    public String askNewSpeakerPrompt() {
+        System.out.print("Enter a new speaker? (Y/N): ");
         return scan.nextLine();
     }
 
@@ -249,7 +256,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      * @return The username
      */
     public String displayEnterUsernamePrompt() {
-        System.out.print("Enter the new user's username or type 'q' to quit: ");
+        System.out.print("Enter the Speaker's username or type 'q' to quit: ");
         return scan.nextLine();
     }
 
@@ -291,8 +298,8 @@ public class OrganizerPresenter extends AttendeePresenter {
      * Prompts the Organizer to enter the name of the Speaker for the Speaker account they are creating.
      * @return The speaker
      */
-    public String displayEnterUsersNamePrompt() {
-        System.out.print("Enter the user's name: ");
+    public String displayEnterSpeakerNamePrompt() {
+        System.out.print("Enter the speaker name: ");
         return scan.nextLine();
     }
 
@@ -309,8 +316,8 @@ public class OrganizerPresenter extends AttendeePresenter {
      * Prompts the Organizer to enter the address of the Speaker for the Speaker account they are creating.
      * @return The address
      */
-    public String displayEnterUserAddressPrompt() {
-        System.out.print("Enter the user's address: ");
+    public String displayEnterSpeakerAddressPrompt() {
+        System.out.print("Enter the speaker's address: ");
         return scan.nextLine();
     }
 
@@ -327,8 +334,8 @@ public class OrganizerPresenter extends AttendeePresenter {
      * Prompts the Organizer to enter the email of the Speaker for the Speaker account they are creating.
      * @return The email
      */
-    public String displayEnterUserEmailPrompt() {
-        System.out.print("Enter the user's email: ");
+    public String displayEnterSpeakerEmailPrompt() {
+        System.out.print("Enter the speaker's email: ");
         return scan.nextLine();
     }
 
@@ -496,8 +503,9 @@ public class OrganizerPresenter extends AttendeePresenter {
     /**
      * Displays the message that prompts the user for the wanted duration.
      */
+
     public int displayDurationPrompt() {
-        System.out.println("How long would you like the event to last(in hours)? You can enter 0 to quit.");
+        System.out.println("How long would you like the event to last(in minutes)? You can enter 0 to quit.");
         return nextPositiveInt();
     }
 
@@ -786,55 +794,4 @@ public class OrganizerPresenter extends AttendeePresenter {
         return time;
     }
 
-    public String displayRequestDecisionPrompt(Request request){
-        System.out.println(request.getContent());
-        System.out.println("Type 'addressed' to mark this request as addressed, or 'rejected' to mark it as " +
-                "rejected.");
-        return scan.nextLine();
-    }
-
-    public void requestDecisionInvalid(){
-        System.out.println("This is not a valid status. Please mark as 'addressed' or 'rejected'");
-    }
-
-    public void successfullyAddressedRequest(){
-        System.out.println("Request successfully addressed.");
-    }
-
-    public void successfullyRejectedRequest(){
-        System.out.println("Request successfully rejected");
-    }
-
-    public int viewRequestPrompt(){
-        System.out.println("Please enter which request you would like to view");
-        return Integer.parseInt(scan.nextLine());
-    }
-
-    public void displayPendingRequests(List<Request> requests){
-        System.out.println("Pending Requests: ");
-        int counter = 1;
-        for (Request request : requests){
-            System.out.println(counter + " : " + request.getContent());
-            counter++;
-        }
-    }
-
-    public void displayAddressedRequests(List<Request> requests){
-        System.out.println("Addressed Requests: ");
-        for (Request request : requests){
-            System.out.print(request.getRequesterUsername() + " : " + request.getContent());
-        }
-    }
-
-    public String viewUserRequestPrompt(){
-        System.out.println("Please enter which user's requests you would like to access");
-        return scan.nextLine();
-    }
-
-    public void displayUserRequests(List<Request> requests){
-        System.out.println("This user has made the following requests: ");
-        for (Request request : requests){
-            System.out.print(request.getRequestStatus() + " : " + request.getContent());
-        }
-    }
 }
