@@ -56,6 +56,7 @@ public class OrganizerController extends AttendeeController {
     }
 
     private void determineInput(int input) {
+        label:
         switch (input) {
             case 0:
                 viewMessages(this.username);
@@ -222,29 +223,31 @@ public class OrganizerController extends AttendeeController {
                 // (Alan) comments
                 String speaker = "";
                 List<String> speakers = new ArrayList<>();
-                if (eventType.equals("talk")){
-                    speaker = determineInputGetSpeaker();
-                    if (speaker.equalsIgnoreCase("q")) {
-                        break;
-                    }
-                    speakers = null;
-                }
-                else if (eventType.equals("party")){
-                    speaker = null;
-                    speakers = null;
-                }
-                else if (eventType.equals("panel")){
-                    String response;
-                    String speakerName;
-                    do {
-                        speakerName = determineInputGetSpeaker();
-                        if (speakerName.equalsIgnoreCase("q")) {
-                            break;
+                switch (eventType) {
+                    case "talk":
+                        speaker = determineInputGetSpeaker();
+                        if (speaker.equalsIgnoreCase("q")) {
+                            break label;
                         }
-                        speakers.add(speakerName);
-                        response = p.askNewSpeakerPrompt();
-                    }while(response.equals("Y"));
-                    speaker = null;
+                        speakers = null;
+                        break;
+                    case "party":
+                        speaker = null;
+                        speakers = null;
+                        break;
+                    case "panel":
+                        String response;
+                        String speakerName;
+                        do {
+                            speakerName = determineInputGetSpeaker();
+                            if (speakerName.equalsIgnoreCase("q")) {
+                                break;
+                            }
+                            speakers.add(speakerName);
+                            response = p.askNewSpeakerPrompt();
+                        } while (response.equals("Y"));
+                        speaker = null;
+                        break;
                 }
 
 //                String speaker = p.displayEnterSpeakerPrompt();
@@ -324,20 +327,7 @@ public class OrganizerController extends AttendeeController {
                     creators.add(this.username);
                     p.displayAndGetCreators(creators, organizers);
                     boolean added = addEvent(eventType, name, time, duration, num, capacity, comp, project, cha, tab, creators, vip, speaker, speakers);
-                    if(!added) {p.displayEventCreationError();}
-                    else {
-                        p.displaySuccessfulEventCreation();
-                        if (eventType.equals("talk")){
-                            userManager.addSpeakingEvent(speaker, name);
-                        }
-                        else if (eventType.equals("panel")){
-                            for (int i = 0; i < speakers.size();i++){
-                                userManager.addSpeakingEvent(speakers.get(i), name);
-                            }
-                        }
-                        userManager.createdEvent(eventManager.getEvent(name), creators);
-                    }
-                    break;
+                    addEvent(eventType, name, speaker, speakers, creators, added);
                 }
                 else { // room exists
                     p.displayEnterEventCapacityPrompt(room.getCapacity());  // need to ask what they want capacity to be and cannot be more then room can hold
@@ -351,21 +341,9 @@ public class OrganizerController extends AttendeeController {
                     creators.add(this.username);
                     p.displayAndGetCreators(creators, organizers);
                     boolean added = addEvent(eventType, name, time, duration, num, room.getCapacity(), room.getComputers(), room.getProjector(), room.getChairs(), room.getChairs(), creators, vip, speaker, speakers);
-                    if(!added) {p.displayEventCreationError();}
-                    else {
-                        p.displaySuccessfulEventCreation();
-                        if (eventType.equals("talk")){
-                            userManager.addSpeakingEvent(speaker, name);
-                        }
-                        else if (eventType.equals("panel")){
-                            for (int i = 0; i < speakers.size();i++){
-                                userManager.addSpeakingEvent(speakers.get(i), name);
-                            }
-                        }
-                        userManager.createdEvent(eventManager.getEvent(name), creators);
-                    }
-                    break;
+                    addEvent(eventType, name, speaker, speakers, creators, added);
                 }
+                break;
 
             case 8:
                 String message = p.displayAllAttendeeMessagePrompt();
@@ -561,6 +539,22 @@ public class OrganizerController extends AttendeeController {
                 break;
         }
         p.displayNextTaskPromptOrganizer();
+    }
+
+    private void addEvent(String eventType, String name, String speaker, List<String> speakers, List<String> creators, boolean added) {
+        if(!added) {p.displayEventCreationError();}
+        else {
+            p.displaySuccessfulEventCreation();
+            if (eventType.equals("talk")){
+                userManager.addSpeakingEvent(speaker, name);
+            }
+            else if (eventType.equals("panel")){
+                for (String s : speakers) {
+                    userManager.addSpeakingEvent(s, name);
+                }
+            }
+            userManager.createdEvent(eventManager.getEvent(name), creators);
+        }
     }
 
     private String determineInputGetSpeaker() {
