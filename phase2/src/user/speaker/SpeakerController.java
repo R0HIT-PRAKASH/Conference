@@ -40,8 +40,6 @@ public class SpeakerController{
         this.username = username;
         this.requestManager = request;
         p = new SpeakerPresenter();
-        // TODO: update MainController to have a request manager
-        // TODO: update instances of speakerController in MainController
     }
     /**
      * Runs the Speaker controller by asking for input and performing the actions

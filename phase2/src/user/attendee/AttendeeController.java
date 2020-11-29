@@ -4,7 +4,10 @@ import event.Event;
 import event.EventManager;
 import message.Message;
 import message.MessageManager;
+import request.Request;
+import request.RequestManager;
 import user.UserManager;
+import user.speaker.Speaker;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -18,6 +21,7 @@ public class AttendeeController{
     UserManager userManager;
     EventManager eventManager;
     MessageManager messageManager;
+    RequestManager requestManager;
     String username;
     AttendeePresenter p;
 
@@ -29,11 +33,12 @@ public class AttendeeController{
      * @param username the username of the Attendee accessing the AttendeeController
      */
     public AttendeeController(UserManager userManager, EventManager eventManager, MessageManager messageManager,
-                              String username){
+                              String username, RequestManager requestManager){
         this.userManager = userManager;
         this.eventManager = eventManager;
         this.messageManager = messageManager;
         this.username = username;
+        this.requestManager = requestManager;
         this.p = new AttendeePresenter();
     }
 
@@ -83,6 +88,22 @@ public class AttendeeController{
 
             case 7:
                 p.displayOptions();
+                break;
+
+            case 8:
+                viewRequests(username);
+                break;
+
+            case 9:
+                String req = p.displayMakeRequest();
+                boolean valid = requestManager.checkIsValidRequest(req);
+                while(!valid){
+                    p.invalidRequest();
+                    req = p.displayMakeRequest();
+                    valid = requestManager.checkIsValidRequest(req);
+                }
+                makeRequest(req, username);
+                p.displaySuccessfulRequestSubmission();
                 break;
 
             default:
@@ -295,4 +316,14 @@ public class AttendeeController{
         return attendees;
     }
 
+    private void viewRequests(String username){
+        List<Request> requests = requestManager.getUserRequests(username);
+        p.displayRequests(requests);
+    }
+
+    private void makeRequest(String content, String username){
+        Request request = requestManager.createNewRequest(content, username);
+        requestManager.addRequest(username, request);
+        ((Attendee)userManager.getUser(username)).addRequest(request);
+    }
 }

@@ -155,7 +155,7 @@ public class MainController {
                 break;
             }
             case "attendee": {
-                AttendeeController controller = new AttendeeController(userManager, eventManager, messageManager, username);
+                AttendeeController controller = new AttendeeController(userManager, eventManager, messageManager, username, requestManager);
                 controller.run();
                 break;
             }

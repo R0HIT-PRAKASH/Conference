@@ -1,6 +1,7 @@
 package user.attendee;
 
 import event.Event;
+import request.Request;
 import user.UserPresenter;
 
 import java.util.List;
@@ -22,10 +23,8 @@ public class AttendeePresenter extends UserPresenter {
     public void displayOptions(){
         System.out.println("(0) See Inbox\n(1) Send Message\n(2) Reply to Message\n(3) View Event List" +
                 "\n(4) View My Scheduled Events\n(5) Cancel Event Reservation\n" +
-                "(6) Sign up for an event\n(7) View Options \n(8) End");
+                "(6) Sign up for an event\n(7) View Options \n(8) View My Requests \n(9) Make a Request \n(10) End");
     }
-
-
 
     /**
      * Prompts an Organizer or Attendee on which User they would like to message.
@@ -195,5 +194,26 @@ public class AttendeePresenter extends UserPresenter {
      */
     public void displayEventFull(){
         System.out.println("This event is full!");
+    }
+
+    public void displayRequests(List<Request> requests){
+        System.out.println("Requests you have made: ");
+        for (Request request : requests){
+            System.out.print(request.getRequestStatus() + " : ");
+            System.out.println(request.getContent());
+        }
+    }
+
+    public String displayMakeRequest(){
+        System.out.println("Please enter your request (< 200 characters)");
+        return scan.nextLine();
+    }
+
+    public void invalidRequest(){
+        System.out.println("Requests must be less than 200 characters. Please re-enter content");
+    }
+
+    public void displaySuccessfulRequestSubmission(){
+        System.out.println("Your request was successfully submitted.");
     }
 }
