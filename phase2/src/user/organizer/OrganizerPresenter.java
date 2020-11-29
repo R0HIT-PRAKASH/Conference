@@ -86,8 +86,9 @@ public class OrganizerPresenter extends AttendeePresenter {
     /**
      * Prompts the Organizer to enter the room number for the Event they want to create.
      */
-    public void displayEnterRoomNumberPrompt() {
+    public int displayEnterRoomNumberPrompt() {
         System.out.print("Enter a room number: ");
+        return nextPositiveInt();
     }
 
     /**
@@ -226,7 +227,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      * Prompts the Organizer to enter the month of the Event they are creating/rescheduling.
      */
     public void displayEnterMonthPrompt() {
-        System.out.print("Enter a month (1-12): ");
+        System.out.print("Enter a month (102): ");
     }
 
     /**
@@ -240,7 +241,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      * Prompts the Organizer to enter the hour of the Event they are creating/rescheduling.
      */
     public void displayEnterHourPrompt() {
-        System.out.print("Enter an hour (9-16): ");
+        System.out.print("Enter an hour (906): ");
     }
 
     /**
@@ -350,9 +351,11 @@ public class OrganizerPresenter extends AttendeePresenter {
     /**
      * Prompts the Organizer to enter the number of the Room they would like to create.
      */
-    public void displayRoomCreationPrompt() {
+    public int displayRoomCreationPrompt() {
         System.out.println("Enter the number of the Room you would " +
-                "like to add, or type '-1' to quit: ");
+                "like to add, or type '0' to quit: ");
+
+        return nextPositiveInt();
     }
 
     /**
@@ -483,60 +486,53 @@ public class OrganizerPresenter extends AttendeePresenter {
     /**
      * Displays the message that prompts the user for the specified capacity of the event.
      */
-    public void displayEventCapacityPrompt() {
-        System.out.println("Enter the capacity of the event you would like to add or -1 if you want to quit.");
+    public int displayEventCapacityPrompt() {
+        System.out.println("Enter the capacity of the event you would like to add or 0 if you want to quit.");
+        return nextPositiveInt();
     }
 
     /**
      * Displays the message that prompts the user for the specified capacity of the room.
      */
-    public void displayRoomCapacityPrompt() {
-        System.out.println("Enter the capacity of the room you would like to add or -1 if you want to quit.");
+    public int displayRoomCapacityPrompt() {
+        System.out.println("Enter the capacity of the room you would like to add or 0 if you want to quit.");
+        return nextPositiveInt();
     }
 
-    /**
-     * Displays the message that informs the user that the capacity specified is invalid.
-     */
-    public void displayInvalidCapacity() {
-        System.out.println("That is not a valid capacity. Please enter again.");
-    }
 
     /**
      * Displays the message that prompts the user for the wanted duration.
      */
-    public void displayDurationPrompt() {
-        System.out.println("How long would you like the event to last(in minutes)? You can enter -1 to quit.");
+
+    public int displayDurationPrompt() {
+        System.out.println("How long would you like the event to last(in minutes)? You can enter 0 to quit.");
+        return nextPositiveInt();
     }
 
-    /**
-     * Displays the message that informs the user that the duration specified is invalid.
-     */
-    public void displayInvalidDuration() {
-        System.out.println("This is an invalid duration. Please try again.");
-    }
 
     /**
      * Displays the message that prompts the user to enter the number of computers in the room.
      */
-    public void displayComputersPrompt() {
-        System.out.println("How many computers? Enter -1 to quit.");
+    public int displayComputersPrompt() {
+        System.out.println("How many computers? Enter 0 to quit.");
+        return nextPositiveInt();
     }
 
-    /**
-     * Displays the message that informs the user that the number of computers entered is invalid.
-     */
-    public void displayInvalidComputers() {
-        System.out.println("This is an invalid number of computers. Enter -1 to quit.");
-    }
 
     /**
      * Displays the message that prompts the user to enter whether or not there is a computer in the room.
      * @return
      */
     public String displayProjectorPrompt() {
-        System.out.println("Does this event need/room have a projector? Enter yes if there is and no if there isn't. Press q to quit.");
-        return scan.nextLine();
 
+        System.out.println("Does this event need/room have a projector? Enter yes if there is and no if there isn't. Press q to quit.");
+        String disp = scan.nextLine();
+
+        while(!disp.equalsIgnoreCase("yes") && !disp.equalsIgnoreCase("no") && !disp.equalsIgnoreCase("q")) {
+            displayInvalidProjector();
+            disp = scan.nextLine();
+        }
+        return disp;
     }
 
     /**
@@ -551,30 +547,19 @@ public class OrganizerPresenter extends AttendeePresenter {
     /**
      * Displays the message that prompts the user to enter the number of chairs in the room.
      */
-    public void displayChairsPrompt() {
-        System.out.println("How many chairs? Enter -1 to quit.");
-    }
-
-    /**
-     * Displays the message that informs the user that the number of chairs entered is invalid.
-     */
-    public void displayInvalidChairs() {
-        System.out.println("This is an invalid number of chairs. Enter -1 to quit.");
+    public int displayChairsPrompt() {
+        System.out.println("How many chairs? Enter 0 to quit.");
+        return nextPositiveInt();
     }
 
     /**
      * Displays the message that prompts the user to enter the number of tables in the room.
      */
-    public void displayTablesPrompt() {
-        System.out.println("How many tables? Enter -1 to quit.");
+    public int displayTablesPrompt() {
+        System.out.println("How many tables? Enter 0 to quit.");
+        return nextPositiveInt();
     }
 
-    /**
-     * Displays the message that informs the user that the number of tables entered is invalid.
-     */
-    public void displayInvalidTables() {
-        System.out.println("This is an invalid number of tables. Enter -1 to quit.");
-    }
 
     /**
      * Displays the message that displays all of the recommended rooms.
@@ -620,12 +605,20 @@ public class OrganizerPresenter extends AttendeePresenter {
      * Displays a message that informs the user that the room number they entered doesn't exist.
      * @return The room number
      */
-    public String displayRoomNumberErrorQuestion1(){
+    public String displayRoomNumberQuestion1(){
+
         System.out.println("There is no room with this room number. \nDo you want to create a new room " +
                 "or do you want to be suggested a room from the existing ones? Please enter " +
                 "\n(1) 'create' to create a room \n(2) 'q' to quit");
+        String ans = scan.nextLine();
 
-        return scan.nextLine();
+        while(!ans.equalsIgnoreCase("create") && !ans.equalsIgnoreCase("q")) {
+
+            displayRoomDecisionQError1();
+            ans = scan.nextLine();
+        }
+
+        return ans;
     }
 
 
@@ -645,12 +638,20 @@ public class OrganizerPresenter extends AttendeePresenter {
      * want to get a list of suggestions.
      * @return The room number
      */
-    public String displayRoomNumberErrorQuestion2(){
+    public String displayRoomNumberQuestion2(){
         System.out.println("There is no room with this room number. \nDo you want to create a new room" +
                 "or do you want to be suggested a room from the existing ones? Please enter " +
                 "\n(1) 'create' to create a room \n(2) 'suggestions' to get a list of suggestions \n(3) 'q' to quit");
 
-        return scan.nextLine();
+        String ans = scan.nextLine();
+
+        while(!ans.equalsIgnoreCase("create") && !ans.equalsIgnoreCase("suggestions") // need to fix it so it doesnt give suggestions as option when empty
+                && !ans.equalsIgnoreCase("q")) {
+            displayRoomDecisionQError2();
+            ans = scan.nextLine();
+        }
+
+        return ans;
     }
 
 
@@ -676,9 +677,21 @@ public class OrganizerPresenter extends AttendeePresenter {
     /**
      * Displays the message that prompts the user to enter the new capacity of the event.
      * @param maxCapacity Refers to the capacity of the room which cannot be less than that of the event.
+     * @param minCapacity The minimum possible size
+     * @return  The number
      */
-    public void displayEnterNewEventCapacityPrompt(int maxCapacity){
-        System.out.println("Enter the NEW number of people that can attend the event: (it cannot be greater than the room's capacity which is " + maxCapacity);
+    public int displayEnterNewEventCapacityPrompt(int maxCapacity, int minCapacity){
+        System.out.println("The room this event is taking place in has a maximum capacity of " + maxCapacity +
+                ". Thus the new capacity must be greater than or equal to " + minCapacity + "; the number" +
+                " of users already attending the event. Please Enter the new number of people that can attend the event:");
+
+        int capac = nextPositiveInt();
+
+        while(capac > maxCapacity || capac < minCapacity) {
+            displayModifyRoomCapacityError(maxCapacity, minCapacity);
+            capac = nextPositiveInt();
+        }
+        return capac;
     }
 
     /**
@@ -763,15 +776,15 @@ public class OrganizerPresenter extends AttendeePresenter {
 
     protected LocalDateTime getTime() throws DateTimeException {
         displayEnterYearPrompt();
-        int y = nextInt();
+        int y = nextPositiveInt();
         displayEnterMonthPrompt();
-        int m = nextInt();
+        int m = nextPositiveInt();
         displayEnterDayPrompt();
-        int d = nextInt();
+        int d = nextPositiveInt();
         displayEnterHourPrompt();
-        int h = nextInt();
+        int h = nextPositiveInt();
         displayEnterMinutePrompt();
-        int mi = nextInt();
+        int mi = nextPositiveInt();
         return LocalDateTime.of(y, m, d, h, mi);
     }
 

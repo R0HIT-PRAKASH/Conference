@@ -46,7 +46,7 @@ public class UserPresenter {
      * Prints an error message when a User inputs an invalid task.
      */
     public void displayInvalidInputError(){
-        System.out.println("Invalid Input, please try again.");
+        System.out.println("The input should be a nonnegative integer, please try again.");
     }
 
     /**
@@ -162,16 +162,17 @@ public class UserPresenter {
     }
 
     /**
-     * Queries the user for an integer
+     * Queries the user for a nonnegative integer
      * @return Returns the integer that user input.
      */
-    public int nextInt() {
+    public int nextPositiveInt() {
         int input = 0;
 
         do {
             try {
                 input = Integer.parseInt(scan.nextLine());
-                break;
+                if(input >= 0)
+                    break;
             } catch (NumberFormatException e) {
                 displayInvalidInputError();
             }

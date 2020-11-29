@@ -37,7 +37,7 @@ public class MainPresenter {
      * Prints an error message when the user does not successfully specify if they are a new or returning user.
      */
     public void displayNewOrReturningError(){
-        System.out.println("Not a valid input, please try again: ");
+        System.out.println("The input should be a nonnegative integer, please try again: ");
     }
 
     /**
@@ -267,13 +267,14 @@ public class MainPresenter {
      * Queries the user for an integer
      * @return Returns the integer the user input.
      */
-    protected int nextInt() {
-        int input;
+    protected int nextPositiveInt() {
+        int input = 0;
 
         do {
             try {
                 input = Integer.parseInt(scan.nextLine());
-                break;
+                if(input >= 0)
+                    break;
             } catch (NumberFormatException e) {
                 displayNewOrReturningError();
             }
