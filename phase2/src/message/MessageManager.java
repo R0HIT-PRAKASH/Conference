@@ -1,11 +1,14 @@
 package message;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import event.EventManager;
+import saver.ReaderWriter;
+import user.User;
 import user.UserManager;
 
 /**
@@ -15,12 +18,14 @@ import user.UserManager;
 public class MessageManager implements java.io.Serializable {
 
     protected Map<String, List<Message>> allUserMessages;
+    ReaderWriter RW;
 
     /**
      * This method constructs a MessageManager object with an empty allUserMessages.
      */
-    public MessageManager(){
+    public MessageManager(ReaderWriter RW){
     this.allUserMessages =  new HashMap<String, List<Message>>();
+    this.RW = RW;
 }
 
     /**
@@ -137,4 +142,9 @@ public class MessageManager implements java.io.Serializable {
         this.allUserMessages.put(username, new ArrayList<Message>());
 }
 
+    public void setAllUserMessagesReadIn() throws IOException, ClassNotFoundException {
+        Object uncastedMessages = RW.readMessages();
+        HashMap<String, List<Message>> allUserMessages = (HashMap<String, List<Message>>) uncastedMessages;
+        setAllUserMessages(allUserMessages);
+    }
 }

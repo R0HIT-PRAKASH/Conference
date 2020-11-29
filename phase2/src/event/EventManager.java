@@ -1,9 +1,13 @@
 package event;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
+
+import message.Message;
 import room.Room;
+import saver.ReaderWriter;
 import user.User;
 import user.speaker.Speaker;
 
@@ -15,15 +19,17 @@ public class EventManager implements Serializable {
 
     public HashMap<String, Event> events;
     private List<Room> rooms;
+    ReaderWriter RW;
     //private EventFactory eventFactory;
 
     /**
      * Constructs a new EventManager with an empty map of events
      * and an empty list of rooms.
      */
-    public EventManager(){
+    public EventManager(ReaderWriter RW){
         events = new HashMap<>();
         rooms =  new ArrayList<Room>();
+        this.RW = RW;
         //eventFactory = new EventFactory();
     }
 
@@ -497,4 +503,18 @@ public class EventManager implements Serializable {
     public int numberOfEvents() {
         return events.size();
     }
+
+
+    public void setAllEventsReadIn() throws IOException, ClassNotFoundException {
+        Object uncastedEvents = RW.readEvents();
+        HashMap<String, Event> events = (HashMap<String, Event>) uncastedEvents;
+        setAllEvents(events);
+    }
+
+    public void setRoomsReadIn() throws IOException, ClassNotFoundException {
+        Object uncastedRooms = RW.readRooms();
+        ArrayList<Room> rooms = (ArrayList<Room>) uncastedRooms;
+        setRooms(rooms);
+    }
+
 }
