@@ -36,7 +36,7 @@ public class MainPresenter {
     /**
      * Prints an error message when the user does not successfully specify if they are a new or returning user.
      */
-    public void displayNewOrReturningError(){
+    public void displayInvalidNumberError(){
         System.out.println("The input should be a nonnegative integer, please try again: ");
     }
 
@@ -276,7 +276,7 @@ public class MainPresenter {
                 if(input >= 0)
                     break;
             } catch (NumberFormatException e) {
-                displayNewOrReturningError();
+                displayInvalidNumberError();
             }
         } while(true);
 
