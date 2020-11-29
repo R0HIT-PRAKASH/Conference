@@ -10,6 +10,7 @@ import user.UserFactory;
 import user.UserManager;
 import user.attendee.AttendeeController;
 import user.speaker.Speaker;
+import request.RequestManager;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -25,6 +26,7 @@ public class OrganizerController extends AttendeeController {
     public EventManager eventManager;
     public MessageManager messageManager;
     public String username;
+    public RequestManager requestManager;
     UserFactory userFactory;
     OrganizerPresenter p;
 
@@ -35,8 +37,8 @@ public class OrganizerController extends AttendeeController {
      * @param messageManager Refers to the MessageManager object.
      * @param username Refers to the username of the organizer.
      */
-    public OrganizerController(UserManager userManager, EventManager eventManager, MessageManager messageManager, String username) {
-        super(userManager, eventManager, messageManager, username);
+    public OrganizerController(UserManager userManager, EventManager eventManager, MessageManager messageManager, String username, RequestManager requestManager) {
+        super(userManager, eventManager, messageManager, username, requestManager);
         p = new OrganizerPresenter();
         userFactory = new UserFactory();
     }

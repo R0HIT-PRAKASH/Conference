@@ -151,7 +151,7 @@ public class MainController {
         String type = this.userManager.getUserType(this.username);
         switch (type) {
             case "organizer": {
-                OrganizerController controller = new OrganizerController(userManager, eventManager, messageManager, username);
+                OrganizerController controller = new OrganizerController(userManager, eventManager, messageManager, username, requestManager);
                 controller.run();
                 break;
             }
