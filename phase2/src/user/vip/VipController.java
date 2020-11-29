@@ -5,6 +5,8 @@ import event.EventManager;
 import message.MessageManager;
 import user.UserFactory;
 import user.UserManager;
+import request.Request;
+import request.RequestManager;
 import user.attendee.AttendeeController;
 import user.attendee.AttendeePresenter;
 
@@ -19,10 +21,10 @@ public class VipController extends AttendeeController {
     UserFactory userFactory;
     AttendeePresenter p;
 
-    public VipController(UserManager userManager, EventManager eventManager, MessageManager messageManager, String username){
-        super(userManager, eventManager, messageManager, username);
-        p = new AttendeePresenter();
-        userFactory = new UserFactory();
+    public VipController(UserManager userManager, EventManager eventManager, MessageManager messageManager, String username, RequestManager requestManager){
+        super(userManager, eventManager, messageManager, username, requestManager);
+        this.p = new AttendeePresenter();
+        this.userFactory = new UserFactory();
     }
 
     private void determineInputSignUpEvent() {
