@@ -30,23 +30,16 @@ public class MainController {
      * and a String username.
      */
     public MainController() {
-        messageManager = new MessageManager();
-        userManager = new UserManager();
-        eventManager = new EventManager();
         RW = new ReaderWriter();
+        messageManager = new MessageManager(RW);
+        userManager = new UserManager(RW);
+        eventManager = new EventManager(RW);
         username = "";
         p = new MainPresenter();
         startingScratch = true;
     }
 
 
-    // Prompt them with the question - do you want to read in files?
-    // If yes, de serialize
-    // if no, then run the program with a clean slate so no de-serialize
-
-    // Should I even check first if the files exist? If they do, then prompt them?
-
-    // Check if the files even exist before even prompting the User to choose
     /**
      * This method declares three new files for users, messages, and events and returns 0, 1 or 2 based on which files
      * exist.
@@ -170,29 +163,38 @@ public class MainController {
             }
         }
 
-        RW.write(userManager.getUserMap());
-        RW.write(messageManager.getAllUserMessages());
-        RW.write(eventManager.getAllEvents());
-        RW.writeRoom(eventManager.getRooms());
+        RW.write(userManager.getUserMap(), "users");
+        RW.write(messageManager.getAllUserMessages(), "messages");
+        RW.write(eventManager.getAllEvents(), "events");
+        RW.writeList(eventManager.getRooms());
 
         p.displaySignedOut();
     }
 
     private void readInAllFiles(ReaderWriter RW, UserManager UM, MessageManager MM, EventManager EM) throws IOException, ClassNotFoundException {
-        UM.setUserMap(RW.readUsers("users"));
-        MM.setAllUserMessages(RW.readMessages("messages"));
-        EM.setAllEvents(RW.readEvents("events"));
-        EM.setRooms(RW.readRooms("rooms"));
+//        Object uncastedUsers = RW.readUsers();
+//        Object uncastedEvents = RW.readEvents();
+//        Object uncastedMessages = RW.readMessages();
+//        Object uncastedRooms = RW.readRooms();
+        UM.setUserMapReadIn();
+        MM.setAllUserMessagesReadIn();
+        EM.setAllEventsReadIn();
+        EM.setRoomsReadIn();
     }
 
     private void readInFiles(ReaderWriter RW, UserManager UM, MessageManager MM) throws IOException, ClassNotFoundException {
-        UM.setUserMap(RW.readUsers("users"));
-        MM.setAllUserMessages(RW.readMessages("messages"));
+
+        UM.setUserMapReadIn();
+        MM.setAllUserMessagesReadIn();
     }
 
     private void readInFiles(ReaderWriter RW, UserManager UM, MessageManager MM, EventManager EM) throws IOException, ClassNotFoundException {
-        UM.setUserMap(RW.readUsers("users"));
-        MM.setAllUserMessages(RW.readMessages("messages"));
-        EM.setRooms(RW.readRooms("rooms"));
+        UM.setUserMapReadIn();
+        MM.setAllUserMessagesReadIn();
+        EM.setRoomsReadIn();
     }
 }
+// Give RW to each use case
+// change where RW method is called
+//move it into the use case instead of controller call it
+//controller calls use case which the calls gateway

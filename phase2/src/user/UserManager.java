@@ -2,12 +2,14 @@ package user;
 
 import event.Event;
 import event.EventManager;
+import saver.ReaderWriter;
 import user.User;
 import user.attendee.Attendee;
 import user.organizer.Organizer;
 import user.speaker.Speaker;
 import user.vip.Vip;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -22,12 +24,15 @@ import java.util.Map;
 public class UserManager implements Serializable {
 
     private HashMap<String, User> userMap;
+    ReaderWriter RW;
 
     /**
      * Constructs a UserManager Object.
      */
-    public UserManager(){
+    public UserManager(ReaderWriter RW){
+
         userMap = new HashMap<>();
+        this.RW = RW;
     }
 
     /**
@@ -279,4 +284,19 @@ public class UserManager implements Serializable {
         Organizer copy = (Organizer)getUser(organizer);
         return copy.getOrganizingEvents();
     }
+
+    /**
+     * This method sets the map of users to the deserialized HashMap object containing usernames as keys
+     * and the corresponding Users as values.
+     * @throws IOException Refers to the exception that is raised when the program can't get input or output from users.
+     * @throws ClassNotFoundException Refers to the exception that is raised when the program can't find users.
+     */
+    public void setUserMapReadIn() throws IOException, ClassNotFoundException {
+        Object uncastedUsers = RW.readUsers();
+        HashMap<String, User> userHashMap = (HashMap<String, User>) uncastedUsers;
+        setUserMap(userHashMap);
+
+    }
+
+
 }

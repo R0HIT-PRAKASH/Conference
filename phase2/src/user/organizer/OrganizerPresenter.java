@@ -246,7 +246,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      * @return The username
      */
     public String displayEnterUsernamePrompt() {
-        System.out.print("Enter the Speaker's username or type 'q' to quit: ");
+        System.out.print("Enter the new user's username or type 'q' to quit: ");
         return scan.nextLine();
     }
 
@@ -288,8 +288,8 @@ public class OrganizerPresenter extends AttendeePresenter {
      * Prompts the Organizer to enter the name of the Speaker for the Speaker account they are creating.
      * @return The speaker
      */
-    public String displayEnterSpeakerNamePrompt() {
-        System.out.print("Enter the speaker name: ");
+    public String displayEnterUsersNamePrompt() {
+        System.out.print("Enter the user's name: ");
         return scan.nextLine();
     }
 
@@ -306,8 +306,8 @@ public class OrganizerPresenter extends AttendeePresenter {
      * Prompts the Organizer to enter the address of the Speaker for the Speaker account they are creating.
      * @return The address
      */
-    public String displayEnterSpeakerAddressPrompt() {
-        System.out.print("Enter the speaker's address: ");
+    public String displayEnterUserAddressPrompt() {
+        System.out.print("Enter the user's address: ");
         return scan.nextLine();
     }
 
@@ -324,8 +324,8 @@ public class OrganizerPresenter extends AttendeePresenter {
      * Prompts the Organizer to enter the email of the Speaker for the Speaker account they are creating.
      * @return The email
      */
-    public String displayEnterSpeakerEmailPrompt() {
-        System.out.print("Enter the speaker's email: ");
+    public String displayEnterUserEmailPrompt() {
+        System.out.print("Enter the user's email: ");
         return scan.nextLine();
     }
 
