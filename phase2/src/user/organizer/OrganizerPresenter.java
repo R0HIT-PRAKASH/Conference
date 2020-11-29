@@ -27,15 +27,13 @@ public class OrganizerPresenter extends AttendeePresenter {
      * Prints all the tasks which an Organizer can do.
      */
     public void displayOptions2() {
-        String add_req = "";
-        // TODO: add_req = "\n(22) Address Requests \n(23) View Addressed Request \n(24) View User Requests";
-        //  and change quit to 25
         System.out.println("(0) See Inbox\n(1) Send Message\n(2) Reply to Message\n(3) View Event List" +
                 "\n(4) View My Scheduled Events\n(5) Cancel Event Reservation\n(6) Sign up for Event" +
                 "\n(7) Add Event\n(8) Message All Attendees\n(9) Message Event Attendees" +
                 "\n(10) Message All Speakers\n(11) Cancel Event\n(12) Reschedule Event\n(13) Add New User" +
                 "\n(14) View Options" + "\n(15) Add Room \n(16) Modify an Event's capacity \n(17) View All Rooms \n(18) View Speakers\n(19) " +
-                "View Attendees\n(20) View Organizers\n(21) Display Conference Statistics\n(22) Quit");
+                "View Attendees\n(20) View Organizers\n(21) Display Conference Statistics\n(22) Address Requests " +
+                "\n(23) View Addressed Request \n(24) View User Requests\n(25) Quit");
     }
 
     /**

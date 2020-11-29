@@ -4,6 +4,7 @@ import event.Event;
 import event.EventManager;
 import message.Message;
 import message.MessageManager;
+import request.Request;
 import request.RequestManager;
 import room.Room;
 import user.User;
@@ -13,6 +14,7 @@ import user.attendee.AttendeeController;
 import user.speaker.Speaker;
 import request.RequestManager;
 
+import javax.print.DocFlavor;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.regex.Pattern;
@@ -47,9 +49,9 @@ public class OrganizerController extends AttendeeController {
     public void run(){
         p.displayOptions2();
         p.displayTaskInput();
-        final int END_CONDITION = 22;
+        final int END_CONDITION = 25;
         int input = p.nextInt();
-        while (input != END_CONDITION){ // 21 is ending condition
+        while (input != END_CONDITION){ // 25 is ending condition
             determineInput(input);
             input = p.nextInt();
         }
@@ -600,6 +602,16 @@ public class OrganizerController extends AttendeeController {
                 getStats();
                 break;
 
+            case 22: //address requests
+                break;
+
+            case 23: //view addressed requests
+                break;
+
+            case 24: //view user requests
+                getUserRequests(p.viewUserRequestPrompt());
+                break;
+
             default:
                 p.displayInvalidInputError();
                 break;
@@ -808,6 +820,11 @@ public class OrganizerController extends AttendeeController {
         p.displayNumberStats(stats);
         p.displayListStats(lists);
 
+    }
+
+    public void getUserRequests(String username){
+        List<Request> user_req = requestManager.getUserRequests(username);
+        p.displayUserRequests(user_req);
     }
 
 }
