@@ -525,11 +525,7 @@ public class OrganizerController extends AttendeeController {
                 Event eventToModify = eventManager.getEvent(eventNameToModify);
                 Room room1 = eventManager.getRoom(eventToModify.getRoomNumber());
                 // display new capacity prompt
-                p.displayEnterNewEventCapacityPrompt(room1.getCapacity());
-                int newCapacity = p.nextPositiveInt();
-                while (newCapacity > room1.getCapacity() || newCapacity < eventToModify.getAttendeeSet().size()) {
-                    p.displayModifyRoomCapacityError(room1.getCapacity(), eventToModify.getAttendeeSet().size());
-                    newCapacity = p.nextPositiveInt();}
+                int newCapacity = p.displayEnterNewEventCapacityPrompt(room1.getCapacity(), eventToModify.getAttendeeSet().size());
                 eventManager.changeEventCapacity(eventToModify, newCapacity);
                 break;
             // Here are the FUTURE events which you can modify:

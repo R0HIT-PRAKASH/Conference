@@ -677,9 +677,21 @@ public class OrganizerPresenter extends AttendeePresenter {
     /**
      * Displays the message that prompts the user to enter the new capacity of the event.
      * @param maxCapacity Refers to the capacity of the room which cannot be less than that of the event.
+     * @param minCapacity The minimum possible size
+     * @return  The number
      */
-    public void displayEnterNewEventCapacityPrompt(int maxCapacity){
-        System.out.println("Enter the NEW number of people that can attend the event: (it cannot be greater than the room's capacity which is " + maxCapacity);
+    public int displayEnterNewEventCapacityPrompt(int maxCapacity, int minCapacity){
+        System.out.println("The room this event is taking place in has a maximum capacity of " + maxCapacity +
+                ". Thus the new capacity must be greater than or equal to " + minCapacity + "; the number" +
+                " of users already attending the event. Please Enter the new number of people that can attend the event:");
+
+        int capac = nextPositiveInt();
+
+        while(capac > maxCapacity || capac < minCapacity) {
+            displayModifyRoomCapacityError(maxCapacity, minCapacity);
+            capac = nextPositiveInt();
+        }
+        return capac;
     }
 
     /**
