@@ -1,5 +1,7 @@
 package request;
 
+import user.UserManager;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,8 +60,8 @@ public class RequestManager {
      * @param status refers to the intended status of the request
      * @return returns if the status is valid (is 0, 1, or 2)
      */
-    public boolean checkIsValidStatus(int status){
-        return status == 0 || status == 1 || status == 2;
+    public boolean checkIsValidStatus(String status){
+        return status.equals("pending") || status.equals("addressed") || status.equals("rejected");
     }
 
     /**
@@ -67,7 +69,7 @@ public class RequestManager {
      * @param request refers to the request being changed
      * @param status refers to the new status of the request
      */
-    public void updateRequestStatus(Request request, int status){
+    public void updateRequestStatus(Request request, String status){
         String user = request.getRequesterUsername();
         List<Request> userRequest = this.allRequests.get(user);
         for (Request r: userRequest){
@@ -75,16 +77,9 @@ public class RequestManager {
                 r.editStatus(status);
             }
         }
-        String key;
-        if (status == 1){
-            key = "addressed";
-        }
-        else{
-            key = "rejected";
-        }
         this.requestStatus.remove("pending", request);
         request.editStatus(status);
-        this.requestStatus.get(key).add(request);
+        this.requestStatus.get(status).add(request);
     }
 
     /**
@@ -108,18 +103,8 @@ public class RequestManager {
      * @param status refers to the status being wanted
      * @return refers to a list containing all requests with indicated status
      */
-    public List<Request> getStatusRequests(int status){
-        String s;
-        if (status == 0){
-            s = "pending";
-        }
-        else if (status == 1){
-            s = "addressed";
-        }
-        else{
-            s = "rejected";
-        }
-        return this.allRequests.get(s);
+    public List<Request> getStatusRequests(String status){
+        return this.allRequests.get(status);
     }
 
     /**
