@@ -279,15 +279,12 @@ public class EventManager implements Serializable {
 
 
     /**
+     * Checks to see if the date is after the current date.
      * @param time Refers to the time that you want to see if it is after the current time.
      * @return Returns true if the time is after the current time, otherwise returns false.
      */
     public boolean checkTimeIsAfterNow(LocalDateTime time){
-        LocalDateTime currentTime = LocalDateTime.now();
-
-        int compare = time.compareTo(currentTime);
-
-        return compare < 0;
+        return time.isAfter(LocalDateTime.now());
     }
 
     /**
