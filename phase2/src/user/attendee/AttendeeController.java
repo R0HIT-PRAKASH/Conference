@@ -18,11 +18,11 @@ import java.util.List;
  */
 public class AttendeeController{
 
-    UserManager userManager;
-    EventManager eventManager;
-    MessageManager messageManager;
-    RequestManager requestManager;
-    String username;
+    public UserManager userManager;
+    public EventManager eventManager;
+    public MessageManager messageManager;
+    public RequestManager requestManager;
+    public String username;
     AttendeePresenter p;
 
     /**

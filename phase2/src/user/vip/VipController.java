@@ -14,10 +14,6 @@ import java.util.List;
 
 public class VipController extends AttendeeController {
 
-    public UserManager userManager;
-    public EventManager eventManager;
-    public MessageManager messageManager;
-    public String username;
     UserFactory userFactory;
     AttendeePresenter p;
 

@@ -4,6 +4,7 @@ import event.Event;
 import event.EventManager;
 import message.Message;
 import message.MessageManager;
+import request.RequestManager;
 import room.Room;
 import user.User;
 import user.UserFactory;
@@ -22,11 +23,6 @@ import java.util.stream.Collectors;
  */
 public class OrganizerController extends AttendeeController {
 
-    public UserManager userManager;
-    public EventManager eventManager;
-    public MessageManager messageManager;
-    public String username;
-    public RequestManager requestManager;
     UserFactory userFactory;
     OrganizerPresenter p;
 
@@ -228,6 +224,8 @@ public class OrganizerController extends AttendeeController {
                 if(duration == -1){
                     break;
                 }
+
+
 
                 String speaker = p.displayEnterSpeakerPrompt();
 
