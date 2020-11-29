@@ -62,6 +62,10 @@ public class Attendee extends User {
     public List<Request> getRequestsMade(){
         return this.requestsMade;
     }
+
+    public void addRequest(Request request){
+        requestsMade.add(request);
+    }
 }
 
 
