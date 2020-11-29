@@ -786,7 +786,8 @@ public class OrganizerPresenter extends AttendeePresenter {
         return time;
     }
 
-    public String displayRequestDecisionPrompt(){
+    public String displayRequestDecisionPrompt(Request request){
+        System.out.println(request.getContent());
         System.out.println("Type 'addressed' to mark this request as addressed, or 'rejected' to mark it as " +
                 "rejected.");
         return scan.nextLine();

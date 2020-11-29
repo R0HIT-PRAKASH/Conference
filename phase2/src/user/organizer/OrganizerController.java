@@ -603,6 +603,22 @@ public class OrganizerController extends AttendeeController {
                 break;
 
             case 22: //address requests
+                int to_change = getRequestToDecide();
+                Request update = requestManager.getStatusRequests("pending").get(to_change - 1);
+                String decision = p.displayRequestDecisionPrompt(update);
+                boolean valid = requestManager.checkIsValidStatus(decision);
+                while(!valid){
+                    p.requestDecisionInvalid();
+                    decision = p.displayRequestDecisionPrompt(update);
+                    valid = requestManager.checkIsValidStatus(decision);
+                }
+                requestManager.updateRequestStatus(update, decision);
+                if(decision.equals("addressed")){
+                    p.successfullyAddressedRequest();
+                }
+                else{
+                    p.successfullyRejectedRequest();
+                }
                 break;
 
             case 23: //view addressed requests
@@ -820,6 +836,12 @@ public class OrganizerController extends AttendeeController {
         p.displayNumberStats(stats);
         p.displayListStats(lists);
 
+    }
+
+    public int getRequestToDecide(){
+        List<Request> pending = requestManager.getStatusRequests("pending");
+        p.displayPendingRequests(pending);
+        return p.viewRequestPrompt();
     }
 
     public void getUserRequests(String username){
