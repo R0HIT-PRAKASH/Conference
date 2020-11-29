@@ -1,6 +1,7 @@
 package main;
 
 import message.MessageManager;
+import request.RequestManager;
 import user.User;
 import user.UserManager;
 import user.UserFactory;
@@ -14,6 +15,7 @@ public class LoginController {
 
     private UserManager userManager;
     private MessageManager messageManager;
+    private RequestManager requestManager;
     UserFactory userFactory;
     MainPresenter p;
 
@@ -24,9 +26,10 @@ public class LoginController {
      * @param value Whether or not to start from scratch
      * @return String username (of the user who was able to log in)
      */
-    public String login(UserManager userManager, MessageManager messageManager, int value){
+    public String login(UserManager userManager, MessageManager messageManager, int value, RequestManager requestManager){
         this.userManager = userManager;
         this.messageManager = messageManager;
+        this.requestManager = requestManager;
         p = new MainPresenter();
         userFactory = new UserFactory();
         String username = "";
@@ -106,6 +109,7 @@ public class LoginController {
         User newUser = userFactory.createNewUser(name, address, email, username, password, type);
         userManager.addUser(newUser);
         messageManager.addUserInbox(username);
+        requestManager.addUserRequests(username);
         return username;
     }
 

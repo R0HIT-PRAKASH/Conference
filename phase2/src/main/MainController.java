@@ -140,10 +140,10 @@ public class MainController {
     public void run(int value) {
         LoginController log = new LoginController();
         if (startingScratch){
-            this.username = log.login(userManager, messageManager, 3);
+            this.username = log.login(userManager, messageManager, 3, requestManager);
         }
         else {
-            this.username = log.login(userManager, messageManager, value);
+            this.username = log.login(userManager, messageManager, value, requestManager);
         }
         if (username.equals("q")){
             return;
