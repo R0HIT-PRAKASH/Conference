@@ -7,7 +7,7 @@ package request;
 public class Request {
     private String content; //limited to 200 characters
     private String requesterUsername;
-    private int requestStatus; //requestStatus must be either 0, 1, or 2
+    private String requestStatus;
 
     /**
      * This method constructs a Request object
@@ -17,7 +17,7 @@ public class Request {
     public Request(String content, String requesterUsername){
         this.content = content;
         this.requesterUsername = requesterUsername;
-        this.requestStatus = 0;
+        this.requestStatus = "pending";
     }
 
     // Getter Methods
@@ -41,7 +41,7 @@ public class Request {
      * Gets the status of the request
      * @return Returns the int status of the request (0 = pending, 1 = addressed, 2 = rejected)
      */
-    public int getRequestStatus(){
+    public String getRequestStatus(){
         return this.requestStatus;
     }
     //Setter Methods
@@ -49,7 +49,7 @@ public class Request {
      * Sets the request status of the request
      * @param newStatus refers to the new Status of the request
      */
-    public void editStatus(int newStatus){
+    public void editStatus(String newStatus){
         this.requestStatus = newStatus;
     }
 
