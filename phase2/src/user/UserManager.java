@@ -64,36 +64,18 @@ public class UserManager implements Serializable {
         return userMap;
     }
 
+
     /**
      * This method adds a new user to userMap if it is not already a user.
-     * @param name This parameter refers to the name of the user.
-     * @param address This parameter refers to the address of the user.
-     * @param email This parameter refers to the email of the user.
-     * @param username This parameter refers to the username of the user.
-     * @param password This parameter refers to the password of the user.
-     * @param usertype This parameter refers to the type of user this person is.
+     * @param newUser This parameter refers to the User object representing a potential new User.
      * @return Returns true if the user was added to userMap and false otherwise.
      */
-    public boolean addUser(String name, String address, String email, String username, String password, String usertype){
-        if(checkCredentials(username)){
+    public boolean addUser(User newUser){
+        if(checkCredentials(newUser.getUsername())){
             return false;
         }
 
-        switch (usertype.toLowerCase()) {
-            case "organizer":
-                userMap.put(username, new Organizer(name, address, email, username, password));
-                break;
-            case "speaker":
-                userMap.put(username, new Speaker(name, address, email, username, password));
-                break;
-            case "vip":
-                userMap.put(username, new Vip(name, address, email, username, password));
-                break;
-            default:
-                userMap.put(username, new Attendee(name, address, email, username, password));
-                break;
-        }
-
+        userMap.put(newUser.getUsername(), newUser);
         return true;
     }
 
