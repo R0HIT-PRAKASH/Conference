@@ -1,9 +1,11 @@
 package event;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
 import room.Room;
+import saver.ReaderWriter;
 import user.User;
 import user.speaker.Speaker;
 
@@ -16,15 +18,17 @@ public class EventManager implements Serializable {
     public HashMap<String, Event> events;
     private List<Room> rooms;
     private EventFactory eventFactory;
+    private ReaderWriter RW;
 
     /**
      * Constructs a new EventManager with an empty map of events
      * and an empty list of rooms.
      */
-    public EventManager(){
+    public EventManager(ReaderWriter RW){
         events = new HashMap<>();
         rooms =  new ArrayList<Room>();
         eventFactory = new EventFactory();
+        this.RW = RW;
     }
 
     /**
@@ -519,4 +523,30 @@ public class EventManager implements Serializable {
         }
         return false;
     }
+
+    /**
+     * This method sets the map of events to the deserialized HashMap object containing event names as keys
+     * and the corresponding Events as values.
+     * @throws IOException Refers to the exception that is raised when the program can't get input or output from users.
+     * @throws ClassNotFoundException Refers to the exception that is raised when the program can't find users.
+     */
+
+    public void setAllEventsReadIn() throws IOException, ClassNotFoundException {
+        Object uncastedEvents = RW.readEvents();
+        HashMap<String, Event> events = (HashMap<String, Event>) uncastedEvents;
+        setAllEvents(events);
+    }
+
+    /**
+     * This method sets the list of rooms to the deserialized ArrayList object containing the rooms.
+     * @throws IOException Refers to the exception that is raised when the program can't get input or output from users.
+     * @throws ClassNotFoundException Refers to the exception that is raised when the program can't find users.
+     */
+
+    public void setRoomsReadIn() throws IOException, ClassNotFoundException {
+        Object uncastedRooms = RW.readRooms();
+        ArrayList<Room> rooms = (ArrayList<Room>) uncastedRooms;
+        setRooms(rooms);
+    }
+
 }
