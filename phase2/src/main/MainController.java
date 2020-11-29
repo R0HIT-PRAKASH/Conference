@@ -8,6 +8,7 @@ import user.UserManager;
 import user.attendee.AttendeeController;
 import user.organizer.OrganizerController;
 import user.speaker.SpeakerController;
+import user.vip.VipController;
 
 import java.io.File;
 import java.io.IOException;
@@ -161,6 +162,11 @@ public class MainController {
             }
             case "speaker": {
                 SpeakerController controller = new SpeakerController(userManager, eventManager, messageManager, username, requestManager);
+                controller.run();
+                break;
+            }
+            case "vip":{
+                VipController controller = new VipController(userManager, eventManager, messageManager, username, requestManager);
                 controller.run();
                 break;
             }
