@@ -2,6 +2,7 @@ package main;
 
 import event.EventManager;
 import message.MessageManager;
+import request.RequestManager;
 import saver.ReaderWriter;
 import user.UserManager;
 import user.attendee.AttendeeController;
@@ -20,6 +21,7 @@ public class MainController {
     protected MessageManager messageManager;
     protected UserManager userManager;
     protected EventManager eventManager;
+    protected RequestManager requestManager;
     protected String username;
     protected ReaderWriter RW;
     MainPresenter p;
@@ -36,6 +38,7 @@ public class MainController {
         eventManager = new EventManager(RW);
         username = "";
         p = new MainPresenter();
+        requestManager = new RequestManager();
         startingScratch = true;
     }
 
@@ -157,7 +160,7 @@ public class MainController {
                 break;
             }
             case "speaker": {
-                SpeakerController controller = new SpeakerController(userManager, eventManager, messageManager, username);
+                SpeakerController controller = new SpeakerController(userManager, eventManager, messageManager, username, requestManager);
                 controller.run();
                 break;
             }
