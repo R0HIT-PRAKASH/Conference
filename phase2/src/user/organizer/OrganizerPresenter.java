@@ -67,7 +67,7 @@ public class OrganizerPresenter extends AttendeePresenter {
 
     /**
      * Prompts the Organizer to enter the name of the Speaker for the Event they want to create.
-     * @return The speaker username AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+     * @return The speaker username
      */
     public String askNewSpeakerPrompt() {
         System.out.print("Enter a new speaker? (Y/N): ");
@@ -252,6 +252,104 @@ public class OrganizerPresenter extends AttendeePresenter {
     }
 
     /**
+     * Prompts the Organizer to enter the username of the Speaker account they want to add to the conference
+     * @return The username
+     */
+    public String displayEnterUsernamePrompt() {
+        System.out.print("Enter the Speaker's username or type 'q' to quit: ");
+        return scan.nextLine();
+    }
+
+    /**
+     * Prints an error message that notifies the Organizer that the Speaker account username they tried to add was already taken.
+     */
+    public String displayRepeatUsernameError() {
+        System.out.print("That username is already taken, please enter another one: ");
+        return scan.nextLine();
+    }
+
+    /**
+     * Prints an error message which notifies the Organizer that the Speaker account they are trying to create needs a username of at least 3 characters.
+     * @return The username
+     */
+    public String displayUsernameLengthError() {
+        System.out.print("Error, username must be at least 3 characters. please enter another one: ");
+        return scan.nextLine();
+    }
+
+    /**
+     * Prompts the Organizer to enter the password for the Speaker account they are creating.
+     * @return The Password
+     */
+    public String displayEnterPasswordPrompt() {
+        System.out.print("Enter Password: ");
+        return scan.nextLine();
+    }
+
+    /**
+     * Prints an error message notifying the Organizer that the password for the Speaker account must be at least three characters.
+     * @return The password
+     */
+    public String displayPasswordLengthError() {
+        System.out.print("Error, password must be at least 3 characters.\nPlease enter again: ");
+        return scan.nextLine();
+    }
+
+    /**
+     * Prompts the Organizer to enter the name of the Speaker for the Speaker account they are creating.
+     * @return The speaker
+     */
+    public String displayEnterSpeakerNamePrompt() {
+        System.out.print("Enter the speaker name: ");
+        return scan.nextLine();
+    }
+
+    /**
+     * Prints an error message that notifies the Organizer that a Speaker must have a name of at least 2 characters.
+     * @return The name
+     */
+    public String displaySpeakerNameError() {
+        System.out.print("Error, name must be at least 2 characters.\nPlease enter again: ");
+        return scan.nextLine();
+    }
+
+    /**
+     * Prompts the Organizer to enter the address of the Speaker for the Speaker account they are creating.
+     * @return The address
+     */
+    public String displayEnterSpeakerAddressPrompt() {
+        System.out.print("Enter the speaker's address: ");
+        return scan.nextLine();
+    }
+
+    /**
+     * Prints an error message notifying an Organizer that the address of a Speaker must be at least six characters.
+     * @return The address
+     */
+    public String displayAddressLengthError() {
+        System.out.print("Error, address must be at least 6 characters.\nPlease enter again: ");
+        return scan.nextLine();
+    }
+
+    /**
+     * Prompts the Organizer to enter the email of the Speaker for the Speaker account they are creating.
+     * @return The email
+     */
+    public String displayEnterSpeakerEmailPrompt() {
+        System.out.print("Enter the speaker's email: ");
+        return scan.nextLine();
+    }
+
+    /**
+     * Prints an error message notifying the Organizer that the email address of the Speaker does not match specific requirements.
+     * @return The email
+     */
+    public String displayInvalidEmail() {
+        System.out.print("The email is not up to RFC 5322 standards. Try another: ");
+        return scan.nextLine();
+    }
+
+    /**
      * Prompts the Organizer to enter the number of the Room they would like to create.
      */
     public int displayRoomCreationPrompt() {
@@ -408,7 +506,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      */
 
     public int displayDurationPrompt() {
-        System.out.println("How long would you like the event to last(in minutes)? You can enter -1 to quit.");
+        System.out.println("How long would you like the event to last(in minutes)? You can enter 0 to quit.");
         return nextInt();
     }
 
@@ -417,7 +515,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      * Displays the message that prompts the user to enter the number of computers in the room.
      */
     public int displayComputersPrompt() {
-        System.out.println("How many computers? Enter -1 to quit.");
+        System.out.println("How many computers? Enter 0 to quit.");
         return nextInt();
     }
 
@@ -451,7 +549,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      * Displays the message that prompts the user to enter the number of chairs in the room.
      */
     public int displayChairsPrompt() {
-        System.out.println("How many chairs? Enter -1 to quit.");
+        System.out.println("How many chairs? Enter 0 to quit.");
         return nextInt();
     }
 
@@ -459,7 +557,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      * Displays the message that prompts the user to enter the number of tables in the room.
      */
     public int displayTablesPrompt() {
-        System.out.println("How many tables? Enter -1 to quit.");
+        System.out.println("How many tables? Enter 0 to quit.");
         return nextInt();
     }
 

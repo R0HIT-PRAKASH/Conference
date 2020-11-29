@@ -14,6 +14,7 @@ import user.speaker.Speaker;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -451,18 +452,18 @@ public class OrganizerController extends AttendeeController {
             case 15:
 
                 int roomNumber = p.displayRoomCreationPrompt();
-                if (roomNumber == -1) {
+                if (roomNumber == 0) {
                     break;
                 }
                 int capac = p.displayRoomCapacityPrompt();
 
-                if(capac == -1){
+                if(capac == 0){
                     break;
                 }
 
                 int computers = p.displayComputersPrompt();
 
-                if(computers == -1){
+                if(computers == 0){
                     break;
                 }
 
@@ -479,13 +480,13 @@ public class OrganizerController extends AttendeeController {
 
                 int chairs = p.displayChairsPrompt();
 
-                if(chairs == -1){
+                if(chairs == 0){
                     break;
                 }
 
                 int tables = p.displayTablesPrompt();
 
-                if(tables == -1){
+                if(tables == 0){
                     break;
                 }
 
@@ -671,18 +672,39 @@ public class OrganizerController extends AttendeeController {
 
     private void makeUser(String usertype) {
         String username = p.displayEnterUsernamePrompt();
+        while(this.userManager.checkCredentials(username) || (username.length() < 3 && username.equalsIgnoreCase("q"))){
+            if (username.equalsIgnoreCase("q")) {
+                break;
+            } else if (this.userManager.checkCredentials(username)) {
+                username = p.displayRepeatUsernameError();
+            }
+            else if (username.length() < 3) {
+                username = p.displayUsernameLengthError();
+            }
+
+        }
         if (username.equalsIgnoreCase("q")) {
             return;
         }
-
-        while(this.userManager.checkCredentials(username)){
-                p.displayRepeatUsernameError();
-        }
-
         String password = p.displayEnterPasswordPrompt();
-        String name = p.displayEnterNamePrompt();
-        String address = p.displayEnterAddressPrompt();
-        String email = p.displayEnterEmailPrompt();
+
+        while(password.length() < 3){
+            password = p.displayPasswordLengthError();
+        }
+        String name = p.displayEnterSpeakerNamePrompt();
+        while(name.length() < 2) {
+            name = p.displaySpeakerNameError();
+        }
+        String address = p.displayEnterSpeakerAddressPrompt();
+
+        while(address.length() < 6) {
+            address = p.displayAddressLengthError();
+        }
+        String email = p.displayEnterSpeakerEmailPrompt();
+        Pattern email_pattern = Pattern.compile("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");
+        while(!email_pattern.matcher(email).matches()){
+            email = p.displayInvalidEmail();
+        }
         User newUser = userFactory.createNewUser(name, address, email, username, password, usertype);
         userManager.addUser(newUser);
         messageManager.addUserInbox(username);
