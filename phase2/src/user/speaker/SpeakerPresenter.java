@@ -24,8 +24,8 @@ public class SpeakerPresenter extends UserPresenter {
      */
     public void displayOptions3(){
         System.out.println("(0) See Inbox \n(1) View My Events \n(2) Message Event Attendees " +
-                "\n(3) Reply to Attendee \n(4) Message Specific Attendee \n(5) Options \n (6) View My Requests" +
-                "\n (7) Make a Request \n (8) End");
+                "\n(3) Reply to Attendee \n(4) Message Specific Attendee \n(5) Options \n(6) View My Requests" +
+                "\n(7) Make a Request \n(8) End");
     }
 
 
