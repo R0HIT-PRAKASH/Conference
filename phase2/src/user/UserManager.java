@@ -285,7 +285,12 @@ public class UserManager implements Serializable {
         return copy.getOrganizingEvents();
     }
 
-
+    /**
+     * This method sets the map of users to the deserialized HashMap object containing usernames as keys
+     * and the corresponding Users as values.
+     * @throws IOException Refers to the exception that is raised when the program can't get input or output from users.
+     * @throws ClassNotFoundException Refers to the exception that is raised when the program can't find users.
+     */
     public void setUserMapReadIn() throws IOException, ClassNotFoundException {
         Object uncastedUsers = RW.readUsers();
         HashMap<String, User> userHashMap = (HashMap<String, User>) uncastedUsers;

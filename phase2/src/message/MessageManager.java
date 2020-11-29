@@ -142,6 +142,12 @@ public class MessageManager implements java.io.Serializable {
         this.allUserMessages.put(username, new ArrayList<Message>());
 }
 
+    /**
+     * This method sets the map of all messages to the deserialized HashMap object containing usernames as keys
+     * and the corresponding user's messages received as values.
+     * @throws IOException Refers to the exception that is raised when the program can't get input or output from users.
+     * @throws ClassNotFoundException Refers to the exception that is raised when the program can't find users.
+     */
     public void setAllUserMessagesReadIn() throws IOException, ClassNotFoundException {
         Object uncastedMessages = RW.readMessages();
         HashMap<String, List<Message>> allUserMessages = (HashMap<String, List<Message>>) uncastedMessages;

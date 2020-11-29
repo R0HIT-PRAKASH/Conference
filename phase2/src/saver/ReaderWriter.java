@@ -63,11 +63,16 @@ public class ReaderWriter {
         }
     }
 
+    /**
+     * Reads the serialized Object from the users.ser file.
+     * @return returns the Object read from the users.ser file.
+     * @throws IOException Refers to the exception that is raised when the program can't get input or output from users.
+     * @throws ClassNotFoundException Refers to the exception that is raised when the program can't find users.
+     */
 
     public Object readUsers() throws IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream("users.ser");
         ObjectInputStream ois = new ObjectInputStream(fis);
-
         Object tempObj = ois.readObject();
         ois.close();
         fis.close();
@@ -75,11 +80,17 @@ public class ReaderWriter {
         // cast this in the main controller
         // cast occurs in use case layer is ideal - create a method in the corresponding manager
     }
+
+    /**
+     * Reads the serialized Object from the events.ser file.
+     * @return returns the Object read from the events.ser file.
+     * @throws IOException Refers to the exception that is raised when the program can't get input or output from events.
+     * @throws ClassNotFoundException Refers to the exception that is raised when the program can't find events.
+     */
 
     public Object readEvents() throws IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream("events.ser");
         ObjectInputStream ois = new ObjectInputStream(fis);
-
         Object tempObj = ois.readObject();
         ois.close();
         fis.close();
@@ -87,11 +98,17 @@ public class ReaderWriter {
         // cast this in the main controller
         // cast occurs in use case layer is ideal - create a method in the corresponding manager
     }
+
+    /**
+     * Reads the serialized Object from the messages.ser file.
+     * @return returns the Object read from the messages.ser file.
+     * @throws IOException Refers to the exception that is raised when the program can't get input or output from messages.
+     * @throws ClassNotFoundException Refers to the exception that is raised when the program can't find messages.
+     */
 
     public Object readMessages() throws IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream("messages.ser");
         ObjectInputStream ois = new ObjectInputStream(fis);
-
         Object tempObj = ois.readObject();
         ois.close();
         fis.close();
@@ -100,6 +117,12 @@ public class ReaderWriter {
         // cast occurs in use case layer is ideal - create a method in the corresponding manager
     }
 
+     /**
+     * Reads the serialized Object from the rooms.ser file.
+     * @return returns the Object read from the rooms.ser file.
+     * @throws IOException Refers to the exception that is raised when the program can't get input or outputs from rooms.
+     * @throws ClassNotFoundException Refers to the exception that is raised when the program can't find rooms.
+     */
     public Object readRooms() throws IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream("rooms.ser");
         ObjectInputStream ois = new ObjectInputStream(fis);
@@ -111,79 +134,4 @@ public class ReaderWriter {
         // cast this in the main controller
         // cast occurs in use case layer is ideal - create a method in the corresponding manager
     }
-
-
-
-    /**
-     * Reads the users.ser file
-     * @return returns the deserialized HashMap object containing usernames as keys and the corresponding
-     * Users as values
-     * @throws IOException Refers to the exception that is raised when the program can't get input or output from users.
-     * @throws ClassNotFoundException Refers to the exception that is raised when the program can't find users.
-     */
-//    public HashMap<String, User> readUsers() throws IOException, ClassNotFoundException {
-//        FileInputStream fis = new FileInputStream("users.ser");
-//        ObjectInputStream ois = new ObjectInputStream(fis);
-//
-//        Object tempObj = ois.readObject();
-//        ois.close();
-//        fis.close();
-//        // return tempObj
-//        // cast this in the main controller
-//        // cast occurs in use case layer is ideal - create a method in the corresponding manager
-//
-//        HashMap<String, User> userHashMap = (HashMap<String, User>) ois.readObject();
-//        ois.close();
-//        fis.close();
-//        return userHashMap;
-//    }
-
-    /**
-     * Reads the messages.ser file
-     * @return returns the deserialized HashMap object containing usernames as keys and the corresponding
-     * user's messages received as values.
-     * @throws IOException Refers to the exception that is raised when the program can't get input or output from messages.
-     * @throws ClassNotFoundException Refers to the exception that is raised when the program can't find messages.
-     */
-//    public HashMap<String, List<Message>> readMessages() throws IOException, ClassNotFoundException {
-//        FileInputStream fis = new FileInputStream("messages.ser");
-//        ObjectInputStream ois = new ObjectInputStream(fis);
-//        HashMap<String, List<Message>> allUserMessages = (HashMap<String, List<Message>>) ois.readObject();
-//        ois.close();
-//        fis.close();
-//        return allUserMessages;
-//    }
-//
-//    /**
-//     * Reads the events.ser file
-//     * @return returns the deserialized HashMap object containing event names as keys and the corresponding
-//     * Events as values
-//     * @throws IOException Refers to the exception that is raised when the program can't get input or output from events.
-//     * @throws ClassNotFoundException Refers to the exception that is raised when the program can't find events.
-//     */
-//    public HashMap<String, Event> readEvents() throws IOException, ClassNotFoundException {
-//        FileInputStream fis = new FileInputStream("events.ser");
-//        ObjectInputStream ois = new ObjectInputStream(fis);
-//        HashMap<String, Event> events = (HashMap<String, Event>) ois.readObject();
-//        ois.close();
-//        fis.close();
-//        return events;
-//
-//        // I think I can make all these readhashmaps into one method
-//    }
-//
-//    /**
-//     * Reads the rooms.ser file
-//     * @return returns the deserialized ArrayList object containing the rooms
-//     * @throws IOException Refers to the exception that is raised when the program can't get input or outputs from rooms.
-//     * @throws ClassNotFoundException Refers to the exception that is raised when the program can't find rooms.
-//     */
-//    public ArrayList<Room> readRooms() throws IOException, ClassNotFoundException {
-//        FileInputStream fis = new FileInputStream("rooms.ser");
-//        ObjectInputStream ois = new ObjectInputStream(fis);
-//        ArrayList<Room> rooms = (ArrayList<Room>) ois.readObject();
-//        ois.close();
-//        fis.close();
-//        return rooms;
-//    }
 }
