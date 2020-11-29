@@ -120,25 +120,16 @@ public class UserManager implements Serializable {
      * @return Returns the list of events the user will be speaking at if they are a speaker. Returns null otherwise.
      */
     public List<String> getSpeakingEvents(String username){
-        if(userMap.get(username) == null || !userMap.get(username).getUserType().equals("speaker")){
-            return null;
-        }
         return ((Speaker) userMap.get(username)).getSpeakingEvents();
-
     }
 
     /**
      * Adds an Event name to a speaker's list of speaking events.
      * @param username The String username of the speaker of the event
      * @param eventName The String name of the event.
-     * @return True if the event is added to the speaker's list of speaking events.
      */
-    public boolean addSpeakingEvent(String username, String eventName) {
-        if (userMap.get(username).getUserType().equals("speaker")) {
-            ((Speaker) userMap.get(username)).addSpeakingEvent(eventName);
-            return true;
-        }
-        return false;
+    public void addSpeakingEvent(String username, String eventName) {
+        ((Speaker) userMap.get(username)).addSpeakingEvent(eventName);
     }
     /**
      * This method returns a list of all of the organizers in userMap.
