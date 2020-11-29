@@ -60,9 +60,6 @@ public class LoginController {
                 }
                 password = p.displayEnterPasswordPrompt();
 
-                while(password.length() < 3) {
-                    password = p.displayInvalidPasswordError();
-                }
                 while(!this.checkLoginInfo(username, password) && !password.equals("q")) {
                     password = p.displayRedoPasswordPrompt();
                     if(password.equals("q")){
@@ -91,57 +88,21 @@ public class LoginController {
         p.displayNewUserGreeting();
         String username = p.displayEnterUsernamePrompt();
 
-        while(this.userManager.checkCredentials(username) || username.length() < 3 || username.trim().isEmpty()){
+        while(this.userManager.checkCredentials(username)){
             if (this.userManager.checkCredentials(username)) {
                 username = p.displayUsernameTakenError();
-            }
-            else if (username.length() < 3) {
-                username = p.displayInvalidUsernameError();
-            }
-            else if (username.trim().isEmpty()) {
-                username = p.displayEmptyUsernameError();
             }
 
         }
 
         String password = p.displayEnterPasswordPrompt();
-
-        while(password.length() < 3){
-            password = p.displayInvalidPasswordError();
-
-        }
         String name = p.displayEnterNamePrompt();
-
-        while(name.length() < 2 || name.trim().isEmpty()){
-             if (name.length() < 2) {
-                name = p.displayInvalidNameError();
-            } else {
-                 name = p.displayEmptyNameError();
-             }
-        }
         String address = p.displayEnterAddressPrompt();
-
-        while(address.length() < 6 || address.trim().isEmpty()){
-             if (address.length() < 6) {
-                 address = p.displayInvalidAddressError();
-             } else {
-                 address = p.displayEmptyAddressError();
-             }
-        }
         String email = p.displayEnterEmailPrompt();
 
-        Pattern email_pattern = Pattern.compile("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");
-        while(!email_pattern.matcher(email).matches()){
-            email = p.displayInvalidEmailError();
-        }
         //Modify prompt to allow for VIP
         String type = p.displayEnterStatusPrompt();
 
-        while(!type.equalsIgnoreCase("organizer") && !type.equalsIgnoreCase("attendee") &&
-                !type.equalsIgnoreCase("speaker") && !type.equalsIgnoreCase("vip")) {
-            type = p.displayInvalidStatusError();
-
-        }
         User newUser = userFactory.createNewUser(name, address, email, username, password, type);
         userManager.addUser(newUser);
         messageManager.addUserInbox(username);

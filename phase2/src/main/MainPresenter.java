@@ -1,6 +1,7 @@
 package main;
 
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 /**
  * This class is the Presenter Class for the Main and Login Controllers.
@@ -9,8 +10,11 @@ import java.util.Scanner;
 public class MainPresenter {
 
     final Scanner scan;
+    final Pattern email_pattern;
     public MainPresenter() {
+
         scan = new Scanner(System.in);
+        email_pattern = Pattern.compile("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");
     }
 
     // Methods for the Login Controller --------------------------------------------------------------------------------
@@ -41,8 +45,14 @@ public class MainPresenter {
      * @return The username
      */
     public String displayEnterUsernamePrompt(){
+
         System.out.print("Enter Username: ");
-        return scan.nextLine();
+        String username = scan.nextLine();
+
+        while (username.length() < 3 || containsWhitespace(username)) {
+            username = displayInvalidUsernameError();
+        }
+        return username;
     }
 
     /**
@@ -59,8 +69,14 @@ public class MainPresenter {
      * @return The password
      */
     public String displayEnterPasswordPrompt(){
+
         System.out.print("Enter Password: ");
-        return scan.nextLine();
+        String password = scan.nextLine();
+
+        while (password.length() < 3 || containsWhitespace(password)) {
+            password = displayInvalidPasswordError();
+        }
+        return password;
     }
 
     /**
@@ -68,7 +84,7 @@ public class MainPresenter {
      * @return The password
      */
     public String displayInvalidPasswordError(){
-        System.out.print("Error, password must be at least 3 characters.\nPlease enter again: ");
+        System.out.print("Error, password must be at least 3 characters and cannot contain whitespace.\nPlease enter again: ");
         return scan.nextLine();
     }
 
@@ -102,17 +118,7 @@ public class MainPresenter {
      * @return The username
      */
     public String displayInvalidUsernameError(){
-        System.out.print("Error, username must be at least 3 characters. Please enter another one: ");
-        return scan.nextLine();
-    }
-
-    /**
-     * Prints an error message that the username cannot be entirely composed of space characters,
-     * asks user to enter another username.
-     * @return The username
-     */
-    public String displayEmptyUsernameError(){
-        System.out.print("Error, username cannot be composed entirely of space characters. Please enter another one: ");
+        System.out.print("Error, username must be at least 3 characters and cannot contain whitespace. Please enter another one: ");
         return scan.nextLine();
     }
 
@@ -121,8 +127,14 @@ public class MainPresenter {
      * @return The name
      */
     public String displayEnterNamePrompt(){
-        System.out.print("Enter your name: ");
-        return scan.nextLine();
+
+        System.out.print("Enter Your Name: ");
+        String name = scan.nextLine();
+
+        while (name.length() < 3 || name.trim().length() != name.length()) {
+            name = displayInvalidNameError();
+        }
+        return name;
     }
 
     /**
@@ -130,17 +142,7 @@ public class MainPresenter {
      * @return The name
      */
     public String displayInvalidNameError(){
-        System.out.print("Error, name must be at least 2 characters.\nPlease enter again: ");
-        return scan.nextLine();
-    }
-
-    /**
-     * Prints an error message that the name cannot be entirely composed of space characters,
-     * asks user to enter another username.
-     * @return The username
-     */
-    public String displayEmptyNameError(){
-        System.out.print("Error, name cannot be composed entirely of space characters. Please enter another one: ");
+        System.out.print("Error, name must be at least 3 characters and cannot start or end with whitespace.\nPlease enter again: ");
         return scan.nextLine();
     }
 
@@ -149,8 +151,14 @@ public class MainPresenter {
      * @return The address
      */
     public String displayEnterAddressPrompt(){
-        System.out.print("Enter your address: ");
-        return scan.nextLine();
+
+        System.out.print("Enter Your Address: ");
+        String address = scan.nextLine();
+
+        while (address.length() < 6 || address.trim().length() != address.length()) {
+            address = displayInvalidAddressError();
+        }
+        return address;
     }
 
     /**
@@ -158,17 +166,7 @@ public class MainPresenter {
      * @return The address
      */
     public String displayInvalidAddressError(){
-        System.out.print("Error, address must be at least 6 characters.\nPlease enter again: ");
-        return scan.nextLine();
-    }
-
-    /**
-     * Prints an error message that the address cannot be entirely composed of space characters,
-     * asks user to enter another username.
-     * @return The username
-     */
-    public String displayEmptyAddressError(){
-        System.out.print("Error, address cannot be composed entirely of space characters. Please enter another one: ");
+        System.out.print("Error, address must be at least 6 characters and cannot start or end with whitespace.\nPlease enter again: ");
         return scan.nextLine();
     }
 
@@ -177,8 +175,14 @@ public class MainPresenter {
      * @return The email
      */
     public String displayEnterEmailPrompt(){
-        System.out.print("Enter your Email: ");
-        return scan.nextLine();
+
+        System.out.print("Enter Your Email: ");
+        String email = scan.nextLine();
+
+        while (!email_pattern.matcher(email).matches()){
+            email = displayInvalidEmailError();
+        }
+        return email;
     }
 
     /**
@@ -195,8 +199,17 @@ public class MainPresenter {
      * @return The type
      */
     public String displayEnterStatusPrompt(){
+
         System.out.print("Enter your status in the conference. This can be \"organizer\", \"attendee\", \"VIP\" or \"speaker\": ");
-        return scan.nextLine();
+        String type = scan.nextLine();
+
+        while(!type.equalsIgnoreCase("organizer") && !type.equalsIgnoreCase("attendee") &&
+                !type.equalsIgnoreCase("speaker") && !type.equalsIgnoreCase("vip")) {
+            type = displayInvalidStatusError();
+
+        }
+
+        return type;
     }
 
     /**
@@ -204,7 +217,7 @@ public class MainPresenter {
      * @return The status
      */
     public String displayInvalidStatusError(){
-        System.out.print("That was an invalid input.\nPlease try again: ");
+        System.out.print("That was an invalid status.\nPlease try again: ");
         return scan.nextLine();
     }
 
@@ -269,6 +282,18 @@ public class MainPresenter {
         return input;
     }
 
+    private boolean containsWhitespace(String str) {
+        if (str == null || str.length() == 0) {
+            return false;
+        }
+        int strLen = str.length();
+        for (int i = 0; i < strLen; i++) {
+            if (Character.isWhitespace(str.charAt(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     // -----------------------------------------------------------------------------------------------------------------
 }
