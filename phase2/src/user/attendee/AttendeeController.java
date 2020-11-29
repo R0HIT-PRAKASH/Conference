@@ -7,7 +7,6 @@ import message.MessageManager;
 import request.Request;
 import request.RequestManager;
 import user.UserManager;
-import user.speaker.Speaker;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -49,10 +48,10 @@ public class AttendeeController{
         p.displayOptions();
         p.displayTaskInput();
         int input = 0;
-        input = p.nextInt();
+        input = p.nextPositiveInt();
         while (input != 8){ // 8 is ending condition
             determineInput(input);
-            input = p.nextInt();
+            input = p.nextPositiveInt();
         }
     }
 

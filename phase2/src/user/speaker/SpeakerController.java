@@ -6,7 +6,6 @@ import message.Message;
 import message.MessageManager;
 import request.Request;
 import request.RequestManager;
-import user.User;
 import user.UserManager;
 
 import java.util.ArrayList;
@@ -47,10 +46,10 @@ public class SpeakerController{
     public void run(){
         p.displayOptions3();
         p.displayTaskInput();
-        int input = p.nextInt();
+        int input = p.nextPositiveInt();
         while (input != 8){
             determineInput(input);
-            input = p.nextInt();
+            input = p.nextPositiveInt();
         }
     }
 
@@ -68,10 +67,10 @@ public class SpeakerController{
                 if (allEvents.size() == 0){
                     break;
                 }
-                int num = p.nextInt();
+                int num = p.nextPositiveInt();
 
                 while(num < 1 || num > allEvents.size()){
-                    num = p.nextInt();
+                    num = p.nextPositiveInt();
                     if (num == -1){
                         break;
                     }

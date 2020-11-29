@@ -5,8 +5,6 @@ import user.User;
 import user.UserManager;
 import user.UserFactory;
 
-import java.util.regex.Pattern;
-
 /**
  * A controller that deals with logging into the program.
  */
@@ -36,11 +34,11 @@ public class LoginController {
             return username;
         }
         p.displayNewOrReturningPrompt();
-        int input = p.nextInt();
+        int input = p.nextPositiveInt();
 
         String password;
         while(input != 1 && input != 2 ){
-            input = p.nextInt();
+            input = p.nextPositiveInt();
         }
         switch (input){
             case 1:
