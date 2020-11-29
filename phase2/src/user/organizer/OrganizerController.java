@@ -170,22 +170,24 @@ public class OrganizerController extends AttendeeController {
 
             case 7:
                 //Ask user what type of event they would like to create (Talk, Panel, Party).
-                //Depending on what type of event they chose, ask appropriate questions.
-                //Add these prompts in to a hashmap
-                // ex. [name: "abc", time: "2021-01-01", duration: "50", roomnumber: "201", capacity="50",
-                //      requiredComputers: "10", requiredProjector: false, requiredChairs: "30", requiredTables="20",
-                //      creators: ["asd", "asfsa"], vipEvent: false, speakers or speaker: ...]
-                //Call addEvent in eventManager and pass in type of event and hashmap.
+                //Depending on what type of event they chose, ask appropriate questions. (Same except for how we ask for
+                //the speakers, i.e one speaker for talk, multiple speakers for panel, no speaker for party).
+                //Call addEvent in eventManager and pass in type of event and other prompts.
                 //EventManager will then call eventFactory so eventFactory.getEvent("talk", hashmap)
                 //Then eventManager will add in the event into the list of events.
 
+                //Scanner scan = new Scanner(System.in);
+                //System.out.println("What kind of event would you like to create? A talk, panel, or party?");
+                //String eventType = scan.nextLine();
+
                 p.displayAddConferencePrompt();
                 LocalDateTime time = p.askTime();
-                while(eventManager.between9to5(time) || eventManager.checkTimeIsAfterNow(time)) {
-                    if (eventManager.between9to5(time)) {
+                System.out.println(time);
+                while(!eventManager.between9to5(time) || !eventManager.checkTimeIsAfterNow(time)) {
+                    if (!eventManager.between9to5(time)) {
                         p.displayInvalidHourError();
                         time = p.askTime();
-                    } else if (eventManager.checkTimeIsAfterNow(time)) {
+                    } else if (!eventManager.checkTimeIsAfterNow(time)) {
                         p.displayInvalidDateError();
                         time = p.askTime();
                     }
