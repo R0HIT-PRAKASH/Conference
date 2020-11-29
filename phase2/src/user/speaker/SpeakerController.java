@@ -50,7 +50,7 @@ public class SpeakerController{
         p.displayOptions3();
         p.displayTaskInput();
         int input = p.nextInt();
-        while (input != 6){
+        while (input != 8){
             determineInput(input);
             input = p.nextInt();
         }
