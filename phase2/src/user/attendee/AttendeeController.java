@@ -104,7 +104,8 @@ public class AttendeeController{
             return;
         }
         while (eventManager.getEvent(eventSignedUp) == null ||
-                !future.contains(eventManager.getEvent(eventSignedUp))){
+                !future.contains(eventManager.getEvent(eventSignedUp)) ||
+                eventManager.getEvent(eventSignedUp).getVipEvent()){    // Checks if the event is VIP exclusive and then prompts attendee that they cannot sign up for that event
             eventSignedUp = p.displayInvalidEventSignUp();
             if (eventSignedUp.equalsIgnoreCase("q")){
                 break;

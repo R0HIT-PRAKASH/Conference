@@ -5,6 +5,7 @@ import room.Room;
 import user.User;
 import user.attendee.AttendeePresenter;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -750,4 +751,37 @@ public class OrganizerPresenter extends AttendeePresenter {
         System.out.println("New user successfully created with the following details:\n" +
                 "Username: " + username + "| Password: " + password);
     }
+
+    protected LocalDateTime getTime() throws DateTimeException {
+        displayEnterYearPrompt();
+        int y = nextInt();
+        displayEnterMonthPrompt();
+        int m = nextInt();
+        displayEnterDayPrompt();
+        int d = nextInt();
+        displayEnterHourPrompt();
+        int h = nextInt();
+        displayEnterMinutePrompt();
+        int mi = nextInt();
+        return LocalDateTime.of(y, m, d, h, mi);
+    }
+
+    protected LocalDateTime askTime() {
+        LocalDateTime time = LocalDateTime.now();
+        do {
+            try {
+                time = getTime();
+                if(time.isBefore(LocalDateTime.now())){
+                    displayInvalidEventError();
+                }else{
+                    break;
+                }
+            } catch (DateTimeException d) {
+                displayDateError();
+            }
+        } while(true);
+
+        return time;
+    }
+
 }

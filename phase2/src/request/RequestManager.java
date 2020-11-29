@@ -6,15 +6,22 @@ import java.util.List;
 
 /**
  * The RequestManager class is responsible for handling request-related actions. allUserRequests is a map that maps
- * usernames to all of their request objects.
+ * usernames to all of their request objects. requestStatus is a map that maps request statuses to their request
+ * objects.
  */
 public class RequestManager {
     protected HashMap<String, List<Request>> allRequests;
+    protected HashMap<String, List<Request>> requestStatus;
     /**
-     * This constructs a RequestManager object with an empty allRequests.
+     * This constructs a RequestManager object with an empty allRequests, and an empty requestStatus that is given it's
+     * keys.
      */
     public RequestManager(){
         this.allRequests = new HashMap<String, List<Request>>();
+        this.requestStatus = new HashMap<String, List<Request>>();
+        this.requestStatus.put("pending", new ArrayList<Request>());
+        this.requestStatus.put("addressed", new ArrayList<Request>());
+        this.requestStatus.put("rejected", new ArrayList<Request>());
     }
 
     /**
@@ -34,6 +41,7 @@ public class RequestManager {
      */
     public void addRequest(String username, Request request){
         this.allRequests.get(username).add(request);
+        this.requestStatus.get("pending").add(request);
     }
 
     /**
@@ -55,11 +63,28 @@ public class RequestManager {
     }
 
     /**
-     * The method adds a new username and list of request objects to the map
-     * @param username refers to the username of the user.
+     * Updates the request status of a request in a hashmap
+     * @param request refers to the request being changed
+     * @param status refers to the new status of the request
      */
-    public void addUserRequests(String username){
-        this.allRequests.put(username, new ArrayList<Request>());
+    public void updateRequestStatus(Request request, int status){
+        String user = request.getRequesterUsername();
+        List<Request> userRequest = this.allRequests.get(user);
+        for (Request r: userRequest){
+            if(r.equals(request)){
+                r.editStatus(status);
+            }
+        }
+        String key;
+        if (status == 1){
+            key = "addressed";
+        }
+        else{
+            key = "rejected";
+        }
+        this.requestStatus.remove("pending", request);
+        request.editStatus(status);
+        this.requestStatus.get(key).add(request);
     }
 
     /**
@@ -70,6 +95,38 @@ public class RequestManager {
         return allRequests;
     }
 
+    /**
+     * The method adds a new username and list of request objects to the map
+     * @param username refers to the username of the user.
+     */
+    public void addUserRequests(String username){
+        this.allRequests.put(username, new ArrayList<Request>());
+    }
+
+    /**
+     * The method gets all requests with a status
+     * @param status refers to the status being wanted
+     * @return refers to a list containing all requests with indicated status
+     */
+    public List<Request> getStatusRequests(int status){
+        String s;
+        if (status == 0){
+            s = "pending";
+        }
+        else if (status == 1){
+            s = "addressed";
+        }
+        else{
+            s = "rejected";
+        }
+        return this.allRequests.get(s);
+    }
+
+    /**
+     * The method gets all requests associated with a user
+     * @param username refers to the username of the user who's requests we want to see
+     * @return refers to a list containing all of user's requests
+     */
     public List<Request> getUserRequests(String username){
         return this.allRequests.get(username);
     }

@@ -11,7 +11,6 @@ import user.UserManager;
 import user.attendee.AttendeeController;
 import user.speaker.Speaker;
 
-import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.regex.Pattern;
@@ -171,24 +170,26 @@ public class OrganizerController extends AttendeeController {
 
             case 7:
                 //Ask user what type of event they would like to create (Talk, Panel, Party).
-                //Depending on what type of event they chose, ask appropriate questions.
-                //Add these prompts in to a hashmap
-                // ex. [name: "abc", time: "2021-01-01", duration: "50", roomnumber: "201", capacity="50",
-                //      requiredComputers: "10", requiredProjector: false, requiredChairs: "30", requiredTables="20",
-                //      creators: ["asd", "asfsa"], vipEvent: false, speakers or speaker: ...]
-                //Call addEvent in eventManager and pass in type of event and hashmap.
+                //Depending on what type of event they chose, ask appropriate questions. (Same except for how we ask for
+                //the speakers, i.e one speaker for talk, multiple speakers for panel, no speaker for party).
+                //Call addEvent in eventManager and pass in type of event and other prompts.
                 //EventManager will then call eventFactory so eventFactory.getEvent("talk", hashmap)
                 //Then eventManager will add in the event into the list of events.
 
+                //Scanner scan = new Scanner(System.in);
+                //System.out.println("What kind of event would you like to create? A talk, panel, or party?");
+                //String eventType = scan.nextLine();
+
                 p.displayAddConferencePrompt();
-                LocalDateTime time = askTime();
-                while(eventManager.between9to5(time) || eventManager.checkTimeIsAfterNow(time)) {
-                    if (eventManager.between9to5(time)) {
+                LocalDateTime time = p.askTime();
+                System.out.println(time);
+                while(!eventManager.between9to5(time) || !eventManager.checkTimeIsAfterNow(time)) {
+                    if (!eventManager.between9to5(time)) {
                         p.displayInvalidHourError();
-                        time = askTime();
-                    } else if (eventManager.checkTimeIsAfterNow(time)) {
+                        time = p.askTime();
+                    } else if (!eventManager.checkTimeIsAfterNow(time)) {
                         p.displayInvalidDateError();
-                        time = askTime();
+                        time = p.askTime();
                     }
                 }
 
@@ -435,7 +436,7 @@ public class OrganizerController extends AttendeeController {
                 if (eventName1.equalsIgnoreCase("q")) {
                     break;
                 }
-                LocalDateTime newTime = askTime();
+                LocalDateTime newTime = p.askTime();
                 rescheduleEvent(eventName1, newTime);
                 break;
 
@@ -693,38 +694,6 @@ public class OrganizerController extends AttendeeController {
             }
         }
 
-    }
-
-    private LocalDateTime getTime() throws DateTimeException {
-        p.displayEnterYearPrompt();
-        int y = p.nextInt();
-        p.displayEnterMonthPrompt();
-        int m = p.nextInt();
-        p.displayEnterDayPrompt();
-        int d = p.nextInt();
-        p.displayEnterHourPrompt();
-        int h = p.nextInt();
-        p.displayEnterMinutePrompt();
-        int mi = p.nextInt();
-        return LocalDateTime.of(y, m, d, h, mi);
-    }
-
-    private LocalDateTime askTime() {
-        LocalDateTime time = LocalDateTime.now();
-        do {
-            try {
-                time = getTime();
-                if(time.isBefore(LocalDateTime.now())){
-                    p.displayInvalidEventError();
-                }else{
-                    break;
-                }
-            } catch (DateTimeException d) {
-                p.displayDateError();
-            }
-        } while(true);
-
-        return time;
     }
 
     private void makeUser(String usertype) {
