@@ -672,39 +672,18 @@ public class OrganizerController extends AttendeeController {
 
     private void makeUser(String usertype) {
         String username = p.displayEnterUsernamePrompt();
-        while(this.userManager.checkCredentials(username) || (username.length() < 3 && username.equalsIgnoreCase("q"))){
-            if (username.equalsIgnoreCase("q")) {
-                break;
-            } else if (this.userManager.checkCredentials(username)) {
-                p.displayRepeatUsernameError();
-            }
-            else if (username.length() < 3) {
-                username = p.displayUsernameLengthError();
-            }
-
-        }
         if (username.equalsIgnoreCase("q")) {
             return;
         }
+
+        while(this.userManager.checkCredentials(username)){
+                p.displayRepeatUsernameError();
+        }
+
         String password = p.displayEnterPasswordPrompt();
-
-        while(password.length() < 3){
-            password = p.displayPasswordLengthError();
-        }
-        String name = p.displayEnterSpeakerNamePrompt();
-        while(name.length() < 2) {
-            name = p.displaySpeakerNameError();
-        }
-        String address = p.displayEnterSpeakerAddressPrompt();
-
-        while(address.length() < 6) {
-            address = p.displayAddressLengthError();
-        }
-        String email = p.displayEnterSpeakerEmailPrompt();
-        Pattern email_pattern = Pattern.compile("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");
-        while(!email_pattern.matcher(email).matches()){
-            email = p.displayInvalidEmail();
-        }
+        String name = p.displayEnterNamePrompt();
+        String address = p.displayEnterAddressPrompt();
+        String email = p.displayEnterEmailPrompt();
         User newUser = userFactory.createNewUser(name, address, email, username, password, usertype);
         userManager.addUser(newUser);
         messageManager.addUserInbox(username);

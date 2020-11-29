@@ -2,17 +2,12 @@ package user; /**
  * This class is a Presenter Class with common functionality between Attendee, Organizer and Speaker Controllers.
  * It handles asking for user input and printing any error messages.
  */
+import main.Presenter;
 import message.Message;
 
 import java.util.*;
 
-public class UserPresenter {
-
-    protected final Scanner scan;
-
-    public UserPresenter(){
-        scan = new Scanner(System.in);
-    }
+public class UserPresenter extends Presenter {
 
     /**
      * Prompts a User to choose a task.
@@ -46,7 +41,7 @@ public class UserPresenter {
      * Prints an error message when a User inputs an invalid task.
      */
     public void displayInvalidInputError(){
-        System.out.println("The input should be a nonnegative integer, please try again.");
+        System.out.println("The input should be in the proper range. Please try again.");
     }
 
     /**
@@ -161,24 +156,5 @@ public class UserPresenter {
                 "conference. Please try at a later time.");
     }
 
-    /**
-     * Queries the user for a nonnegative integer
-     * @return Returns the integer that user input.
-     */
-    public int nextPositiveInt() {
-        int input = 0;
-
-        do {
-            try {
-                input = Integer.parseInt(scan.nextLine());
-                if(input >= 0)
-                    break;
-            } catch (NumberFormatException e) {
-                displayInvalidInputError();
-            }
-        } while(true);
-
-        return input;
-    }
 
 }

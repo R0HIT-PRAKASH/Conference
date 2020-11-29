@@ -91,7 +91,7 @@ public class LoginController {
 
         while(this.userManager.checkCredentials(username)){
             if (this.userManager.checkCredentials(username)) {
-                username = p.displayUsernameTakenError();
+                username = p.displayRepeatUsernameError();
             }
 
         }
