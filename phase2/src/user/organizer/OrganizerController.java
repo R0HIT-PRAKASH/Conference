@@ -11,7 +11,6 @@ import user.UserManager;
 import user.attendee.AttendeeController;
 import user.speaker.Speaker;
 
-import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.regex.Pattern;
@@ -181,14 +180,14 @@ public class OrganizerController extends AttendeeController {
                 //Then eventManager will add in the event into the list of events.
 
                 p.displayAddConferencePrompt();
-                LocalDateTime time = askTime();
+                LocalDateTime time = p.askTime();
                 while(eventManager.between9to5(time) || eventManager.checkTimeIsAfterNow(time)) {
                     if (eventManager.between9to5(time)) {
                         p.displayInvalidHourError();
-                        time = askTime();
+                        time = p.askTime();
                     } else if (eventManager.checkTimeIsAfterNow(time)) {
                         p.displayInvalidDateError();
-                        time = askTime();
+                        time = p.askTime();
                     }
                 }
 
@@ -435,7 +434,7 @@ public class OrganizerController extends AttendeeController {
                 if (eventName1.equalsIgnoreCase("q")) {
                     break;
                 }
-                LocalDateTime newTime = askTime();
+                LocalDateTime newTime = p.askTime();
                 rescheduleEvent(eventName1, newTime);
                 break;
 
@@ -693,38 +692,6 @@ public class OrganizerController extends AttendeeController {
             }
         }
 
-    }
-
-    private LocalDateTime getTime() throws DateTimeException {
-        p.displayEnterYearPrompt();
-        int y = p.nextInt();
-        p.displayEnterMonthPrompt();
-        int m = p.nextInt();
-        p.displayEnterDayPrompt();
-        int d = p.nextInt();
-        p.displayEnterHourPrompt();
-        int h = p.nextInt();
-        p.displayEnterMinutePrompt();
-        int mi = p.nextInt();
-        return LocalDateTime.of(y, m, d, h, mi);
-    }
-
-    private LocalDateTime askTime() {
-        LocalDateTime time = LocalDateTime.now();
-        do {
-            try {
-                time = getTime();
-                if(time.isBefore(LocalDateTime.now())){
-                    p.displayInvalidEventError();
-                }else{
-                    break;
-                }
-            } catch (DateTimeException d) {
-                p.displayDateError();
-            }
-        } while(true);
-
-        return time;
     }
 
     private void makeUser(String usertype) {
