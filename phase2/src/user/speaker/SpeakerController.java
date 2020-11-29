@@ -46,10 +46,10 @@ public class SpeakerController{
     public void run(){
         p.displayOptions3();
         p.displayTaskInput();
-        int input = p.nextPositiveInt();
+        int input = p.nextInt();
         while (input != 8){
             determineInput(input);
-            input = p.nextPositiveInt();
+            input = p.nextInt();
         }
     }
 
@@ -67,10 +67,10 @@ public class SpeakerController{
                 if (allEvents.size() == 0){
                     break;
                 }
-                int num = p.nextPositiveInt();
+                int num = p.nextInt();
 
                 while(num < 1 || num > allEvents.size()){
-                    num = p.nextPositiveInt();
+                    num = p.nextInt();
                     if (num == -1){
                         break;
                     }

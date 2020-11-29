@@ -88,7 +88,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      */
     public int displayEnterRoomNumberPrompt() {
         System.out.print("Enter a room number: ");
-        return nextPositiveInt();
+        return nextInt();
     }
 
     /**
@@ -258,7 +258,7 @@ public class OrganizerPresenter extends AttendeePresenter {
         System.out.println("Enter the number of the Room you would " +
                 "like to add, or type '0' to quit: ");
 
-        return nextPositiveInt();
+        return nextInt();
     }
 
     /**
@@ -391,7 +391,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      */
     public int displayEventCapacityPrompt() {
         System.out.println("Enter the capacity of the event you would like to add or 0 if you want to quit.");
-        return nextPositiveInt();
+        return nextInt();
     }
 
     /**
@@ -399,7 +399,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      */
     public int displayRoomCapacityPrompt() {
         System.out.println("Enter the capacity of the room you would like to add or 0 if you want to quit.");
-        return nextPositiveInt();
+        return nextInt();
     }
 
 
@@ -408,8 +408,8 @@ public class OrganizerPresenter extends AttendeePresenter {
      */
 
     public int displayDurationPrompt() {
-        System.out.println("How long would you like the event to last(in minutes)? You can enter 0 to quit.");
-        return nextPositiveInt();
+        System.out.println("How long would you like the event to last(in minutes)? You can enter -1 to quit.");
+        return nextInt();
     }
 
 
@@ -417,8 +417,8 @@ public class OrganizerPresenter extends AttendeePresenter {
      * Displays the message that prompts the user to enter the number of computers in the room.
      */
     public int displayComputersPrompt() {
-        System.out.println("How many computers? Enter 0 to quit.");
-        return nextPositiveInt();
+        System.out.println("How many computers? Enter -1 to quit.");
+        return nextInt();
     }
 
 
@@ -451,16 +451,16 @@ public class OrganizerPresenter extends AttendeePresenter {
      * Displays the message that prompts the user to enter the number of chairs in the room.
      */
     public int displayChairsPrompt() {
-        System.out.println("How many chairs? Enter 0 to quit.");
-        return nextPositiveInt();
+        System.out.println("How many chairs? Enter -1 to quit.");
+        return nextInt();
     }
 
     /**
      * Displays the message that prompts the user to enter the number of tables in the room.
      */
     public int displayTablesPrompt() {
-        System.out.println("How many tables? Enter 0 to quit.");
-        return nextPositiveInt();
+        System.out.println("How many tables? Enter -1 to quit.");
+        return nextInt();
     }
 
 
@@ -588,11 +588,11 @@ public class OrganizerPresenter extends AttendeePresenter {
                 ". Thus the new capacity must be greater than or equal to " + minCapacity + "; the number" +
                 " of users already attending the event. Please Enter the new number of people that can attend the event:");
 
-        int capac = nextPositiveInt();
+        int capac = nextInt();
 
         while(capac > maxCapacity || capac < minCapacity) {
             displayModifyRoomCapacityError(maxCapacity, minCapacity);
-            capac = nextPositiveInt();
+            capac = nextInt();
         }
         return capac;
     }
@@ -679,15 +679,15 @@ public class OrganizerPresenter extends AttendeePresenter {
 
     protected LocalDateTime getTime() throws DateTimeException {
         displayEnterYearPrompt();
-        int y = nextPositiveInt();
+        int y = nextInt();
         displayEnterMonthPrompt();
-        int m = nextPositiveInt();
+        int m = nextInt();
         displayEnterDayPrompt();
-        int d = nextPositiveInt();
+        int d = nextInt();
         displayEnterHourPrompt();
-        int h = nextPositiveInt();
+        int h = nextInt();
         displayEnterMinutePrompt();
-        int mi = nextPositiveInt();
+        int mi = nextInt();
         return LocalDateTime.of(y, m, d, h, mi);
     }
 

@@ -37,11 +37,11 @@ public class LoginController {
             return username;
         }
         p.displayNewOrReturningPrompt();
-        int input = p.nextPositiveInt();
+        int input = p.nextInt();
 
         String password;
         while(input != 1 && input != 2 ){
-            input = p.nextPositiveInt();
+            input = p.nextInt();
         }
         switch (input){
             case 1:

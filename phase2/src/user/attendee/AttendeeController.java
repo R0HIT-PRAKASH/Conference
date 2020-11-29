@@ -48,10 +48,10 @@ public class AttendeeController{
         p.displayOptions();
         p.displayTaskInput();
         int input = 0;
-        input = p.nextPositiveInt();
+        input = p.nextInt();
         while (input != 8){ // 8 is ending condition
             determineInput(input);
-            input = p.nextPositiveInt();
+            input = p.nextInt();
         }
     }
 

@@ -14,7 +14,6 @@ import user.speaker.Speaker;
 
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -48,10 +47,10 @@ public class OrganizerController extends AttendeeController {
         p.displayTaskInput();
 
         final int END_CONDITION = 25;
-        int input = p.nextPositiveInt();
+        int input = p.nextInt();
         while (input != END_CONDITION){ // 25 is ending condition
             determineInput(input);
-            input = p.nextPositiveInt();
+            input = p.nextInt();
         }
     }
 
@@ -283,7 +282,7 @@ public class OrganizerController extends AttendeeController {
                     }
 
                     p.displayComputersPrompt();
-                    int comp = p.nextPositiveInt();
+                    int comp = p.nextInt();
 
                     if(comp == 0){
                         break;
@@ -318,7 +317,7 @@ public class OrganizerController extends AttendeeController {
                         p.displayRecommendedRooms(capacity, comp, project, cha, tab, eventManager.getRooms());
                         p.displayEnterRoomNumberPrompt();
                     }
-                    num = p.nextPositiveInt();
+                    num = p.nextInt();
                     List<Organizer> organizers = userManager.getOrganizers();
                     List<String> creators = new ArrayList<>();
                     creators.add(this.username);
@@ -341,10 +340,10 @@ public class OrganizerController extends AttendeeController {
                 }
                 else { // room exists
                     p.displayEnterEventCapacityPrompt(room.getCapacity());  // need to ask what they want capacity to be and cannot be more then room can hold
-                    int cap = p.nextPositiveInt();
+                    int cap = p.nextInt();
                     while (cap > room.getCapacity()) {
                         p.displayRoomCapacityError(room.getCapacity());
-                        cap = p.nextPositiveInt();
+                        cap = p.nextInt();
                     }
                     List<Organizer> organizers = userManager.getOrganizers();
                     List<String> creators = new ArrayList<>();
@@ -452,18 +451,18 @@ public class OrganizerController extends AttendeeController {
             case 15:
 
                 int roomNumber = p.displayRoomCreationPrompt();
-                if (roomNumber == 0) {
+                if (roomNumber == -1) {
                     break;
                 }
                 int capac = p.displayRoomCapacityPrompt();
 
-                if(capac == 0){
+                if(capac == -1){
                     break;
                 }
 
                 int computers = p.displayComputersPrompt();
 
-                if(computers == 0){
+                if(computers == -1){
                     break;
                 }
 
@@ -480,13 +479,13 @@ public class OrganizerController extends AttendeeController {
 
                 int chairs = p.displayChairsPrompt();
 
-                if(chairs == 0){
+                if(chairs == -1){
                     break;
                 }
 
                 int tables = p.displayTablesPrompt();
 
-                if(tables == 0){
+                if(tables == -1){
                     break;
                 }
 

@@ -204,13 +204,13 @@ public abstract class Presenter {
      * Queries the user for an integer
      * @return Returns the integer the user input.
      */
-    public int nextPositiveInt() {
+    public int nextInt() {
         int input = 0;
 
         do {
             try {
                 input = Integer.parseInt(scan.nextLine());
-                if(input >= 0)
+                if(input >= -1)
                     break;
             } catch (NumberFormatException e) {
                 displayInvalidNumberError();
