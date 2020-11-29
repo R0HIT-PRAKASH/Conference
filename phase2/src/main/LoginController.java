@@ -91,12 +91,15 @@ public class LoginController {
         p.displayNewUserGreeting();
         String username = p.displayEnterUsernamePrompt();
 
-        while(this.userManager.checkCredentials(username) || username.length() < 3){
+        while(this.userManager.checkCredentials(username) || username.length() < 3 || username.trim().isEmpty()){
             if (this.userManager.checkCredentials(username)) {
                 username = p.displayUsernameTakenError();
             }
             else if (username.length() < 3) {
                 username = p.displayInvalidUsernameError();
+            }
+            else if (username.trim().isEmpty()) {
+                username = p.displayEmptyUsernameError();
             }
 
         }
@@ -109,13 +112,21 @@ public class LoginController {
         }
         String name = p.displayEnterNamePrompt();
 
-        while(name.length() < 2){
-            name = p.displayInvalidNameError();
+        while(name.length() < 2 || name.trim().isEmpty()){
+             if (name.length() < 2) {
+                name = p.displayInvalidNameError();
+            } else {
+                 name = p.displayEmptyNameError();
+             }
         }
         String address = p.displayEnterAddressPrompt();
 
-        while(address.length() < 6){
-            address = p.displayInvalidAddressError();
+        while(address.length() < 6 || address.trim().isEmpty()){
+             if (address.length() < 6) {
+                 address = p.displayInvalidAddressError();
+             } else {
+                 address = p.displayEmptyAddressError();
+             }
         }
         String email = p.displayEnterEmailPrompt();
 
