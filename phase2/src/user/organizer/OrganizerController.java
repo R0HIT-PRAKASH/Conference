@@ -622,6 +622,7 @@ public class OrganizerController extends AttendeeController {
                 break;
 
             case 23: //view addressed requests
+                getAddressedRequests();
                 break;
 
             case 24: //view user requests
@@ -847,6 +848,11 @@ public class OrganizerController extends AttendeeController {
     public void getUserRequests(String username){
         List<Request> user_req = requestManager.getUserRequests(username);
         p.displayUserRequests(user_req);
+    }
+
+    public void getAddressedRequests(){
+        List<Request> addressed = requestManager.getStatusRequests("addressed");
+        p.displayAddressedRequests(addressed);
     }
 
 }
