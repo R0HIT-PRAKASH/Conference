@@ -274,4 +274,8 @@ public class Event implements Comparable<Event>, Serializable {
      * @return Returns the list of speakers (Only applicable for Panel)
      */
     //public abstract List<String> getSpeakersList();
+
+    public String toString() {
+        return "Event: " + this.name + "| Speaker: " + this.speakerName + "| Time: " + this.time;
+    }
 }

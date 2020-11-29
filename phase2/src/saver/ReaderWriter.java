@@ -37,14 +37,18 @@ public class ReaderWriter {
         List<Object> list = new ArrayList<>(hashmap.values());
         if (list.isEmpty()) return;
         try {
-            if (list.get(0) instanceof User) {
-                FileOutputStream fos = new FileOutputStream("users.ser");
-                writeHelper(fos, hashmap);
-            } else if (list.get(0) instanceof ArrayList) {
+            if (!(list.get(0) instanceof ArrayList)) {
+                String listToString = list.get(0).toString();
+                if (listToString.contains("Event")) {
+                    FileOutputStream fos = new FileOutputStream("events.ser");
+                    writeHelper(fos, hashmap);
+                }
+                else {
+                    FileOutputStream fos = new FileOutputStream("users.ser");
+                    writeHelper(fos, hashmap);
+                }
+            } else {
                 FileOutputStream fos = new FileOutputStream("messages.ser");
-                writeHelper(fos, hashmap);
-            } else if (list.get(0) instanceof Event) {
-                FileOutputStream fos = new FileOutputStream("events.ser");
                 writeHelper(fos, hashmap);
             }
         } catch (IOException ioe) {
