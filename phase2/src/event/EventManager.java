@@ -1,13 +1,9 @@
 package event;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
-
-import message.Message;
 import room.Room;
-import saver.ReaderWriter;
 import user.User;
 import user.speaker.Speaker;
 
@@ -19,24 +15,21 @@ public class EventManager implements Serializable {
 
     public HashMap<String, Event> events;
     private List<Room> rooms;
-    ReaderWriter RW;
-    //private EventFactory eventFactory;
+    private EventFactory eventFactory;
 
     /**
      * Constructs a new EventManager with an empty map of events
      * and an empty list of rooms.
      */
-    public EventManager(ReaderWriter RW){
+    public EventManager(){
         events = new HashMap<>();
         rooms =  new ArrayList<Room>();
-        this.RW = RW;
-        //eventFactory = new EventFactory();
+        eventFactory = new EventFactory();
     }
 
     /**
      * Creates a new event object.
      * @param name Refers to the name of the event.
-     * @param speakerName Refers to the name of the speaker of this event.
      * @param time Refers to the starting time of the event.
      * @param duration The Event Duration.
      * @param roomNumber Refers to the room number of this event.
@@ -47,13 +40,16 @@ public class EventManager implements Serializable {
      * @param tables Refers to the number of tables in the room.
      * @param creators The list of creators.
      * @param vip Refers to whether or not this event is VIP exclusive.
+     * @param speaker Refers to the speaker username if this is a talk.
+     * @param speakers Refers to the list of speakers if this is a panel.
      * @return Returns the created event.
      */
-    public Event createNewEvent(String name, String speakerName, LocalDateTime time, Integer duration, int roomNumber,
+    public Event createNewEvent(String eventType, String name, LocalDateTime time, Integer duration, int roomNumber,
                                 int capacity, int computers, boolean projector, int chairs, int tables,
-                                List<String> creators, boolean vip){
-        Event event = new Event(name, speakerName, time, duration, roomNumber, capacity, computers, projector,
-                chairs, tables, creators, vip);
+                                List<String> creators, boolean vip, String speaker, List<String> speakers){
+//        Event event = new Event(name, speakerName, time, duration, roomNumber, capacity, computers, projector,
+//                chairs, tables, creators, vip);
+        Event event = eventFactory.getEvent(eventType, name, time, duration, roomNumber, capacity, computers, projector, chairs, tables, creators, vip, speaker, speakers);
         if (getRoom(roomNumber) == null){
             addRoom(roomNumber, capacity, computers, projector, chairs, tables);
         }
@@ -64,7 +60,6 @@ public class EventManager implements Serializable {
     /**
      * Adds an event to the event list.
      * @param name Refers to the name of the event.
-     * @param speakerName Refers to the name of the speaker of this event.
      * @param time Refers to the starting time of the event.
      * @param duration The Event Duration.
      * @param roomNumber Refers to the room number of this event.
@@ -75,127 +70,129 @@ public class EventManager implements Serializable {
      * @param tables Refers to the number of tables in the room.
      * @param creators The list of creators.
      * @param vip Refers to whether or not the event is VIP exclusive.
+     * @param speaker Refers to the speaker username if this is a talk.
+     * @param speakers Refers to the list of speakers if this is a panel.
      * @return Returns true if the event is successfully added. Otherwise, it returns false.
      */
-    public boolean addEvent(String name, String speakerName, LocalDateTime time, Integer duration, int roomNumber,
+    public boolean addEvent(String eventType, String name, LocalDateTime time, Integer duration, int roomNumber,
                             int capacity, int computers, boolean projector, int chairs, int tables,
-                            List<String> creators, boolean vip){
-        Event event = createNewEvent(name, speakerName, time, duration, roomNumber, capacity, computers, projector,
-                chairs, tables, creators, vip);
-//        if (!checkEventIsValid(event)){
-//            return false;
-//        }
+                            List<String> creators, boolean vip, String speaker, List<String> speakers){
+        Event event = createNewEvent(eventType, name, time, duration, roomNumber, capacity, computers, projector,
+                chairs, tables, creators, vip, speaker, speakers);
+        if (!checkEventIsValid(event)){
+            return false;
+        }
 
 
         events.put(event.getName(), event);
         return true;
     }
 
-//    /**
-//     * @param event Refers to the event being checked.
-//     * @return Returns True if event is valid, otherwise return false.
-//     */
-//    public boolean checkEventIsValid(Event event){
-//
-//        //GET EVENT TYPE
-//        String eventType = event.getEventType();
-//
-//        if (!between9to5(event) || event.getCapacity() <= 0 || event.getDuration() <= 0 || !requiredEquipment(event)){
-//            return false;
-//        }
-//
-//        for(Room room : rooms){
-//            if(room.getRoomNumber() == event.getRoomNumber() && room.getCapacity() < event.getCapacity()){
-//                return false;
-//            }
-//        }
-//
-//        if(event.getTime().plusHours(event.getDuration()).getHour() > 16){
-//            return false;
-//        }
-//
-//        for (String i: events.keySet()){
-//            //Checks Name
-//            if (event.getName().equals(i)){
-//                return false;
-//            }
-//            Event e = events.get(i);
-//
-//            //Checks if times are conflicting
-//            boolean invalidTime = compareTimes(event, e);
-//
-//            //If the times are conflicting and the room numbers are the same: return false.
-//            if (invalidTime && e.getRoomNumber() == event.getRoomNumber() ){
-//                return false;
-//            }
-//            //e TYPE
-//            String eType = e.getEventType();
-//
-//            //If the times are conflicting and the speakers are the same: return false.
-//            if (eventType.equals("talk") && eType.equals("talk")){
-//               if (invalidTime && compareSpeakersTalkTalk(event, e)){
-//                   return false;
-//               }
-//            }
-//            else if (eventType.equals("talk") && eType.equals("panel")){
-//                if (invalidTime && compareSpeakersTalkPanel(event, e)){
-//                    return false;
-//                }
-//            }
-//            else if (eventType.equals("panel") && eType.equals("talk")){
-//                if (invalidTime && compareSpeakersTalkPanel(e, event)){
-//                    return false;
-//                }
-//            }
-//            else if (eventType.equals("panel") && eType.equals("panel")){
-//                if (invalidTime && compareSpeakersPanelPanel(event, e)){
-//                    return false;
-//                }
-//            }
-//
-//        }
-//        return true;
-//    }
-//
-//    private boolean compareSpeakersTalkTalk(Event event, Event e){
-//        if (event.getSpeakerName().equals(e.getSpeakerName())){
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    private boolean compareSpeakersTalkPanel(Event event, Event e){
-//        String eventSpeakerName = event.getSpeakerName();
-//
-//        List<String> eSpeakersList = e.getSpeakersList();
-//
-//        for (int i = 0; i < eSpeakersList.size(); i++){
-//            String eSpeakerName = eSpeakersList.get(0);
-//            if (eventSpeakerName.equals(eSpeakerName)){
-//                return true;
-//            }
-//        }
-//
-//        return false;
-//    }
-//
-//    private boolean compareSpeakersPanelPanel(Event event, Event e){
-//
-//        List<String> eventSpeakersList = event.getSpeakersList();
-//        List<String> eSpeakersList = e.getSpeakersList();
-//
-//        for (int i = 0; i < eventSpeakersList.size(); i++){
-//            String eventSpeakerName = eventSpeakersList.get(i);
-//            for (int k=0; k < eSpeakersList.size(); k++){
-//                String eSpeakerName = eSpeakersList.get(k);
-//                if (eventSpeakerName.equals(eSpeakerName)){
-//                    return true;
-//                }
-//            }
-//        }
-//
-//        return false;
-//    }
+    /**
+     * @param event Refers to the event being checked.
+     * @return Returns True if event is valid, otherwise return false.
+     */
+    public boolean checkEventIsValid(Event event){
+
+        //GET EVENT TYPE
+        String eventType = event.getEventType();
+
+        if (!between9to5(event) || event.getCapacity() <= 0 || event.getDuration() <= 0 || !requiredEquipment(event)){
+            return false;
+        }
+
+        for(Room room : rooms){
+            if(room.getRoomNumber() == event.getRoomNumber() && room.getCapacity() < event.getCapacity()){
+                return false;
+            }
+        }
+
+        if(event.getTime().plusHours(event.getDuration()).getHour() > 16){
+            return false;
+        }
+
+        for (String i: events.keySet()){
+            //Checks Name
+            if (event.getName().equals(i)){
+                return false;
+            }
+            Event e = events.get(i);
+
+            //Checks if times are conflicting
+            boolean invalidTime = compareTimes(event, e);
+
+            //If the times are conflicting and the room numbers are the same: return false.
+            if (invalidTime && e.getRoomNumber() == event.getRoomNumber() ){
+                return false;
+            }
+            //e TYPE
+            String eType = e.getEventType();
+
+            //If the times are conflicting and the speakers are the same: return false.
+            if (eventType.equals("talk") && eType.equals("talk")){
+                if (invalidTime && compareSpeakersTalkTalk(event, e)){
+                    return false;
+                }
+            }
+            else if (eventType.equals("talk") && eType.equals("panel")){
+                if (invalidTime && compareSpeakersTalkPanel(event, e)){
+                    return false;
+                }
+            }
+            else if (eventType.equals("panel") && eType.equals("talk")){
+                if (invalidTime && compareSpeakersTalkPanel(e, event)){
+                    return false;
+                }
+            }
+            else if (eventType.equals("panel") && eType.equals("panel")){
+                if (invalidTime && compareSpeakersPanelPanel(event, e)){
+                    return false;
+                }
+            }
+
+        }
+        return true;
+    }
+
+    private boolean compareSpeakersTalkTalk(Event event, Event e){
+        if (event.getSpeakerName().equals(e.getSpeakerName())){
+            return true;
+        }
+        return false;
+    }
+
+    private boolean compareSpeakersTalkPanel(Event event, Event e){
+        String eventSpeakerName = event.getSpeakerName();
+
+        List<String> eSpeakersList = e.getSpeakersList();
+
+        for (int i = 0; i < eSpeakersList.size(); i++){
+            String eSpeakerName = eSpeakersList.get(0);
+            if (eventSpeakerName.equals(eSpeakerName)){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean compareSpeakersPanelPanel(Event event, Event e){
+
+        List<String> eventSpeakersList = event.getSpeakersList();
+        List<String> eSpeakersList = e.getSpeakersList();
+
+        for (int i = 0; i < eventSpeakersList.size(); i++){
+            String eventSpeakerName = eventSpeakersList.get(i);
+            for (int k=0; k < eSpeakersList.size(); k++){
+                String eSpeakerName = eSpeakersList.get(k);
+                if (eventSpeakerName.equals(eSpeakerName)){
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 
 
     /**
@@ -279,7 +276,6 @@ public class EventManager implements Serializable {
 
 
     /**
-     * Checks to see if the date is after the current date.
      * @param time Refers to the time that you want to see if it is after the current time.
      * @return Returns true if the time is after the current time, otherwise returns false.
      */
@@ -500,31 +496,4 @@ public class EventManager implements Serializable {
     public int numberOfEvents() {
         return events.size();
     }
-
-
-    /**
-     * This method sets the map of events to the deserialized HashMap object containing event names as keys
-     * and the corresponding Events as values.
-     * @throws IOException Refers to the exception that is raised when the program can't get input or output from users.
-     * @throws ClassNotFoundException Refers to the exception that is raised when the program can't find users.
-     */
-
-    public void setAllEventsReadIn() throws IOException, ClassNotFoundException {
-        Object uncastedEvents = RW.readEvents();
-        HashMap<String, Event> events = (HashMap<String, Event>) uncastedEvents;
-        setAllEvents(events);
-    }
-
-    /**
-     * This method sets the list of rooms to the deserialized ArrayList object containing the rooms.
-     * @throws IOException Refers to the exception that is raised when the program can't get input or output from users.
-     * @throws ClassNotFoundException Refers to the exception that is raised when the program can't find users.
-     */
-
-    public void setRoomsReadIn() throws IOException, ClassNotFoundException {
-        Object uncastedRooms = RW.readRooms();
-        ArrayList<Room> rooms = (ArrayList<Room>) uncastedRooms;
-        setRooms(rooms);
-    }
-
 }

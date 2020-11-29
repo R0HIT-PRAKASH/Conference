@@ -4,7 +4,6 @@ import event.Event;
 import event.EventManager;
 import message.Message;
 import message.MessageManager;
-import request.Request;
 import request.RequestManager;
 import room.Room;
 import user.User;
@@ -12,9 +11,7 @@ import user.UserFactory;
 import user.UserManager;
 import user.attendee.AttendeeController;
 import user.speaker.Speaker;
-import request.RequestManager;
 
-import javax.print.DocFlavor;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.regex.Pattern;
@@ -49,9 +46,9 @@ public class OrganizerController extends AttendeeController {
     public void run(){
         p.displayOptions2();
         p.displayTaskInput();
-        final int END_CONDITION = 25;
+        final int END_CONDITION = 22;
         int input = p.nextInt();
-        while (input != END_CONDITION){ // 25 is ending condition
+        while (input != END_CONDITION){ // 21 is ending condition
             determineInput(input);
             input = p.nextInt();
         }
@@ -169,20 +166,20 @@ public class OrganizerController extends AttendeeController {
                 break;
 
             case 7:
-                //Ask user what type of event they would like to create (Talk, Panel, Party).
+                //Ask user what type of event they would like to create (Talk.java, Panel, Party).
                 //Depending on what type of event they chose, ask appropriate questions. (Same except for how we ask for
                 //the speakers, i.e one speaker for talk, multiple speakers for panel, no speaker for party).
                 //Call addEvent in eventManager and pass in type of event and other prompts.
                 //EventManager will then call eventFactory so eventFactory.getEvent("talk", hashmap)
                 //Then eventManager will add in the event into the list of events.
 
-                //Scanner scan = new Scanner(System.in);
-                //System.out.println("What kind of event would you like to create? A talk, panel, or party?");
-                //String eventType = scan.nextLine();
+                //FIX THESE 3 LINES
+                Scanner scan = new Scanner(System.in);
+                System.out.println("What kind of event would you like to create? A talk, panel, or party?");
+                String eventType = scan.nextLine();
 
                 p.displayAddConferencePrompt();
                 LocalDateTime time = p.askTime();
-                System.out.println(time);
                 while(!eventManager.between9to5(time) || !eventManager.checkTimeIsAfterNow(time)) {
                     if (!eventManager.between9to5(time)) {
                         p.displayInvalidHourError();
@@ -227,26 +224,52 @@ public class OrganizerController extends AttendeeController {
                     break;
                 }
 
-
-
-                String speaker = p.displayEnterSpeakerPrompt();
-
-                if(!userManager.checkCredentials(speaker)) {
-                    p.displaySpeakerCredentialError();
-                    makeUser("speaker");
-                    speaker = p.displayEnterNewSpeakerPrompt();
+                // (Alan) comments
+                String speaker = "";
+                List<String> speakers = new ArrayList<>();
+                if (eventType.equals("talk")){
+                    speaker = determineInputGetSpeaker();
+                    if (speaker.equalsIgnoreCase("q")) {
+                        break;
+                    }
+                    speakers = null;
                 }
-                else{
-                    while (!(userManager.getUserType(speaker).equals("speaker"))){
-                        speaker = p.displayNotSpeakerError();
-                        if (speaker.equalsIgnoreCase("q")) {
+                else if (eventType.equals("party")){
+                    speaker = null;
+                    speakers = null;
+                }
+                else if (eventType.equals("panel")){
+                    String response;
+                    String speakerName;
+                    do {
+                        speakerName = determineInputGetSpeaker();
+                        if (speakerName.equalsIgnoreCase("q")) {
                             break;
                         }
-                    }
+                        speakers.add(speakerName);
+                        response = p.askNewSpeakerPrompt();
+                    }while(response.equals("Y"));
+                    speaker = null;
                 }
-                if (speaker.equalsIgnoreCase("q")) {
-                    break;
-                }
+
+//                String speaker = p.displayEnterSpeakerPrompt();
+//
+//                if(!userManager.checkCredentials(speaker)) {
+//                    p.displaySpeakerCredentialError();
+//                    makeUser("speaker");
+//                    speaker = p.displayEnterNewSpeakerPrompt();
+//                }
+//                else{
+//                    while (!(userManager.getUserType(speaker).equals("speaker"))){
+//                        speaker = p.displayNotSpeakerError();
+//                        if (speaker.equalsIgnoreCase("q")) {
+//                            break;
+//                        }
+//                    }
+//                }
+//                if (speaker.equalsIgnoreCase("q")) {
+//                    break;
+//                }
 
                 p.displayEnterRoomNumberPrompt();
                 int num = p.nextInt();
@@ -346,11 +369,18 @@ public class OrganizerController extends AttendeeController {
                     List<String> creators = new ArrayList<>();
                     creators.add(this.username);
                     p.displayAndGetCreators(creators, organizers);
-                    boolean added = addEvent(name, speaker, time, duration, num, capacity, comp, project, cha, tab, creators, vip);
+                    boolean added = addEvent(eventType, name, time, duration, num, capacity, comp, project, cha, tab, creators, vip, speaker, speakers);
                     if(!added) {p.displayEventCreationError();}
                     else {
                         p.displaySuccessfulEventCreation();
-                        userManager.addSpeakingEvent(speaker, name);
+                        if (eventType.equals("talk")){
+                            userManager.addSpeakingEvent(speaker, name);
+                        }
+                        else if (eventType.equals("panel")){
+                            for (int i = 0; i < speakers.size();i++){
+                                userManager.addSpeakingEvent(speakers.get(i), name);
+                            }
+                        }
                         userManager.createdEvent(eventManager.getEvent(name), creators);
                     }
                     break;
@@ -366,11 +396,18 @@ public class OrganizerController extends AttendeeController {
                     List<String> creators = new ArrayList<>();
                     creators.add(this.username);
                     p.displayAndGetCreators(creators, organizers);
-                    boolean added = addEvent(name, speaker, time, duration, num, room.getCapacity(), room.getComputers(), room.getProjector(), room.getChairs(), room.getChairs(), creators, vip);
+                    boolean added = addEvent(eventType, name, time, duration, num, room.getCapacity(), room.getComputers(), room.getProjector(), room.getChairs(), room.getChairs(), creators, vip, speaker, speakers);
                     if(!added) {p.displayEventCreationError();}
                     else {
                         p.displaySuccessfulEventCreation();
-                        userManager.addSpeakingEvent(speaker, name);
+                        if (eventType.equals("talk")){
+                            userManager.addSpeakingEvent(speaker, name);
+                        }
+                        else if (eventType.equals("panel")){
+                            for (int i = 0; i < speakers.size();i++){
+                                userManager.addSpeakingEvent(speakers.get(i), name);
+                            }
+                        }
                         userManager.createdEvent(eventManager.getEvent(name), creators);
                     }
                     break;
@@ -602,33 +639,6 @@ public class OrganizerController extends AttendeeController {
                 getStats();
                 break;
 
-            case 22: //address requests
-                int to_change = getRequestToDecide();
-                Request update = requestManager.getStatusRequests("pending").get(to_change - 1);
-                String decision = p.displayRequestDecisionPrompt(update);
-                boolean valid = requestManager.checkIsValidStatus(decision);
-                while(!valid){
-                    p.requestDecisionInvalid();
-                    decision = p.displayRequestDecisionPrompt(update);
-                    valid = requestManager.checkIsValidStatus(decision);
-                }
-                requestManager.updateRequestStatus(update, decision);
-                if(decision.equals("addressed")){
-                    p.successfullyAddressedRequest();
-                }
-                else{
-                    p.successfullyRejectedRequest();
-                }
-                break;
-
-            case 23: //view addressed requests
-                getAddressedRequests();
-                break;
-
-            case 24: //view user requests
-                getUserRequests(p.viewUserRequestPrompt());
-                break;
-
             default:
                 p.displayInvalidInputError();
                 break;
@@ -636,7 +646,25 @@ public class OrganizerController extends AttendeeController {
         p.displayNextTaskPromptOrganizer();
     }
 
+    private String determineInputGetSpeaker() {
+        String speaker;
+        speaker = p.displayEnterSpeakerPrompt();
 
+        if(!userManager.checkCredentials(speaker)) {
+            p.displaySpeakerCredentialError();
+            makeUser("speaker");
+            speaker = p.displayEnterNewSpeakerPrompt();
+        }
+        else{
+            while (!(userManager.getUserType(speaker).equals("speaker"))){
+                speaker = p.displayNotSpeakerError();
+                if (speaker.equalsIgnoreCase("q")) {
+                    break;
+                }
+            }
+        }
+        return speaker;
+    }
 
 
     /**
@@ -653,12 +681,12 @@ public class OrganizerController extends AttendeeController {
      * @param tables Refers to the number of tables in the room.
      * @param creators The list of creators.
      * @param vip Refers to whether or not this event is VIP exclusive.
-     * @return Returns the created event.
+     * @return Returns the created event. AAAAAAAAAAAAAAAAAAAAAAAAAAAAA
      */
-    boolean addEvent(String name, String speaker, LocalDateTime time, Integer duration, int roomNumber, int capacity,
-                     int computers, boolean projector, int chairs, int tables, List<String> creators, boolean vip) {
-        return eventManager.addEvent(name, speaker, time, duration, roomNumber, capacity, computers, projector,
-                chairs, tables, creators, vip);
+    boolean addEvent(String eventType, String name, LocalDateTime time, Integer duration, int roomNumber, int capacity,
+                     int computers, boolean projector, int chairs, int tables, List<String> creators, boolean vip, String speaker, List<String> speakers) {
+        return eventManager.addEvent(eventType, name, time, duration, roomNumber, capacity, computers, projector,
+                chairs, tables, creators, vip, speaker, speakers);
     }
 
     /**
@@ -746,16 +774,16 @@ public class OrganizerController extends AttendeeController {
         while(password.length() < 3){
             password = p.displayPasswordLengthError();
         }
-        String name = p.displayEnterUsersNamePrompt();
+        String name = p.displayEnterSpeakerNamePrompt();
         while(name.length() < 2) {
             name = p.displaySpeakerNameError();
         }
-        String address = p.displayEnterUserAddressPrompt();
+        String address = p.displayEnterSpeakerAddressPrompt();
 
         while(address.length() < 6) {
             address = p.displayAddressLengthError();
         }
-        String email = p.displayEnterUserEmailPrompt();
+        String email = p.displayEnterSpeakerEmailPrompt();
         Pattern email_pattern = Pattern.compile("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");
         while(!email_pattern.matcher(email).matches()){
             email = p.displayInvalidEmail();
@@ -837,22 +865,6 @@ public class OrganizerController extends AttendeeController {
         p.displayNumberStats(stats);
         p.displayListStats(lists);
 
-    }
-
-    public int getRequestToDecide(){
-        List<Request> pending = requestManager.getStatusRequests("pending");
-        p.displayPendingRequests(pending);
-        return p.viewRequestPrompt();
-    }
-
-    public void getUserRequests(String username){
-        List<Request> user_req = requestManager.getUserRequests(username);
-        p.displayUserRequests(user_req);
-    }
-
-    public void getAddressedRequests(){
-        List<Request> addressed = requestManager.getStatusRequests("addressed");
-        p.displayAddressedRequests(addressed);
     }
 
 }
