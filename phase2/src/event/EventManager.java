@@ -15,6 +15,7 @@ public class EventManager implements Serializable {
 
     public HashMap<String, Event> events;
     private List<Room> rooms;
+    private EventFactory eventFactory;
 
     /**
      * Constructs a new EventManager with an empty map of events
@@ -23,6 +24,7 @@ public class EventManager implements Serializable {
     public EventManager(){
         events = new HashMap<>();
         rooms =  new ArrayList<Room>();
+        eventFactory = new EventFactory();
     }
 
     /**
