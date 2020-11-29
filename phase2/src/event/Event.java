@@ -15,10 +15,10 @@ import user.User;
  * capacity, and set of attendees attending. The event also contains how many computers, chairs, tables, and
  * whether or not a projector is required for the event to run.
  */
-public abstract class Event implements Comparable<Event>, Serializable {
+public class Event implements Comparable<Event>, Serializable {
 
     private String name;
-    //private String speakerName;
+    private String speakerName;
     private LocalDateTime time;
     private int duration;
     private int roomNumber;
@@ -45,11 +45,11 @@ public abstract class Event implements Comparable<Event>, Serializable {
      * @param creators Refers to the list of usernames of users that created the event.
      * @param vipEvent Refers to whether or not this event is limited to VIP's only
      */
-    public Event(String name,  LocalDateTime time, Integer duration, int roomNumber, int capacity,
+    public Event(String name, String speakerName,  LocalDateTime time, Integer duration, int roomNumber, int capacity,
                  int requiredComputers, boolean requiredProjector, int requiredChairs, int requiredTables,
                  List<String> creators, boolean vipEvent) {
         this.name = name;
-        //this.speakerName = speakerName;
+        this.speakerName = speakerName;
         this.time = time;
         this.duration = duration;
         this.roomNumber = roomNumber;
@@ -261,17 +261,17 @@ public abstract class Event implements Comparable<Event>, Serializable {
      * This method returns the type of Event this event is.
      * @return Will return a string representation of the Event type.
      */
-    public abstract String getEventType();
+    //public abstract String getEventType();
 
     /**
      * This method is a getter for the speaker's username (Only applicable for Talk)
      * @return Returns speaker's username (Only applicable for Talk)
      */
-    public abstract String getSpeakerName();
+    //public abstract String getSpeakerName();
 
     /**
      * This method is a getter for the list of speakers (Only applicable for Panel)
      * @return Returns the list of speakers (Only applicable for Panel)
      */
-    public abstract List<String> getSpeakersList();
+    //public abstract List<String> getSpeakersList();
 }
