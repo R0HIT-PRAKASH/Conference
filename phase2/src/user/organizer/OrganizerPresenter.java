@@ -4,6 +4,7 @@ import event.Event;
 import room.Room;
 import user.User;
 import user.attendee.AttendeePresenter;
+import request.Request;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -31,7 +32,8 @@ public class OrganizerPresenter extends AttendeePresenter {
                 "\n(7) Add Event\n(8) Message All Attendees\n(9) Message Event Attendees" +
                 "\n(10) Message All Speakers\n(11) Cancel Event\n(12) Reschedule Event\n(13) Add New User" +
                 "\n(14) View Options" + "\n(15) Add Room \n(16) Modify an Event's capacity \n(17) View All Rooms \n(18) View Speakers\n(19) " +
-                "View Attendees\n(20) View Organizers\n(21) Display Conference Statistics\n(22) Quit");
+                "View Attendees\n(20) View Organizers\n(21) Display Conference Statistics\n(22) Address Requests" +
+                "\n(23) View Addressed Request \n(24) View User Requests \n(25) Quit");
     }
 
     /**
@@ -839,6 +841,57 @@ public class OrganizerPresenter extends AttendeePresenter {
         } while(true);
 
         return time;
+    }
+    public String displayRequestDecisionPrompt(Request request){
+        System.out.println(request.getContent());
+        System.out.println("Type 'addressed' to mark this request as addressed, or 'rejected' to mark it as " +
+                "rejected.");
+        return scan.nextLine();
+    }
+
+    public void requestDecisionInvalid(){
+        System.out.println("This is not a valid status. Please mark as 'addressed' or 'rejected'");
+    }
+
+    public void successfullyAddressedRequest(){
+        System.out.println("Request successfully addressed.");
+    }
+
+    public void successfullyRejectedRequest(){
+        System.out.println("Request successfully rejected");
+    }
+
+    public int viewRequestPrompt(){
+        System.out.println("Please enter which request you would like to view");
+        return Integer.parseInt(scan.nextLine());
+    }
+
+    public void displayPendingRequests(List<Request> requests){
+        System.out.println("Pending Requests: ");
+        int counter = 1;
+        for (Request request : requests){
+            System.out.println(counter + " : " + request.getContent());
+            counter++;
+        }
+    }
+
+    public void displayAddressedRequests(List<Request> requests){
+        System.out.println("Addressed Requests: ");
+        for (Request request : requests){
+            System.out.print(request.getRequesterUsername() + " : " + request.getContent());
+        }
+    }
+
+    public String viewUserRequestPrompt(){
+        System.out.println("Please enter which user's requests you would like to access");
+        return scan.nextLine();
+    }
+
+    public void displayUserRequests(List<Request> requests){
+        System.out.println("This user has made the following requests: ");
+        for (Request request : requests){
+            System.out.print(request.getRequestStatus() + " : " + request.getContent());
+        }
     }
 
 }
