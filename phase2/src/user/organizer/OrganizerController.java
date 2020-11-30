@@ -7,6 +7,7 @@ import event.Panel;
 import message.Message;
 import message.MessageManager;
 import request.RequestManager;
+import request.Request;
 import room.Room;
 import user.User;
 import user.UserFactory;
@@ -49,9 +50,9 @@ public class OrganizerController extends AttendeeController {
         p.displayOptions2();
         p.displayTaskInput();
 
-        final int END_CONDITION = 22;
+        final int END_CONDITION = 25;
         int input = p.nextInt();
-        while (input != END_CONDITION){ // 22 is ending condition
+        while (input != END_CONDITION){ // 25 is ending condition
             determineInput(input);
             input = p.nextInt();
         }
@@ -336,8 +337,7 @@ public class OrganizerController extends AttendeeController {
                     }
 
                 }else{ // room exists
-                    p.displayEnterEventCapacityPrompt(room.getCapacity());  // need to ask what they want capacity to be and cannot be more then room can hold
-                    int cap = p.nextInt();
+                    int cap = p.displayEnterEventCapacityPrompt(room.getCapacity());
                     while (cap > room.getCapacity() || cap < 0) {
                         cap = p.displayRoomCapacityError();
                     }
@@ -584,6 +584,33 @@ public class OrganizerController extends AttendeeController {
 
             case 21:
                 getStats();
+                break;
+
+            case 22: //address requests
+                int to_change = getRequestToDecide();
+                Request update = requestManager.getStatusRequests("pending").get(to_change - 1);
+                String decision = p.displayRequestDecisionPrompt(update);
+                boolean valid = requestManager.checkIsValidStatus(decision);
+                while(!valid){
+                    p.requestDecisionInvalid();
+                    decision = p.displayRequestDecisionPrompt(update);
+                    valid = requestManager.checkIsValidStatus(decision);
+                }
+                requestManager.updateRequestStatus(update, decision);
+                if(decision.equals("addressed")){
+                    p.successfullyAddressedRequest();
+                }
+                else{
+                    p.successfullyRejectedRequest();
+                }
+                break;
+
+            case 23: //view addressed requests
+                getAddressedRequests();
+                break;
+
+            case 24: //view user requests
+                getUserRequests(p.viewUserRequestPrompt());
                 break;
 
             default:
@@ -837,6 +864,22 @@ public class OrganizerController extends AttendeeController {
         p.displayNumberStats(stats);
         p.displayListStats(lists);
 
+    }
+
+    public int getRequestToDecide(){
+        List<Request> pending = requestManager.getStatusRequests("pending");
+        p.displayPendingRequests(pending);
+        return p.viewRequestPrompt();
+    }
+
+    public void getUserRequests(String username){
+        List<Request> user_req = requestManager.getUserRequests(username);
+        p.displayUserRequests(user_req);
+    }
+
+    public void getAddressedRequests(){
+        List<Request> addressed = requestManager.getStatusRequests("addressed");
+        p.displayAddressedRequests(addressed);
     }
 
 }
