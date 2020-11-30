@@ -88,7 +88,7 @@ public class MainController {
                 answer = p.displayInvalidFileChoice();
 
             } if (answer.equalsIgnoreCase("Yes")) {
-                readInFiles(RW, userManager, messageManager);
+                readInFiles0(RW, userManager, messageManager);
                 p.displayDownloadCompletion();
                 startingScratch = false;
             }
@@ -110,7 +110,7 @@ public class MainController {
             while(!answer.equalsIgnoreCase("Yes") && !answer.equalsIgnoreCase("No")) {
                 answer = p.displayInvalidFileChoice();
             } if (answer.equalsIgnoreCase("Yes")) {
-                readInFiles(RW, userManager, messageManager, eventManager);
+                readInFiles1(RW, userManager, messageManager, eventManager);
                 p.displayDownloadCompletion();
                 startingScratch = false;
             }
@@ -131,7 +131,7 @@ public class MainController {
             while(!answer.equalsIgnoreCase("Yes") && !answer.equalsIgnoreCase("No")) {
                 answer = p.displayInvalidFileChoice();
             } if (answer.equalsIgnoreCase("Yes")) {
-                readInAllFiles(RW, userManager, messageManager, eventManager);
+                readInFiles2(RW, userManager, messageManager, eventManager);
                 p.displayDownloadCompletion();
                 startingScratch = false;
             }
@@ -260,22 +260,24 @@ public class MainController {
         p.displaySignedOut();
     }
 
-    private void readInAllFiles(ReaderWriter RW, UserManager UM, MessageManager MM, EventManager EM) throws IOException, ClassNotFoundException {
+
+
+    private void readInFiles0(ReaderWriter RW, UserManager UM, MessageManager MM) throws IOException, ClassNotFoundException {
+
         UM.setUserMapReadIn();
         MM.setAllUserMessagesReadIn();
-        EM.setAllEventsReadIn();
+    }
+
+    private void readInFiles1(ReaderWriter RW, UserManager UM, MessageManager MM, EventManager EM) throws IOException, ClassNotFoundException {
+        UM.setUserMapReadIn();
+        MM.setAllUserMessagesReadIn();
         EM.setRoomsReadIn();
     }
 
-    private void readInFiles(ReaderWriter RW, UserManager UM, MessageManager MM) throws IOException, ClassNotFoundException {
-
+    private void readInFiles2(ReaderWriter RW, UserManager UM, MessageManager MM, EventManager EM) throws IOException, ClassNotFoundException {
         UM.setUserMapReadIn();
         MM.setAllUserMessagesReadIn();
-    }
-
-    private void readInFiles(ReaderWriter RW, UserManager UM, MessageManager MM, EventManager EM) throws IOException, ClassNotFoundException {
-        UM.setUserMapReadIn();
-        MM.setAllUserMessagesReadIn();
+        EM.setAllEventsReadIn();
         EM.setRoomsReadIn();
     }
 
