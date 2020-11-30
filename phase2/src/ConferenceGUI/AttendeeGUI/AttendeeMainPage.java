@@ -23,8 +23,8 @@ public class AttendeeMainPage extends JFrame{
         messagesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame frame = new AttendeeMessagesPage("Attendee Messages Page");
-                frame.setVisible(true);
+                //JFrame frame = new AttendeeMessagesPage("Attendee Messages Page");
+                //frame.setVisible(true);
             }
         });
         eventsButton.addActionListener(new ActionListener() {

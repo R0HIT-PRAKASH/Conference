@@ -1,10 +1,12 @@
 package request;
 
+import java.io.Serializable;
+
 /**
  * This class represents a Request object. Request objects have a string content, username of the requester, and an int
  * requestStatus that contains the status of the request.
  */
-public class Request {
+public class Request implements Serializable {
     private String content; //limited to 200 characters
     private String requesterUsername;
     private String requestStatus;

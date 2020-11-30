@@ -35,10 +35,16 @@ public class ReaderWriter {
                 FileOutputStream fos = new FileOutputStream("users.ser");
                 writeHelper(fos, hashmap);
             } else if (file.equalsIgnoreCase("events")) {
-                    FileOutputStream fos = new FileOutputStream("events.ser");
-                    writeHelper(fos, hashmap);
+                FileOutputStream fos = new FileOutputStream("events.ser");
+                writeHelper(fos, hashmap);
             } else if (file.equalsIgnoreCase("messages")) {
                 FileOutputStream fos = new FileOutputStream("messages.ser");
+                writeHelper(fos, hashmap);
+            } else if (file.equalsIgnoreCase("requests")) {
+                FileOutputStream fos = new FileOutputStream("requests.ser");
+                writeHelper(fos, hashmap);
+            } else if (file.equalsIgnoreCase("requestStatuses")) {
+                FileOutputStream fos = new FileOutputStream("requestStatuses.ser");
                 writeHelper(fos, hashmap);
             }
             } catch (IOException e) {
@@ -125,6 +131,42 @@ public class ReaderWriter {
      */
     public Object readRooms() throws IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream("rooms.ser");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+
+        Object tempObj = ois.readObject();
+        ois.close();
+        fis.close();
+        return tempObj;
+        // cast this in the main controller
+        // cast occurs in use case layer is ideal - create a method in the corresponding manager
+    }
+
+    /**
+     * Reads the serialized Object from the requests.ser file.
+     * @return returns the Object read from the requests.ser file.
+     * @throws IOException Refers to the exception that is raised when the program can't get input or outputs from rooms.
+     * @throws ClassNotFoundException Refers to the exception that is raised when the program can't find rooms.
+     */
+    public Object readRequests() throws IOException, ClassNotFoundException {
+        FileInputStream fis = new FileInputStream("requests.ser");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+
+        Object tempObj = ois.readObject();
+        ois.close();
+        fis.close();
+        return tempObj;
+        // cast this in the main controller
+        // cast occurs in use case layer is ideal - create a method in the corresponding manager
+    }
+
+    /**
+     * Reads the serialized Object from the requestStatuses.ser file.
+     * @return returns the Object read from the requestStatuses.ser file.
+     * @throws IOException Refers to the exception that is raised when the program can't get input or outputs from rooms.
+     * @throws ClassNotFoundException Refers to the exception that is raised when the program can't find rooms.
+     */
+    public Object readRequestStatuses() throws IOException, ClassNotFoundException {
+        FileInputStream fis = new FileInputStream("requestStatuses.ser");
         ObjectInputStream ois = new ObjectInputStream(fis);
 
         Object tempObj = ois.readObject();
