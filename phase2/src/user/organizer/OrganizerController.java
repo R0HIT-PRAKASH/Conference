@@ -818,7 +818,9 @@ public class OrganizerController extends AttendeeController {
 
         Collections.reverse(events);
 
-        lists.put("Top Five Events (By Capacity):", events.subList(0, 4));
+        if(events.size() > 5) events = events.subList(0, 4);
+
+        lists.put("Top Five Events (By Capacity):", events);
 
         List<String> speakers = users("speaker").stream()
                 .map(s1 -> (Speaker) s1)
@@ -828,7 +830,9 @@ public class OrganizerController extends AttendeeController {
 
         Collections.reverse(speakers);
 
-        lists.put("Most Popular Speakers (By Number of Events):", speakers.subList(0, 4));
+        if(speakers.size() > 5) speakers = speakers.subList(0, 4);
+
+        lists.put("Most Popular Speakers (By Number of Events):", speakers);
 
         p.displayNumberStats(stats);
         p.displayListStats(lists);

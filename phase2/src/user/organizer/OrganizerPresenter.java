@@ -746,17 +746,25 @@ public class OrganizerPresenter extends AttendeePresenter {
 
     void displayNumberStats(Map<String, Double> stats) {
 
-        stats.entrySet().stream()
-                .sorted()
-                .map(e -> e.getKey()+" "+e.getValue())
-                .forEach(System.out::println);
+        List<String> keys = new ArrayList<>(stats.keySet());
+        Collections.sort(keys);
+
+        for(String s : keys) {
+            System.out.println(s + ": " + stats.get(s));
+        }
     }
 
     void displayListStats(Map<String, List<String>> lists) {
-        lists.entrySet().stream()
-                .sorted()
-                .map(e -> e.getKey()+" "+e.getValue())
-                .forEach(System.out::println);
+
+        List<String> keys = new ArrayList<>(lists.keySet());
+        Collections.sort(keys);
+
+        for(String s : keys) {
+            System.out.println(s);
+            for(String e : lists.get(s)) {
+                System.out.println(e);
+            }
+        }
     }
 
     public void displayNoStats() {
