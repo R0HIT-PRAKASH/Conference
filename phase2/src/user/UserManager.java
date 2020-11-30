@@ -294,7 +294,6 @@ public class UserManager implements Serializable {
         Object uncastedUsers = RW.readUsers();
         HashMap<String, User> userHashMap = (HashMap<String, User>) uncastedUsers;
         setUserMap(userHashMap);
-
     }
 
     /**

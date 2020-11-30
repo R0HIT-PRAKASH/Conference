@@ -14,13 +14,22 @@ public class ProgramMain {
         MainController run = new MainController();
         int value = run.filesExist();
         if (value == 0) {
-            run.fileQUserMssgExists();
+            run.fileQ0();
         }
         else if (value == 1) {
-            run.fileQUserMssgRoomsExists();
+            run.fileQ1();
         }
         else if (value == 2) {
-            run.fileQAllExists();
+            run.fileQ2();
+        }
+        else if (value == 3) {
+            run.fileQ3();
+        }
+        else if (value == 4) {
+            run.fileQ4();
+        }
+        else if (value == 5) {
+            run.fileQ5();
         }
         run.run(value);
     }

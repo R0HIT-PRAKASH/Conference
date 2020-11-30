@@ -31,7 +31,7 @@ public class LoginController {
         p = new MainPresenter();
         userFactory = new UserFactory();
         String username = "";
-        if (value != 0 && value != 1 && value != 2){
+        if (value != 0 && value != 1 && value != 2 && value != 3 && value != 4 && value != 5){
             p.displayNewFirstUserMessage();
             username = createAccount();
             return username;

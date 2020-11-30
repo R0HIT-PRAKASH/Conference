@@ -39,7 +39,7 @@ public class MainController {
         eventManager = new EventManager(RW);
         username = "";
         p = new MainPresenter();
-        requestManager = new RequestManager();
+        requestManager = new RequestManager(RW);
         startingScratch = true;
     }
 
@@ -55,14 +55,24 @@ public class MainController {
         File messages = new File("messages.ser");
         File events = new File("events.ser");
         File rooms = new File("rooms.ser");
-        if (users.isFile() && messages.isFile() && !events.isFile() && !rooms.isFile()) {
+        File requests = new File("requests.ser");
+        // File requestStatuses = new File("requestStatuses.ser"); Dont need to check for - included in requests check
+
+        if (users.isFile() && messages.isFile() && !events.isFile() && !rooms.isFile() && !requests.isFile()) {
             return 0;
-        } else if (users.isFile() && messages.isFile() && !events.isFile() && rooms.isFile()) {
+        } else if (users.isFile() && messages.isFile() && !events.isFile() && rooms.isFile() && !requests.isFile()){
             return 1;
-        } else if (users.isFile() && messages.isFile() && events.isFile() && rooms.isFile()) {
+        } else if (users.isFile() && messages.isFile() && events.isFile() && rooms.isFile() && !requests.isFile()) {
             return 2;
+        }
+        if (users.isFile() && messages.isFile() && !events.isFile() && !rooms.isFile() && requests.isFile()) {
+            return 3;
+        } else if (users.isFile() && messages.isFile() && !events.isFile() && rooms.isFile() && requests.isFile()){
+            return 4;
+        } else if (users.isFile() && messages.isFile() && events.isFile() && rooms.isFile() && requests.isFile()) {
+            return 5;
         } else {
-            return 3; // nothing exists
+            return 6; // nothing exists
         }
     }
 
@@ -70,7 +80,7 @@ public class MainController {
      * This method is responsible for determining whether or not the program will use pre-existing files. If the user
      * wants to, they can load all of the pre-existing files, except for events and rooms.
      */
-    public void fileQUserMssgExists() {
+    public void fileQ0() {
 
         try {
             String answer = p.displayPreExistingFilePrompt(); // This reads the answer they give
@@ -78,7 +88,7 @@ public class MainController {
                 answer = p.displayInvalidFileChoice();
 
             } if (answer.equalsIgnoreCase("Yes")) {
-                readInFiles(RW, userManager, messageManager);
+                readInFiles0(RW, userManager, messageManager);
                 p.displayDownloadCompletion();
                 startingScratch = false;
             }
@@ -93,14 +103,14 @@ public class MainController {
      * This method is responsible for determining whether or not the program will use pre-existing files. If the user
      * wants to, they can load all of the pre-existing files, except for events.
      */
-    public void fileQUserMssgRoomsExists() {
+    public void fileQ1() {
 
         try {
             String answer = p.displayPreExistingFilePrompt(); // This reads the answer they give
             while(!answer.equalsIgnoreCase("Yes") && !answer.equalsIgnoreCase("No")) {
                 answer = p.displayInvalidFileChoice();
             } if (answer.equalsIgnoreCase("Yes")) {
-                readInFiles(RW, userManager, messageManager, eventManager);
+                readInFiles1(RW, userManager, messageManager, eventManager);
                 p.displayDownloadCompletion();
                 startingScratch = false;
             }
@@ -115,13 +125,79 @@ public class MainController {
      * This method is responsible for determining whether or not the program will use pre-existing files. If the user
      * wants to, they can load all of the pre-existing files.
      */
-    public void fileQAllExists() {
+    public void fileQ2() {
         try {
             String answer = p.displayPreExistingFilePrompt(); // This reads the answer they give
             while(!answer.equalsIgnoreCase("Yes") && !answer.equalsIgnoreCase("No")) {
                 answer = p.displayInvalidFileChoice();
             } if (answer.equalsIgnoreCase("Yes")) {
-                readInAllFiles(RW, userManager, messageManager, eventManager);
+                readInFiles2(RW, userManager, messageManager, eventManager);
+                p.displayDownloadCompletion();
+                startingScratch = false;
+            }
+        } catch (InputMismatchException ime) {
+            p.displayInvalidInputError();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * This method is responsible for determining whether or not the program will use pre-existing files. If the user
+     * wants to, they can load all of the pre-existing files, except for events and rooms.
+     */
+    public void fileQ3() {
+
+        try {
+            String answer = p.displayPreExistingFilePrompt(); // This reads the answer they give
+            while(!answer.equalsIgnoreCase("Yes") && !answer.equalsIgnoreCase("No")) {
+                answer = p.displayInvalidFileChoice();
+
+            } if (answer.equalsIgnoreCase("Yes")) {
+                readInFiles3(RW, userManager, messageManager, requestManager);
+                p.displayDownloadCompletion();
+                startingScratch = false;
+            }
+        } catch (InputMismatchException ime) {
+            p.displayInvalidInputError();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * This method is responsible for determining whether or not the program will use pre-existing files. If the user
+     * wants to, they can load all of the pre-existing files, except for events.
+     */
+    public void fileQ4() {
+
+        try {
+            String answer = p.displayPreExistingFilePrompt(); // This reads the answer they give
+            while(!answer.equalsIgnoreCase("Yes") && !answer.equalsIgnoreCase("No")) {
+                answer = p.displayInvalidFileChoice();
+            } if (answer.equalsIgnoreCase("Yes")) {
+                readInFiles4(RW, userManager, messageManager, eventManager, requestManager);
+                p.displayDownloadCompletion();
+                startingScratch = false;
+            }
+        } catch (InputMismatchException ime) {
+            p.displayInvalidInputError();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * This method is responsible for determining whether or not the program will use pre-existing files. If the user
+     * wants to, they can load all of the pre-existing files.
+     */
+    public void fileQ5() {
+        try {
+            String answer = p.displayPreExistingFilePrompt(); // This reads the answer they give
+            while(!answer.equalsIgnoreCase("Yes") && !answer.equalsIgnoreCase("No")) {
+                answer = p.displayInvalidFileChoice();
+            } if (answer.equalsIgnoreCase("Yes")) {
+                readInFiles5(RW, userManager, messageManager, eventManager, requestManager);
                 p.displayDownloadCompletion();
                 startingScratch = false;
             }
@@ -176,32 +252,59 @@ public class MainController {
         RW.write(messageManager.getAllUserMessages(), "messages");
         RW.write(eventManager.getAllEvents(), "events");
         RW.writeList(eventManager.getRooms());
+        RW.write(requestManager.getAllRequests(), "requests");
+        RW.write(requestManager.getAllRequestStatuses(), "requestStatuses");
+
+
 
         p.displaySignedOut();
     }
 
-    private void readInAllFiles(ReaderWriter RW, UserManager UM, MessageManager MM, EventManager EM) throws IOException, ClassNotFoundException {
-//        Object uncastedUsers = RW.readUsers();
-//        Object uncastedEvents = RW.readEvents();
-//        Object uncastedMessages = RW.readMessages();
-//        Object uncastedRooms = RW.readRooms();
+
+
+    private void readInFiles0(ReaderWriter RW, UserManager UM, MessageManager MM) throws IOException, ClassNotFoundException {
+
+        UM.setUserMapReadIn();
+        MM.setAllUserMessagesReadIn();
+    }
+
+    private void readInFiles1(ReaderWriter RW, UserManager UM, MessageManager MM, EventManager EM) throws IOException, ClassNotFoundException {
+        UM.setUserMapReadIn();
+        MM.setAllUserMessagesReadIn();
+        EM.setRoomsReadIn();
+    }
+
+    private void readInFiles2(ReaderWriter RW, UserManager UM, MessageManager MM, EventManager EM) throws IOException, ClassNotFoundException {
         UM.setUserMapReadIn();
         MM.setAllUserMessagesReadIn();
         EM.setAllEventsReadIn();
         EM.setRoomsReadIn();
     }
 
-    private void readInFiles(ReaderWriter RW, UserManager UM, MessageManager MM) throws IOException, ClassNotFoundException {
-
+    private void readInFiles3(ReaderWriter RW, UserManager UM, MessageManager MM, RequestManager RM) throws IOException, ClassNotFoundException {
         UM.setUserMapReadIn();
         MM.setAllUserMessagesReadIn();
+        RM.setAllRequestsReadIn();
+        RM.setAllRequestStatusesReadIn();
     }
 
-    private void readInFiles(ReaderWriter RW, UserManager UM, MessageManager MM, EventManager EM) throws IOException, ClassNotFoundException {
+    private void readInFiles4(ReaderWriter RW, UserManager UM, MessageManager MM, EventManager EM, RequestManager RM) throws IOException, ClassNotFoundException {
         UM.setUserMapReadIn();
         MM.setAllUserMessagesReadIn();
         EM.setRoomsReadIn();
+        RM.setAllRequestsReadIn();
+        RM.setAllRequestStatusesReadIn();
     }
+
+    private void readInFiles5(ReaderWriter RW, UserManager UM, MessageManager MM, EventManager EM, RequestManager RM) throws IOException, ClassNotFoundException {
+        UM.setUserMapReadIn();
+        MM.setAllUserMessagesReadIn();
+        EM.setAllEventsReadIn();
+        EM.setRoomsReadIn();
+        RM.setAllRequestsReadIn();
+        RM.setAllRequestStatusesReadIn();
+    }
+
 }
 // Give RW to each use case
 // change where RW method is called
