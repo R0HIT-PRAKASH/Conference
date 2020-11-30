@@ -674,10 +674,12 @@ public class OrganizerPresenter extends AttendeePresenter {
     /**
      * Displays the message that prompts the user to enter the maximum capacity of the event.
      * @param maxCapacity Refers to the capacity of the room which must be greater than or equal to the capacity of the event.
+     * @return Returns the user input for the capacity.
      */
-    public void displayEnterEventCapacityPrompt(int maxCapacity){
+    public int displayEnterEventCapacityPrompt(int maxCapacity){
         System.out.println("Enter the number of people that can attend the event: (it cannot be greater than the room's " +
                 "capacity which is " + maxCapacity + ". Enter 0 to quit.");
+        return nextInt();
     }
 
     /**

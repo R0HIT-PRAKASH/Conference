@@ -337,8 +337,7 @@ public class OrganizerController extends AttendeeController {
                     }
 
                 }else{ // room exists
-                    p.displayEnterEventCapacityPrompt(room.getCapacity());  // need to ask what they want capacity to be and cannot be more then room can hold
-                    int cap = p.nextInt();
+                    int cap = p.displayEnterEventCapacityPrompt(room.getCapacity());
                     while (cap > room.getCapacity() || cap < 0) {
                         cap = p.displayRoomCapacityError();
                     }
