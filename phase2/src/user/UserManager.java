@@ -124,6 +124,15 @@ public class UserManager implements Serializable {
     }
 
     /**
+     * Remove the event from the list of events the speaker will speak at.
+     * @param username Refers to the username of the speaker.
+     * @param eventName Refers to the name of the event that will be cancelled.
+     */
+    public void removeSpeakingEvent(String username, String eventName){
+        ((Speaker) getUser(username)).getSpeakingEvents().remove(eventName);
+    }
+
+    /**
      * Adds an Event name to a speaker's list of speaking events.
      * @param username The String username of the speaker of the event
      * @param eventName The String name of the event.
@@ -272,8 +281,7 @@ public class UserManager implements Serializable {
      * @return The list of event names that specify the events the organizer is organizing.
      */
     public List<String> allCreatedEvents(String organizer){
-        Organizer copy = (Organizer)getUser(organizer);
-        return copy.getOrganizingEvents();
+        return ((Organizer) userMap.get(organizer)).getOrganizingEvents();
     }
 
     /**
@@ -289,5 +297,13 @@ public class UserManager implements Serializable {
 
     }
 
+    /**
+     * This method removes an event from the list of events the organizer has created.
+     * @param username Refers to the username of the organizer.
+     * @param event Refers to the event that will be cancelled.
+     */
+    public void removeCreatedEvent(String username, Event event){
+        ((Organizer) userMap.get(username)).removeEvent(event);
+    }
 
 }

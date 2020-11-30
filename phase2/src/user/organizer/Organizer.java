@@ -62,6 +62,12 @@ public class Organizer extends User implements Serializable {
     public void createdEvent(Event event){ this.organizingEvents.add(event.getName());}
 
     /**
+     * This method removes an event from the list of events the organizer has created.
+     * @param event Refers to the event the organizer has created.
+     */
+    public void removeEvent(Event event){ this.organizingEvents.remove(event.getName());}
+
+    /**
      * This method returns a string representation of the type of user this person is.
      * @return Returns "organizer".
      */

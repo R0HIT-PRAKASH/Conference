@@ -101,7 +101,7 @@ public class EventManager implements Serializable {
         //GET EVENT TYPE
         String eventType = event.getEventType();
 
-        if (!between9to5(event) || event.getCapacity() <= 0 || event.getDuration() <= 0 || !requiredEquipment(event)){
+        if (!between9to5(event.getTime()) || event.getCapacity() <= 0 || event.getDuration() <= 0 || !requiredEquipment(event)){
             return false;
         }
 
@@ -111,7 +111,7 @@ public class EventManager implements Serializable {
             }
         }
 
-        if(event.getTime().plusHours(event.getDuration()).getHour() > 16){
+        if(event.getTime().plusHours(event.getDuration()).getHour()*60 + event.getTime().getMinute() > 1020){
             return false;
         }
 
@@ -222,21 +222,6 @@ public class EventManager implements Serializable {
         return event.getRequiredChairs() <= foundRoom.getChairs() && event.getRequiredComputers() <=
                 foundRoom.getComputers() && event.getRequiredTables() <= foundRoom.getTables() &&
                 (!event.getRequiredProjector() || (event.getRequiredProjector() && foundRoom.getProjector()));
-    }
-
-    private boolean between9to5(Event event){
-        LocalDateTime time = event.getTime();
-
-        int year = time.getYear();
-        int month = time.getMonthValue();
-        int day = time.getDayOfMonth();
-        LocalDateTime dateAt9AM = LocalDateTime.of(year, month, day, 9, 0);
-        LocalDateTime dateAt4PM = LocalDateTime.of(year, month, day, 16, 0);
-
-        int compare1 = time.compareTo(dateAt9AM);
-        int compare2 = time.compareTo(dateAt4PM);
-
-        return (compare1 >= 0 && compare2 <= 0);
     }
 
     /**
@@ -435,12 +420,10 @@ public class EventManager implements Serializable {
      * @return All the events that have yet to happen
      */
     public List<String> eventNotHappened(List<String> allEvents){
-        LocalDateTime time = LocalDateTime.now();
         List<String> futureEvents = new ArrayList<>();
         for(String event: allEvents){
             Event check = getEvent(event);
-            int compare = time.compareTo(check.getTime());
-            if (compare <= 0){
+            if (check.getTime().isAfter(LocalDateTime.now())){
                 futureEvents.add(event);
             }
         }
@@ -508,15 +491,39 @@ public class EventManager implements Serializable {
      * @param eventDuration Refers to how long the event will last.
      * @return True if the speaker is occupied and false otherwise.
      */
-    public boolean isOccupied(User user, LocalDateTime time, int eventDuration){
+    public boolean speakerIsOccupied(User user, LocalDateTime time, int eventDuration){
         for(String eventName : ((Speaker) user).getSpeakingEvents()){
             Event event = events.get(eventName);
             if(event.getTime().getDayOfYear() == time.getDayOfYear() && event.getTime().getYear() == time.getYear()){
-                int oldHoursPlusMinutes = event.getTime().getHour()*60 + event.getTime().getMinute();
-                int newHoursPlusMinutes = time.getHour()*60 + time.getMinute();
-                if(time.isEqual(event.getTime()) || (oldHoursPlusMinutes - newHoursPlusMinutes < eventDuration &&
-                        oldHoursPlusMinutes > newHoursPlusMinutes) || (newHoursPlusMinutes - oldHoursPlusMinutes <
-                        event.getDuration() && newHoursPlusMinutes > oldHoursPlusMinutes)){
+                int oldHoursPlusMinutes = event.getTime().getHour()*60 + event.getTime().getMinute() + event.getDuration()*60;
+                int newHoursPlusMinutes = time.getHour()*60 + time.getMinute() + eventDuration*60;
+                if(time.isEqual(event.getTime()) || (oldHoursPlusMinutes > time.getHour()*60 + time.getMinute() &&
+                        event.getTime().isBefore(time)) || (newHoursPlusMinutes > event.getTime().getHour()*60 +
+                        event.getTime().getMinute() && time.isBefore(event.getTime()))){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Determines if the room is occupied at the specified time.
+     * @param roomNumber Refers to the room number of the room.
+     * @param time Refers to the time the event is taking place.
+     * @param eventDuration Refers to how long the event lasts.
+     * @return True if the room is occupied and false otherwise.
+     */
+    public boolean roomIsOccupied(int roomNumber, LocalDateTime time, int eventDuration){
+        for(String eventName : events.keySet()){
+            Event event = events.get(eventName);
+            if(roomNumber == event.getRoomNumber() && event.getTime().getDayOfYear() == time.getDayOfYear() &&
+                    event.getTime().getYear() == time.getYear()){
+                int oldHoursPlusMinutes = event.getTime().getHour()*60 + event.getTime().getMinute() + event.getDuration()*60;
+                int newHoursPlusMinutes = time.getHour()*60 + time.getMinute() + eventDuration*60;
+                if(time.isEqual(event.getTime()) || (oldHoursPlusMinutes > time.getHour()*60 + time.getMinute() &&
+                        event.getTime().isBefore(time)) || (newHoursPlusMinutes > event.getTime().getHour()*60 +
+                        event.getTime().getMinute() && time.isBefore(event.getTime()))){
                     return true;
                 }
             }
@@ -547,6 +554,24 @@ public class EventManager implements Serializable {
         Object uncastedRooms = RW.readRooms();
         ArrayList<Room> rooms = (ArrayList<Room>) uncastedRooms;
         setRooms(rooms);
+    }
+
+    /**
+     * Gets the list of usernames responsible for creating the event.
+     * @param eventName Refers to the event you want the list of creators for.
+     * @return Returns the list of creators who made the event.
+     */
+    public List<String> getOrganizersList(String eventName){
+        Event event = events.get(eventName);
+        return event.getCreators();
+    }
+
+    /**
+     * Removes the event from the list of events that will occur.
+     * @param event Refers to the event that will be cancelled.
+     */
+    public void removeEvent(Event event){
+        events.remove(event.getName());
     }
 
 }

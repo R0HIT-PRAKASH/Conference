@@ -38,7 +38,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      * Prompts the Organizer that the process of adding an Event will now begin.
      */
     public void displayAddConferencePrompt() {
-        System.out.println("To Add an Event to the Conference, enter the following");
+        System.out.println("To Add an Event to the Conference, enter the following:");
     }
 
     /**
@@ -227,7 +227,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      * Prompts the Organizer to enter the month of the Event they are creating/rescheduling.
      */
     public void displayEnterMonthPrompt() {
-        System.out.print("Enter a month (102): ");
+        System.out.print("Enter a month (1-12): ");
     }
 
     /**
@@ -241,7 +241,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      * Prompts the Organizer to enter the hour of the Event they are creating/rescheduling.
      */
     public void displayEnterHourPrompt() {
-        System.out.print("Enter an hour (906): ");
+        System.out.print("Enter an hour (9-16): ");
     }
 
     /**
@@ -256,7 +256,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      * @return The username
      */
     public String displayEnterUsernamePrompt() {
-        System.out.print("Enter the Speaker's username or type 'q' to quit: ");
+        System.out.print("Enter the user's username or type 'q' to quit: ");
         return scan.nextLine();
     }
 
@@ -406,7 +406,7 @@ public class OrganizerPresenter extends AttendeePresenter {
             return;
         }
         System.out.println("Would you like to add any of them as additional organizers for this event " +
-                "(this gives them the ability to reschedule or cancel this event)? Type their usernames here" +
+                "(this gives them the ability to reschedule or cancel this event)? Type their usernames here " +
                 "or enter \"done\" when the list is complete ");
         String text = scan.nextLine();
         while (!text.equalsIgnoreCase("done")) {
@@ -488,7 +488,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      * Displays the message that prompts the user for the specified capacity of the event.
      */
     public int displayEventCapacityPrompt() {
-        System.out.println("Enter the capacity of the event you would like to add or 0 if you want to quit.");
+        System.out.println("Enter the capacity of the event you would like to add or -1 if you want to quit.");
         return nextInt();
     }
 
@@ -496,7 +496,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      * Displays the message that prompts the user for the specified capacity of the room.
      */
     public int displayRoomCapacityPrompt() {
-        System.out.println("Enter the capacity of the room you would like to add or 0 if you want to quit.");
+        System.out.println("Enter the capacity of the room you would like to add or -1 if you want to quit.");
         return nextInt();
     }
 
@@ -506,7 +506,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      */
 
     public int displayDurationPrompt() {
-        System.out.println("How long would you like the event to last(in minutes)? You can enter 0 to quit.");
+        System.out.println("How long would you like the event to last(in hours)? You can enter 0 to quit.");
         return nextInt();
     }
 
@@ -515,7 +515,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      * Displays the message that prompts the user to enter the number of computers in the room.
      */
     public int displayComputersPrompt() {
-        System.out.println("How many computers? Enter 0 to quit.");
+        System.out.println("How many computers? Enter -1 to quit.");
         return nextInt();
     }
 
@@ -549,7 +549,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      * Displays the message that prompts the user to enter the number of chairs in the room.
      */
     public int displayChairsPrompt() {
-        System.out.println("How many chairs? Enter 0 to quit.");
+        System.out.println("How many chairs? Enter -1 to quit.");
         return nextInt();
     }
 
@@ -557,7 +557,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      * Displays the message that prompts the user to enter the number of tables in the room.
      */
     public int displayTablesPrompt() {
-        System.out.println("How many tables? Enter 0 to quit.");
+        System.out.println("How many tables? Enter -1 to quit.");
         return nextInt();
     }
 
@@ -584,6 +584,8 @@ public class OrganizerPresenter extends AttendeePresenter {
         for (Room room : recommendRooms) {
             System.out.println(room);
         }
+        System.out.println("Please enter the room you want to use. If you choose a non-existent room, the room will be " +
+                "created with the necessary equipment.");
     }
 
     /**
@@ -598,7 +600,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      * @return The message
      */
     public String displayNotSpeakerError(){
-        System.out.print("This user is not a speaker! Please try again or enter 'q' to quit: ");
+        System.out.print("This user cannot give a talk! Please try again or enter 'q' to quit: ");
         return scan.nextLine();
     }
 
@@ -610,13 +612,13 @@ public class OrganizerPresenter extends AttendeePresenter {
 
         System.out.println("There is no room with this room number. \nDo you want to create a new room " +
                 "or do you want to be suggested a room from the existing ones? Please enter " +
-                "\n(1) 'create' to create a room \n(2) 'q' to quit");
+                "\n(1) 'create' to create a room \n(2) 'q' to quit\nIf you choose to create a room, the room number" +
+                "you enter will be used for the event by default.");
         String ans = scan.nextLine();
 
         while(!ans.equalsIgnoreCase("create") && !ans.equalsIgnoreCase("q")) {
 
-            displayRoomDecisionQError1();
-            ans = scan.nextLine();
+            ans = displayRoomDecisionQError1();
         }
 
         return ans;
@@ -642,14 +644,14 @@ public class OrganizerPresenter extends AttendeePresenter {
     public String displayRoomNumberQuestion2(){
         System.out.println("There is no room with this room number. \nDo you want to create a new room" +
                 "or do you want to be suggested a room from the existing ones? Please enter " +
-                "\n(1) 'create' to create a room \n(2) 'suggestions' to get a list of suggestions \n(3) 'q' to quit");
+                "\n(1) 'create' to create a room \n(2) 'suggestions' to get a list of suggestions \n(3) 'q' to quit" +
+                "\nIf you choose to create a room, the room number you enter will be used for the event by default.");
 
         String ans = scan.nextLine();
 
         while(!ans.equalsIgnoreCase("create") && !ans.equalsIgnoreCase("suggestions") // need to fix it so it doesnt give suggestions as option when empty
                 && !ans.equalsIgnoreCase("q")) {
-            displayRoomDecisionQError2();
-            ans = scan.nextLine();
+            ans = displayRoomDecisionQError2();
         }
 
         return ans;
@@ -672,7 +674,8 @@ public class OrganizerPresenter extends AttendeePresenter {
      * @param maxCapacity Refers to the capacity of the room which must be greater than or equal to the capacity of the event.
      */
     public void displayEnterEventCapacityPrompt(int maxCapacity){
-        System.out.println("Enter the number of people that can attend the event: (it cannot be greater than the room's capacity which is " + maxCapacity);
+        System.out.println("Enter the number of people that can attend the event: (it cannot be greater than the room's " +
+                "capacity which is " + maxCapacity + ". Enter 0 to quit.");
     }
 
     /**
@@ -683,12 +686,13 @@ public class OrganizerPresenter extends AttendeePresenter {
      */
     public int displayEnterNewEventCapacityPrompt(int maxCapacity, int minCapacity){
         System.out.println("The room this event is taking place in has a maximum capacity of " + maxCapacity +
-                ". Thus the new capacity must be greater than or equal to " + minCapacity + "; the number" +
-                " of users already attending the event. Please Enter the new number of people that can attend the event:");
+                ". Thus the new capacity must be greater than " + minCapacity + "; the number" +
+                " of users already attending the event. The capacity can also not be 0. Please Enter the new number " +
+                "of people that can attend the event:");
 
         int capac = nextInt();
 
-        while(capac > maxCapacity || capac < minCapacity) {
+        while(capac > maxCapacity || capac < minCapacity || capac == 0) {
             displayModifyRoomCapacityError(maxCapacity, minCapacity);
             capac = nextInt();
         }
@@ -697,11 +701,12 @@ public class OrganizerPresenter extends AttendeePresenter {
 
     /**
      * Displays the message that informs the user that the capacity entered is too high.
-     * @param maxCapacity Refers to the maximum capacity of the room.
+     * @return Returns the input from the user.
      */
-    public void displayRoomCapacityError(int maxCapacity){
-        System.out.println("Error: The room this event is taking place in has a maximum capacity of " + maxCapacity +
-                ". Please Enter the number of people that can attend the event:");
+    public int displayRoomCapacityError(){
+        System.out.println("Error: That is an invalid capacity for the room to have. Please Enter the number of " +
+                "people that can attend the event:");
+        return nextInt();
     }
 
 
@@ -716,7 +721,9 @@ public class OrganizerPresenter extends AttendeePresenter {
                 " of users already attending the event. Please Enter the new number of people that can attend the event:");
     }
 
-
+    public void displayNoEventsCreated(){
+        System.out.println("You don't have the power to cancel any events.");
+    }
 
     /**
      * Displays the message that prompts the user to enter the event they want to change the capacity of.
@@ -773,6 +780,33 @@ public class OrganizerPresenter extends AttendeePresenter {
     public void displayNewUserCreated(String username, String password) {
         System.out.println("New user successfully created with the following details:\n" +
                 "Username: " + username + "| Password: " + password);
+    }
+
+    public void displayEventTimeChanged(){
+        System.out.println("The event time has been changed.");
+    }
+
+    public String displayInvalidEventType(){
+        System.out.println("This is not a valid event type. Please try again or 'q' to quit.");
+        return scan.nextLine();
+    }
+
+    public String displayPromptEventType(){
+        System.out.println("What kind of event would you like to create? A talk, panel, or party?");
+        return scan.nextLine();
+    }
+
+    public void notEnoughPeople(){
+        System.out.println("Sorry. You wanted a panel and a panel must have at least two speakers. Please enter another speaker.");
+    }
+
+    public int displayOccupiedRoom(){
+        System.out.println("This room is occupied at this time. Please select again.");
+        return nextInt();
+    }
+
+    public void displaySpeakerAlreadyAdded(){
+        System.out.println("This speaker has already been added.");
     }
 
     protected LocalDateTime getTime() throws DateTimeException {
