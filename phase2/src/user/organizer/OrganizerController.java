@@ -50,7 +50,7 @@ public class OrganizerController extends AttendeeController {
         p.displayOptions2();
         p.displayTaskInput();
 
-        final int END_CONDITION = 25;
+        final int END_CONDITION = 26;
         int input = p.nextInt();
         while (input != END_CONDITION){ // 25 is ending condition
             determineInput(input);
@@ -581,12 +581,14 @@ public class OrganizerController extends AttendeeController {
             case 20:
                 p.displayUserList(users("organizer"), "Organizer");
                 break;
-
             case 21:
+                //Display all VIP users
+                break;
+            case 22:
                 getStats();
                 break;
 
-            case 22: //address requests
+            case 23: //address requests
                 int to_change = getRequestToDecide();
                 Request update = requestManager.getStatusRequests("pending").get(to_change - 1);
                 String decision = p.displayRequestDecisionPrompt(update);
@@ -605,11 +607,11 @@ public class OrganizerController extends AttendeeController {
                 }
                 break;
 
-            case 23: //view addressed requests
+            case 24: //view addressed requests
                 getAddressedRequests();
                 break;
 
-            case 24: //view user requests
+            case 25: //view user requests
                 getUserRequests(p.viewUserRequestPrompt());
                 break;
 
