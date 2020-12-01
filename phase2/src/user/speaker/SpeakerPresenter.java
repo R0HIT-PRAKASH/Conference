@@ -48,7 +48,26 @@ public class SpeakerPresenter extends UserPresenter {
         System.out.println("(0) Messages\n(1) Events\n(2) Requests\n(3) Quit");
     }
 
+    /**
+     *
+     */
+    public void displayMessageOptionsInvalidChoice() {
+        System.out.println("Invalid input. Please enter a number between 0 and 4:");
+    }
 
+    /**
+     *
+     */
+    public void displayEventOptionsInvalidChoice() {
+        System.out.println("Invalid input. Please enter a number between 0 and 1:");
+    }
+
+    /**
+     *
+     */
+    public void displayRequestsOptionsInvalidChoice() {
+        System.out.println("Invalid input. Please enter a number between 0 and 2:");
+    }
 
     /**
      * Prints all events that a Speaker is speaking at.
