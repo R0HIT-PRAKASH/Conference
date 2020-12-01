@@ -955,4 +955,12 @@ public class OrganizerPresenter extends AttendeePresenter {
         }
     }
 
+    public void noUserRequests(){
+        System.out.println("This user has not made any request");
+    }
+
+    public void noAddressedRequests(){
+        System.out.println("There are no addressed requests at this time.");
+    }
+
 }

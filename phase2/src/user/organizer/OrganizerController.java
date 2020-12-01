@@ -963,12 +963,22 @@ public class OrganizerController extends AttendeeController {
 
     public void getUserRequests(String username){
         List<Request> user_req = requestManager.getUserRequests(username);
-        p.displayUserRequests(user_req);
+        if (user_req.size() == 0){
+            p.noUserRequests();
+        }
+        else{
+            p.displayUserRequests(user_req);
+        }
     }
 
     public void getAddressedRequests(){
         List<Request> addressed = requestManager.getStatusRequests("addressed");
-        p.displayAddressedRequests(addressed);
+        if (addressed.size() == 0){
+            p.noAddressedRequests();
+        }
+        else{
+            p.displayAddressedRequests(addressed);
+        }
     }
 
 }
