@@ -20,12 +20,32 @@ public class SpeakerPresenter extends UserPresenter {
     public SpeakerPresenter(){}
 
     /**
+     * Prints all the message related tasks that a Speaker can do.
+     */
+    public void displayMessageOptions(){
+        System.out.println("(0) See Inbox\n (1) Message Event Attendees\n (2) Reply to Attendee " +
+                "\n (3) Message Specific Attendee\n (4) Go Back to Main Screen");
+    }
+
+    /**
+     * Prints all the event related tasks that a Speaker can do.
+     */
+    public void displayEventOptions(){
+        System.out.println("(0) View My Events \n (1) Go Back to Main Screen");
+    }
+
+    /**
+     * Prints all the request related tasks that a Speaker can do.
+     */
+    public void displayRequestOptions(){
+        System.out.println("(0) View My Requests\n (1) Make a Request\n (2) Go Back to Main Screen");
+    }
+
+    /**
      * Prints all the tasks which a Speaker can do.
      */
     public void displayOptions3(){
-        System.out.println("(0) See Inbox \n(1) View My Events \n(2) Message Event Attendees " +
-                "\n(3) Reply to Attendee \n(4) Message Specific Attendee \n(5) Options \n(6) View My Requests" +
-                "\n(7) Make a Request \n(8) End");
+        System.out.println("(0) Messages\n(1) Events\n (2) Requests\n (3) Quit");
     }
 
 
