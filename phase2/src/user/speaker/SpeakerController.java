@@ -191,6 +191,10 @@ public class SpeakerController{
 //        p.displayNextTaskPromptSpeaker();
 //    }
 
+    /**
+     * Used to determine what task the user would like to do based off their keyboard input.
+     * @param input: The integer value that corresponds to the task the user would like to do.
+     */
     private void determineInput(int input){
         switch (input){
             case 0:
@@ -236,8 +240,8 @@ public class SpeakerController{
     }
 
     /**
-     *
-     * @param input
+     * Used to determine what message task the user would like to do based off their keyboard input.
+     * @param input: The integer value that corresponds to the task the user would like to do.
      */
     private void determineInputMessage(int input){
         switch (input) {
@@ -355,8 +359,8 @@ public class SpeakerController{
     }
 
     /**
-     *
-     * @param input
+     * Used to determine what event task the user would like to do based off their keyboard input.
+     * @param input: The integer value that corresponds to the task the user would like to do.
      */
     private void determineInputEvent(int input){
         switch (input){
@@ -372,8 +376,8 @@ public class SpeakerController{
     }
 
     /**
-     *
-     * @param input
+     * Used to determine what request task the user would like to do based off their keyboard input.
+     * @param input: The integer value that corresponds to the task the user would like to do.
      */
     private void determineInputRequest(int input){
         switch (input){

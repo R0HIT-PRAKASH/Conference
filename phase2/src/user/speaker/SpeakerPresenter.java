@@ -49,21 +49,21 @@ public class SpeakerPresenter extends UserPresenter {
     }
 
     /**
-     *
+     * Displays that the user input was out of range.
      */
     public void displayMessageOptionsInvalidChoice() {
         System.out.println("Invalid input. Please enter a number between 0 and 4:");
     }
 
     /**
-     *
+     * Displays that the user input was out of range.
      */
     public void displayEventOptionsInvalidChoice() {
         System.out.println("Invalid input. Please enter a number between 0 and 1:");
     }
 
     /**
-     *
+     * Displays that the user input was out of range.
      */
     public void displayRequestsOptionsInvalidChoice() {
         System.out.println("Invalid input. Please enter a number between 0 and 2:");
