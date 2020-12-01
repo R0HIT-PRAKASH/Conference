@@ -23,18 +23,67 @@ public class OrganizerPresenter extends AttendeePresenter {
     }
 
 
-    /**
+//    /**
+//     * Prints all the tasks which an Organizer can do.
+//     */
+//    public void displayOptions2() {
+//        System.out.println("(0) See Inbox\n(1) Send Message\n(2) Reply to Message\n(3) View Event List" +
+//                "\n(4) View My Scheduled Events\n(5) Cancel Event Reservation\n(6) Sign up for Event" +
+//                "\n(7) Add Event\n(8) Message All Attendees\n(9) Message Event Attendees" +
+//                "\n(10) Message All Speakers\n(11) Cancel Event\n(12) Reschedule Event\n(13) Add New User" +
+//                "\n(14) View Options" + "\n(15) Add Room \n(16) Modify an Event's capacity \n(17) View All Rooms \n(18) View Speakers\n(19) " +
+//                "View Attendees\n(20) View Organizers\n(21) View VIPs\n(22) Display Conference Statistics\n(23) Address Requests" +
+//                "\n(24) View Addressed Request \n(25) View User Requests \n(26) Quit");
+//    }
+
+        /**
      * Prints all the tasks which an Organizer can do.
      */
     public void displayOptions2() {
-        System.out.println("(0) See Inbox\n(1) Send Message\n(2) Reply to Message\n(3) View Event List" +
-                "\n(4) View My Scheduled Events\n(5) Cancel Event Reservation\n(6) Sign up for Event" +
-                "\n(7) Add Event\n(8) Message All Attendees\n(9) Message Event Attendees" +
-                "\n(10) Message All Speakers\n(11) Cancel Event\n(12) Reschedule Event\n(13) Add New User" +
-                "\n(14) View Options" + "\n(15) Add Room \n(16) Modify an Event's capacity \n(17) View All Rooms \n(18) View Speakers\n(19) " +
-                "View Attendees\n(20) View Organizers\n(21) View VIPs\n(22) Display Conference Statistics\n(23) Address Requests" +
-                "\n(24) View Addressed Request \n(25) View User Requests \n(26) Quit");
+        System.out.println("(0) Messages\n(1) Events\n(2) User Options\n(3) Requests\n(4) Quit");
     }
+
+
+
+    /**
+     */
+    public void displayMessageOptions() {
+        System.out.println("(0) See Inbox\n(1) Send Message\n(2) Reply to Message\n(3) Message All Attendees\n(4) Message Event Attendees" +
+                "\n(5) Message All Speakers\n(6) Go back to main screen");
+    }
+
+    public void displayEventOptions() {
+        System.out.println("(0) View Event List\n(1) View My Scheduled Events\n(2) Cancel Event Reservation\n(3) Sign up for Event" +
+                "\n(4) Add Event\n(5) Cancel Event\n(6) Reschedule Event\n(7) Add Room \n(8) Modify an Event's capacity\n" +
+                "(9) Display Conference Statistic\n (10)Go back to main screen ");
+    }
+
+    public void displayUserOptions() {
+        System.out.println("(0) Add New User\n(1) View All Rooms\n(2) View Speakers\n(3) View Attendees\n(4) View Organizers" +
+                "\n(5) View VIPs\n(5) Go back to main screen");
+    }
+
+    public void displayRequestOptions() {
+        System.out.println("(0) Address Requests\n(1) View Addressed Request\n(2) View User Requests\n(3) Go back to main screen");
+    }
+
+
+    public void displayMessageOptionsInvalidChoice() {
+        System.out.println("Invalid input. Please enter a number between 0 and 6:");
+    }
+
+    public void displayEventOptionsInvalidChoice() {
+        System.out.println("Invalid input. Please enter a number between 0 and 9:");
+    }
+
+    public void displayUserOptionsInvalidChoice() {
+        System.out.println("Invalid input. Please enter a number between 0 and 5:");
+    }
+
+    public void displayRequestsOptionsInvalidChoice() {
+        System.out.println("Invalid input. Please enter a number between 0 and 3:");
+    }
+
 
     /**
      * Prompts the Organizer that the process of adding an Event will now begin.
@@ -746,6 +795,8 @@ public class OrganizerPresenter extends AttendeePresenter {
         System.out.print("Error: Please enter the name of an event that you created or press 'q' to quit:");
         return scan.nextLine();
     }
+
+
 
 
     void displayNumberStats(Map<String, Double> stats) {

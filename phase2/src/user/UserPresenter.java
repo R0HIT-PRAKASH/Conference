@@ -30,6 +30,10 @@ public class UserPresenter extends Presenter {
         System.out.print("Please enter next task (reminder, you can type '14' to see what you can do): ");
     }
 
+    public void displayNextTaskPrompt(){
+        System.out.print("Please enter next task (reminder, you can type '14' to see what you can do): ");
+    }
+
     /**
      * Prompts a Speaker to choose another task once they have completed a task.
      */

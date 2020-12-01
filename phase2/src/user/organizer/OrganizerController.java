@@ -50,15 +50,70 @@ public class OrganizerController extends AttendeeController {
         p.displayOptions2();
         p.displayTaskInput();
 
-        final int END_CONDITION = 26;
+        final int END_CONDITION = 4;
         int input = p.nextInt();
-        while (input != END_CONDITION){ // 25 is ending condition
+        while (input != END_CONDITION){
             determineInput(input);
             input = p.nextInt();
         }
     }
 
     private void determineInput(int input) {
+        label:
+        switch (input) {
+            case 0:
+                p.displayMessageOptions();
+                int choice = p.nextInt();
+                final int endCond = 6;
+                while (choice != endCond) {
+                    determineInput0(choice);
+                    choice = p.nextInt();
+                }
+                break;
+
+            case 1:
+                p.displayEventOptions();
+                int choice1 = p.nextInt();
+                final int endCond1 = 10;
+                while (choice1 != endCond1) {
+                    determineInput1(choice1);
+                    choice1 = p.nextInt();
+                }
+                break;
+
+            case 2:
+                p.displayUserOptions();
+                int choice2 = p.nextInt();
+                final int endCond2 = 5;
+                while (choice2 != endCond2) {
+                    determineInput2(choice2);
+                    choice2 = p.nextInt();
+                }
+                break;
+
+            case 3:
+                p.displayRequestOptions();
+                int choice3 = p.nextInt();
+                final int endCond3 = 3;
+                while (choice3 != endCond3) {
+                    determineInput3(choice3);
+                    choice3 = p.nextInt();
+                }
+                break;
+
+
+            case 14:
+                p.displayOptions2();
+                break;
+
+            default:
+                p.displayInvalidInputError();
+                break;
+        }
+        p.displayNextTaskPromptOrganizer();
+    }
+
+    private void determineInput0(int input) {
         label:
         switch (input) {
             case 0:
@@ -116,14 +171,61 @@ public class OrganizerController extends AttendeeController {
                 break;
 
             case 3:
-                viewEventList();
+                String message = p.displayAllAttendeeMessagePrompt();
+
+                if (message.equalsIgnoreCase("q")) {
+                    break;
+                }
+                messageAllAttendees(message);
+                p.displayMessageSentPrompt();
                 break;
 
             case 4:
-                viewSignedUpForEvent(this.username);
+                String eventname = p.displayEventMessagePrompt();
+                if (eventname.equalsIgnoreCase("q")) {
+                    break;
+                }
+                else if(eventManager.getEvent(eventname) == null) {
+                    p.displayInvalidEventError();
+                } else {
+                    messageEventAttendees(p.displayAllAttendeeEventMessagePrompt(), eventname);
+                    p.displayMessageSentPrompt();
+                }
                 break;
 
             case 5:
+                String speakermessage = p.displayAllSpeakerMessagePrompt();
+                if (speakermessage.equalsIgnoreCase("q")) {
+                    break;
+                }
+                messageAllSpeakers(speakermessage);
+                p.displayMessageSentPrompt();
+                break;
+
+            case 14:
+                p.displayMessageOptions();
+                break;
+
+            default:
+                p.displayMessageOptionsInvalidChoice();
+                break;
+
+        }
+        p.displayNextTaskPromptOrganizer();
+    }
+
+    private void determineInput1(int input) {
+        label:
+        switch (input) {
+            case 0:
+                viewEventList();
+                break;
+
+            case 1:
+                viewSignedUpForEvent(this.username);
+                break;
+
+            case 2:
                 Organizer temp = (Organizer) userManager.getUser(this.username);
                 if(temp.getAttendingEvents().isEmpty()){
                     p.displayNotAttendingAnyEvents();
@@ -146,7 +248,7 @@ public class OrganizerController extends AttendeeController {
                 cancelSpotInEvent(cancel);
                 break;
 
-            case 6:
+            case 3:
                 List<Event> future = viewFutureEventList();
                 p.displayAllFutureEvents(future);
                 if (future.size() == 0){
@@ -170,7 +272,7 @@ public class OrganizerController extends AttendeeController {
                 signUp(eventSignedUp);
                 break;
 
-            case 7:
+            case 4:
                 //Ask user what type of event they would like to create (Talk.java, Panel, Party).
                 //Depending on what type of event they chose, ask appropriate questions. (Same except for how we ask for
                 //the speakers, i.e one speaker for talk, multiple speakers for panel, no speaker for party).
@@ -274,7 +376,7 @@ public class OrganizerController extends AttendeeController {
                 String ans;
                 if(eventManager.getRoom(num) == null) {
                     ans = eventManager.getRooms().isEmpty() ?
-                    p.displayRoomNumberQuestion1() : p.displayRoomNumberQuestion2();
+                            p.displayRoomNumberQuestion1() : p.displayRoomNumberQuestion2();
 
                     if (ans.equalsIgnoreCase("q")) {
                         break;
@@ -360,39 +462,7 @@ public class OrganizerController extends AttendeeController {
                 }
                 break;
 
-            case 8:
-                String message = p.displayAllAttendeeMessagePrompt();
-
-                if (message.equalsIgnoreCase("q")) {
-                    break;
-                }
-                messageAllAttendees(message);
-                p.displayMessageSentPrompt();
-                break;
-
-            case 9:
-                String eventname = p.displayEventMessagePrompt();
-                if (eventname.equalsIgnoreCase("q")) {
-                    break;
-                }
-                else if(eventManager.getEvent(eventname) == null) {
-                    p.displayInvalidEventError();
-                } else {
-                    messageEventAttendees(p.displayAllAttendeeEventMessagePrompt(), eventname);
-                    p.displayMessageSentPrompt();
-                }
-                break;
-
-            case 10:
-                String speakermessage = p.displayAllSpeakerMessagePrompt();
-                if (speakermessage.equalsIgnoreCase("q")) {
-                    break;
-                }
-                messageAllSpeakers(speakermessage);
-                p.displayMessageSentPrompt();
-                break;
-
-            case 11:
+            case 5:
                 if(userManager.allCreatedEvents(username).isEmpty()){
                     p.displayNoOrganizedEvents();
                     break;
@@ -442,7 +512,7 @@ public class OrganizerController extends AttendeeController {
                 eventManager.removeEvent(eventManager.getEvent(event));
                 break;
 
-            case 12:
+            case 6:
                 String[] responses = new String[1];
                 responses[0] = this.username;
                 List<String> responsibleEvents = userManager.allCreatedEvents(this.username);
@@ -463,23 +533,7 @@ public class OrganizerController extends AttendeeController {
                 }
                 break;
 
-            case 13:
-                String newUserType = p.displayNewUserCreation();
-                while (!(newUserType.equalsIgnoreCase("ORGANIZER") ||
-                        newUserType.equalsIgnoreCase("ATTENDEE") ||
-                        newUserType.equalsIgnoreCase("SPEAKER") ||
-                        newUserType.equalsIgnoreCase("VIP"))){
-                    newUserType = p.displayInvalidUserTypeError();
-                }
-                makeUser(newUserType);
-                break;
-
-            case 14:
-                p.displayOptions2();
-                break;
-
-
-            case 15:
+            case 7:
 
                 int roomNumber = p.displayRoomCreationPrompt();
                 if (roomNumber == 0) {
@@ -526,7 +580,7 @@ public class OrganizerController extends AttendeeController {
                 }
                 break;
 
-            case 16: // I would suggest putting this in a Modify Event Tab for GUI
+            case 8: // I would suggest putting this in a Modify Event Tab for GUI
                 List<String> namesOfEvents = userManager.allCreatedEvents(this.username);
                 if(namesOfEvents.isEmpty()){
                     p.displayNoOrganizedEvents();
@@ -558,37 +612,69 @@ public class OrganizerController extends AttendeeController {
                 int newCapacity = p.displayEnterNewEventCapacityPrompt(room1.getCapacity(), eventToModify.getAttendeeSet().size());
                 eventManager.changeEventCapacity(eventToModify, newCapacity);
                 break;
-            // Here are the FUTURE events which you can modify:
 
-
-            // display only event for which they are an organizer of (have access to)
-
-            //choose one of them
-            // choose an event
-
-            case 17:
-                p.displayRoomList(eventManager.getRooms());
-                break;
-
-            case 18:
-                p.displayUserList(users("speaker"), "Speaker");
-                break;
-
-            case 19:
-                p.displayUserList(users("attendee"), "Attendee");
-                break;
-
-            case 20:
-                p.displayUserList(users("organizer"), "Organizer");
-                break;
-            case 21:
-                //Display all VIP users
-                break;
-            case 22:
+            case 9:
                 getStats();
                 break;
 
-            case 23: //address requests
+
+            case 14:
+                p.displayEventOptions();
+                break;
+
+            default:
+                p.displayEventOptionsInvalidChoice();
+                break;
+
+        }
+        p.displayNextTaskPromptOrganizer();
+    }
+
+    private void determineInput2(int input) {
+        label:
+        switch (input) {
+            case 0:
+                String newUserType = p.displayNewUserCreation();
+                while (!(newUserType.equalsIgnoreCase("ORGANIZER") ||
+                        newUserType.equalsIgnoreCase("ATTENDEE") ||
+                        newUserType.equalsIgnoreCase("SPEAKER") ||
+                        newUserType.equalsIgnoreCase("VIP"))){
+                    newUserType = p.displayInvalidUserTypeError();
+                }
+                makeUser(newUserType);
+                break;
+
+            case 1:
+                p.displayRoomList(eventManager.getRooms());
+                break;
+
+            case 2:
+                p.displayUserList(users("speaker"), "Speaker");
+                break;
+
+            case 3:
+                p.displayUserList(users("attendee"), "Attendee");
+                break;
+
+            case 4:
+                p.displayUserList(users("organizer"), "Organizer");
+                break;
+            case 5:
+                //Display all VIP users
+                break;
+
+            default:
+                p.displayUserOptionsInvalidChoice();
+                break;
+
+        }
+        p.displayNextTaskPromptOrganizer();
+    }
+
+    private void determineInput3(int input) {
+        label:
+        switch (input) {
+            case 0: //address requests
                 int to_change = getRequestToDecide();
                 Request update = requestManager.getStatusRequests("pending").get(to_change - 1);
                 String decision = p.displayRequestDecisionPrompt(update);
@@ -607,17 +693,18 @@ public class OrganizerController extends AttendeeController {
                 }
                 break;
 
-            case 24: //view addressed requests
+            case 1: //view addressed requests
                 getAddressedRequests();
                 break;
 
-            case 25: //view user requests
+            case 2: //view user requests
                 getUserRequests(p.viewUserRequestPrompt());
                 break;
 
             default:
-                p.displayInvalidInputError();
+                p.displayRequestsOptionsInvalidChoice();
                 break;
+
         }
         p.displayNextTaskPromptOrganizer();
     }
