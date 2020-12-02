@@ -461,8 +461,7 @@ public class OrganizerController extends AttendeeController {
                     creators.add(this.username);
                     p.displayAndGetCreators(creators, organizers);
 
-                    Event event = eventManager.createNewEvent(eventType, name, time, duration, num, capacity, comp, project, cha, tab, creators, vip, speaker, speakers, eventTag);
-                    if(eventManager.checkEventIsValid(event)){
+                    if(eventManager.checkEventIsValid(eventManager.createNewEvent(eventType, name, time, duration, num, capacity, comp, project, cha, tab, creators, vip, speaker, speakers, eventTag))){
                         eventManager.addEvent(eventType, name, time, duration, num, capacity, comp, project, cha, tab, creators, vip, speaker, speakers, eventTag);
                         addEvent(eventType, name, speaker, speakers, creators, true);
                     }else{
@@ -483,11 +482,10 @@ public class OrganizerController extends AttendeeController {
                     creators.add(this.username);
                     p.displayAndGetCreators(creators, organizers);
 
-                    Event event = eventManager.createNewEvent(eventType, name, time, duration, num, room.getCapacity(), room.getComputers(), room.getProjector(), room.getChairs(), room.getTables(), creators, vip, speaker, speakers, eventTag);
-                    if(eventManager.checkEventIsValid(event)){
+                    if(eventManager.checkEventIsValid(eventManager.createNewEvent(eventType, name, time, duration, num, room.getCapacity(), room.getComputers(), room.getProjector(), room.getChairs(), room.getTables(), creators, vip, speaker, speakers, eventTag))){
                         eventManager.addEvent(eventType, name, time, duration, num, room.getCapacity(), room.getComputers(), room.getProjector(), room.getChairs(), room.getTables(), creators, vip, speaker, speakers, eventTag);
                         addEvent(eventType, name, speaker, speakers, creators, true);
-                    }else {
+                    }else{
                         addEvent(eventType, name, speaker, speakers, creators, false);
                     }
                 }
@@ -553,10 +551,10 @@ public class OrganizerController extends AttendeeController {
                     break;
                 }
                 LocalDateTime newTime = p.askTime();
-                Event event1 = eventManager.getEvent(eventName1);
-                if(eventManager.roomIsOccupied(event1.getRoomNumber(), newTime, event1.getDuration()) ||
-                        eventManager.speakerIsOccupied(userManager.getUser(event1.getSpeakerName()), newTime,
-                                event1.getDuration())){
+                if(eventManager.roomIsOccupied(eventManager.getEvent(eventName1).getRoomNumber(), newTime,
+                        eventManager.getEvent(eventName1).getDuration()) ||
+                        eventManager.speakerIsOccupied(userManager.getUser(eventManager.getEvent(eventName1).getSpeakerName()),
+                                newTime, eventManager.getEvent(eventName1).getDuration())){
                     p.displayInvalidEventError();
                 }else{
                     rescheduleEvent(eventName1, newTime);
@@ -637,11 +635,9 @@ public class OrganizerController extends AttendeeController {
                     break;
                 }
 
-                Event eventToModify = eventManager.getEvent(eventNameToModify);
-                Room room1 = eventManager.getRoom(eventToModify.getRoomNumber());
                 // display new capacity prompt
-                int newCapacity = p.displayEnterNewEventCapacityPrompt(room1.getCapacity(), eventToModify.getAttendeeSet().size());
-                eventManager.changeEventCapacity(eventToModify, newCapacity);
+                int newCapacity = p.displayEnterNewEventCapacityPrompt(eventManager.getRoom(eventManager.getEvent(eventNameToModify).getRoomNumber()).getCapacity(), eventManager.getEvent(eventNameToModify).getAttendeeSet().size());
+                eventManager.changeEventCapacity(eventManager.getEvent(eventNameToModify), newCapacity);
                 break;
 
             case 9:
