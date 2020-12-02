@@ -50,10 +50,10 @@ public class EventManager implements Serializable {
      */
     public Event createNewEvent(String eventType, String name, LocalDateTime time, Integer duration, int roomNumber,
                                 int capacity, int computers, boolean projector, int chairs, int tables,
-                                List<String> creators, boolean vip, String speaker, List<String> speakers){
+                                List<String> creators, boolean vip, String speaker, List<String> speakers, String tag){
 //        Event event = new Event(name, speakerName, time, duration, roomNumber, capacity, computers, projector,
 //                chairs, tables, creators, vip);
-        Event event = eventFactory.getEvent(eventType, name, time, duration, roomNumber, capacity, computers, projector, chairs, tables, creators, vip, speaker, speakers);
+        Event event = eventFactory.getEvent(eventType, name, time, duration, roomNumber, capacity, computers, projector, chairs, tables, creators, vip, speaker, speakers, tag);
         if (getRoom(roomNumber) == null){
             addRoom(roomNumber, capacity, computers, projector, chairs, tables);
         }
@@ -80,9 +80,9 @@ public class EventManager implements Serializable {
      */
     public boolean addEvent(String eventType, String name, LocalDateTime time, Integer duration, int roomNumber,
                             int capacity, int computers, boolean projector, int chairs, int tables,
-                            List<String> creators, boolean vip, String speaker, List<String> speakers){
+                            List<String> creators, boolean vip, String speaker, List<String> speakers, String tag){
         Event event = createNewEvent(eventType, name, time, duration, roomNumber, capacity, computers, projector,
-                chairs, tables, creators, vip, speaker, speakers);
+                chairs, tables, creators, vip, speaker, speakers, tag);
         if (!checkEventIsValid(event)){
             return false;
         }

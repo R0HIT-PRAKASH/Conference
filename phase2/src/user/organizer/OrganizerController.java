@@ -430,9 +430,9 @@ public class OrganizerController extends AttendeeController {
                     creators.add(this.username);
                     p.displayAndGetCreators(creators, organizers);
 
-                    Event event = eventManager.createNewEvent(eventType, name, time, duration, num, capacity, comp, project, cha, tab, creators, vip, speaker, speakers);
+                    Event event = eventManager.createNewEvent(eventType, name, time, duration, num, capacity, comp, project, cha, tab, creators, vip, speaker, speakers, "");
                     if(eventManager.checkEventIsValid(event)){
-                        eventManager.addEvent(eventType, name, time, duration, num, capacity, comp, project, cha, tab, creators, vip, speaker, speakers);
+                        eventManager.addEvent(eventType, name, time, duration, num, capacity, comp, project, cha, tab, creators, vip, speaker, speakers, "");
                         addEvent(eventType, name, speaker, speakers, creators, true);
                     }else{
                         addEvent(eventType, name, speaker, speakers, creators, false);
@@ -452,9 +452,9 @@ public class OrganizerController extends AttendeeController {
                     creators.add(this.username);
                     p.displayAndGetCreators(creators, organizers);
 
-                    Event event = eventManager.createNewEvent(eventType, name, time, duration, num, room.getCapacity(), room.getComputers(), room.getProjector(), room.getChairs(), room.getTables(), creators, vip, speaker, speakers);
+                    Event event = eventManager.createNewEvent(eventType, name, time, duration, num, room.getCapacity(), room.getComputers(), room.getProjector(), room.getChairs(), room.getTables(), creators, vip, speaker, speakers, "");
                     if(eventManager.checkEventIsValid(event)){
-                        eventManager.addEvent(eventType, name, time, duration, num, room.getCapacity(), room.getComputers(), room.getProjector(), room.getChairs(), room.getTables(), creators, vip, speaker, speakers);
+                        eventManager.addEvent(eventType, name, time, duration, num, room.getCapacity(), room.getComputers(), room.getProjector(), room.getChairs(), room.getTables(), creators, vip, speaker, speakers, "");
                         addEvent(eventType, name, speaker, speakers, creators, true);
                     }else {
                         addEvent(eventType, name, speaker, speakers, creators, false);
@@ -769,7 +769,7 @@ public class OrganizerController extends AttendeeController {
     boolean addEvent(String eventType, String name, LocalDateTime time, Integer duration, int roomNumber, int capacity,
                      int computers, boolean projector, int chairs, int tables, List<String> creators, boolean vip, String speaker, List<String> speakers) {
         return eventManager.addEvent(eventType, name, time, duration, roomNumber, capacity, computers, projector,
-                chairs, tables, creators, vip, speaker, speakers);
+                chairs, tables, creators, vip, speaker, speakers, "");
     }
 
     /**
