@@ -660,7 +660,7 @@ public class OrganizerController extends AttendeeController {
                 p.displayUserList(users("organizer"), "Organizer");
                 break;
             case 5:
-                //Display all VIP users
+                p.displayUserList(users("vip"), "VIP");
                 break;
 
             default:
