@@ -19,6 +19,9 @@ import java.util.*;
  */
 public class OrganizerPresenter extends AttendeePresenter {
 
+    /**
+     * The constructor method for the Presenter class of the Organizer.
+     */
     public OrganizerPresenter() {
     }
 
