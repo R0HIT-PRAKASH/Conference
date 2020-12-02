@@ -876,11 +876,47 @@ public class OrganizerPresenter extends AttendeePresenter {
     }
 
     /**
+     * Prints the message that the event type is not valid.
+     * @return Returns the input from the user.
+     */
+    public String displayInvalidTagCategoryType(){
+        System.out.println("This is not a valid tag category type. Please try again or 'q' to quit.");
+        return scan.nextLine();
+    }
+
+    /**
      * Prints the message that asks the user what type of event they would like to create.
      * @return Returns the input from the user.
      */
     public String displayPromptEventType(){
         System.out.println("What kind of event would you like to create? A talk, panel, or party?");
+        return scan.nextLine();
+    }
+
+    /**
+     * Prints the message that asks the user what category(tag) this event is in.
+     * @return Returns the input from the user.
+     */
+    public String displayPromptEventTagPanel(){
+        System.out.println("What category would this panel be in? (development, networking, motivational)");
+        return scan.nextLine();
+    }
+
+    /**
+     * Prints the message that asks the user what category(tag) this event is in.
+     * @return Returns the input from the user.
+     */
+    public String displayPromptEventTagTalk(){
+        System.out.println("What category would this talk be in? (development, networking, motivational)");
+        return scan.nextLine();
+    }
+
+    /**
+     * Prints the message that asks the user what category(tag) this event is in.
+     * @return Returns the input from the user.
+     */
+    public String displayPromptEventTagParty(){
+        System.out.println("What category would this party be in? (graduation, company)");
         return scan.nextLine();
     }
 
