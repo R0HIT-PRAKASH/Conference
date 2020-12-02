@@ -22,68 +22,72 @@ public class OrganizerPresenter extends AttendeePresenter {
     public OrganizerPresenter() {
     }
 
-
-//    /**
-//     * Prints all the tasks which an Organizer can do.
-//     */
-//    public void displayOptions2() {
-//        System.out.println("(0) See Inbox\n(1) Send Message\n(2) Reply to Message\n(3) View Event List" +
-//                "\n(4) View My Scheduled Events\n(5) Cancel Event Reservation\n(6) Sign up for Event" +
-//                "\n(7) Add Event\n(8) Message All Attendees\n(9) Message Event Attendees" +
-//                "\n(10) Message All Speakers\n(11) Cancel Event\n(12) Reschedule Event\n(13) Add New User" +
-//                "\n(14) View Options" + "\n(15) Add Room \n(16) Modify an Event's capacity \n(17) View All Rooms \n(18) View Speakers\n(19) " +
-//                "View Attendees\n(20) View Organizers\n(21) View VIPs\n(22) Display Conference Statistics\n(23) Address Requests" +
-//                "\n(24) View Addressed Request \n(25) View User Requests \n(26) Quit");
-//    }
-
-        /**
+    /**
      * Prints all the tasks which an Organizer can do.
      */
     public void displayOptions2() {
         System.out.println("(0) Messages\n(1) Events\n(2) User Options\n(3) Requests\n(4) Quit");
     }
 
-
-
     /**
+     * Prints all of the options an organizer can do relating to messages.
      */
     public void displayMessageOptions() {
         System.out.println("(0) See Inbox\n(1) Send Message\n(2) Reply to Message\n(3) Message All Attendees\n(4) Message Event Attendees" +
                 "\n(5) Message All Speakers\n(6) Go back to main screen");
     }
 
+    /**
+     * Prints all of the options an organizer can do related to events.
+     */
     public void displayEventOptions() {
         System.out.println("(0) View Event List\n(1) View My Scheduled Events\n(2) Cancel Event Reservation\n(3) Sign up for Event" +
                 "\n(4) Add Event\n(5) Cancel Event\n(6) Reschedule Event\n(7) Add Room \n(8) Modify an Event's capacity\n" +
-                "(9) Display Conference Statistic\n (10)Go back to main screen ");
+                "(9) Display Conference Statistic\n(10)Go back to main screen ");
     }
 
+    /**
+     * Prints all of the options an organizer can do related to users.
+     */
     public void displayUserOptions() {
         System.out.println("(0) Add New User\n(1) View All Rooms\n(2) View Speakers\n(3) View Attendees\n(4) View Organizers" +
                 "\n(5) View VIPs\n(5) Go back to main screen");
     }
 
+    /**
+     * Prints all of the options an organizer can do relating to requests.
+     */
     public void displayRequestOptions() {
         System.out.println("(0) Address Requests\n(1) View Addressed Request\n(2) View User Requests\n(3) Go back to main screen");
     }
 
-
+    /**
+     * Prints a message that tells the user that their input is invalid when navigating the messages menu.
+     */
     public void displayMessageOptionsInvalidChoice() {
         System.out.println("Invalid input. Please enter a number between 0 and 6:");
     }
 
+    /**
+     * Prints a message that tells the user that their input is invalid when navigating the events menu.
+     */
     public void displayEventOptionsInvalidChoice() {
         System.out.println("Invalid input. Please enter a number between 0 and 9:");
     }
 
+    /**
+     * Prints a message that tells the user that their input is invalid when navigating the users menu.
+     */
     public void displayUserOptionsInvalidChoice() {
         System.out.println("Invalid input. Please enter a number between 0 and 5:");
     }
 
+    /**
+     * Prints a message that tells the user that their input is invalud when navigating the requests menu.
+     */
     public void displayRequestsOptionsInvalidChoice() {
         System.out.println("Invalid input. Please enter a number between 0 and 3:");
     }
-
 
     /**
      * Prompts the Organizer that the process of adding an Event will now begin.
@@ -419,7 +423,6 @@ public class OrganizerPresenter extends AttendeePresenter {
 
     /**
      * Prints all the rooms in this conference.
-     *
      * @param rooms: a List of rooms in this conference.
      */
     public void displayRoomList(List<Room> rooms) {
@@ -437,7 +440,6 @@ public class OrganizerPresenter extends AttendeePresenter {
     /**
      * Displays a series of messages that prompts the user to add more organizers to the list of people responsible
      * for creating the event.
-     *
      * @param creators   Refers to the list of creators responsible for creating the event.
      * @param organizers Refers to the list of all of the organizers.
      */
@@ -494,10 +496,8 @@ public class OrganizerPresenter extends AttendeePresenter {
         return scan.nextLine();
     }
 
-
     /**
      * Displays a list of Users
-     *
      * @param userList The list to be displayed
      * @param type     The type of User
      */
@@ -511,7 +511,6 @@ public class OrganizerPresenter extends AttendeePresenter {
 
     /**
      * Displays a list of events that this organizer created
-     *
      * @param futureEvents The list of created events
      */
     public void displayYourCreatedEvents(List<Event> futureEvents) {
@@ -551,16 +550,13 @@ public class OrganizerPresenter extends AttendeePresenter {
         return nextInt();
     }
 
-
     /**
      * Displays the message that prompts the user for the wanted duration.
      */
-
     public int displayDurationPrompt() {
         System.out.println("How long would you like the event to last(in hours)? You can enter 0 to quit.");
         return nextInt();
     }
-
 
     /**
      * Displays the message that prompts the user to enter the number of computers in the room.
@@ -570,10 +566,9 @@ public class OrganizerPresenter extends AttendeePresenter {
         return nextInt();
     }
 
-
     /**
      * Displays the message that prompts the user to enter whether or not there is a computer in the room.
-     * @return
+     * @return The string that represents the answer the user gave to whether or not the room/event has a projector.
      */
     public String displayProjectorPrompt() {
 
@@ -615,7 +610,6 @@ public class OrganizerPresenter extends AttendeePresenter {
 
     /**
      * Displays the message that displays all of the recommended rooms.
-     *
      * @param capacity  Refers to the capacity of the event.
      * @param computers Refers to the amount of computers required for the event.
      * @param projector Refers to whether or not the event requires a projector.
@@ -675,7 +669,6 @@ public class OrganizerPresenter extends AttendeePresenter {
         return ans;
     }
 
-
     /**
      * Displays the message that their room decision is invalid.
      * @return The room
@@ -707,7 +700,6 @@ public class OrganizerPresenter extends AttendeePresenter {
 
         return ans;
     }
-
 
     /**
      * Displays the message that their response to displayRoomNumberErrorQuestion2() is invalid.
@@ -762,7 +754,6 @@ public class OrganizerPresenter extends AttendeePresenter {
         return nextInt();
     }
 
-
     /**
      * Displays the message that informs the user that their new capacity is too low.
      * @param maxCapacity Refers to he maximum capacity of the room.
@@ -774,6 +765,9 @@ public class OrganizerPresenter extends AttendeePresenter {
                 " of users already attending the event. Please Enter the new number of people that can attend the event:");
     }
 
+    /**
+     * Prints the message that the organizer doesn't have the ability to cancel the event.
+     */
     public void displayNoEventsCreated(){
         System.out.println("You don't have the power to cancel any events.");
     }
@@ -796,9 +790,10 @@ public class OrganizerPresenter extends AttendeePresenter {
         return scan.nextLine();
     }
 
-
-
-
+    /**
+     * Prints all of event stats.
+     * @param stats The map of events to their statistics.
+     */
     void displayNumberStats(Map<String, Double> stats) {
 
         List<String> keys = new ArrayList<>(stats.keySet());
@@ -809,6 +804,10 @@ public class OrganizerPresenter extends AttendeePresenter {
         }
     }
 
+    /**
+     * Prints the event statistics.
+     * @param lists A map of event names to the list of stats.
+     */
     void displayListStats(Map<String, List<String>> lists) {
 
         List<String> keys = new ArrayList<>(lists.keySet());
@@ -822,6 +821,9 @@ public class OrganizerPresenter extends AttendeePresenter {
         }
     }
 
+    /**
+     * Prints the message that there are no stats to display.
+     */
     public void displayNoStats() {
         System.out.println("There are no Events or Stats to display!");
     }
@@ -835,43 +837,78 @@ public class OrganizerPresenter extends AttendeePresenter {
         return scan.nextLine();
     }
 
+    /**
+     * Prints the message that the user type is invalid.
+     * @return The input from the user of the next line.
+     */
     public String displayInvalidUserTypeError(){
         System.out.println("Sorry, that is not a valid user type. Please try again:");
         return scan.nextLine();
     }
 
+    /**
+     * Prints the message that the new user has been successfully created and their username and password.
+     * @param username Refers to the username of the user.
+     * @param password Refers to the password of the user.
+     */
     public void displayNewUserCreated(String username, String password) {
         System.out.println("New user successfully created with the following details:\n" +
                 "Username: " + username + "| Password: " + password);
     }
 
+    /**
+     * Prints the message that the event time has been successfully changed.
+     */
     public void displayEventTimeChanged(){
         System.out.println("The event time has been changed.");
     }
 
+    /**
+     * Prints the message that the event type is not valid.
+     * @return Returns the input from the user.
+     */
     public String displayInvalidEventType(){
         System.out.println("This is not a valid event type. Please try again or 'q' to quit.");
         return scan.nextLine();
     }
 
+    /**
+     * Prints the message that asks the user what type of event they would like to create.
+     * @return Returns the input from the user.
+     */
     public String displayPromptEventType(){
         System.out.println("What kind of event would you like to create? A talk, panel, or party?");
         return scan.nextLine();
     }
 
+    /**
+     * Prints the message that there are not enough speakers for the panel.
+     */
     public void notEnoughPeople(){
         System.out.println("Sorry. You wanted a panel and a panel must have at least two speakers. Please enter another speaker.");
     }
 
+    /**
+     * Prints the message that the room is occupied.
+     * @return Returns the user's integer input.
+     */
     public int displayOccupiedRoom(){
         System.out.println("This room is occupied at this time. Please select again.");
         return nextInt();
     }
 
+    /**
+     * Prints the message that the speaker has already been added to the list of speakers at the panel.
+     */
     public void displaySpeakerAlreadyAdded(){
         System.out.println("This speaker has already been added.");
     }
 
+    /**
+     * Gets input from the user about the time.
+     * @return Returns the formatted time entered.
+     * @throws DateTimeException Refers to the exception that is raised when the date is not valid.
+     */
     protected LocalDateTime getTime() throws DateTimeException {
         displayEnterYearPrompt();
         int y = nextInt();
@@ -886,6 +923,10 @@ public class OrganizerPresenter extends AttendeePresenter {
         return LocalDateTime.of(y, m, d, h, mi);
     }
 
+    /**
+     * Gets the user to input time if their time is invalid.
+     * @return Returns the formatted time enter.
+     */
     protected LocalDateTime askTime() {
         LocalDateTime time = LocalDateTime.now();
         do {
@@ -903,6 +944,12 @@ public class OrganizerPresenter extends AttendeePresenter {
 
         return time;
     }
+
+    /**
+     * Prints the message that prompts the user to mark the request.
+     * @param request Refers to the request of the user.
+     * @return Returns the user input.
+     */
     public String displayRequestDecisionPrompt(Request request){
         System.out.println(request.getContent());
         System.out.println("Type 'addressed' to mark this request as addressed, or 'rejected' to mark it as " +
@@ -910,23 +957,40 @@ public class OrganizerPresenter extends AttendeePresenter {
         return scan.nextLine();
     }
 
+    /**
+     * Prints the message that the request status is not valid.
+     */
     public void requestDecisionInvalid(){
         System.out.println("This is not a valid status. Please mark as 'addressed' or 'rejected'");
     }
 
+    /**
+     * Prints the message that the request has been successfully addressed.
+     */
     public void successfullyAddressedRequest(){
         System.out.println("Request successfully addressed.");
     }
 
+    /**
+     * Prints the message that the request has been successfully rejected.
+     */
     public void successfullyRejectedRequest(){
         System.out.println("Request successfully rejected");
     }
 
+    /**
+     * Prints the message that asks the user which request the organizer wants to view.
+     * @return Returns the integer input from the organizer.
+     */
     public int viewRequestPrompt(){
         System.out.println("Please enter which request you would like to view");
         return Integer.parseInt(scan.nextLine());
     }
 
+    /**
+     * Prints all of the requests that are pending.
+     * @param requests Refers to the list of all of the requests.
+     */
     public void displayPendingRequests(List<Request> requests){
         System.out.println("Pending Requests: ");
         int counter = 1;
@@ -936,6 +1000,10 @@ public class OrganizerPresenter extends AttendeePresenter {
         }
     }
 
+    /**
+     * Prints all of the requests that are addressed.
+     * @param requests Refers to the list of all of the requests.
+     */
     public void displayAddressedRequests(List<Request> requests){
         System.out.println("Addressed Requests: ");
         for (Request request : requests){
@@ -943,11 +1011,19 @@ public class OrganizerPresenter extends AttendeePresenter {
         }
     }
 
+    /**
+     * Prints the message that prompts the user which requests they would like to access.
+     * @return Returns the string input from the user.
+     */
     public String viewUserRequestPrompt(){
         System.out.println("Please enter which user's requests you would like to access");
         return scan.nextLine();
     }
 
+    /**
+     * Prints all of the requests a user has made.
+     * @param requests Refers to the list of requests.
+     */
     public void displayUserRequests(List<Request> requests){
         System.out.println("This user has made the following requests: ");
         for (Request request : requests){
@@ -955,10 +1031,16 @@ public class OrganizerPresenter extends AttendeePresenter {
         }
     }
 
+    /**
+     * Prints the message that the user has not made any requests.
+     */
     public void noUserRequests(){
-        System.out.println("This user has not made any request");
+        System.out.println("This user has not made any requests.");
     }
 
+    /**
+     * Prints the message that there are no addressed requests.
+     */
     public void noAddressedRequests(){
         System.out.println("There are no addressed requests at this time.");
     }
