@@ -111,7 +111,7 @@ public class EventManager implements Serializable {
             }
         }
 
-        if(event.getTime().plusHours(event.getDuration()).getHour()*60 + event.getTime().getMinute() > 1020){
+        if(event.getTime().plusHours(event.getDuration()).getHour()*60 + event.getTime().getMinute() > 1020 || event.getDuration() > 8){
             return false;
         }
 
