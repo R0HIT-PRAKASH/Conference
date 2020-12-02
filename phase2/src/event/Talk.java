@@ -25,8 +25,8 @@ public class Talk extends Event{
      * @param vipEvent          Refers to whether or not this event is limited to VIP's only
      * @param speakerName           Refers to the username of the speaker speaking at the event.
      */
-    public Talk(String name, LocalDateTime time, Integer duration, int roomNumber, int capacity, int requiredComputers, boolean requiredProjector, int requiredChairs, int requiredTables, List<String> creators, boolean vipEvent, String speakerName) {
-        super(name, time, duration, roomNumber, capacity, requiredComputers, requiredProjector, requiredChairs, requiredTables, creators, vipEvent);
+    public Talk(String name, LocalDateTime time, Integer duration, int roomNumber, int capacity, int requiredComputers, boolean requiredProjector, int requiredChairs, int requiredTables, List<String> creators, boolean vipEvent, String speakerName, String tag) {
+        super(name, time, duration, roomNumber, capacity, requiredComputers, requiredProjector, requiredChairs, requiredTables, creators, vipEvent, tag);
         this.speakerName = speakerName;
     }
 

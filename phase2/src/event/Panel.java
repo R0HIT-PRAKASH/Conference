@@ -26,8 +26,8 @@ public class Panel extends Event{
      * @param speakers          Refers to the list of usernames of speakers that are speaking at the event.
      */
     public Panel(String name, LocalDateTime time, Integer duration, int roomNumber, int capacity, int requiredComputers,
-                 boolean requiredProjector, int requiredChairs, int requiredTables, List<String> creators, boolean vipEvent, List<String> speakers) {
-        super(name, time, duration, roomNumber, capacity, requiredComputers, requiredProjector, requiredChairs, requiredTables, creators, vipEvent);
+                 boolean requiredProjector, int requiredChairs, int requiredTables, List<String> creators, boolean vipEvent, List<String> speakers, String tag) {
+        super(name, time, duration, roomNumber, capacity, requiredComputers, requiredProjector, requiredChairs, requiredTables, creators, vipEvent, tag);
         this.speakers = speakers;
     }
 

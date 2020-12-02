@@ -22,8 +22,8 @@ public class Party extends Event{
      * @param creators          Refers to the list of usernames of users that created the event.
      * @param vipEvent          Refers to whether or not this event is limited to VIP's only
      */
-    public Party(String name, LocalDateTime time, Integer duration, int roomNumber, int capacity, int requiredComputers, boolean requiredProjector, int requiredChairs, int requiredTables, List<String> creators, boolean vipEvent) {
-        super(name, time, duration, roomNumber, capacity, requiredComputers, requiredProjector, requiredChairs, requiredTables, creators, vipEvent);
+    public Party(String name, LocalDateTime time, Integer duration, int roomNumber, int capacity, int requiredComputers, boolean requiredProjector, int requiredChairs, int requiredTables, List<String> creators, boolean vipEvent, String tag) {
+        super(name, time, duration, roomNumber, capacity, requiredComputers, requiredProjector, requiredChairs, requiredTables, creators, vipEvent, tag);
     }
 
     /**
