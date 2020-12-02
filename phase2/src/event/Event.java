@@ -29,6 +29,7 @@ public abstract class Event implements Comparable<Event>, Serializable {
     private Set<String> attendeeSet;
     private List<String> creators;
     private boolean vipEvent;
+    private String tag;
 
     /**
      * This constructs an event
@@ -43,10 +44,11 @@ public abstract class Event implements Comparable<Event>, Serializable {
      * @param requiredTables Refers to the number of tables required for the event.
      * @param creators Refers to the list of usernames of users that created the event.
      * @param vipEvent Refers to whether or not this event is limited to VIP's only
+     * @param tag Refers to the category this event is in.
      */
     public Event(String name, LocalDateTime time, Integer duration, int roomNumber, int capacity,
                  int requiredComputers, boolean requiredProjector, int requiredChairs, int requiredTables,
-                 List<String> creators, boolean vipEvent) {
+                 List<String> creators, boolean vipEvent, String tag) {
         this.name = name;
         this.time = time;
         this.duration = duration;
@@ -59,6 +61,7 @@ public abstract class Event implements Comparable<Event>, Serializable {
         attendeeSet = new HashSet<String>();
         this.creators = creators;
         this.vipEvent = vipEvent;
+        this.tag = tag;
     }
 
     /**
@@ -75,6 +78,14 @@ public abstract class Event implements Comparable<Event>, Serializable {
      */
     public LocalDateTime getTime() {
         return time;
+    }
+
+    /**
+     * This method is a getter for tag
+     * @return String tag
+     */
+    public String getTag() {
+        return tag;
     }
 
     /**
@@ -116,6 +127,14 @@ public abstract class Event implements Comparable<Event>, Serializable {
      */
     public void setTime(LocalDateTime time) {
         this.time = time;
+    }
+
+    /**
+     * This method is a setter for the event tag
+     * @param tag The Event tag
+     */
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
     /**
