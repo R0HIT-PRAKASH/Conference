@@ -72,8 +72,5 @@ public class MainPresenter extends Presenter{
      * Prints an  message when a User signs out
      */
     public void displaySignedOut(){System.out.println("You have signed out successfully. ");}
-
-
-
     // -----------------------------------------------------------------------------------------------------------------
 }

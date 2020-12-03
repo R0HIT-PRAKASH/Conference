@@ -67,6 +67,10 @@ public class Speaker extends User {
         return this.requestsMade;
     }
 
+    /**
+     * Adds a request to the list of requests made by the speaker.
+     * @param request Refers to the speaker that will be added to the list of requests made.
+     */
     public void addRequest(Request request){
         requestsMade.add(request);
     }

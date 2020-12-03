@@ -31,11 +31,14 @@ public class LoginController {
         p = new MainPresenter();
         userFactory = new UserFactory();
         String username = "";
+        // if there are no detected files, display the new User message and prompt them to create an account, and
+        // returns the username of the account that was created
         if (value != 0 && value != 1 && value != 2 && value != 3 && value != 4 && value != 5){
             p.displayNewFirstUserMessage();
             username = createAccount();
             return username;
         }
+
         p.displayNewOrReturningPrompt();
         int input = p.nextInt();
 
@@ -44,9 +47,11 @@ public class LoginController {
             input = p.nextInt();
         }
         switch (input){
+            // case 1 is creating a new Account for a new User
             case 1:
                 username = createAccount();
                 break;
+            // case 2 is logging in for individuals already have accounts
             case 2:
                 username = p.displayEnterUsernamePrompt();
 
@@ -72,6 +77,8 @@ public class LoginController {
         return username;
     }
 
+    // This method checks if the login information is correct, i.e. if the username is a valid username in the
+    // database, and then checking if the password matches that username and returning the result
     private boolean checkLoginInfo(String username, String password){
         boolean username_valid = this.userManager.checkCredentials(username);
         boolean password_valid = false;
@@ -81,10 +88,12 @@ public class LoginController {
         return password_valid;
     }
 
+    // This method returns the User associated with the given username
     private User getUserInfo(String username){
         return this.userManager.getUser(username);
     }
 
+    // This method creates a new Account
     private String createAccount(){
         p.displayNewUserGreeting();
         String username = p.displayEnterUsernamePrompt();
@@ -110,5 +119,4 @@ public class LoginController {
         requestManager.addUserRequests(username);
         return username;
     }
-
 }

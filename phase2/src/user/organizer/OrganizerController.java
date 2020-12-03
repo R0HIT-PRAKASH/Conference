@@ -111,6 +111,7 @@ public class OrganizerController extends AttendeeController {
                 break;
         }
         p.displayNextTaskPromptOrganizer();
+        p.displayOptions2();
     }
 
     protected void determineInput0(int input) {
@@ -223,7 +224,8 @@ public class OrganizerController extends AttendeeController {
                 break;
 
         }
-        p.displayNextTaskPromptOrganizer();
+        p.displayNextTaskPromptOrgOptDisplayed();
+        p.displayMessageOptions();
     }
 
     protected void determineInput1(int input) {
@@ -364,6 +366,9 @@ public class OrganizerController extends AttendeeController {
 
                 //Ask for name of event
                 String name = p.displayEventTitlePrompt();
+                while(eventManager.getAllEvents().keySet().contains(name) && !name.equalsIgnoreCase("q")){
+                    name = p.displayInvalidEventName();
+                }
                 // Adding the option to end the case early here in case a User wants to go back
                 if (name.equals("q")){
                     break;
@@ -473,12 +478,8 @@ public class OrganizerController extends AttendeeController {
                     creators.add(this.username);
                     p.displayAndGetCreators(creators, organizers);
 
-                    if(eventManager.checkEventIsValid(eventManager.createNewEvent(eventType, name, time, duration, num, capacity, comp, project, cha, tab, creators, vip, speaker, speakers, eventTag))){
-                        eventManager.addEvent(eventType, name, time, duration, num, capacity, comp, project, cha, tab, creators, vip, speaker, speakers, eventTag);
-                        addEvent(eventType, name, speaker, speakers, creators, true);
-                    }else{
-                        addEvent(eventType, name, speaker, speakers, creators, false);
-                    }
+                    eventManager.addEvent(eventType, name, time, duration, num, capacity, comp, project, cha, tab, creators, vip, speaker, speakers, eventTag);
+                    addEvent(eventType, name, speaker, speakers, creators, eventManager.getAllEvents().keySet().contains(name));
 
                 }else{ // room exists
                     int cap = p.displayEnterEventCapacityPrompt(room.getCapacity());
@@ -494,12 +495,8 @@ public class OrganizerController extends AttendeeController {
                     creators.add(this.username);
                     p.displayAndGetCreators(creators, organizers);
 
-                    if(eventManager.checkEventIsValid(eventManager.createNewEvent(eventType, name, time, duration, num, room.getCapacity(), room.getComputers(), room.getProjector(), room.getChairs(), room.getTables(), creators, vip, speaker, speakers, eventTag))){
-                        eventManager.addEvent(eventType, name, time, duration, num, room.getCapacity(), room.getComputers(), room.getProjector(), room.getChairs(), room.getTables(), creators, vip, speaker, speakers, eventTag);
-                        addEvent(eventType, name, speaker, speakers, creators, true);
-                    }else{
-                        addEvent(eventType, name, speaker, speakers, creators, false);
-                    }
+                    eventManager.addEvent(eventType, name, time, duration, num, room.getCapacity(), room.getComputers(), room.getProjector(), room.getChairs(), room.getTables(), creators, vip, speaker, speakers, eventTag);
+                    addEvent(eventType, name, speaker, speakers, creators, eventManager.getAllEvents().keySet().contains(name));
                 }
                 break;
 
@@ -666,7 +663,8 @@ public class OrganizerController extends AttendeeController {
                 break;
 
         }
-        p.displayNextTaskPromptOrganizer();
+        p.displayNextTaskPromptOrgOptDisplayed();
+        p.displayEventOptions();
     }
 
     protected void determineInput2(int input) {
@@ -707,7 +705,8 @@ public class OrganizerController extends AttendeeController {
                 break;
 
         }
-        p.displayNextTaskPromptOrganizer();
+        p.displayNextTaskPromptOrgOptDisplayed();
+        p.displayUserOptions();
     }
 
     private void determineInput3(int input) {
@@ -745,7 +744,8 @@ public class OrganizerController extends AttendeeController {
                 break;
 
         }
-        p.displayNextTaskPromptOrganizer();
+        p.displayNextTaskPromptOrgOptDisplayed();
+        p.displayRequestOptions();
     }
 
     private void addEvent(String eventType, String name, String speaker, List<String> speakers, List<String> creators, boolean added) {
