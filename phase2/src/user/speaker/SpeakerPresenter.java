@@ -204,13 +204,13 @@ public class SpeakerPresenter extends UserPresenter {
         return scan.nextLine();
     }
 
-    public void displayRequests(List<Request> requests){
-        System.out.println("Requests you have made: ");
-        for (Request request : requests){
-            System.out.print(request.getRequestStatus() + " : ");
-            System.out.println(request.getContent());
-        }
-    }
+//    public void displayRequests(List<Request> requests){
+//        System.out.println("Requests you have made: ");
+//        for (Request request : requests){
+//            System.out.print(request.getRequestStatus() + " : ");
+//            System.out.println(request.getContent());
+//        }
+//    }
 
     public String displayMakeRequest(){
         System.out.println("Please enter your request (< 200 characters)");

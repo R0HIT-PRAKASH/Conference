@@ -4,6 +4,7 @@ package user; /**
  */
 import main.Presenter;
 import message.Message;
+import request.Request;
 
 import java.util.*;
 
@@ -319,5 +320,12 @@ public class UserPresenter extends Presenter {
                 "conference. Please try again at a later time.");
     }
 
+    public void displayRequests(List<Request> requests){
+        System.out.println("Requests you have made: ");
+        for (Request request : requests){
+            System.out.print(request.getRequestStatus() + " : ");
+            System.out.println(request.getContent());
+        }
+    }
 
 }

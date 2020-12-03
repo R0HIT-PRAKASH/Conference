@@ -6,6 +6,7 @@ import message.Message;
 import message.MessageManager;
 import request.Request;
 import request.RequestManager;
+import user.UserController;
 import user.UserManager;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.Set;
 /**
  * A controller that deals with Speaker users
  */
-public class SpeakerController{
+public class SpeakerController extends UserController {
     public UserManager userManager;
     public EventManager eventManager;
     public MessageManager messageManager;
@@ -33,11 +34,7 @@ public class SpeakerController{
      */
     public SpeakerController(UserManager userManager, EventManager eventManager, MessageManager messageManager,
                              String username, RequestManager request){
-        this.userManager = userManager;
-        this.eventManager = eventManager;
-        this.messageManager = messageManager;
-        this.username = username;
-        this.requestManager = request;
+        super(userManager, eventManager, messageManager, username, request);
         p = new SpeakerPresenter();
     }
     /**
@@ -421,36 +418,36 @@ public class SpeakerController{
         return attendees;
     }
 
-    private void viewMessages(String username) {
-        List<Message> allMessages = messageManager.viewMessages(username);
-        p.displayPrintMessages(allMessages);
-        if(allMessages.size()>0) {
-            int requestedMessage = p.displaySelectMessage();
-            while (requestedMessage > allMessages.size() || requestedMessage < 1) {
-                p.displayMessageNonExistent();
-                requestedMessage = p.displaySelectMessage();
-            }
-
-            Message selectedMessage = (allMessages.get(allMessages.size() - requestedMessage));
-            p.displaySelectedMessage(selectedMessage);
-            messageManager.setMessageReadStatus(selectedMessage, "read");
-
-            // this method may be too large now, but this prompts the user to take an action on the selected message
-            String messageAction = p.displayMessageActionPrompt();
-            while (!messageAction.equalsIgnoreCase("REPLY") &&
-                    !messageAction.equalsIgnoreCase("MARK AS UNREAD") &&
-                    !messageAction.equalsIgnoreCase("CLOSE")) {
-                messageAction = p.displayMessageActionPrompt();
-            }
-            if (messageAction.equalsIgnoreCase("REPLY")) {
-                String content = p.displayEnterMessagePrompt();
-                replyMessage(content, selectedMessage.getSender());
-            } else if (messageAction.equalsIgnoreCase("MARK AS UNREAD")) {
-                messageManager.setMessageReadStatus(selectedMessage, "unread");
-            } else if (messageAction.equalsIgnoreCase("CLOSE")){
-            }
-        }
-    }
+//    private void viewMessages(String username) {
+//        List<Message> allMessages = messageManager.viewMessages(username);
+//        p.displayPrintMessages(allMessages);
+//        if(allMessages.size()>0) {
+//            int requestedMessage = p.displaySelectMessage();
+//            while (requestedMessage > allMessages.size() || requestedMessage < 1) {
+//                p.displayMessageNonExistent();
+//                requestedMessage = p.displaySelectMessage();
+//            }
+//
+//            Message selectedMessage = (allMessages.get(allMessages.size() - requestedMessage));
+//            p.displaySelectedMessage(selectedMessage);
+//            messageManager.setMessageReadStatus(selectedMessage, "read");
+//
+//            // this method may be too large now, but this prompts the user to take an action on the selected message
+//            String messageAction = p.displayMessageActionPrompt();
+//            while (!messageAction.equalsIgnoreCase("REPLY") &&
+//                    !messageAction.equalsIgnoreCase("MARK AS UNREAD") &&
+//                    !messageAction.equalsIgnoreCase("CLOSE")) {
+//                messageAction = p.displayMessageActionPrompt();
+//            }
+//            if (messageAction.equalsIgnoreCase("REPLY")) {
+//                String content = p.displayEnterMessagePrompt();
+//                replyMessage(content, selectedMessage.getSender());
+//            } else if (messageAction.equalsIgnoreCase("MARK AS UNREAD")) {
+//                messageManager.setMessageReadStatus(selectedMessage, "unread");
+//            } else if (messageAction.equalsIgnoreCase("CLOSE")){
+//            }
+//        }
+//    }
 
     private void viewScheduledEvents(String username){
         List<String> allEvents = userManager.getSpeakingEvents(username);
@@ -464,20 +461,20 @@ public class SpeakerController{
         p.displayMessageSentPrompt2();
     }
 
-    private void replyMessage(String recipient, String content){
-        Message message = messageManager.createNewMessage(content, username, recipient);
-        messageManager.addMessage(recipient, message);
-        p.displayMessageSentPrompt();
-    }
+//    private void replyMessage(String recipient, String content){
+//        Message message = messageManager.createNewMessage(content, username, recipient);
+//        messageManager.addMessage(recipient, message);
+//        p.displayMessageSentPrompt();
+//    }
 
-    private void viewRequests(String username){
-        List<Request> requests = requestManager.getUserRequests(username);
-        p.displayRequests(requests);
-    }
-
-    private void makeRequest(String content, String username){
-        Request request = requestManager.createNewRequest(content, username);
-        requestManager.addRequest(username, request);
-        ((Speaker)userManager.getUser(username)).addRequest(request);
-    }
+//    private void viewRequests(String username){
+//        List<Request> requests = requestManager.getUserRequests(username);
+//        p.displayRequests(requests);
+//    }
+//
+//    private void makeRequest(String content, String username){
+//        Request request = requestManager.createNewRequest(content, username);
+//        requestManager.addRequest(username, request);
+//        ((Speaker)userManager.getUser(username)).addRequest(request);
+//    }
 }
