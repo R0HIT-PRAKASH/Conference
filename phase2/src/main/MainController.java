@@ -43,7 +43,6 @@ public class MainController {
         startingScratch = true;
     }
 
-
     /**
      * This method declares three new files for users, messages, and events and returns 0, 1 or 2 based on which files
      * exist.
@@ -60,18 +59,23 @@ public class MainController {
 
         if (users.isFile() && messages.isFile() && !events.isFile() && !rooms.isFile() && !requests.isFile()) {
             return 0;
-        } else if (users.isFile() && messages.isFile() && !events.isFile() && rooms.isFile() && !requests.isFile()){
+        }
+        else if (users.isFile() && messages.isFile() && !events.isFile() && rooms.isFile() && !requests.isFile()){
             return 1;
-        } else if (users.isFile() && messages.isFile() && events.isFile() && rooms.isFile() && !requests.isFile()) {
+        }
+        else if (users.isFile() && messages.isFile() && events.isFile() && rooms.isFile() && !requests.isFile()) {
             return 2;
         }
         if (users.isFile() && messages.isFile() && !events.isFile() && !rooms.isFile() && requests.isFile()) {
             return 3;
-        } else if (users.isFile() && messages.isFile() && !events.isFile() && rooms.isFile() && requests.isFile()){
+        }
+        else if (users.isFile() && messages.isFile() && !events.isFile() && rooms.isFile() && requests.isFile()){
             return 4;
-        } else if (users.isFile() && messages.isFile() && events.isFile() && rooms.isFile() && requests.isFile()) {
+        }
+        else if (users.isFile() && messages.isFile() && events.isFile() && rooms.isFile() && requests.isFile()) {
             return 5;
-        } else {
+        }
+        else {
             return 6; // nothing exists
         }
     }
@@ -81,7 +85,6 @@ public class MainController {
      * wants to, they can load all of the pre-existing files, except for events and rooms.
      */
     public void fileQ0() {
-
         try {
             String answer = p.displayPreExistingFilePrompt(); // This reads the answer they give
             while(!answer.equalsIgnoreCase("Yes") && !answer.equalsIgnoreCase("No")) {
@@ -104,7 +107,6 @@ public class MainController {
      * wants to, they can load all of the pre-existing files, except for events.
      */
     public void fileQ1() {
-
         try {
             String answer = p.displayPreExistingFilePrompt(); // This reads the answer they give
             while(!answer.equalsIgnoreCase("Yes") && !answer.equalsIgnoreCase("No")) {
@@ -147,7 +149,6 @@ public class MainController {
      * wants to, they can load all of the pre-existing files, except for events and rooms.
      */
     public void fileQ3() {
-
         try {
             String answer = p.displayPreExistingFilePrompt(); // This reads the answer they give
             while(!answer.equalsIgnoreCase("Yes") && !answer.equalsIgnoreCase("No")) {
@@ -170,7 +171,6 @@ public class MainController {
      * wants to, they can load all of the pre-existing files, except for events.
      */
     public void fileQ4() {
-
         try {
             String answer = p.displayPreExistingFilePrompt(); // This reads the answer they give
             while(!answer.equalsIgnoreCase("Yes") && !answer.equalsIgnoreCase("No")) {
@@ -255,15 +255,10 @@ public class MainController {
         RW.write(requestManager.getAllRequests(), "requests");
         RW.write(requestManager.getAllRequestStatuses(), "requestStatuses");
 
-
-
         p.displaySignedOut();
     }
 
-
-
     private void readInFiles0(ReaderWriter RW, UserManager UM, MessageManager MM) throws IOException, ClassNotFoundException {
-
         UM.setUserMapReadIn();
         MM.setAllUserMessagesReadIn();
     }
@@ -304,7 +299,6 @@ public class MainController {
         RM.setAllRequestsReadIn();
         RM.setAllRequestStatusesReadIn();
     }
-
 }
 // Give RW to each use case
 // change where RW method is called
