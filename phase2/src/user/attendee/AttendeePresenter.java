@@ -79,7 +79,7 @@ public class AttendeePresenter extends UserPresenter {
      * Prints an error message which notifies the Organizer that a User they are trying to Message is not in their contacts list.
      */
     public void displayNotMessageableError() {
-        System.out.println("Sorry, you are not allowed to message this User. Please try again");
+        System.out.println("Sorry, you are not allowed to message this User.");
     }
 
     /**

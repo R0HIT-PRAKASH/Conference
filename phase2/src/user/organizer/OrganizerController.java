@@ -111,6 +111,7 @@ public class OrganizerController extends AttendeeController {
                 break;
         }
         p.displayNextTaskPromptOrganizer();
+        p.displayOptions2();
     }
 
     protected void determineInput0(int input) {
@@ -223,7 +224,8 @@ public class OrganizerController extends AttendeeController {
                 break;
 
         }
-        p.displayNextTaskPromptOrganizer();
+        p.displayNextTaskPromptOrgOptDisplayed();
+        p.displayMessageOptions();
     }
 
     protected void determineInput1(int input) {
@@ -666,7 +668,8 @@ public class OrganizerController extends AttendeeController {
                 break;
 
         }
-        p.displayNextTaskPromptOrganizer();
+        p.displayNextTaskPromptOrgOptDisplayed();
+        p.displayEventOptions();
     }
 
     protected void determineInput2(int input) {
@@ -707,7 +710,8 @@ public class OrganizerController extends AttendeeController {
                 break;
 
         }
-        p.displayNextTaskPromptOrganizer();
+        p.displayNextTaskPromptOrgOptDisplayed();
+        p.displayUserOptions();
     }
 
     private void determineInput3(int input) {
@@ -745,7 +749,8 @@ public class OrganizerController extends AttendeeController {
                 break;
 
         }
-        p.displayNextTaskPromptOrganizer();
+        p.displayNextTaskPromptOrgOptDisplayed();
+        p.displayRequestOptions();
     }
 
     private void addEvent(String eventType, String name, String speaker, List<String> speakers, List<String> creators, boolean added) {

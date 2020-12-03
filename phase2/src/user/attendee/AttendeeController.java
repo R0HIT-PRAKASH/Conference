@@ -119,7 +119,8 @@ public class AttendeeController{
                 p.displayMessageOptionsInvalidChoice();
                 break;
         }
-        p.displayNextTaskPromptAttendee();
+        p.displayNextTaskPromptOrgOptDisplayed();
+        p.displayMessageOptions();
     }
 
     protected void determineInput1(int input){
@@ -143,7 +144,8 @@ public class AttendeeController{
                 p.displayEventOptionsInvalidChoice();
                 break;
         }
-        p.displayNextTaskPromptAttendee();
+        p.displayNextTaskPromptOrgOptDisplayed();
+        p.displayEventOptions();
     }
 
     protected void determineInput2(int input){
@@ -167,7 +169,8 @@ public class AttendeeController{
                 p.displayRequestsOptionsInvalidChoice();
                 break;
         }
-        p.displayNextTaskPromptAttendee();
+        p.displayNextTaskPromptOrgOptDisplayed();
+        p.displayRequestOptions();
     }
 
     private void determineInputSignUpEvent() {

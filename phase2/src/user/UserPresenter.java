@@ -30,6 +30,10 @@ public class UserPresenter extends Presenter {
         System.out.print("Please enter next task (reminder, you can type '14' to see what you can do): ");
     }
 
+    public void displayNextTaskPromptOrgOptDisplayed(){
+        System.out.print("Please enter next task:\n");
+    }
+
     public void displayNextTaskPrompt(){
         System.out.print("Please enter next task (reminder, you can type '14' to see what you can do): ");
     }
@@ -246,8 +250,7 @@ public class UserPresenter extends Presenter {
      */
     public int displaySelectMessage(){
         System.out.println("Which message would you like to read?: ");
-        int choice = scan.nextInt();
-        scan.nextLine();
+        int choice = nextInt();
         return choice;
     }
 
