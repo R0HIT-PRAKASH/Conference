@@ -938,6 +938,15 @@ public class OrganizerPresenter extends AttendeePresenter {
     }
 
     /**
+     * Prints a message that tells the user that the event name is invalid.
+     * @return Returns the string input from the user.
+     */
+    public String displayInvalidEventName(){
+        System.out.println("An event with this name already exists. Please enter another name.");
+        return scan.nextLine();
+    }
+
+    /**
      * Prints the message that the speaker has already been added to the list of speakers at the panel.
      */
     public void displaySpeakerAlreadyAdded(){

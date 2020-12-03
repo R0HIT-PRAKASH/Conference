@@ -220,6 +220,7 @@ public abstract class Presenter {
         return input;
     }
 
+    // returns if a String contains whitespace
     private boolean containsWhitespace(String str) {
         if (str == null || str.length() == 0) {
             return false;
@@ -232,6 +233,4 @@ public abstract class Presenter {
         }
         return false;
     }
-
-
 }
