@@ -76,6 +76,7 @@ public class EventManager implements Serializable {
      * @param vip Refers to whether or not the event is VIP exclusive.
      * @param speaker Refers to the speaker username if this is a talk.
      * @param speakers Refers to the list of speakers if this is a panel.
+     * @param tag Refers to the category this event is in.
      * @return Returns true if the event is successfully added. Otherwise, it returns false.
      */
     public boolean addEvent(String eventType, String name, LocalDateTime time, Integer duration, int roomNumber,
@@ -306,6 +307,10 @@ public class EventManager implements Serializable {
         return events;
     }
 
+    /**
+     * Gets all of the names of the events.
+     * @return Returns a list of strings of event names.
+     */
     public List<String> getAllEventNamesOnly(){
         List<String> allNames = new ArrayList<>(events.keySet());
         return allNames;
@@ -537,7 +542,6 @@ public class EventManager implements Serializable {
      * @throws IOException Refers to the exception that is raised when the program can't get input or output from users.
      * @throws ClassNotFoundException Refers to the exception that is raised when the program can't find users.
      */
-
     public void setAllEventsReadIn() throws IOException, ClassNotFoundException {
         Object uncastedEvents = RW.readEvents();
         HashMap<String, Event> events = (HashMap<String, Event>) uncastedEvents;
@@ -549,7 +553,6 @@ public class EventManager implements Serializable {
      * @throws IOException Refers to the exception that is raised when the program can't get input or output from users.
      * @throws ClassNotFoundException Refers to the exception that is raised when the program can't find users.
      */
-
     public void setRoomsReadIn() throws IOException, ClassNotFoundException {
         Object uncastedRooms = RW.readRooms();
         ArrayList<Room> rooms = (ArrayList<Room>) uncastedRooms;
