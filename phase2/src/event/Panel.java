@@ -5,6 +5,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.List;
 
+/**
+ * Panel is an extension of Event which is a type of event with a list of speakers.
+ */
 public class Panel extends Event{
 
     private List<String> speakers;

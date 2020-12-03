@@ -5,11 +5,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.List;
 
+/**
+ * Party is an extension of Event that has no speakers.
+ */
 public class Party extends Event{
 
     /**
      * This constructs a party event.
-     *
      * @param name              The name of the event
      * @param time              The event time
      * @param duration          The event duration(in hours).

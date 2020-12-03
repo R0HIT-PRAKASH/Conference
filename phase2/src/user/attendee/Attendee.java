@@ -63,6 +63,10 @@ public class Attendee extends User {
         return this.requestsMade;
     }
 
+    /**
+     * Adds a request to the list of requests.
+     * @param request Refers to the list of requests that will be added.
+     */
     public void addRequest(Request request){
         requestsMade.add(request);
     }

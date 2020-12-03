@@ -5,6 +5,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.List;
 
+/**
+ * Talk is an extension of Event that has one speaker.
+ */
 public class Talk extends Event{
 
     private String speakerName;

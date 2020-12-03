@@ -23,7 +23,6 @@ public class Message implements Serializable {
      * @param senderUsername Refers to the username of the sender.
      * @param recipientUsername Refers to the username of the recipient.
      */
-
     public Message(String content, String senderUsername, String recipientUsername){
         this.content = content;
         this.senderUsername = senderUsername;
