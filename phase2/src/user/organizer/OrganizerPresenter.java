@@ -36,8 +36,9 @@ public class OrganizerPresenter extends AttendeePresenter {
      * Prints all of the options an organizer can do relating to messages.
      */
     public void displayMessageOptions() {
-        System.out.println("(0) See Inbox\n(1) Send Message\n(2) Reply to Message\n(3) Message All Attendees\n(4) Message Event Attendees" +
-                "\n(5) Message All Speakers\n(6) Go back to main screen");
+        System.out.println("(0) See Inbox\n(1) See Starred Messages\n(2) See Deleted Messages\n(3) See Archived Messages" +
+                "\n(4) Send Message\n(5) Reply to Message\n(6) Message All Attendees\n(7) Message Event Attendees" +
+                "\n(8) Message All Speakers\n(9) Go back to main screen");
     }
 
     /**
@@ -68,7 +69,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      * Prints a message that tells the user that their input is invalid when navigating the messages menu.
      */
     public void displayMessageOptionsInvalidChoice() {
-        System.out.println("Invalid input. Please enter a number between 0 and 6:");
+        System.out.println("Invalid input. Please enter a number between 0 and 9:");
     }
 
     /**

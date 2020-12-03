@@ -1,6 +1,7 @@
 package message;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -166,5 +167,27 @@ public class MessageManager implements java.io.Serializable {
         }else{
             message.setUnread();
         }
+    }
+
+    /**
+     * This method sets a Message's starred status as either starred or unstarred.
+     * @param message Refers to the message to be interacted with.
+     * @param status Refers to the status you want to set the message to have.
+     */
+    public void setMessageStarredStatus(Message message, String status){
+        if(status.equals("starred")){
+            message.setStarred();
+        }else{
+            message.setUnstarred();
+        }
+    }
+
+    /**
+     * This method gets the date and time of creation information of the message object.
+     * @param message Refers to the message object.
+     * @return Returns the dateTimeCreated variable of the message object.
+     */
+    public LocalDateTime getCreationInfo(Message message){
+        return message.getDateTimeCreated();
     }
 }

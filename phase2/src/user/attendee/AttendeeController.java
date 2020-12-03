@@ -60,7 +60,7 @@ public class AttendeeController{
             case 0:
                 p.displayMessageOptions();
                 int choice = p.nextInt();
-                final int endCond = 2;
+                final int endCond = 5;
                 while (choice != endCond) {
                     determineInput0(choice);
                     choice = p.nextInt();
@@ -104,6 +104,15 @@ public class AttendeeController{
                 viewMessages(this.username);
                 break;
             case 1:
+                viewStarredMessages(this.username);
+                break;
+            case 2:
+                //viewDeletedMessages(this.username);
+                break;
+            case 3:
+                //viewArchivedMessages(this.username);
+                break;
+            case 4:
                 determineInputSendMessages();
                 break;
             default:
@@ -285,7 +294,8 @@ public class AttendeeController{
             String messageAction = p.displayMessageActionPrompt();
             while (!messageAction.equalsIgnoreCase("REPLY") &&
                     !messageAction.equalsIgnoreCase("MARK AS UNREAD") &&
-                            !messageAction.equalsIgnoreCase("CLOSE")) {
+                            !messageAction.equalsIgnoreCase("CLOSE") &&
+                    !messageAction.equalsIgnoreCase("MARK AS STARRED")) {
                 messageAction = p.displayMessageActionPrompt();
             }
             if (messageAction.equalsIgnoreCase("REPLY")) {
@@ -293,6 +303,54 @@ public class AttendeeController{
                 replyMessage(content, selectedMessage.getSender());
             } else if (messageAction.equalsIgnoreCase("MARK AS UNREAD")) {
                 messageManager.setMessageReadStatus(selectedMessage, "unread");
+            } else if (messageAction.equalsIgnoreCase("MARK AS STARRED")) {
+                messageManager.setMessageStarredStatus(selectedMessage, "starred");
+            } else if (messageAction.equalsIgnoreCase("CLOSE")){
+            }
+        }
+    }
+
+    /**
+     * Prints all the messages that this attendee has starred
+     * @param username: The username of the Attendee
+     */
+    protected void viewStarredMessages(String username) {
+        List<Message> allMessages = messageManager.viewMessages(username);
+        // get starred messages
+        List<Message> starredMessages = new ArrayList<Message>();
+
+        for (Message message: allMessages) {
+            if (message.isStarred()) {
+                starredMessages.add(message);
+            }
+        }
+        p.displayPrintStarredMessages(starredMessages);
+        if(allMessages.size()>0) {
+            int requestedMessage = p.displaySelectMessage();
+            while (requestedMessage > allMessages.size() || requestedMessage < 1) {
+                p.displayMessageNonExistent();
+                requestedMessage = p.displaySelectMessage();
+            }
+
+            Message selectedMessage = (allMessages.get(allMessages.size() - requestedMessage));
+            p.displaySelectedMessage(selectedMessage);
+            messageManager.setMessageReadStatus(selectedMessage, "read");
+
+            // this method may be too large now, but this prompts the user to take an action on the selected message
+            String messageAction = p.displayMessageActionPrompt();
+            while (!messageAction.equalsIgnoreCase("REPLY") &&
+                    !messageAction.equalsIgnoreCase("MARK AS UNREAD") &&
+                    !messageAction.equalsIgnoreCase("CLOSE") &&
+                    !messageAction.equalsIgnoreCase("MARK AS STARRED")) {
+                messageAction = p.displayMessageActionPrompt();
+            }
+            if (messageAction.equalsIgnoreCase("REPLY")) {
+                String content = p.displayEnterMessagePrompt();
+                replyMessage(content, selectedMessage.getSender());
+            } else if (messageAction.equalsIgnoreCase("MARK AS UNREAD")) {
+                messageManager.setMessageReadStatus(selectedMessage, "unread");
+            } else if (messageAction.equalsIgnoreCase("MARK AS STARRED")) {
+                messageManager.setMessageStarredStatus(selectedMessage, "starred");
             } else if (messageAction.equalsIgnoreCase("CLOSE")){
             }
         }

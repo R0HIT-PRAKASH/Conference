@@ -64,7 +64,7 @@ public class OrganizerController extends AttendeeController {
             case 0:
                 p.displayMessageOptions();
                 int choice = p.nextInt();
-                final int endCond = 6;
+                final int endCond = 9;
                 while (choice != endCond) {
                     determineInput0(choice);
                     choice = p.nextInt();
@@ -121,6 +121,18 @@ public class OrganizerController extends AttendeeController {
                 break;
 
             case 1:
+                viewStarredMessages(this.username);
+                break;
+
+            case 2:
+                //viewDeletedMessages(this.username);
+                break;
+
+            case 3:
+                //viewArchivedMessages(this.username);
+                break;
+
+            case 4:
                 if(userManager.getUserMap().size() == 1) {
                     p.displayConferenceError();
                     break;
@@ -144,7 +156,7 @@ public class OrganizerController extends AttendeeController {
                 }
                 break;
 
-            case 2:
+            case 5:
                 if(messageManager.getAllUserMessages().get(this.username).size() == 0){
                     p.displayNoReply();
                     break;
@@ -170,7 +182,7 @@ public class OrganizerController extends AttendeeController {
                 replyMessage(content, recipients);
                 break;
 
-            case 3:
+            case 6:
                 String message = p.displayAllAttendeeMessagePrompt();
 
                 if (message.equalsIgnoreCase("q")) {
@@ -180,7 +192,7 @@ public class OrganizerController extends AttendeeController {
                 p.displayMessageSentPrompt();
                 break;
 
-            case 4:
+            case 7:
                 String eventname = p.displayEventMessagePrompt();
                 if (eventname.equalsIgnoreCase("q")) {
                     break;
@@ -193,7 +205,7 @@ public class OrganizerController extends AttendeeController {
                 }
                 break;
 
-            case 5:
+            case 8:
                 String speakermessage = p.displayAllSpeakerMessagePrompt();
                 if (speakermessage.equalsIgnoreCase("q")) {
                     break;

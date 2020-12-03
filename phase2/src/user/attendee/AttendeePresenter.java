@@ -27,7 +27,8 @@ public class AttendeePresenter extends UserPresenter {
      * Prints the things an attendee can do relating to Messages
      */
     public void displayMessageOptions(){
-        System.out.println("(0) See Inbox\n(1) Send Message\n(2) Go back to Main Screen");
+        System.out.println("(0) See Inbox\n(1) See Starred Messages\n(2) See Deleted Messages\n(3) See Archived Messages\n" +
+                "(4) Send Message\n(5) Go back to Main Screen");
     }
 
     /**
@@ -49,7 +50,7 @@ public class AttendeePresenter extends UserPresenter {
      * Prints a message that tells the user that their input is invalid when navigating the messages menu.
      */
     public void displayMessageOptionsInvalidChoice() {
-        System.out.println("Invalid input. Please enter a number between 0 and 2:");
+        System.out.println("Invalid input. Please enter a number between 0 and 4:");
     }
 
     /**

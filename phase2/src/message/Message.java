@@ -1,6 +1,8 @@
 package message;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * This class represents a Message object. Message objects have a string content, username of the sender,
@@ -12,6 +14,8 @@ public class Message implements Serializable {
     private String senderUsername;
     private String recipientUsername;
     private boolean beenRead;
+    private LocalDateTime dateTimeCreated;
+    private boolean starred;
 
     /**
      * This method constructs a Message object.
@@ -25,6 +29,7 @@ public class Message implements Serializable {
         this.senderUsername = senderUsername;
         this.recipientUsername = recipientUsername;
         this.beenRead = false;
+        this.dateTimeCreated = LocalDateTime.now();
     }
 
     // Getters
@@ -48,10 +53,22 @@ public class Message implements Serializable {
     public String getSender(){ return senderUsername; }
 
     /**
+     * Gets the the date and time of creation of the message.
+     * @return Returns dateTimeCreated variable of the message.
+     */
+    public LocalDateTime getDateTimeCreated(){ return dateTimeCreated;}
+
+    /**
      * Gets the read or unread status of the message.
      * @return Returns a boolean, where true means the message has been read.
      */
     public boolean hasBeenRead(){ return beenRead;}
+
+    /**
+     * Gets the starred or unstarred status of the message.
+     * @return Returns a boolean, where true means the message has been starred.
+     */
+    public boolean isStarred(){ return starred;}
 
     // Setters
 
@@ -82,4 +99,15 @@ public class Message implements Serializable {
      * Sets the message's read status as unread.
      */
     public void setUnread(){this.beenRead = false;}
+
+    /**
+     * Sets the message as having been starred.
+     */
+    public void setStarred(){this.starred = true; }
+
+    /**
+     * Sets the message's starred status as unstarred.
+     */
+    public void setUnstarred(){this.starred = false;}
 }
+

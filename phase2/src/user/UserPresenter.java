@@ -110,33 +110,131 @@ public class UserPresenter extends Presenter {
             System.out.println("No Messages :(");
             return;
         }
+        System.out.println("==========SYMBOL GLOSSARY=========\nDot = Unread Message\nNo dot = Read Message");
         int counter = 1;
         for (int i = allMessages.size() -1; i > -1; i-- ){
-            // If the message hasn't been read, display preview with a black dot.
+            // If the message hasn't been read, display preview with a dot.
             if((allMessages.get(i).getContent().length()) >= 10) {
                 if(!(allMessages.get(i).hasBeenRead())) {
+                    if(allMessages.get(i).isStarred()) {
                     System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender() +
-                            "\n\u25CF Message: " +
+                            "\n\u25CF * Message: " +
                             allMessages.get(i).getContent().substring(0, 10) + "...");
+                    } else {
+                        System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender() +
+                                "\n\u25CF Message: " +
+                                allMessages.get(i).getContent().substring(0, 10) + "...");
+                    }
                     counter++;
-                // If the message has been read, display without a dot.
+                    // If the message has been read, display without a dot.
                 }else{
-                    System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender() +
-                            "\nMessage: " +
-                            allMessages.get(i).getContent().substring(0, 10) + "...");
-                    counter++;
+                    if(allMessages.get(i).isStarred()) {
+                        System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender() +
+                                "\n* Message: " +
+                                allMessages.get(i).getContent().substring(0, 10) + "...");
+                        counter++;
+                    } else {
+                        System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender() +
+                                "\nMessage: " +
+                                allMessages.get(i).getContent().substring(0, 10) + "...");
+                        counter++;
+                    }
                 }
             }else{
                 if(!(allMessages.get(i).hasBeenRead())) {
-                    System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender()
-                            + "\n\u25CF Message: " +
-                            allMessages.get(i).getContent());
-                    counter++;
+                    if(allMessages.get(i).isStarred()) {
+                        System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender()
+                                + "\n\u25CF * Message: " +
+                                allMessages.get(i).getContent());
+                        counter++;
+                    } else {
+                        System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender()
+                                + "\n\u25CF Message: " +
+                                allMessages.get(i).getContent());
+                        counter++;
+                    }
                 }else{
-                    System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender()
-                            + "\n Message: " +
-                            allMessages.get(i).getContent());
+                    if(allMessages.get(i).isStarred()) {
+                            System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender()
+                                    + "\n* Message: " +
+                                    allMessages.get(i).getContent());
+                            counter++;
+                        } else {
+                        System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender()
+                                + "\n Message: " +
+                                allMessages.get(i).getContent());
+                        counter++;
+                        }
+                    }
+                }
+            }
+        }
+
+    /**
+     * Prints all the starred messages a User has received in order of last arrived
+     * @param starredMessages: All the starred messages the user has received
+     */
+    public void displayPrintStarredMessages(List<Message> starredMessages){
+        String buffer = ("==========================");
+        if(starredMessages.size() == 0) {
+            System.out.println("No Starred Messages :(");
+            return;
+        }
+        System.out.println("==========SYMBOL GLOSSARY=========\nDot = Unread Message\nNo dot = Read Message");
+        int counter = 1;
+        for (int i = starredMessages.size() -1; i > -1; i-- ){
+            // If the message hasn't been read, display preview with a dot.
+            if((starredMessages.get(i).getContent().length()) >= 10) {
+                if(!(starredMessages.get(i).hasBeenRead())) {
+                    if(starredMessages.get(i).isStarred()) {
+                        System.out.println(buffer + "\n" + counter + ". Sent By: " + starredMessages.get(i).getSender() +
+                                "\n\u25CF * Message: " +
+                                starredMessages.get(i).getContent().substring(0, 10) + "...");
+                    } else {
+                        System.out.println(buffer + "\n" + counter + ". Sent By: " + starredMessages.get(i).getSender() +
+                                "\n\u25CF Message: " +
+                                starredMessages.get(i).getContent().substring(0, 10) + "...");
+                    }
                     counter++;
+                    // If the message has been read, display without a dot.
+                }else{
+                    if(starredMessages.get(i).isStarred()) {
+                        System.out.println(buffer + "\n" + counter + ". Sent By: " + starredMessages.get(i).getSender() +
+                                "\n* Message: " +
+                                starredMessages.get(i).getContent().substring(0, 10) + "...");
+                        counter++;
+                    } else {
+                        System.out.println(buffer + "\n" + counter + ". Sent By: " + starredMessages.get(i).getSender() +
+                                "\nMessage: " +
+                                starredMessages.get(i).getContent().substring(0, 10) + "...");
+                        counter++;
+                    }
+                }
+            }else{
+                if(!(starredMessages.get(i).hasBeenRead())) {
+                    if(starredMessages.get(i).isStarred()) {
+                        System.out.println(buffer + "\n" + counter + ". Sent By: " + starredMessages.get(i).getSender()
+                                + "\n\u25CF * Message: " +
+                                starredMessages.get(i).getContent());
+                        counter++;
+                    } else {
+                        System.out.println(buffer + "\n" + counter + ". Sent By: " + starredMessages.get(i).getSender()
+                                + "\n\u25CF Message: " +
+                                starredMessages.get(i).getContent());
+                        counter++;
+                    }
+                }else{
+                    if(starredMessages.get(i).isStarred()) {
+                        System.out.println(buffer + "\n" + counter + ". Sent By: " + starredMessages.get(i).getSender()
+                                + "\n* Message: " +
+                                starredMessages.get(i).getContent());
+                        counter++;
+                    } else {
+                        System.out.println(buffer + "\n" + counter + ". Sent By: " + starredMessages.get(i).getSender()
+                                + "\n Message: " +
+                                starredMessages.get(i).getContent());
+                        counter++;
+                    }
                 }
             }
         }
@@ -171,7 +269,7 @@ public class UserPresenter extends Presenter {
     }
 
     public String displayMessageActionPrompt(){
-        System.out.println("What would you like to do with this message? (reply, mark as unread, delete, close)");
+        System.out.println("What would you like to do with this message?(reply, mark as unread, mark as starred, delete, close)");
         return scan.nextLine();
     }
 
@@ -215,7 +313,7 @@ public class UserPresenter extends Presenter {
      */
     public void displayConferenceError(){
         System.out.println("There are currently no other users who are registered within this " +
-                "conference. Please try at a later time.");
+                "conference. Please try again at a later time.");
     }
 
 
