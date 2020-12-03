@@ -298,7 +298,8 @@ public class AttendeeController{
             while (!messageAction.equalsIgnoreCase("REPLY") &&
                     !messageAction.equalsIgnoreCase("MARK AS UNREAD") &&
                             !messageAction.equalsIgnoreCase("CLOSE") &&
-                    !messageAction.equalsIgnoreCase("MARK AS STARRED")) {
+                    !messageAction.equalsIgnoreCase("MARK AS STARRED") &&
+                    !messageAction.equalsIgnoreCase("UNSTAR")) {
                 messageAction = p.displayMessageActionPrompt();
             }
             if (messageAction.equalsIgnoreCase("REPLY")) {
@@ -307,7 +308,17 @@ public class AttendeeController{
             } else if (messageAction.equalsIgnoreCase("MARK AS UNREAD")) {
                 messageManager.setMessageReadStatus(selectedMessage, "unread");
             } else if (messageAction.equalsIgnoreCase("MARK AS STARRED")) {
-                messageManager.setMessageStarredStatus(selectedMessage, "starred");
+                if (selectedMessage.isStarred()) {
+                    p.displayStarError();
+                } else {
+                    messageManager.setMessageStarredStatus(selectedMessage, "starred");
+                }
+            } else if (messageAction.equalsIgnoreCase("UNSTAR")) {
+                if (selectedMessage.isStarred()) {
+                    messageManager.setMessageStarredStatus(selectedMessage, "unstar");
+                } else {
+                    p.displayUnstarError();
+                }
             } else if (messageAction.equalsIgnoreCase("CLOSE")){
             }
         }
@@ -344,7 +355,8 @@ public class AttendeeController{
             while (!messageAction.equalsIgnoreCase("REPLY") &&
                     !messageAction.equalsIgnoreCase("MARK AS UNREAD") &&
                     !messageAction.equalsIgnoreCase("CLOSE") &&
-                    !messageAction.equalsIgnoreCase("MARK AS STARRED")) {
+                    !messageAction.equalsIgnoreCase("MARK AS STARRED") &&
+                    !messageAction.equalsIgnoreCase("UNSTAR")) {
                 messageAction = p.displayMessageActionPrompt();
             }
             if (messageAction.equalsIgnoreCase("REPLY")) {
@@ -353,7 +365,17 @@ public class AttendeeController{
             } else if (messageAction.equalsIgnoreCase("MARK AS UNREAD")) {
                 messageManager.setMessageReadStatus(selectedMessage, "unread");
             } else if (messageAction.equalsIgnoreCase("MARK AS STARRED")) {
-                messageManager.setMessageStarredStatus(selectedMessage, "starred");
+                if (selectedMessage.isStarred()) {
+                    p.displayStarError();
+                } else {
+                    messageManager.setMessageStarredStatus(selectedMessage, "starred");
+                }
+            } else if (messageAction.equalsIgnoreCase("UNSTAR")) {
+                if (selectedMessage.isStarred()) {
+                    messageManager.setMessageStarredStatus(selectedMessage, "unstar");
+                } else {
+                    p.displayUnstarError();
+                }
             } else if (messageAction.equalsIgnoreCase("CLOSE")){
             }
         }
