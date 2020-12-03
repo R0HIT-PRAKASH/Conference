@@ -55,7 +55,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      */
     public void displayUserOptions() {
         System.out.println("(0) Add New User\n(1) View All Rooms\n(2) View Speakers\n(3) View Attendees\n(4) View Organizers" +
-                "\n(5) View VIPs\n(5) Go back to main screen");
+                "\n(5) View VIPs\n(6) Go back to main screen");
     }
 
     /**
