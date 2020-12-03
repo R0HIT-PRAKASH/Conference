@@ -37,8 +37,8 @@ public class OrganizerPresenter extends AttendeePresenter {
      */
     public void displayMessageOptions() {
         System.out.println("(0) See Inbox\n(1) See Starred Messages\n(2) See Deleted Messages\n(3) See Archived Messages" +
-                "\n(4) Send Message\n(5) Reply to Message\n(6) Message All Attendees\n(7) Message Event Attendees" +
-                "\n(8) Message All Speakers\n(9) Go back to main screen");
+                "\n(4) Send Message\n(5) Message All Attendees\n(6) Message Event Attendees" +
+                "\n(7) Message All Speakers\n(8) Go back to main screen");
     }
 
     /**

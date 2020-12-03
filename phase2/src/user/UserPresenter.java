@@ -272,7 +272,7 @@ public class UserPresenter extends Presenter {
     }
 
     public String displayMessageActionPrompt(){
-        System.out.println("What would you like to do with this message?(reply, mark as unread, mark as starred, delete, close)");
+        System.out.println("What would you like to do with this message?(reply, mark as unread, mark as starred, unstar, mark delete, close)");
         return scan.nextLine();
     }
 
