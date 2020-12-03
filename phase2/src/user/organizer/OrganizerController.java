@@ -64,7 +64,7 @@ public class OrganizerController extends AttendeeController {
             case 0:
                 p.displayMessageOptions();
                 int choice = p.nextInt();
-                final int endCond = 9;
+                final int endCond = 8;
                 while (choice != endCond) {
                     determineInput0(choice);
                     choice = p.nextInt();
@@ -157,33 +157,33 @@ public class OrganizerController extends AttendeeController {
                 }
                 break;
 
-            case 5:
-                if(messageManager.getAllUserMessages().get(this.username).size() == 0){
-                    p.displayNoReply();
-                    break;
-                }
-                else if(userManager.getUserMap().size() == 1) {
-                    p.displayConferenceError();
-                    break;
-                }
-                List<String> attendees = getSenders(username);
-                p.displayAllSenders(attendees);
-                String recipients = p.displayEnterUserUsernamePrompt();
-                // System.out.println("Which user are you replying to (it is case sensitive). If you no longer want to reply to a user, type 'q' to exit: ");
-                while (!attendees.contains(recipients)){
-                    recipients = p.displayUserReplyError();
-                    if (recipients.equals("q")){
-                        break;
-                    }
-                }
-                if (recipients.equals("q")){
-                    break;
-                }
-                String content = p.displayEnterMessagePrompt();
-                replyMessage(content, recipients);
-                break;
+//            case 5:
+//                if(messageManager.getAllUserMessages().get(this.username).size() == 0){
+//                    p.displayNoReply();
+//                    break;
+//                }
+//                else if(userManager.getUserMap().size() == 1) {
+//                    p.displayConferenceError();
+//                    break;
+//                }
+//                List<String> attendees = getSenders(username);
+//                p.displayAllSenders(attendees);
+//                String recipients = p.displayEnterUserUsernamePrompt();
+//                // System.out.println("Which user are you replying to (it is case sensitive). If you no longer want to reply to a user, type 'q' to exit: ");
+//                while (!attendees.contains(recipients)){
+//                    recipients = p.displayUserReplyError();
+//                    if (recipients.equals("q")){
+//                        break;
+//                    }
+//                }
+//                if (recipients.equals("q")){
+//                    break;
+//                }
+//                String content = p.displayEnterMessagePrompt();
+//                replyMessage(content, recipients);
+//                break;
 
-            case 6:
+            case 5:
                 String message = p.displayAllAttendeeMessagePrompt();
 
                 if (message.equalsIgnoreCase("q")) {
@@ -193,7 +193,7 @@ public class OrganizerController extends AttendeeController {
                 p.displayMessageSentPrompt();
                 break;
 
-            case 7:
+            case 6:
                 String eventname = p.displayEventMessagePrompt();
                 if (eventname.equalsIgnoreCase("q")) {
                     break;
@@ -206,7 +206,7 @@ public class OrganizerController extends AttendeeController {
                 }
                 break;
 
-            case 8:
+            case 7:
                 String speakermessage = p.displayAllSpeakerMessagePrompt();
                 if (speakermessage.equalsIgnoreCase("q")) {
                     break;
@@ -366,6 +366,9 @@ public class OrganizerController extends AttendeeController {
 
                 //Ask for name of event
                 String name = p.displayEventTitlePrompt();
+                while(eventManager.getAllEvents().keySet().contains(name) && !name.equalsIgnoreCase("q")){
+                    name = p.displayInvalidEventName();
+                }
                 // Adding the option to end the case early here in case a User wants to go back
                 if (name.equals("q")){
                     break;
@@ -475,12 +478,8 @@ public class OrganizerController extends AttendeeController {
                     creators.add(this.username);
                     p.displayAndGetCreators(creators, organizers);
 
-                    if(eventManager.checkEventIsValid(eventManager.createNewEvent(eventType, name, time, duration, num, capacity, comp, project, cha, tab, creators, vip, speaker, speakers, eventTag))){
-                        eventManager.addEvent(eventType, name, time, duration, num, capacity, comp, project, cha, tab, creators, vip, speaker, speakers, eventTag);
-                        addEvent(eventType, name, speaker, speakers, creators, true);
-                    }else{
-                        addEvent(eventType, name, speaker, speakers, creators, false);
-                    }
+                    eventManager.addEvent(eventType, name, time, duration, num, capacity, comp, project, cha, tab, creators, vip, speaker, speakers, eventTag);
+                    addEvent(eventType, name, speaker, speakers, creators, eventManager.getAllEvents().keySet().contains(name));
 
                 }else{ // room exists
                     int cap = p.displayEnterEventCapacityPrompt(room.getCapacity());
@@ -496,12 +495,8 @@ public class OrganizerController extends AttendeeController {
                     creators.add(this.username);
                     p.displayAndGetCreators(creators, organizers);
 
-                    if(eventManager.checkEventIsValid(eventManager.createNewEvent(eventType, name, time, duration, num, room.getCapacity(), room.getComputers(), room.getProjector(), room.getChairs(), room.getTables(), creators, vip, speaker, speakers, eventTag))){
-                        eventManager.addEvent(eventType, name, time, duration, num, room.getCapacity(), room.getComputers(), room.getProjector(), room.getChairs(), room.getTables(), creators, vip, speaker, speakers, eventTag);
-                        addEvent(eventType, name, speaker, speakers, creators, true);
-                    }else{
-                        addEvent(eventType, name, speaker, speakers, creators, false);
-                    }
+                    eventManager.addEvent(eventType, name, time, duration, num, room.getCapacity(), room.getComputers(), room.getProjector(), room.getChairs(), room.getTables(), creators, vip, speaker, speakers, eventTag);
+                    addEvent(eventType, name, speaker, speakers, creators, eventManager.getAllEvents().keySet().contains(name));
                 }
                 break;
 

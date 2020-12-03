@@ -37,8 +37,8 @@ public class OrganizerPresenter extends AttendeePresenter {
      */
     public void displayMessageOptions() {
         System.out.println("(0) See Inbox\n(1) See Starred Messages\n(2) See Deleted Messages\n(3) See Archived Messages" +
-                "\n(4) Send Message\n(5) Reply to Message\n(6) Message All Attendees\n(7) Message Event Attendees" +
-                "\n(8) Message All Speakers\n(9) Go back to main screen");
+                "\n(4) Send Message\n(5) Message All Attendees\n(6) Message Event Attendees" +
+                "\n(7) Message All Speakers\n(8) Go back to main screen");
     }
 
     /**
@@ -55,7 +55,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      */
     public void displayUserOptions() {
         System.out.println("(0) Add New User\n(1) View All Rooms\n(2) View Speakers\n(3) View Attendees\n(4) View Organizers" +
-                "\n(5) View VIPs\n(5) Go back to main screen");
+                "\n(5) View VIPs\n(6) Go back to main screen");
     }
 
     /**
@@ -935,6 +935,15 @@ public class OrganizerPresenter extends AttendeePresenter {
     public int displayOccupiedRoom(){
         System.out.println("This room is occupied at this time. Please select again.");
         return nextInt();
+    }
+
+    /**
+     * Prints a message that tells the user that the event name is invalid.
+     * @return Returns the string input from the user.
+     */
+    public String displayInvalidEventName(){
+        System.out.println("An event with this name already exists. Please enter another name.");
+        return scan.nextLine();
     }
 
     /**

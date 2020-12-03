@@ -6,7 +6,6 @@ import message.Message;
 import message.MessageManager;
 import request.Request;
 import request.RequestManager;
-import user.UserController;
 import user.UserManager;
 
 import java.time.LocalDateTime;
@@ -16,9 +15,13 @@ import java.util.List;
 /**
  * A controller that deals with Attendee users
  */
-public class AttendeeController extends UserController {
+public class AttendeeController{
 
-
+    public UserManager userManager;
+    public EventManager eventManager;
+    public MessageManager messageManager;
+    public RequestManager requestManager;
+    public String username;
     AttendeePresenter p;
 
     /**
@@ -30,7 +33,11 @@ public class AttendeeController extends UserController {
      */
     public AttendeeController(UserManager userManager, EventManager eventManager, MessageManager messageManager,
                               String username, RequestManager requestManager){
-        super(userManager, eventManager, messageManager, username, requestManager);
+        this.userManager = userManager;
+        this.eventManager = eventManager;
+        this.messageManager = messageManager;
+        this.username = username;
+        this.requestManager = requestManager;
         this.p = new AttendeePresenter();
     }
 
@@ -268,45 +275,54 @@ public class AttendeeController extends UserController {
     }
 
 
-
-    // TODO DELETE THIS BEFORE HANDING IN, here for safety
     /**
      * Prints all the messages that this attendee has received
      * @param username: The username of the Attendee
      */
-//    protected void viewMessages(String username) {
-//        List<Message> allMessages = messageManager.viewMessages(username);
-//        p.displayPrintMessages(allMessages);
-//        if(allMessages.size()>0) {
-//            int requestedMessage = p.displaySelectMessage();
-//            while (requestedMessage > allMessages.size() || requestedMessage < 1) {
-//                p.displayMessageNonExistent();
-//                requestedMessage = p.displaySelectMessage();
-//            }
-//
-//            Message selectedMessage = (allMessages.get(allMessages.size() - requestedMessage));
-//            p.displaySelectedMessage(selectedMessage);
-//            messageManager.setMessageReadStatus(selectedMessage, "read");
-//
-//            // this method may be too large now, but this prompts the user to take an action on the selected message
-//            String messageAction = p.displayMessageActionPrompt();
-//            while (!messageAction.equalsIgnoreCase("REPLY") &&
-//                    !messageAction.equalsIgnoreCase("MARK AS UNREAD") &&
-//                            !messageAction.equalsIgnoreCase("CLOSE") &&
-//                    !messageAction.equalsIgnoreCase("MARK AS STARRED")) {
-//                messageAction = p.displayMessageActionPrompt();
-//            }
-//            if (messageAction.equalsIgnoreCase("REPLY")) {
-//                String content = p.displayEnterMessagePrompt();
-//                replyMessage(content, selectedMessage.getSender());
-//            } else if (messageAction.equalsIgnoreCase("MARK AS UNREAD")) {
-//                messageManager.setMessageReadStatus(selectedMessage, "unread");
-//            } else if (messageAction.equalsIgnoreCase("MARK AS STARRED")) {
-//                messageManager.setMessageStarredStatus(selectedMessage, "starred");
-//            } else if (messageAction.equalsIgnoreCase("CLOSE")){
-//            }
-//        }
-//    }
+    protected void viewMessages(String username) {
+        List<Message> allMessages = messageManager.viewMessages(username);
+        p.displayPrintMessages(allMessages);
+        if(allMessages.size()>0) {
+            int requestedMessage = p.displaySelectMessage();
+            while (requestedMessage > allMessages.size() || requestedMessage < 1) {
+                p.displayMessageNonExistent();
+                requestedMessage = p.displaySelectMessage();
+            }
+
+            Message selectedMessage = (allMessages.get(allMessages.size() - requestedMessage));
+            p.displaySelectedMessage(selectedMessage);
+            messageManager.setMessageReadStatus(selectedMessage, "read");
+
+            // this method may be too large now, but this prompts the user to take an action on the selected message
+            String messageAction = p.displayMessageActionPrompt();
+            while (!messageAction.equalsIgnoreCase("REPLY") &&
+                    !messageAction.equalsIgnoreCase("MARK AS UNREAD") &&
+                            !messageAction.equalsIgnoreCase("CLOSE") &&
+                    !messageAction.equalsIgnoreCase("MARK AS STARRED") &&
+                    !messageAction.equalsIgnoreCase("UNSTAR")) {
+                messageAction = p.displayMessageActionPrompt();
+            }
+            if (messageAction.equalsIgnoreCase("REPLY")) {
+                String content = p.displayEnterMessagePrompt();
+                replyMessage(content, selectedMessage.getSender());
+            } else if (messageAction.equalsIgnoreCase("MARK AS UNREAD")) {
+                messageManager.setMessageReadStatus(selectedMessage, "unread");
+            } else if (messageAction.equalsIgnoreCase("MARK AS STARRED")) {
+                if (selectedMessage.isStarred()) {
+                    p.displayStarError();
+                } else {
+                    messageManager.setMessageStarredStatus(selectedMessage, "starred");
+                }
+            } else if (messageAction.equalsIgnoreCase("UNSTAR")) {
+                if (selectedMessage.isStarred()) {
+                    messageManager.setMessageStarredStatus(selectedMessage, "unstar");
+                } else {
+                    p.displayUnstarError();
+                }
+            } else if (messageAction.equalsIgnoreCase("CLOSE")){
+            }
+        }
+    }
 
     /**
      * Prints all the messages that this attendee has starred
@@ -339,7 +355,8 @@ public class AttendeeController extends UserController {
             while (!messageAction.equalsIgnoreCase("REPLY") &&
                     !messageAction.equalsIgnoreCase("MARK AS UNREAD") &&
                     !messageAction.equalsIgnoreCase("CLOSE") &&
-                    !messageAction.equalsIgnoreCase("MARK AS STARRED")) {
+                    !messageAction.equalsIgnoreCase("MARK AS STARRED") &&
+                    !messageAction.equalsIgnoreCase("UNSTAR")) {
                 messageAction = p.displayMessageActionPrompt();
             }
             if (messageAction.equalsIgnoreCase("REPLY")) {
@@ -348,7 +365,17 @@ public class AttendeeController extends UserController {
             } else if (messageAction.equalsIgnoreCase("MARK AS UNREAD")) {
                 messageManager.setMessageReadStatus(selectedMessage, "unread");
             } else if (messageAction.equalsIgnoreCase("MARK AS STARRED")) {
-                messageManager.setMessageStarredStatus(selectedMessage, "starred");
+                if (selectedMessage.isStarred()) {
+                    p.displayStarError();
+                } else {
+                    messageManager.setMessageStarredStatus(selectedMessage, "starred");
+                }
+            } else if (messageAction.equalsIgnoreCase("UNSTAR")) {
+                if (selectedMessage.isStarred()) {
+                    messageManager.setMessageStarredStatus(selectedMessage, "unstar");
+                } else {
+                    p.displayUnstarError();
+                }
             } else if (messageAction.equalsIgnoreCase("CLOSE")){
             }
         }
@@ -370,11 +397,11 @@ public class AttendeeController extends UserController {
      * @param message: The content of the message the Attendee is sending
      * @param originalMessenger: The username of the User we are replying too
      */
-//    protected void replyMessage(String message, String originalMessenger) {
-//        Message replyMessage = messageManager.createNewMessage(message, this.username, originalMessenger);
-//        messageManager.addMessage(originalMessenger, replyMessage);
-//        p.displaySuccessfulMessage();
-//    }
+    protected void replyMessage(String message, String originalMessenger) {
+        Message replyMessage = messageManager.createNewMessage(message, this.username, originalMessenger);
+        messageManager.addMessage(originalMessenger, replyMessage);
+        p.displaySuccessfulMessage();
+    }
 
     /**
      * Prints the event list for the entire conference
@@ -446,14 +473,14 @@ public class AttendeeController extends UserController {
         return attendees;
     }
 
-//    private void viewRequests(String username){
-//        List<Request> requests = requestManager.getUserRequests(username);
-//        p.displayRequests(requests);
-//    }
-//
-//    private void makeRequest(String content, String username){
-//        Request request = requestManager.createNewRequest(content, username);
-//        requestManager.addRequest(username, request);
-//        ((Attendee)userManager.getUser(username)).addRequest(request);
-//    }
+    private void viewRequests(String username){
+        List<Request> requests = requestManager.getUserRequests(username);
+        p.displayRequests(requests);
+    }
+
+    private void makeRequest(String content, String username){
+        Request request = requestManager.createNewRequest(content, username);
+        requestManager.addRequest(username, request);
+        ((Attendee)userManager.getUser(username)).addRequest(request);
+    }
 }

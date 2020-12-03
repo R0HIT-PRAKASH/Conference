@@ -92,6 +92,21 @@ public class UserPresenter extends Presenter {
     }
 
     /**
+     * Notifies a User that the selected message they attemped to unstar is not starred.
+     */
+    public void displayUnstarError(){
+        System.out.println("Invalid input. The selected message is not starred.");
+    }
+
+    /**
+     * Notifies a User that the selected message they attemped to star is already starred.
+     */
+    public void displayStarError(){
+        System.out.println("Invalid input. The selected message is already starred.");
+    }
+
+
+    /**
      * Prints an error message when a User inputs an invalid Event.
      */
     public void displayInvalidEventError(){
@@ -250,7 +265,7 @@ public class UserPresenter extends Presenter {
      * @return The number of the message they would like to read
      */
     public int displaySelectMessage(){
-        System.out.println("Which message would you like to read?: ");
+        System.out.println("Which message would you like to read? (Enter the number of the corresponding message): ");
         int choice = nextInt();
         return choice;
     }
@@ -273,7 +288,7 @@ public class UserPresenter extends Presenter {
     }
 
     public String displayMessageActionPrompt(){
-        System.out.println("What would you like to do with this message?(reply, mark as unread, mark as starred, delete, close)");
+        System.out.println("What would you like to do with this message?(reply, mark as unread, mark as starred, unstar, mark delete, close)");
         return scan.nextLine();
     }
 

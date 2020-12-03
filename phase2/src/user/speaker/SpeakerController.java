@@ -334,9 +334,7 @@ public class SpeakerController extends UserController {
                     Set<String> eventAttendees = eventManager.getEventAttendees(eventName);
                     String toMessage = p.displayEventAttendeesList(eventAttendees);
                     ArrayList<String> usernameList = new ArrayList<String>();
-                    for (String user: eventAttendees){
-                        usernameList.add(user);
-                    }
+                    usernameList.addAll(eventAttendees);
                     if(usernameList.contains(toMessage)){
                         String messageContent = p.displayEnterMessagePrompt();
                         replyMessage(toMessage, messageContent);
