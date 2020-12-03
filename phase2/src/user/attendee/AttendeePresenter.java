@@ -21,9 +21,49 @@ public class AttendeePresenter extends UserPresenter {
      * Prints the tasks which an Attendee is able to do.
      */
     public void displayOptions(){
-        System.out.println("(0) See Inbox\n(1) Send Message\n(2) View Event List" +
-                "\n(3) View My Scheduled Events\n(4) Cancel Event Reservation\n" +
-                "(5) Sign up for an event\n(6) View Options \n(7) View My Requests \n(8) Make a Request \n(9) End");
+        System.out.println("(0) Messages\n(1) Events\n(2) Requests\n(3) Quit");
+    }
+    /**
+     * Prints the things an attendee can do relating to Messages
+     */
+    public void displayMessageOptions(){
+        System.out.println("(0) See Inbox\n(1) Send Message\n(2) Go back to Main Screen");
+    }
+
+    /**
+     * Prints the things an attendee can do relating to Events
+     */
+    public void displayEventOptions(){
+        System.out.println("(0) View Event List\n(1) View My Scheduled Events\n(2) Cancel Event Reservation\n" +
+                "(3) Sign up for an Event\n(4) Go back to Main Screen");
+    }
+
+    /**
+     * Prints the things an attendee can do relating to Requests
+     */
+    public void displayRequestOptions(){
+        System.out.println("(0) View My Requests\n(1) Make a Request\n(2) Go back to Main Screen");
+    }
+
+    /**
+     * Prints a message that tells the user that their input is invalid when navigating the messages menu.
+     */
+    public void displayMessageOptionsInvalidChoice() {
+        System.out.println("Invalid input. Please enter a number between 0 and 2:");
+    }
+
+    /**
+     * Prints a message that tells the user that their input is invalid when navigating the events menu.
+     */
+    public void displayEventOptionsInvalidChoice() {
+        System.out.println("Invalid input. Please enter a number between 0 and 4:");
+    }
+
+    /**
+     * Prints a message that tells the user that their input is invalid when navigating the requests menu.
+     */
+    public void displayRequestsOptionsInvalidChoice() {
+        System.out.println("Invalid input. Please enter a number between 0 and 2:");
     }
 
     /**

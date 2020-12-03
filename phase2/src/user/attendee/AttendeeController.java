@@ -49,7 +49,7 @@ public class AttendeeController{
         p.displayTaskInput();
         int input = 0;
         input = p.nextInt();
-        while (input != 9){ // 9 is ending condition
+        while (input != 3){ // 3 is ending condition
             determineInput(input);
             input = p.nextInt();
         }
@@ -58,38 +58,92 @@ public class AttendeeController{
     private void determineInput(int input) {
         switch (input) {
             case 0:
-                viewMessages(this.username);
+                p.displayMessageOptions();
+                int choice = p.nextInt();
+                final int endCond = 2;
+                while (choice != endCond) {
+                    determineInput0(choice);
+                    choice = p.nextInt();
+                }
                 break;
 
             case 1:
-                determineInputSendMessages();
+                p.displayEventOptions();
+                int choice1 = p.nextInt();
+                final int endCond1 = 4;
+                while (choice1 != endCond1){
+                    determineInput1(choice1);
+                    choice1 = p.nextInt();
+                }
                 break;
 
             case 2:
-                viewEventList();
-                break;
-
-            case 3:
-                viewSignedUpForEvent(this.username);
-                break;
-
-            case 4:
-                determineInputCancelEventReservation();
-                break;
-
-            case 5:
-                determineInputSignUpEvent();
+                p.displayRequestOptions();
+                int choice2 = p.nextInt();
+                final int endCond2 = 2;
+                while (choice2 != endCond2){
+                    determineInput2(choice2);
+                    choice2 = p.nextInt();
+                }
                 break;
 
             case 6:
                 p.displayOptions();
                 break;
 
-            case 7:
+            default:
+                p.displayInvalidInputError();
+                break;
+        }
+        p.displayNextTaskPromptAttendee();
+    }
+
+    private void determineInput0(int input){
+        switch (input){
+            case 0:
+                viewMessages(this.username);
+                break;
+            case 1:
+                determineInputSendMessages();
+                break;
+            default:
+                p.displayMessageOptionsInvalidChoice();
+                break;
+        }
+        p.displayNextTaskPromptAttendee();
+    }
+
+    private void determineInput1(int input){
+        switch (input){
+            case 0:
+                viewEventList();
+                break;
+
+            case 1:
+                viewSignedUpForEvent(this.username);
+                break;
+
+            case 2:
+                determineInputCancelEventReservation();
+                break;
+
+            case 3:
+                determineInputSignUpEvent();
+                break;
+            default:
+                p.displayEventOptionsInvalidChoice();
+                break;
+        }
+        p.displayNextTaskPromptAttendee();
+    }
+
+    private void determineInput2(int input){
+        switch (input){
+            case 0:
                 viewRequests(username);
                 break;
 
-            case 8:
+            case 1:
                 String req = p.displayMakeRequest();
                 boolean valid = requestManager.checkIsValidRequest(req);
                 while(!valid){
@@ -100,9 +154,8 @@ public class AttendeeController{
                 makeRequest(req, username);
                 p.displaySuccessfulRequestSubmission();
                 break;
-
             default:
-                p.displayInvalidInputError();
+                p.displayRequestsOptionsInvalidChoice();
                 break;
         }
         p.displayNextTaskPromptAttendee();
