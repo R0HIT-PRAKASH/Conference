@@ -113,7 +113,7 @@ public class OrganizerController extends AttendeeController {
         p.displayNextTaskPromptOrganizer();
     }
 
-    private void determineInput0(int input) {
+    protected void determineInput0(int input) {
         label:
         switch (input) {
             case 0:
@@ -214,7 +214,7 @@ public class OrganizerController extends AttendeeController {
         p.displayNextTaskPromptOrganizer();
     }
 
-    private void determineInput1(int input) {
+    protected void determineInput1(int input) {
         label:
         switch (input) {
             case 0:
@@ -657,7 +657,7 @@ public class OrganizerController extends AttendeeController {
         p.displayNextTaskPromptOrganizer();
     }
 
-    private void determineInput2(int input) {
+    protected void determineInput2(int input) {
         label:
         switch (input) {
             case 0:

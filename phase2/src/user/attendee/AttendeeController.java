@@ -98,7 +98,7 @@ public class AttendeeController{
         p.displayNextTaskPromptAttendee();
     }
 
-    private void determineInput0(int input){
+    protected void determineInput0(int input){
         switch (input){
             case 0:
                 viewMessages(this.username);
@@ -113,7 +113,7 @@ public class AttendeeController{
         p.displayNextTaskPromptAttendee();
     }
 
-    private void determineInput1(int input){
+    protected void determineInput1(int input){
         switch (input){
             case 0:
                 viewEventList();
@@ -137,7 +137,7 @@ public class AttendeeController{
         p.displayNextTaskPromptAttendee();
     }
 
-    private void determineInput2(int input){
+    protected void determineInput2(int input){
         switch (input){
             case 0:
                 viewRequests(username);

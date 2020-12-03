@@ -1,52 +1,109 @@
 package user.vip;
 
-import event.Event;
 import event.EventManager;
 import message.MessageManager;
 import user.UserFactory;
 import user.UserManager;
-import request.Request;
 import request.RequestManager;
 import user.attendee.AttendeeController;
-import user.attendee.AttendeePresenter;
-
-import java.util.List;
 
 public class VipController extends AttendeeController {
 
     UserFactory userFactory;
-    AttendeePresenter p;
+    VipPresenter p;
 
-    public VipController(UserManager userManager, EventManager eventManager, MessageManager messageManager, String username, RequestManager requestManager){
+    public VipController(UserManager userManager, EventManager eventManager, MessageManager messageManager, String username, RequestManager requestManager) {
         super(userManager, eventManager, messageManager, username, requestManager);
-        this.p = new AttendeePresenter();
+        this.p = new VipPresenter();
         this.userFactory = new UserFactory();
     }
 
-    private void determineInputSignUpEvent() {
-        List<Event> future = viewFutureEventList();
-        p.displayAllFutureEvents(future);
-        if (future.size() == 0){
-            return;
+    /**
+     * Runs the Attendee controller by asking for input and performing the actions
+     */
+    public void run() {
+        p.displayOptions();
+        p.displayTaskInput();
+        int input = 0;
+        input = p.nextInt();
+        while (input != 3) { // 3 is ending condition
+            determineInput(input);
+            input = p.nextInt();
         }
-        String eventSignedUp = p.displayEventSignUpPrompt();
-        // System.out.println("What is the name of the event you would like to sign up for? Type 'q' if you would no longer like to sign up for an event.");
-        if (eventSignedUp.equals("q")){
-            return;
-        }
-        while (eventManager.getEvent(eventSignedUp) == null ||
-                !future.contains(eventManager.getEvent(eventSignedUp))){
-            eventSignedUp = p.displayInvalidEventSignUp();
-            if (eventSignedUp.equalsIgnoreCase("q")){
-                break;
-            }
-        }
-        if (!eventSignedUp.equalsIgnoreCase("q")) {
-            signUp(eventSignedUp);
-        }
-
     }
 
+    private void determineInput(int input) {
+        switch (input) {
+            case 0:
+                p.displayMessageOptions();
+                int choice = p.nextInt();
+                final int endCond = 2;
+                while (choice != endCond) {
+                    determineInput0(choice);
+                    choice = p.nextInt();
+                }
+                break;
+
+            case 1:
+                p.displayEventOptions();
+                int choice1 = p.nextInt();
+                final int endCond1 = 4;
+                while (choice1 != endCond1) {
+                    determineInput1(choice1);
+                    choice1 = p.nextInt();
+                }
+                break;
+
+            case 2:
+                p.displayRequestOptions();
+                int choice2 = p.nextInt();
+                final int endCond2 = 2;
+                while (choice2 != endCond2) {
+                    determineInput2(choice2);
+                    choice2 = p.nextInt();
+                }
+                break;
+
+            case 3:
+
+
+            case 6:
+                p.displayOptions();
+                break;
+
+            default:
+                p.displayInvalidInputError();
+                break;
+        }
+        p.displayNextTaskPromptAttendee();
+    }
+
+    private void determineInput3(int input) {
+        switch (input) {
+            case 0:
+                System.out.println("IN PROGRESS");
+                break;
+
+            case 1:
+                System.out.println("IN PROG");
+                break;
+
+            case 2:
+                System.out.println("IN PROG.");
+                break;
+
+            case 3:
+                System.out.println("IN PROG..");
+                break;
+
+            case 4:
+                System.out.println("IN PROGRESS.");
+                break;
+
+            default:
+
+                break;
+        }
+        p.displayNextTaskPromptAttendee();
+    }
 }
-
-
