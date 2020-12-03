@@ -20,7 +20,7 @@ public class UserPresenter extends Presenter {
      * Prompts an Attendee to choose another task once they have completed a task.
      */
     public void displayNextTaskPromptAttendee(){
-        System.out.print("Please enter next task (reminder, you can type '7' to see what you can do): ");
+        System.out.print("Please enter next task (reminder, you can type '6' to see what you can do): ");
     }
 
     /**
@@ -105,16 +105,74 @@ public class UserPresenter extends Presenter {
      * @param allMessages: All the messages the user has received
      */
     public void displayPrintMessages(List<Message> allMessages){
+        String buffer = ("==========================");
         if(allMessages.size() == 0) {
             System.out.println("No Messages :(");
             return;
         }
         int counter = 1;
         for (int i = allMessages.size() -1; i > -1; i-- ){
-            System.out.println(counter + ". Sent By: " + allMessages.get(i).getSender() + "\nMessage: " +
-                    allMessages.get(i).getContent());
-            counter++;
+            // If the message hasn't been read, display preview with a black dot.
+            if((allMessages.get(i).getContent().length()) >= 10) {
+                if(!(allMessages.get(i).hasBeenRead())) {
+                    System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender() +
+                            "\n\u25CF Message: " +
+                            allMessages.get(i).getContent().substring(0, 10) + "...");
+                    counter++;
+                // If the message has been read, display without a dot.
+                }else{
+                    System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender() +
+                            "\nMessage: " +
+                            allMessages.get(i).getContent().substring(0, 10) + "...");
+                    counter++;
+                }
+            }else{
+                if(!(allMessages.get(i).hasBeenRead())) {
+                    System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender()
+                            + "\n\u25CF Message: " +
+                            allMessages.get(i).getContent());
+                    counter++;
+                }else{
+                    System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender()
+                            + "\n Message: " +
+                            allMessages.get(i).getContent());
+                    counter++;
+                }
+            }
         }
+    }
+
+    /**
+     * A prompt that asks the user which message they want to display from their inbox
+     * @return The number of the message they would like to read
+     */
+    public int displaySelectMessage(){
+        System.out.println("Which message would you like to read?: ");
+        int choice = scan.nextInt();
+        scan.nextLine();
+        return choice;
+    }
+
+    /**
+     * Prompts the user to re-pick a message if they made a nonsensical selection
+     */
+    public void displayMessageNonExistent(){
+        System.out.println("That is not a valid message. Please try again.");
+    }
+
+    /**
+     * Displays the full contents of the selected message
+     * @param message The message to be displayed
+     */
+    public void displaySelectedMessage(Message message){
+        System.out.println("Sent By: " + message.getSender() +
+                "\nMessage: " +
+                message.getContent());
+    }
+
+    public String displayMessageActionPrompt(){
+        System.out.println("What would you like to do with this message? (reply, mark as unread, delete, close)");
+        return scan.nextLine();
     }
 
     /**

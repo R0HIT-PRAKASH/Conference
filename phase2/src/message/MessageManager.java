@@ -69,7 +69,7 @@ public class MessageManager implements java.io.Serializable {
         if (userManager.getUserType(from).equals("attendee")){
             return userManager.getUserType(to).equals("attendee") || userManager.getUserType(to).equals("speaker");
         } else if (userManager.getUserType(from).equals("organizer")){
-            return userManager.getUserType(to).equals("organizer");
+            return true;
         }
     return false;
     }
@@ -152,5 +152,19 @@ public class MessageManager implements java.io.Serializable {
         Object uncastedMessages = RW.readMessages();
         HashMap<String, List<Message>> allUserMessages = (HashMap<String, List<Message>>) uncastedMessages;
         setAllUserMessages(allUserMessages);
+    }
+
+    /**
+     * This method sets a Message's read status as either read or unread.
+     * @param message Refers to the message to be interacted with.
+     * @param status Refers to the status you want to set the message to have.
+     */
+    public void setMessageReadStatus(Message message, String status){
+        // don't check in manager, check input from presenter
+        if(status.equals("read")){
+            message.setBeenRead();
+        }else{
+            message.setUnread();
+        }
     }
 }

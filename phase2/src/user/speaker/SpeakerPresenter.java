@@ -23,8 +23,8 @@ public class SpeakerPresenter extends UserPresenter {
      * Prints all the message related tasks that a Speaker can do.
      */
     public void displayMessageOptions(){
-        System.out.println("(0) See Inbox\n(1) Message Event Attendees\n(2) Reply to Attendee " +
-                "\n(3) Message Specific Attendee\n(4) Go Back to Main Screen");
+        System.out.println("(0) See Inbox\n(1) Message Event Attendees" +
+                "\n(2) Message Specific Attendee\n(3) Go Back to Main Screen");
     }
 
     /**
@@ -147,14 +147,6 @@ public class SpeakerPresenter extends UserPresenter {
         System.out.println("That event isn't one you have given. ");
     }
 
-    /**
-     * Asks for the content of the message to be sent
-     * @return
-     */
-    public String displayEnterMessagePrompt(){
-        System.out.println("Please enter the message. ");
-        return null;
-    }
 
     /**
      * Asks the name of the attendee that you are replying to

@@ -21,9 +21,9 @@ public class AttendeePresenter extends UserPresenter {
      * Prints the tasks which an Attendee is able to do.
      */
     public void displayOptions(){
-        System.out.println("(0) See Inbox\n(1) Send Message\n(2) Reply to Message\n(3) View Event List" +
-                "\n(4) View My Scheduled Events\n(5) Cancel Event Reservation\n" +
-                "(6) Sign up for an event\n(7) View Options \n(8) View My Requests \n(9) Make a Request \n(10) End");
+        System.out.println("(0) See Inbox\n(1) Send Message\n(2) View Event List" +
+                "\n(3) View My Scheduled Events\n(4) Cancel Event Reservation\n" +
+                "(5) Sign up for an event\n(6) View Options \n(7) View My Requests \n(8) Make a Request \n(9) End");
     }
 
     /**
@@ -59,14 +59,17 @@ public class AttendeePresenter extends UserPresenter {
     }
 
 
-
-
     /**
      * Prompts an Attendee or Organizer to enter which User they want to reply to.
      * @return The username of the recipient
      */
     public String displayEnterUserUsernamePrompt(){
         System.out.print("Which user are you replying to (it is case sensitive). If you no longer want to reply to a user, type 'q' to exit: ");
+        return scan.nextLine();
+    }
+
+    public String displayIncorrectSelection(){
+        System.out.println("That is not a valid action. Please type out fully an action you wish to take: ");
         return scan.nextLine();
     }
 

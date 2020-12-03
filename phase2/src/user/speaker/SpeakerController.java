@@ -200,7 +200,7 @@ public class SpeakerController{
             case 0:
                 p.displayMessageOptions();
                 int choice = p.nextInt();
-                final int endCond = 4;
+                final int endCond = 3;
                 while (choice != endCond) {
                     determineInputMessage(choice);
                     choice = p.nextInt();
@@ -298,38 +298,39 @@ public class SpeakerController{
                 sendBlastMessage(eventNames, message);
                 break;
 
+                // Removed as replying is now built into the inbox.
+//            case 2:
+//                if(messageManager.getAllUserMessages().get(this.username).size() == 0){
+//                    p.displayNoReply();
+//                    break;
+//                }
+//                else if(userManager.getUserMap().size() == 1) {
+//                    p.displayConferenceError();
+//                    break;
+//                }
+//                List<String> attendees = getAttendees(username);
+//                p.displayAllSenders(attendees);
+//                if (attendees.size() == 0){
+//                    break;
+//                }
+//                String recipient = p.displayEnterAttendeeUsernamePrompt();
+//
+//                while (!attendees.contains(recipient)){
+//                    recipient = p.displayUserReplyError();
+//
+//                    if (recipient.equals("q")){
+//                        break;
+//                    }
+//                }
+//                if (recipient.equals("q")){
+//                    break;
+//                }
+//                String content = p.displayEnterMessagePrompt();
+//
+//                replyMessage(recipient, content);
+//                break;
+
             case 2:
-                if(messageManager.getAllUserMessages().get(this.username).size() == 0){
-                    p.displayNoReply();
-                    break;
-                }
-                else if(userManager.getUserMap().size() == 1) {
-                    p.displayConferenceError();
-                    break;
-                }
-                List<String> attendees = getAttendees(username);
-                p.displayAllSenders(attendees);
-                if (attendees.size() == 0){
-                    break;
-                }
-                String recipient = p.displayEnterAttendeeUsernamePrompt();
-
-                while (!attendees.contains(recipient)){
-                    recipient = p.displayUserReplyError();
-
-                    if (recipient.equals("q")){
-                        break;
-                    }
-                }
-                if (recipient.equals("q")){
-                    break;
-                }
-                String content = p.displayEnterMessagePrompt();
-
-                replyMessage(recipient, content);
-                break;
-
-            case 3:
                 String eventName = p.displayEventSelectorPrompt();
                 viewScheduledEvents(username);
                 if(eventManager.events.containsKey(eventName)){
@@ -423,6 +424,32 @@ public class SpeakerController{
     private void viewMessages(String username) {
         List<Message> allMessages = messageManager.viewMessages(username);
         p.displayPrintMessages(allMessages);
+        if(allMessages.size()>0) {
+            int requestedMessage = p.displaySelectMessage();
+            while (requestedMessage > allMessages.size() || requestedMessage < 1) {
+                p.displayMessageNonExistent();
+                requestedMessage = p.displaySelectMessage();
+            }
+
+            Message selectedMessage = (allMessages.get(allMessages.size() - requestedMessage));
+            p.displaySelectedMessage(selectedMessage);
+            messageManager.setMessageReadStatus(selectedMessage, "read");
+
+            // this method may be too large now, but this prompts the user to take an action on the selected message
+            String messageAction = p.displayMessageActionPrompt();
+            while (!messageAction.equalsIgnoreCase("REPLY") &&
+                    !messageAction.equalsIgnoreCase("MARK AS UNREAD") &&
+                    !messageAction.equalsIgnoreCase("CLOSE")) {
+                messageAction = p.displayMessageActionPrompt();
+            }
+            if (messageAction.equalsIgnoreCase("REPLY")) {
+                String content = p.displayEnterMessagePrompt();
+                replyMessage(content, selectedMessage.getSender());
+            } else if (messageAction.equalsIgnoreCase("MARK AS UNREAD")) {
+                messageManager.setMessageReadStatus(selectedMessage, "unread");
+            } else if (messageAction.equalsIgnoreCase("CLOSE")){
+            }
+        }
     }
 
     private void viewScheduledEvents(String username){

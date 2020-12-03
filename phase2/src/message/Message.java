@@ -11,6 +11,7 @@ public class Message implements Serializable {
     private String content;
     private String senderUsername;
     private String recipientUsername;
+    private boolean beenRead;
 
     /**
      * This method constructs a Message object.
@@ -23,6 +24,7 @@ public class Message implements Serializable {
         this.content = content;
         this.senderUsername = senderUsername;
         this.recipientUsername = recipientUsername;
+        this.beenRead = false;
     }
 
     // Getters
@@ -45,6 +47,12 @@ public class Message implements Serializable {
      */
     public String getSender(){ return senderUsername; }
 
+    /**
+     * Gets the read or unread status of the message.
+     * @return Returns a boolean, where true means the message has been read.
+     */
+    public boolean hasBeenRead(){ return beenRead;}
+
     // Setters
 
     /**
@@ -64,4 +72,14 @@ public class Message implements Serializable {
      * @param senderUsername Refers to the username of the sender.
      */
     public void setSender(String senderUsername){ this.senderUsername = senderUsername; }
+
+    /**
+     * Sets the message as having been read.
+     */
+    public void setBeenRead(){this.beenRead = true; }
+
+    /**
+     * Sets the message's read status as unread.
+     */
+    public void setUnread(){this.beenRead = false;}
 }

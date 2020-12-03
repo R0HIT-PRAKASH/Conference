@@ -49,7 +49,7 @@ public class AttendeeController{
         p.displayTaskInput();
         int input = 0;
         input = p.nextInt();
-        while (input != 10){ // 8 is ending condition
+        while (input != 9){ // 9 is ending condition
             determineInput(input);
             input = p.nextInt();
         }
@@ -66,34 +66,30 @@ public class AttendeeController{
                 break;
 
             case 2:
-                determineInputViewEventList();
-                break;
-
-            case 3:
                 viewEventList();
                 break;
 
-            case 4:
+            case 3:
                 viewSignedUpForEvent(this.username);
                 break;
 
-            case 5:
+            case 4:
                 determineInputCancelEventReservation();
                 break;
 
-            case 6:
+            case 5:
                 determineInputSignUpEvent();
                 break;
 
-            case 7:
+            case 6:
                 p.displayOptions();
                 break;
 
-            case 8:
+            case 7:
                 viewRequests(username);
                 break;
 
-            case 9:
+            case 8:
                 String req = p.displayMakeRequest();
                 boolean valid = requestManager.checkIsValidRequest(req);
                 while(!valid){
@@ -160,33 +156,33 @@ public class AttendeeController{
         cancelSpotInEvent(cancel);
 
     }
-
-    private void determineInputViewEventList() {
-        if(messageManager.getAllUserMessages().get(this.username).size() == 0){
-            p.displayNoReply();
-            return;
-        }
-        else if(userManager.getUserMap().size() == 1) {
-            p.displayConferenceError();
-            return;
-        }
-        List<String> attendees = getSenders(username);
-        p.displayAllSenders(attendees);
-        String recipients = p.displayEnterUserUsernamePrompt();
-        // System.out.println("Which user are you replying to (it is case sensitive). If you no longer want to reply to a user, type 'q' to exit: ");
-        while (!attendees.contains(recipients)){
-            recipients = p.displayUserReplyError();
-            if (recipients.equals("q")){
-                break;
-            }
-        }
-        if (recipients.equals("q")){
-            return;
-        }
-        String content = p.displayEnterMessagePrompt();
-        replyMessage(content, recipients);
-
-    }
+    // Commented out because replying it built in to viewing messages now
+//    private void determineInputViewEventList() {
+//        if(messageManager.getAllUserMessages().get(this.username).size() == 0){
+//            p.displayNoReply();
+//            return;
+//        }
+//        else if(userManager.getUserMap().size() == 1) {
+//            p.displayConferenceError();
+//            return;
+//        }
+//        List<String> attendees = getSenders(username);
+//        p.displayAllSenders(attendees);
+//        String recipients = p.displayEnterUserUsernamePrompt();
+//        // System.out.println("Which user are you replying to (it is case sensitive). If you no longer want to reply to a user, type 'q' to exit: ");
+//        while (!attendees.contains(recipients)){
+//            recipients = p.displayUserReplyError();
+//            if (recipients.equals("q")){
+//                break;
+//            }
+//        }
+//        if (recipients.equals("q")){
+//            return;
+//        }
+//        String content = p.displayEnterMessagePrompt();
+//        replyMessage(content, recipients);
+//
+//    }
 
     private void determineInputSendMessages() {
         if(userManager.getUserMap().size() == 1) {
@@ -221,7 +217,34 @@ public class AttendeeController{
     protected void viewMessages(String username) {
         List<Message> allMessages = messageManager.viewMessages(username);
         p.displayPrintMessages(allMessages);
+        if(allMessages.size()>0) {
+            int requestedMessage = p.displaySelectMessage();
+            while (requestedMessage > allMessages.size() || requestedMessage < 1) {
+                p.displayMessageNonExistent();
+                requestedMessage = p.displaySelectMessage();
+            }
+
+            Message selectedMessage = (allMessages.get(allMessages.size() - requestedMessage));
+            p.displaySelectedMessage(selectedMessage);
+            messageManager.setMessageReadStatus(selectedMessage, "read");
+
+            // this method may be too large now, but this prompts the user to take an action on the selected message
+            String messageAction = p.displayMessageActionPrompt();
+            while (!messageAction.equalsIgnoreCase("REPLY") &&
+                    !messageAction.equalsIgnoreCase("MARK AS UNREAD") &&
+                            !messageAction.equalsIgnoreCase("CLOSE")) {
+                messageAction = p.displayMessageActionPrompt();
+            }
+            if (messageAction.equalsIgnoreCase("REPLY")) {
+                String content = p.displayEnterMessagePrompt();
+                replyMessage(content, selectedMessage.getSender());
+            } else if (messageAction.equalsIgnoreCase("MARK AS UNREAD")) {
+                messageManager.setMessageReadStatus(selectedMessage, "unread");
+            } else if (messageAction.equalsIgnoreCase("CLOSE")){
+            }
+        }
     }
+
 
     /**
      * Sends a message to a specified user
@@ -239,7 +262,6 @@ public class AttendeeController{
      * @param originalMessenger: The username of the User we are replying too
      */
     protected void replyMessage(String message, String originalMessenger) {
-        List<Message> userInbox = messageManager.getAllUserMessages().get(this.username);
         Message replyMessage = messageManager.createNewMessage(message, this.username, originalMessenger);
         messageManager.addMessage(originalMessenger, replyMessage);
         p.displaySuccessfulMessage();
