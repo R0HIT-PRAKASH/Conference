@@ -76,6 +76,38 @@ public abstract class User implements Comparable<User>, Serializable {
     }
 
     /**
+     * This methods gets the company a user is associated with.
+     * @return The company of the user
+     */
+    public String getCompany(){
+        return this.company;
+    }
+
+    /**
+     * This method sets the company of the user.
+     * @param company The company of the user.
+     */
+    public void setCompany(String company){
+        this.company = company;
+    }
+
+    /**
+     * This methods get the bio of a user.
+     * @return The bio of the user.
+     */
+    public String getBio(){
+        return this.bio;
+    }
+
+    /**
+     * This method sets the bio of the user.
+     * @param bio The bio of the user.
+     */
+    public void setBio(String bio){
+        this.bio = bio;
+    }
+
+    /**
      * This method sets the name of the user.
      * @param newName Refers to the new name of the user.
      */
