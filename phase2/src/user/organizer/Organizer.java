@@ -24,6 +24,8 @@ public class Organizer extends User implements Serializable {
      * @param email Refers to the email of the organizer.
      * @param userName Refers to the username of the organizer.
      * @param password Refers to the password of the organizer.
+     * @param company Refers to the company of the organizer.
+     * @param bio Refers to the bio of the organizer.
      */
     public Organizer(String name, String address, String email, String userName, String password, String company, String bio) {
         super(name, address, email, userName, password, company, bio);

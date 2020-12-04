@@ -23,6 +23,8 @@ public abstract class User implements Comparable<User>, Serializable {
      * @param email Refers to the email of the user.
      * @param username Refers to the username of the user.
      * @param password Refers to the password of the user.
+     * @param company Refers to the company of the user.
+     * @param bio Refers to the bio of the user.
      */
 
     public User(String name, String address, String email, String username, String password, String company, String bio){

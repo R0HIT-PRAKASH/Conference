@@ -22,6 +22,8 @@ public class Speaker extends User {
      * @param email Refers to the email of the speaker.
      * @param userName Refers to the username of the speaker.
      * @param password Refers to the password of the speaker.
+     * @param company Refers to the company of the speaker.
+     * @param bio Refers to the bio of the speaker.
      */
     public Speaker(String name, String address, String email, String userName, String password, String company, String bio) {
         super(name, address, email, userName, password, company, bio);

@@ -24,6 +24,8 @@ public class Attendee extends User {
      * @param email Refers to the email of the attendee.
      * @param userName Refers to the username of the attendee.
      * @param password Refers to the password of the attendee.
+     * @param company Refers to the company of the attendee.
+     * @param bio Refers to the bio of the speaker.
      */
     public Attendee(String name, String address, String email, String userName, String password, String company, String bio) {
         super(name, address, email, userName, password, company, bio);

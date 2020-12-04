@@ -28,6 +28,8 @@ public class Vip extends Attendee {
      * @param email Refers to the email of the vip.
      * @param userName Refers to the username of the vip.
      * @param password Refers to the password of the vip.
+     * @param company Refers to the company of the vip.
+     * @param bio Refers to the bio of the vip.
      */
     public Vip(String name, String address, String email, String userName, String password, String company, String bio) {
         super(name, address, email, userName, password, company, bio);
