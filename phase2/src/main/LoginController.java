@@ -112,8 +112,10 @@ public class LoginController {
 
         //Modify prompt to allow for VIP
         String type = p.displayEnterStatusPrompt();
+        String company = p.displayEnterCompanyPrompt();
+        String bio = p.displayEnterBioPrompt();
 
-        User newUser = userFactory.createNewUser(name, address, email, username, password, type);
+        User newUser = userFactory.createNewUser(name, address, email, username, password, type, company, bio);
         userManager.addUser(newUser);
         messageManager.addUserInbox(username);
         requestManager.addUserRequests(username);

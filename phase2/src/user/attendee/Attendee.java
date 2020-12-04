@@ -25,8 +25,8 @@ public class Attendee extends User {
      * @param userName Refers to the username of the attendee.
      * @param password Refers to the password of the attendee.
      */
-    public Attendee(String name, String address, String email, String userName, String password) {
-        super(name, address, email, userName, password);
+    public Attendee(String name, String address, String email, String userName, String password, String company, String bio) {
+        super(name, address, email, userName, password, company, bio);
         this.attendingEvents = new ArrayList<String>();
         this.requestsMade = new ArrayList<Request>();
     }

@@ -13,6 +13,8 @@ public abstract class User implements Comparable<User>, Serializable {
     private String email;
     private String username;
     private String password;
+    private String company;
+    private String bio;
 
     /**
      * Constructs a user with a name, address, email, username, and passowrd.
@@ -22,12 +24,15 @@ public abstract class User implements Comparable<User>, Serializable {
      * @param username Refers to the username of the user.
      * @param password Refers to the password of the user.
      */
-    public User(String name, String address, String email, String username, String password) {
+
+    public User(String name, String address, String email, String username, String password, String company, String bio){
         this.name = name;
         this.address = address;
         this.email = email;
         this.username = username;
         this.password = password;
+        this.company = company;
+        this.bio = bio;
     }
 
     /**

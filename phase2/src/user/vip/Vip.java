@@ -1,8 +1,10 @@
 package user.vip;
 
+import request.Request;
 import user.attendee.Attendee;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -13,6 +15,11 @@ import java.util.List;
 public class Vip extends Attendee {
 
     private List<String> attendingEvents;
+    private List<Request> requestsMade;
+    private String company;
+    private HashMap<String, String> supporting;
+    private HashMap<String, String> employees;
+    private String bio;
 
     /**
      * This method constructs a new vip object with an empty list of attendingEvents.
@@ -22,9 +29,12 @@ public class Vip extends Attendee {
      * @param userName Refers to the username of the vip.
      * @param password Refers to the password of the vip.
      */
-    public Vip(String name, String address, String email, String userName, String password) {
-        super(name, address, email, userName, password);
+    public Vip(String name, String address, String email, String userName, String password, String company, String bio) {
+        super(name, address, email, userName, password, company, bio);
         this.attendingEvents = new ArrayList<>();
+        this.requestsMade = new ArrayList<Request>();
+        this.supporting = new HashMap<>();
+        this.employees = new HashMap<>();
     }
 
     /**

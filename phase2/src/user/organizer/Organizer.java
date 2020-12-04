@@ -25,8 +25,8 @@ public class Organizer extends User implements Serializable {
      * @param userName Refers to the username of the organizer.
      * @param password Refers to the password of the organizer.
      */
-    public Organizer(String name, String address, String email, String userName, String password) {
-        super(name, address, email, userName, password);
+    public Organizer(String name, String address, String email, String userName, String password, String company, String bio) {
+        super(name, address, email, userName, password, company, bio);
         this.attendingEvents = new ArrayList<String>();
         this.organizingEvents = new ArrayList<String>();
     }

@@ -20,26 +20,27 @@ public class UserFactory {
      * @param username This parameter refers to the username of the user.
      * @param password This parameter refers to the password of the user.
      * @param userType This parameter refers to the type of user this person is.
+     * @param company
      * @return Returns the new User object,
      */
     public User createNewUser(String name, String address, String email,
-                              String username, String password, String userType) {
+                              String username, String password, String userType, String company, String bio) {
         if (userType == null) {
             return null;
         }
         if (userType.equalsIgnoreCase("ORGANIZER")) {
-            return new Organizer(name, address, email, username, password);
+            return new Organizer(name, address, email, username, password, company, bio);
 
         } else if (userType.equalsIgnoreCase("ATTENDEE")) {
-            return new Attendee(name, address, email, username, password);
+            return new Attendee(name, address, email, username, password, company, bio);
 
         } else if (userType.equalsIgnoreCase("SPEAKER")) {
-            return new Speaker(name, address, email, username, password);
-
-        } else if (userType.equalsIgnoreCase("VIP")) {
-            return new Vip(name, address, email, username, password);
-
+            return new Speaker(name, address, email, username, password, company, bio);
+        }
+        else if (userType.equalsIgnoreCase("VIP")) {
+            return new Vip(name, address, email, username, password, company, bio);
         }
         return null;
     }
+
 }

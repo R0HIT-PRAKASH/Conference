@@ -201,6 +201,56 @@ public abstract class Presenter {
     }
 
     /**
+     * Prompts a user to enter the company they are associated with.
+     * @return The company of the user.
+     */
+    public String displayEnterCompanyPrompt(){
+
+        System.out.println("What company are you associated with? If you are not associated with any company, please enter \'none\': ");
+        String company = scan.nextLine();
+
+        while(company.equalsIgnoreCase("")){
+            company = displayInvalidCompanyError();
+        }
+
+        return company;
+    }
+
+    /**
+     * Prints an error message that the company entered is an invalid input.
+     * @return The company of the user.
+     */
+    public String displayInvalidCompanyError(){
+        System.out.println("That was an invalid company name.\nPlease try again: ");
+        return scan.nextLine();
+    }
+
+    /**
+     * Prompts the user to enter a bio.
+     * @return The bio of the user.
+     */
+    public String displayEnterBioPrompt(){
+
+        System.out.println("What would you like to add to your bio? Enter it below: ");
+        String company = scan.nextLine();
+
+        while(company.equalsIgnoreCase("")){
+            company = displayInvalidBioError();
+        }
+
+        return company;
+    }
+
+    /**
+     * Prints an error message that the bio the user entered was an invalid input
+     * @return The bio of the user.
+     */
+    public String displayInvalidBioError(){
+        System.out.println("That was an invalid bio.\nPlease try again: ");
+        return scan.nextLine();
+    }
+
+    /**
      * Queries the user for an integer
      * @return Returns the integer the user input.
      */

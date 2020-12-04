@@ -880,7 +880,9 @@ public class OrganizerController extends AttendeeController {
         while(!email_pattern.matcher(email).matches()){
             email = p.displayInvalidEmail();
         }
-        User newUser = userFactory.createNewUser(name, address, email, username, password, usertype);
+        String company = p.displayEnterCompanyPrompt();
+        String bio = p.displayEnterBioPrompt();
+        User newUser = userFactory.createNewUser(name, address, email, username, password, usertype, company, bio);
         userManager.addUser(newUser);
         messageManager.addUserInbox(username);
         p.displayNewUserCreated(newUser.getUsername(), newUser.getPassword());
