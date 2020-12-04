@@ -99,7 +99,7 @@ public class AttendeeController extends UserController {
                 viewStarredMessages(this.username);
                 break;
             case 2:
-                //viewDeletedMessages(this.username);
+                viewDeletedMessages(this.username);
                 break;
             case 3:
                 //viewArchivedMessages(this.username);

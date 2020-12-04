@@ -126,11 +126,11 @@ public class OrganizerController extends AttendeeController {
                 break;
 
             case 2:
-                //viewDeletedMessages(this.username);
+                viewDeletedMessages(this.username);
                 break;
 
             case 3:
-                //viewArchivedMessages(this.username);
+                viewArchivedMessages(this.username);
                 break;
 
             case 4:

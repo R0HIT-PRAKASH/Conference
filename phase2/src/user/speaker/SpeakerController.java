@@ -111,10 +111,10 @@ public class SpeakerController extends UserController {
                 viewStarredMessages(this.username);
                 break;
             case 2:
-                //viewDeletedMessages(this.username);
+                viewDeletedMessages(this.username);
                 break;
             case 3:
-                //viewArchivedMessages(this.username);
+                viewArchivedMessages(this.username);
                 break;
 
             case 4:

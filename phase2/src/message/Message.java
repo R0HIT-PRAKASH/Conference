@@ -16,6 +16,8 @@ public class Message implements Serializable {
     private boolean beenRead;
     private LocalDateTime dateTimeCreated;
     private boolean starred;
+    private boolean deleted;
+    private boolean archived;
 
     /**
      * This method constructs a Message object.
@@ -69,6 +71,18 @@ public class Message implements Serializable {
      */
     public boolean isStarred(){ return starred;}
 
+    /**
+     * Gets the deletion status of the message.
+     * @return Returns a boolean, where true means that message is in the junk folder.
+     */
+    public boolean isDeleted(){ return deleted;}
+
+    /**
+     * Gets the archive status of the message.
+     * @return Returns a boolean, where true means the message is in the archive folder.
+     */
+    public boolean isArchived(){ return archived;}
+
     // Setters
 
     /**
@@ -108,5 +122,25 @@ public class Message implements Serializable {
      * Sets the message's starred status as unstarred.
      */
     public void setUnstarred(){this.starred = false;}
+
+    /**
+     * Sets the message's deletion status as deleted.
+     */
+    public void setDeleted(){this.deleted = true;}
+
+    /**
+     * Sets the message's deletion status as not deleted.
+     */
+    public void setUndeleted(){this.deleted = false;}
+
+    /**
+     * Sets the message's archived status as archived.
+     */
+    public void setArchived(){this.archived = true;}
+
+    /**
+     * Sets the message's archived status as unarchived.
+     */
+    public void setUnarchived(){this.archived = false;}
 }
 

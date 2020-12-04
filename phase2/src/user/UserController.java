@@ -66,7 +66,9 @@ public abstract class UserController {
                     !messageAction.equalsIgnoreCase("MARK AS UNREAD") &&
                     !messageAction.equalsIgnoreCase("CLOSE") &&
                     !messageAction.equalsIgnoreCase("MARK AS STARRED") &&
-                    !messageAction.equalsIgnoreCase("UNSTAR")) {
+                    !messageAction.equalsIgnoreCase("UNSTAR") &&
+                    !messageAction.equalsIgnoreCase("DELETE")  &&
+                    !messageAction.equalsIgnoreCase("ARCHIVE")) {
                 messageAction = p.displayMessageActionPrompt();
             }
             if (messageAction.equalsIgnoreCase("REPLY")) {
@@ -87,6 +89,10 @@ public abstract class UserController {
                     p.displayUnstarError();
                 }
             } else if (messageAction.equalsIgnoreCase("CLOSE")){
+            } else if (messageAction.equalsIgnoreCase("DELETE")){
+                messageManager.setDeletionStatus(selectedMessage, "delete");
+            } else if (messageAction.equalsIgnoreCase("ARCHIVE")){
+                messageManager.setArchiveStatus(selectedMessage, "archive");
             }
         }
     }
@@ -106,7 +112,7 @@ public abstract class UserController {
             }
         }
         p.displayPrintStarredMessages(starredMessages);
-        if(allMessages.size()>0) {
+        if(starredMessages.size()>0) {
             int requestedMessage = p.displaySelectMessage();
             while (requestedMessage > allMessages.size() || requestedMessage < 1) {
                 p.displayMessageNonExistent();
@@ -123,7 +129,9 @@ public abstract class UserController {
                     !messageAction.equalsIgnoreCase("MARK AS UNREAD") &&
                     !messageAction.equalsIgnoreCase("CLOSE") &&
                     !messageAction.equalsIgnoreCase("MARK AS STARRED") &&
-                    !messageAction.equalsIgnoreCase("UNSTAR")) {
+                    !messageAction.equalsIgnoreCase("UNSTAR")&&
+                    !messageAction.equalsIgnoreCase("DELETE")  &&
+                    !messageAction.equalsIgnoreCase("ARCHIVE")) {
                 messageAction = p.displayMessageActionPrompt();
             }
             if (messageAction.equalsIgnoreCase("REPLY")) {
@@ -144,6 +152,95 @@ public abstract class UserController {
                     p.displayUnstarError();
                 }
             } else if (messageAction.equalsIgnoreCase("CLOSE")){
+            } else if (messageAction.equalsIgnoreCase("DELETE")){
+                messageManager.setDeletionStatus(selectedMessage, "delete");
+            } else if (messageAction.equalsIgnoreCase("ARCHIVE")){
+                messageManager.setArchiveStatus(selectedMessage, "archive");
+            }
+        }
+    }
+
+    protected void viewDeletedMessages(String username){
+        List<Message> allMessages = messageManager.viewMessages(username);
+        // get deleted messages
+        List<Message> deletedMessages = new ArrayList<>();
+
+        for (Message message: allMessages) {
+            if (messageManager.getDeletionStatus(message)) {
+                deletedMessages.add(message);
+            }
+        }
+        p.displayDeletedMessages(deletedMessages);
+        if(deletedMessages.size()>0) {
+            int requestedMessage = p.displaySelectMessage();
+            while (requestedMessage > allMessages.size() || requestedMessage < 1) {
+                p.displayMessageNonExistent();
+                requestedMessage = p.displaySelectMessage();
+            }
+
+            Message selectedMessage = (allMessages.get(allMessages.size() - requestedMessage));
+            p.displaySelectedMessage(selectedMessage);
+            messageManager.setMessageReadStatus(selectedMessage, "read");
+
+            // this method may be too large now, but this prompts the user to take an action on the selected message
+            String messageAction = p.displayDeletedActionPrompt();
+            while (!messageAction.equalsIgnoreCase("REPLY") &&
+                    !messageAction.equalsIgnoreCase("DELETE") &&
+                    !messageAction.equalsIgnoreCase("CLOSE") &&
+                    !messageAction.equalsIgnoreCase("RESTORE")) {
+                messageAction = p.displayDeletedActionPrompt();
+            }
+            if (messageAction.equalsIgnoreCase("REPLY")) {
+                String content = p.displayEnterMessagePrompt();
+                replyMessage(content, selectedMessage.getSender());
+            } else if (messageAction.equalsIgnoreCase("CLOSE")){
+            } else if (messageAction.equalsIgnoreCase("DELETE")){
+                if(p.displayDeleteConfirmation().equalsIgnoreCase("YES")){
+                    deletedMessages.remove(selectedMessage);
+                    allMessages.remove(selectedMessage);
+                }
+            } else if (messageAction.equalsIgnoreCase("RESTORE")){
+                deletedMessages.remove(selectedMessage);
+                messageManager.setDeletionStatus(selectedMessage, "restore");
+            }
+        }
+    }
+
+    protected void viewArchivedMessages(String username) {
+        List<Message> allMessages = messageManager.viewMessages(username);
+        // get archived messages
+        List<Message> archivedMessages = new ArrayList<>();
+
+        for (Message message : allMessages) {
+            if (messageManager.getArchivedStatus(message)) {
+                archivedMessages.add(message);
+            }
+        }
+        p.displayArchivedMessages(archivedMessages);
+        if (archivedMessages.size() > 0) {
+            int requestedMessage = p.displaySelectMessage();
+            while (requestedMessage > allMessages.size() || requestedMessage < 1) {
+                p.displayMessageNonExistent();
+                requestedMessage = p.displaySelectMessage();
+            }
+
+            Message selectedMessage = (allMessages.get(allMessages.size() - requestedMessage));
+            p.displaySelectedMessage(selectedMessage);
+            messageManager.setMessageReadStatus(selectedMessage, "read");
+
+            String messageAction = p.displayArchivedActionPrompt();
+            while (!messageAction.equalsIgnoreCase("REPLY") &&
+                    !messageAction.equalsIgnoreCase("CLOSE") &&
+                    !messageAction.equalsIgnoreCase("UNARCHIVE")) {
+                messageAction = p.displayDeletedActionPrompt();
+            }
+            if (messageAction.equalsIgnoreCase("REPLY")) {
+                String content = p.displayEnterMessagePrompt();
+                replyMessage(content, selectedMessage.getSender());
+            } else if (messageAction.equalsIgnoreCase("CLOSE")) {
+            } else if (messageAction.equalsIgnoreCase("UNARCHIVE")) {
+                archivedMessages.remove(selectedMessage);
+                messageManager.setArchiveStatus(selectedMessage, "restore");
             }
         }
     }

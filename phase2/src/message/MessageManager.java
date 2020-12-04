@@ -190,4 +190,43 @@ public class MessageManager implements java.io.Serializable {
     public LocalDateTime getCreationInfo(Message message){
         return message.getDateTimeCreated();
     }
+
+    /**
+     * This method returns the deletion status of a message.
+     * @param message Refers to the message being checked.
+     * @return Returns true if the message is in the junk folder, and false otherwise.
+     */
+    public boolean getDeletionStatus(Message message){
+        return message.isDeleted();
+    }
+
+    /**
+     * This method returns the archive status of a message.
+     * @param message Refers to the message being checked.
+     * @return Returns true if the message is in the archive folder, and false otherwise.
+     */
+    public boolean getArchivedStatus(Message message){
+        return message.isArchived();
+    }
+
+    /**
+     * This method sets a Message's deletion status as either deleted or restored;
+     * @param message Refers to the message to be interacted with.
+     * @param status Refers to the status you want to set the message to have.
+     */
+    public void setDeletionStatus(Message message, String status){
+        if(status.equals("delete")){
+            message.setDeleted();
+        }else{
+            message.setUndeleted();
+        }
+    }
+
+    public void setArchiveStatus(Message message, String status){
+        if(status.equals("archive")){
+            message.setArchived();
+        }else{
+            message.setUnarchived();
+        }
+    }
 }

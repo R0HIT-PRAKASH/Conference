@@ -5,7 +5,10 @@ package user; /**
 import main.Presenter;
 import message.Message;
 import request.Request;
+import java.time.LocalDateTime;
+// using this https://stackoverflow.com/questions/40715424/printing-out-datetime-in-a-specific-format-in-java/40715452
 
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class UserPresenter extends Presenter {
@@ -125,6 +128,7 @@ public class UserPresenter extends Presenter {
      * @param allMessages: All the messages the user has received
      */
     public void displayPrintMessages(List<Message> allMessages){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         String buffer = ("==========================");
         if(allMessages.size() == 0) {
             System.out.println("No Messages :(");
@@ -132,69 +136,80 @@ public class UserPresenter extends Presenter {
         }
         System.out.println("==========SYMBOL GLOSSARY=========\nDot = Unread Message\nNo dot = Read Message");
         int counter = 1;
-        for (int i = allMessages.size() -1; i > -1; i-- ){
+        for (int i = allMessages.size() -1; i > -1; i-- ) {
             // If the message hasn't been read, display preview with a dot.
-            if((allMessages.get(i).getContent().length()) >= 10) {
-                if(!(allMessages.get(i).hasBeenRead())) {
-                    if(allMessages.get(i).isStarred()) {
-                    System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender() +
-                            "\n\u25CF * Message: " +
-                            allMessages.get(i).getContent().substring(0, 10) + "...");
+            if (!(allMessages.get(i).isDeleted())) {
+                if ((allMessages.get(i).getContent().length()) >= 10) {
+                    if (!(allMessages.get(i).hasBeenRead())) {
+                        if (allMessages.get(i).isStarred()) {
+                            System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender() +
+                                    "\n\u25CF * Message: " +
+                                    allMessages.get(i).getContent().substring(0, 10) + "..." +
+                                    "\n" + dtf.format(allMessages.get(i).getDateTimeCreated()));
+                        } else {
+                            System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender() +
+                                    "\n\u25CF Message: " +
+                                    allMessages.get(i).getContent().substring(0, 10) + "..." +
+                                    "\n" + dtf.format(allMessages.get(i).getDateTimeCreated()));
+                        }
+                        counter++;
+                        // If the message has been read, display without a dot.
                     } else {
-                        System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender() +
-                                "\n\u25CF Message: " +
-                                allMessages.get(i).getContent().substring(0, 10) + "...");
-                    }
-                    counter++;
-                    // If the message has been read, display without a dot.
-                }else{
-                    if(allMessages.get(i).isStarred()) {
-                        System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender() +
-                                "\n* Message: " +
-                                allMessages.get(i).getContent().substring(0, 10) + "...");
-                        counter++;
-                    } else {
-                        System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender() +
-                                "\nMessage: " +
-                                allMessages.get(i).getContent().substring(0, 10) + "...");
-                        counter++;
-                    }
-                }
-            }else{
-                if(!(allMessages.get(i).hasBeenRead())) {
-                    if(allMessages.get(i).isStarred()) {
-                        System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender()
-                                + "\n\u25CF * Message: " +
-                                allMessages.get(i).getContent());
-                        counter++;
-                    } else {
-                        System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender()
-                                + "\n\u25CF Message: " +
-                                allMessages.get(i).getContent());
-                        counter++;
-                    }
-                }else{
-                    if(allMessages.get(i).isStarred()) {
-                            System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender()
-                                    + "\n* Message: " +
-                                    allMessages.get(i).getContent());
+                        if (allMessages.get(i).isStarred()) {
+                            System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender() +
+                                    "\n* Message: " +
+                                    allMessages.get(i).getContent().substring(0, 10) + "..." +
+                                    "\n" + dtf.format(allMessages.get(i).getDateTimeCreated()));
                             counter++;
                         } else {
-                        System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender()
-                                + "\n Message: " +
-                                allMessages.get(i).getContent());
-                        counter++;
+                            System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender() +
+                                    "\nMessage: " +
+                                    allMessages.get(i).getContent().substring(0, 10) + "..." +
+                                    "\n" + dtf.format(allMessages.get(i).getDateTimeCreated()));
+                            counter++;
+                        }
+                    }
+                } else {
+                    if (!(allMessages.get(i).hasBeenRead())) {
+                        if (allMessages.get(i).isStarred()) {
+                            System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender()
+                                    + "\n\u25CF * Message: " +
+                                    allMessages.get(i).getContent() +
+                                    "\n" + dtf.format(allMessages.get(i).getDateTimeCreated()));
+                            counter++;
+                        } else {
+                            System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender()
+                                    + "\n\u25CF Message: " +
+                                    allMessages.get(i).getContent() +
+                                    "\n" + dtf.format(allMessages.get(i).getDateTimeCreated())) ;
+                            counter++;
+                        }
+                    } else {
+                        if (allMessages.get(i).isStarred()) {
+                            System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender()
+                                    + "\n* Message: " +
+                                    allMessages.get(i).getContent() +
+                                    "\n" + dtf.format(allMessages.get(i).getDateTimeCreated()));
+                            counter++;
+                        } else {
+                            System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender()
+                                    + "\n Message: " +
+                                    allMessages.get(i).getContent() +
+                                    "\n" + dtf.format(allMessages.get(i).getDateTimeCreated()));
+                            counter++;
                         }
                     }
                 }
             }
         }
+    }
 
     /**
      * Prints all the starred messages a User has received in order of last arrived
      * @param starredMessages: All the starred messages the user has received
      */
     public void displayPrintStarredMessages(List<Message> starredMessages){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         String buffer = ("==========================");
         if(starredMessages.size() == 0) {
             System.out.println("No Starred Messages :(");
@@ -209,11 +224,13 @@ public class UserPresenter extends Presenter {
                     if(starredMessages.get(i).isStarred()) {
                         System.out.println(buffer + "\n" + counter + ". Sent By: " + starredMessages.get(i).getSender() +
                                 "\n\u25CF * Message: " +
-                                starredMessages.get(i).getContent().substring(0, 10) + "...");
+                                starredMessages.get(i).getContent().substring(0, 10) + "..." +
+                                "\n" + dtf.format(starredMessages.get(i).getDateTimeCreated()));
                     } else {
                         System.out.println(buffer + "\n" + counter + ". Sent By: " + starredMessages.get(i).getSender() +
                                 "\n\u25CF Message: " +
-                                starredMessages.get(i).getContent().substring(0, 10) + "...");
+                                starredMessages.get(i).getContent().substring(0, 10) + "..." +
+                                "\n" + dtf.format(starredMessages.get(i).getDateTimeCreated()));
                     }
                     counter++;
                     // If the message has been read, display without a dot.
@@ -221,12 +238,14 @@ public class UserPresenter extends Presenter {
                     if(starredMessages.get(i).isStarred()) {
                         System.out.println(buffer + "\n" + counter + ". Sent By: " + starredMessages.get(i).getSender() +
                                 "\n* Message: " +
-                                starredMessages.get(i).getContent().substring(0, 10) + "...");
+                                starredMessages.get(i).getContent().substring(0, 10) + "..." +
+                                "\n" + dtf.format(starredMessages.get(i).getDateTimeCreated()));
                         counter++;
                     } else {
                         System.out.println(buffer + "\n" + counter + ". Sent By: " + starredMessages.get(i).getSender() +
                                 "\nMessage: " +
-                                starredMessages.get(i).getContent().substring(0, 10) + "...");
+                                starredMessages.get(i).getContent().substring(0, 10) + "..." +
+                                "\n" + dtf.format(starredMessages.get(i).getDateTimeCreated()));
                         counter++;
                     }
                 }
@@ -235,29 +254,100 @@ public class UserPresenter extends Presenter {
                     if(starredMessages.get(i).isStarred()) {
                         System.out.println(buffer + "\n" + counter + ". Sent By: " + starredMessages.get(i).getSender()
                                 + "\n\u25CF * Message: " +
-                                starredMessages.get(i).getContent());
+                                starredMessages.get(i).getContent() +
+                                "\n" + dtf.format(starredMessages.get(i).getDateTimeCreated()));
                         counter++;
                     } else {
                         System.out.println(buffer + "\n" + counter + ". Sent By: " + starredMessages.get(i).getSender()
                                 + "\n\u25CF Message: " +
-                                starredMessages.get(i).getContent());
+                                starredMessages.get(i).getContent() +
+                                "\n" + dtf.format(starredMessages.get(i).getDateTimeCreated()));
                         counter++;
                     }
                 }else{
                     if(starredMessages.get(i).isStarred()) {
                         System.out.println(buffer + "\n" + counter + ". Sent By: " + starredMessages.get(i).getSender()
                                 + "\n* Message: " +
-                                starredMessages.get(i).getContent());
+                                starredMessages.get(i).getContent() +
+                                "\n" + dtf.format(starredMessages.get(i).getDateTimeCreated()));
                         counter++;
                     } else {
                         System.out.println(buffer + "\n" + counter + ". Sent By: " + starredMessages.get(i).getSender()
                                 + "\n Message: " +
-                                starredMessages.get(i).getContent());
+                                starredMessages.get(i).getContent() +
+                                "\n" + dtf.format(starredMessages.get(i).getDateTimeCreated()));
                         counter++;
                     }
                 }
             }
         }
+    }
+
+    /**
+     * Prints all the deleted messages of a User.
+     * @param deletedMessages: All the deleted messages the user has received
+     */
+    public void displayDeletedMessages(List<Message> deletedMessages) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        if (deletedMessages.size() == 0) {
+            System.out.println("You have no deleted messages.");
+            return;
+        }
+            String buffer = ("==========================");
+            int counter = 1;
+            for (int i = deletedMessages.size() - 1; i > -1; i--) {
+                if ((deletedMessages.get(i).getContent().length()) >= 10) {
+                    System.out.println(buffer + "\n" + counter + ". Sent By: " + deletedMessages.get(i).getSender() +
+                            "\n\uD83D\uDDD1 * Message: " +
+                            deletedMessages.get(i).getContent().substring(0, 10) + "..." +
+                            "\n" + dtf.format(deletedMessages.get(i).getDateTimeCreated()));
+                    counter++;
+                } else {
+                    System.out.println(buffer + "\n" + counter + ". Sent By: " + deletedMessages.get(i).getSender()
+                            + "\n\uD83D\uDDD1 * Message: " +
+                            deletedMessages.get(i).getContent() +
+                            "\n" + dtf.format(deletedMessages.get(i).getDateTimeCreated()));
+                    counter++;
+                }
+            }
+        }
+
+    /**
+     * Prints all the archived messages of a User.
+     * @param archivedMessages: All the archived messages the user has received
+     */
+    public void displayArchivedMessages(List<Message> archivedMessages) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        if (archivedMessages.size() == 0) {
+            System.out.println("You have no archived messages.");
+            return;
+        }
+        String buffer = ("==========================");
+        int counter = 1;
+        for (int i = archivedMessages.size() - 1; i > -1; i--) {
+            if ((archivedMessages.get(i).getContent().length()) >= 10) {
+                System.out.println(buffer + "\n" + counter + ". Sent By: " + archivedMessages.get(i).getSender() +
+                        "\n\uD83D\uDD52 * Message: " +
+                        archivedMessages.get(i).getContent().substring(0, 10) + "..." +
+                        "\n" + dtf.format(archivedMessages.get(i).getDateTimeCreated()));
+                counter++;
+            } else {
+                System.out.println(buffer + "\n" + counter + ". Sent By: " + archivedMessages.get(i).getSender()
+                        + "\n\uD83D\uDD52 * Message: " +
+                        archivedMessages.get(i).getContent() +
+                        "\n" + dtf.format(archivedMessages.get(i).getDateTimeCreated()));
+                counter++;
+            }
+        }
+    }
+
+    /**
+     * Asks the user if they really want to delete a message from their deleted messages inbox.
+     * @return Their choice, either yes or no.
+     */
+    public String displayDeleteConfirmation(){
+        System.out.println("Are you sure you want to delete this message permanently? It cannot be undone. (yes/no): ");
+        return scan.nextLine();
     }
 
     /**
@@ -287,8 +377,33 @@ public class UserPresenter extends Presenter {
                 message.getContent());
     }
 
+    /**
+     * Displays options that a user can take while looking at their inbox, or their starred messages.
+     * @return The option that the user chose.
+     */
     public String displayMessageActionPrompt(){
-        System.out.println("What would you like to do with this message?(reply, mark as unread, mark as starred, unstar, mark delete, close)");
+        System.out.println("What would you like to do with this message?(reply, mark as unread, mark as starred, " +
+                "unstar, delete, archive, close)");
+        return scan.nextLine();
+    }
+
+    /**
+     * Displays options that a user can take while looking at their deleted messages.
+     * @return The option that the user chose.
+     */
+    public String displayDeletedActionPrompt(){
+        System.out.println("What would you like to do with this message?(reply, delete, restore, " +
+                "close)");
+        return scan.nextLine();
+    }
+
+    /**
+     * Displays options that a user can take while looking at their archived messages.
+     * @return The option that the user chose.
+     */
+    public String displayArchivedActionPrompt(){
+        System.out.println("What would you like to do with this message?(reply, unarchive, " +
+                "close)");
         return scan.nextLine();
     }
 
