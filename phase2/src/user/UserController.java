@@ -43,18 +43,18 @@ public abstract class UserController {
 
 
     /**
-     * Prints all the messages that this user has received
-     * @param username: The username of the user
+     * Prints all the messages that this attendee has received
+     * @param username: The username of the Attendee
      */
-    public void viewMessages (String username){
+    protected void viewMessages(String username) {
         List<Message> allMessages = messageManager.viewMessages(username);
         p.displayPrintMessages(allMessages);
-        if (allMessages.size() > 0) {
+        if(allMessages.size()>0) {
             int requestedMessage = p.displaySelectMessage();
             while (requestedMessage > allMessages.size() || requestedMessage < 1) {
-                    p.displayMessageNonExistent();
-                    requestedMessage = p.displaySelectMessage();
-                }
+                p.displayMessageNonExistent();
+                requestedMessage = p.displaySelectMessage();
+            }
 
             Message selectedMessage = (allMessages.get(allMessages.size() - requestedMessage));
             p.displaySelectedMessage(selectedMessage);
@@ -64,20 +64,97 @@ public abstract class UserController {
             String messageAction = p.displayMessageActionPrompt();
             while (!messageAction.equalsIgnoreCase("REPLY") &&
                     !messageAction.equalsIgnoreCase("MARK AS UNREAD") &&
-                    !messageAction.equalsIgnoreCase("CLOSE")) {
+                    !messageAction.equalsIgnoreCase("CLOSE") &&
+                    !messageAction.equalsIgnoreCase("MARK AS STARRED") &&
+                    !messageAction.equalsIgnoreCase("UNSTAR")) {
                 messageAction = p.displayMessageActionPrompt();
-                }
+            }
             if (messageAction.equalsIgnoreCase("REPLY")) {
-                    String content = p.displayEnterMessagePrompt();
-                    replyMessage(content, selectedMessage.getSender());
+                String content = p.displayEnterMessagePrompt();
+                replyMessage(content, selectedMessage.getSender());
             } else if (messageAction.equalsIgnoreCase("MARK AS UNREAD")) {
-                    messageManager.setMessageReadStatus(selectedMessage, "unread");
-            } else if (messageAction.equalsIgnoreCase("CLOSE")) {
+                messageManager.setMessageReadStatus(selectedMessage, "unread");
+            } else if (messageAction.equalsIgnoreCase("MARK AS STARRED")) {
+                if (selectedMessage.isStarred()) {
+                    p.displayStarError();
+                } else {
+                    messageManager.setMessageStarredStatus(selectedMessage, "starred");
+                }
+            } else if (messageAction.equalsIgnoreCase("UNSTAR")) {
+                if (selectedMessage.isStarred()) {
+                    messageManager.setMessageStarredStatus(selectedMessage, "unstar");
+                } else {
+                    p.displayUnstarError();
+                }
+            } else if (messageAction.equalsIgnoreCase("CLOSE")){
             }
         }
     }
 
-    protected void replyMessage(String recipient, String content){
+    /**
+     * Prints all the messages that this attendee has starred
+     * @param username: The username of the Attendee
+     */
+    protected void viewStarredMessages(String username) {
+        List<Message> allMessages = messageManager.viewMessages(username);
+        // get starred messages
+        List<Message> starredMessages = new ArrayList<Message>();
+
+        for (Message message: allMessages) {
+            if (message.isStarred()) {
+                starredMessages.add(message);
+            }
+        }
+        p.displayPrintStarredMessages(starredMessages);
+        if(allMessages.size()>0) {
+            int requestedMessage = p.displaySelectMessage();
+            while (requestedMessage > allMessages.size() || requestedMessage < 1) {
+                p.displayMessageNonExistent();
+                requestedMessage = p.displaySelectMessage();
+            }
+
+            Message selectedMessage = (allMessages.get(allMessages.size() - requestedMessage));
+            p.displaySelectedMessage(selectedMessage);
+            messageManager.setMessageReadStatus(selectedMessage, "read");
+
+            // this method may be too large now, but this prompts the user to take an action on the selected message
+            String messageAction = p.displayMessageActionPrompt();
+            while (!messageAction.equalsIgnoreCase("REPLY") &&
+                    !messageAction.equalsIgnoreCase("MARK AS UNREAD") &&
+                    !messageAction.equalsIgnoreCase("CLOSE") &&
+                    !messageAction.equalsIgnoreCase("MARK AS STARRED") &&
+                    !messageAction.equalsIgnoreCase("UNSTAR")) {
+                messageAction = p.displayMessageActionPrompt();
+            }
+            if (messageAction.equalsIgnoreCase("REPLY")) {
+                String content = p.displayEnterMessagePrompt();
+                replyMessage(content, selectedMessage.getSender());
+            } else if (messageAction.equalsIgnoreCase("MARK AS UNREAD")) {
+                messageManager.setMessageReadStatus(selectedMessage, "unread");
+            } else if (messageAction.equalsIgnoreCase("MARK AS STARRED")) {
+                if (selectedMessage.isStarred()) {
+                    p.displayStarError();
+                } else {
+                    messageManager.setMessageStarredStatus(selectedMessage, "starred");
+                }
+            } else if (messageAction.equalsIgnoreCase("UNSTAR")) {
+                if (selectedMessage.isStarred()) {
+                    messageManager.setMessageStarredStatus(selectedMessage, "unstar");
+                } else {
+                    p.displayUnstarError();
+                }
+            } else if (messageAction.equalsIgnoreCase("CLOSE")){
+            }
+        }
+    }
+
+
+    /**
+     * Sends a reply to the oldest message in an attendees inbox
+     * @param recipient: The username of the User we are replying too
+     * @param content: The content of the message the Attendee is sending
+     */
+    protected void replyMessage(String content, String recipient){
         Message message = messageManager.createNewMessage(content, username, recipient);
         messageManager.addMessage(recipient, message);
         p.displayMessageSentPrompt();

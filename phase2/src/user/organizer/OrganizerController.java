@@ -139,13 +139,11 @@ public class OrganizerController extends AttendeeController {
                     break;
                 }
                 String recipient = p.displayMethodPrompt();
-                // System.out.println("Who would you like to message? (Please enter the username of the recipient). Otherwise, type 'q' to exit");
                 if (recipient.equals("q")){
                     break;
                 }
                 else if(messageManager.checkIsMessageable(recipient, this.username, userManager)) {
                     String messageContents = p.displayEnterMessagePrompt(recipient);
-                    // System.out.println("What message would you like to send to: " + recipient + ". " + "If you would no longer like to send a message, type 'q' to exit");
                     if (messageContents.equals("q")){
                         break;
                     }
@@ -156,32 +154,6 @@ public class OrganizerController extends AttendeeController {
                     p.displayNotMessageableError();
                 }
                 break;
-
-//            case 5:
-//                if(messageManager.getAllUserMessages().get(this.username).size() == 0){
-//                    p.displayNoReply();
-//                    break;
-//                }
-//                else if(userManager.getUserMap().size() == 1) {
-//                    p.displayConferenceError();
-//                    break;
-//                }
-//                List<String> attendees = getSenders(username);
-//                p.displayAllSenders(attendees);
-//                String recipients = p.displayEnterUserUsernamePrompt();
-//                // System.out.println("Which user are you replying to (it is case sensitive). If you no longer want to reply to a user, type 'q' to exit: ");
-//                while (!attendees.contains(recipients)){
-//                    recipients = p.displayUserReplyError();
-//                    if (recipients.equals("q")){
-//                        break;
-//                    }
-//                }
-//                if (recipients.equals("q")){
-//                    break;
-//                }
-//                String content = p.displayEnterMessagePrompt();
-//                replyMessage(content, recipients);
-//                break;
 
             case 5:
                 String message = p.displayAllAttendeeMessagePrompt();
@@ -247,7 +219,6 @@ public class OrganizerController extends AttendeeController {
                 }
                 viewSignedUpForEvent(this.username);
                 String cancel = p.displayEventCancelPrompt();
-                // System.out.println("What is the name of the event you no longer want to attend? Type 'q' if you no longer want to cancel your spot in an event.");
                 if (cancel.equals("q")){
                     break;
                 }
@@ -269,7 +240,6 @@ public class OrganizerController extends AttendeeController {
                     break;
                 }
                 String eventSignedUp = p.displayEventSignUpPrompt();
-                // System.out.println("What is the name of the event you would like to sign up for? Type 'q' if you would no longer like to sign up for an event.");
                 if (eventSignedUp.equals("q")){
                     break;
                 }

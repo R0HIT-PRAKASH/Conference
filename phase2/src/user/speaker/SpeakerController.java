@@ -18,11 +18,6 @@ import java.util.Set;
  * A controller that deals with Speaker users
  */
 public class SpeakerController extends UserController {
-    public UserManager userManager;
-    public EventManager eventManager;
-    public MessageManager messageManager;
-    public String username;
-    public RequestManager requestManager;
     SpeakerPresenter p;
 
     /**
@@ -51,142 +46,7 @@ public class SpeakerController extends UserController {
         }
     }
 
-//    private void determineInput1(int input){
-//        switch (input) {
-//            case 0:
-//                viewMessages(this.username);
-//                break;
-//            case 1:
-//                viewScheduledEvents(this.username);
-//                break;
-//            case 2:
-//                List<Event> allEvents = eventManager.chronologicalEvents(userManager.getSpeakingEvents(username));
-//                p.displayAllEventsGiven(allEvents);
-//                if (allEvents.size() == 0){
-//                    break;
-//                }
-//                int num = p.nextInt();
-//
-//                while(num < 1 || num > allEvents.size()){
-//                    num = p.nextInt();
-//                    if (num == -1){
-//                        break;
-//                    }
-//                }
-//                if (num == -1){
-//                    break;
-//                }
-//                String next = "";
-//                List<String> eventNames = new ArrayList<>();
-//                for (int i = 0; i < num; i++) {
-//                    if (i == 0) {
-//                        next = p.displayEnterEventNamePrompt();
-//                    }
-//                    else {
-//                        next = p.displayEnterEventNamePrompt2();
-//                    }
-//                    if (next.equals("q")){
-//                        break;
-//                    }
-//                    if (allEvents.contains(eventManager.getEvent(next)) && !eventNames.contains(next)) {
-//                        eventNames.add(next);
-//                    }
-//                    else if(allEvents.contains(eventManager.getEvent(next))){
-//                        p.displayEventAlreadyAddedError();
-//                        i--;
-//                    }
-//                    else if(!allEvents.contains(next)){
-//                        p.displayEventNotGivenError();
-//                        i--;
-//                    }
-//                }
-//                if(next.equals("q")) {
-//                    break;
-//                }
-//                String message = p.displayEnterMessagePrompt();
-//
-//                sendBlastMessage(eventNames, message);
-//                break;
-//            case 3:
-//                if(messageManager.getAllUserMessages().get(this.username).size() == 0){
-//                    p.displayNoReply();
-//                    break;
-//                }
-//                else if(userManager.getUserMap().size() == 1) {
-//                    p.displayConferenceError();
-//                    break;
-//                }
-//                List<String> attendees = getAttendees(username);
-//                p.displayAllSenders(attendees);
-//                if (attendees.size() == 0){
-//                    break;
-//                }
-//                String recipient = p.displayEnterAttendeeUsernamePrompt();
-//
-//                while (!attendees.contains(recipient)){
-//                    recipient = p.displayUserReplyError();
-//
-//                    if (recipient.equals("q")){
-//                        break;
-//                    }
-//                }
-//                if (recipient.equals("q")){
-//                    break;
-//                }
-//                String content = p.displayEnterMessagePrompt();
-//
-//                replyMessage(recipient, content);
-//                break;
-//
-//            case 4:
-//                String eventName = p.displayEventSelectorPrompt();
-//                viewScheduledEvents(username);
-//                if(eventManager.events.containsKey(eventName)){
-//                    Set<String> eventAttendees = eventManager.getEventAttendees(eventName);
-//                    String toMessage = p.displayEventAttendeesList(eventAttendees);
-//                    ArrayList<String> usernameList = new ArrayList<String>();
-//                    for (String user: eventAttendees){
-//                        usernameList.add(user);
-//                    }
-//                    if(usernameList.contains(toMessage)){
-//                        String messageContent = p.displayEnterMessagePrompt();
-//                        replyMessage(toMessage, messageContent);
-//                        break;
-//                    } else {
-//                        p.displayInvalidInputError();
-//                    }
-//                } else{
-//                    p.displayInvalidInputError();
-//                }
-//                break;
-//
-//            case 5:
-//                viewOptions();
-//                break;
-//
-//            case 6:
-//                viewRequests(username);
-//                break;
-//
-//            case 7:
-//                String req = p.displayMakeRequest();
-//                boolean valid = requestManager.checkIsValidRequest(req);
-//                while(!valid){
-//                    p.invalidRequest();
-//                    req = p.displayMakeRequest();
-//                    valid = requestManager.checkIsValidRequest(req);
-//                }
-//                makeRequest(req, username);
-//                p.displaySuccessfulRequestSubmission();
-//                break;
-//
-//            default:
-//                p.displayInvalidInputError();
-//                viewOptions();
-//                break;
-//        }
-//        p.displayNextTaskPromptSpeaker();
-//    }
+
 
     /**
      * Used to determine what task the user would like to do based off their keyboard input.
@@ -197,7 +57,7 @@ public class SpeakerController extends UserController {
             case 0:
                 p.displayMessageOptions();
                 int choice = p.nextInt();
-                final int endCond = 3;
+                final int endCond = 6;
                 while (choice != endCond) {
                     determineInputMessage(choice);
                     choice = p.nextInt();
@@ -246,7 +106,18 @@ public class SpeakerController extends UserController {
                 viewMessages(this.username);
                 break;
 
+
             case 1:
+                viewStarredMessages(this.username);
+                break;
+            case 2:
+                //viewDeletedMessages(this.username);
+                break;
+            case 3:
+                //viewArchivedMessages(this.username);
+                break;
+
+            case 4:
                 List<Event> allEvents = eventManager.chronologicalEvents(userManager.getSpeakingEvents(username));
                 p.displayAllEventsGiven(allEvents);
                 if (allEvents.size() == 0){
@@ -295,39 +166,7 @@ public class SpeakerController extends UserController {
                 sendBlastMessage(eventNames, message);
                 break;
 
-                // Removed as replying is now built into the inbox.
-//            case 2:
-//                if(messageManager.getAllUserMessages().get(this.username).size() == 0){
-//                    p.displayNoReply();
-//                    break;
-//                }
-//                else if(userManager.getUserMap().size() == 1) {
-//                    p.displayConferenceError();
-//                    break;
-//                }
-//                List<String> attendees = getAttendees(username);
-//                p.displayAllSenders(attendees);
-//                if (attendees.size() == 0){
-//                    break;
-//                }
-//                String recipient = p.displayEnterAttendeeUsernamePrompt();
-//
-//                while (!attendees.contains(recipient)){
-//                    recipient = p.displayUserReplyError();
-//
-//                    if (recipient.equals("q")){
-//                        break;
-//                    }
-//                }
-//                if (recipient.equals("q")){
-//                    break;
-//                }
-//                String content = p.displayEnterMessagePrompt();
-//
-//                replyMessage(recipient, content);
-//                break;
-
-            case 2:
+            case 5:
                 String eventName = p.displayEventSelectorPrompt();
                 viewScheduledEvents(username);
                 if(eventManager.events.containsKey(eventName)){
@@ -416,36 +255,6 @@ public class SpeakerController extends UserController {
         return attendees;
     }
 
-//    private void viewMessages(String username) {
-//        List<Message> allMessages = messageManager.viewMessages(username);
-//        p.displayPrintMessages(allMessages);
-//        if(allMessages.size()>0) {
-//            int requestedMessage = p.displaySelectMessage();
-//            while (requestedMessage > allMessages.size() || requestedMessage < 1) {
-//                p.displayMessageNonExistent();
-//                requestedMessage = p.displaySelectMessage();
-//            }
-//
-//            Message selectedMessage = (allMessages.get(allMessages.size() - requestedMessage));
-//            p.displaySelectedMessage(selectedMessage);
-//            messageManager.setMessageReadStatus(selectedMessage, "read");
-//
-//            // this method may be too large now, but this prompts the user to take an action on the selected message
-//            String messageAction = p.displayMessageActionPrompt();
-//            while (!messageAction.equalsIgnoreCase("REPLY") &&
-//                    !messageAction.equalsIgnoreCase("MARK AS UNREAD") &&
-//                    !messageAction.equalsIgnoreCase("CLOSE")) {
-//                messageAction = p.displayMessageActionPrompt();
-//            }
-//            if (messageAction.equalsIgnoreCase("REPLY")) {
-//                String content = p.displayEnterMessagePrompt();
-//                replyMessage(content, selectedMessage.getSender());
-//            } else if (messageAction.equalsIgnoreCase("MARK AS UNREAD")) {
-//                messageManager.setMessageReadStatus(selectedMessage, "unread");
-//            } else if (messageAction.equalsIgnoreCase("CLOSE")){
-//            }
-//        }
-//    }
 
     private void viewScheduledEvents(String username){
         List<String> allEvents = userManager.getSpeakingEvents(username);
@@ -459,20 +268,5 @@ public class SpeakerController extends UserController {
         p.displayMessageSentPrompt2();
     }
 
-//    private void replyMessage(String recipient, String content){
-//        Message message = messageManager.createNewMessage(content, username, recipient);
-//        messageManager.addMessage(recipient, message);
-//        p.displayMessageSentPrompt();
-//    }
 
-//    private void viewRequests(String username){
-//        List<Request> requests = requestManager.getUserRequests(username);
-//        p.displayRequests(requests);
-//    }
-//
-//    private void makeRequest(String content, String username){
-//        Request request = requestManager.createNewRequest(content, username);
-//        requestManager.addRequest(username, request);
-//        ((Speaker)userManager.getUser(username)).addRequest(request);
-//    }
 }
