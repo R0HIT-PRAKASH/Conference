@@ -27,7 +27,15 @@ public class MessageManager implements java.io.Serializable {
     public MessageManager(ReaderWriter RW){
     this.allUserMessages =  new HashMap<String, List<Message>>();
     this.RW = RW;
-}
+
+
+    }
+    /**
+     * This method constructs a MessageManager object with an empty allUserMessages.
+     */
+    public MessageManager(HashMap<String, List<Message>> allUserMessages){
+        this.allUserMessages = allUserMessages;
+    }
 
     /**
      * Creates a new Message object.
