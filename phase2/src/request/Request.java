@@ -22,6 +22,18 @@ public class Request implements Serializable {
         this.requestStatus = "pending";
     }
 
+    /**
+     * This method constructs a Request object
+     * @param content The request content
+     * @param requesterUsername The requester username
+     * @param requestStatus The status of this request
+     */
+    public Request(String content, String requesterUsername, String requestStatus){
+        this.content = content;
+        this.requesterUsername = requesterUsername;
+        this.requestStatus = requestStatus;
+    }
+
     // Getter Methods
     /**
      * Gets the String content of the request.
