@@ -115,35 +115,68 @@ public class AttendeePresenter extends UserPresenter {
     }
 
 
+//    /**
+//     * Prints the event list for the conference.
+//     * @param events: a List of all events in this conference.
+//     */
+//    public void displayEventList(List<Event> events){
+//        if (events.size() == 0){
+//            System.out.println("There are no events created yet. ");
+//            return;
+//        }
+//        System.out.println("Here is a list of all the available events at this conference: ");
+//        int counter = 1;
+//        for (Event curr : events){
+//            System.out.println(counter + ". " + curr);
+//            counter ++;
+//        }
+//    }
+
     /**
      * Prints the event list for the conference.
-     * @param events: a List of all events in this conference.
+     * @param stringsOfEvents: a List of strings describing all events in this conference.
      */
-    public void displayEventList(List<Event> events){
-        if (events.size() == 0){
+    public void displayEventList(List<String> stringsOfEvents){
+        if (stringsOfEvents.size() == 0){
             System.out.println("There are no events created yet. ");
             return;
         }
         System.out.println("Here is a list of all the available events at this conference: ");
         int counter = 1;
-        for (Event curr : events){
+        for (String curr : stringsOfEvents){
             System.out.println(counter + ". " + curr);
             counter ++;
         }
     }
 
+//    /**
+//     * Prints all the events that an Attendee or Organizer has signed up for.
+//     * @param signedUpFor: a List of all events that this User has signed up for.
+//     */
+//    public void displaySignedUpEvents(List<Event> signedUpFor){
+//        if (signedUpFor.size() == 0){
+//            System.out.println("You haven't signed up for any events yet. ");
+//            return;
+//        }
+//        System.out.println("Here is the list of events you have signed up for: ");
+//        int counter = 1;
+//        for (Event curr : signedUpFor) {
+//            System.out.println(counter + ": " + curr);
+//        }
+//    }
+
     /**
      * Prints all the events that an Attendee or Organizer has signed up for.
-     * @param signedUpFor: a List of all events that this User has signed up for.
+     * @param stringsOfEvents: a List of strings describing all Events that this User has signed up for.
      */
-    public void displaySignedUpEvents(List<Event> signedUpFor){
-        if (signedUpFor.size() == 0){
+    public void displaySignedUpEvents(List<String> stringsOfEvents){
+        if (stringsOfEvents.size() == 0){
             System.out.println("You haven't signed up for any events yet. ");
             return;
         }
         System.out.println("Here is the list of events you have signed up for: ");
         int counter = 1;
-        for (Event curr : signedUpFor) {
+        for (String curr : stringsOfEvents) {
             System.out.println(counter + ": " + curr);
         }
     }

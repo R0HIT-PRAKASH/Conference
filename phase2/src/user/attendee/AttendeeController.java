@@ -6,6 +6,7 @@ import message.Message;
 import message.MessageManager;
 import request.Request;
 import request.RequestManager;
+import room.Room;
 import user.UserController;
 import user.UserManager;
 
@@ -255,12 +256,33 @@ public class AttendeeController extends UserController {
     }
 
 
+//    /**
+//     * Prints the event list for the entire conference
+//     */
+//    protected void viewEventList() {
+//        List<Event> chronological = eventManager.chronologicalEvents(eventManager.getAllEventNamesOnly());
+//        p.displayEventList(chronological);
+//    }
+
     /**
-     * Prints the event list for the entire conference
+     * This method prints the event list for the entire conference
      */
     protected void viewEventList() {
         List<Event> chronological = eventManager.chronologicalEvents(eventManager.getAllEventNamesOnly());
-        p.displayEventList(chronological);
+        List<String> strings = getToStringsOfEvents(chronological);
+        p.displayEventList(strings);
+    }
+
+    /**
+     * This method returns a list of strings describing all events given in a list of events.
+     * @return Returns a list of strings describing all events given in a list of events.
+     */
+    protected List<String> getToStringsOfEvents(List<Event> events){
+        List<String> strings = new ArrayList<String>();
+        for (Event event: events){
+            strings.add(event.toString());
+        }
+        return strings;
     }
 
     /**
@@ -279,6 +301,16 @@ public class AttendeeController extends UserController {
         return future;
     }
 
+//    /**
+//     * Prints the scheduled events of an attendee
+//     * @param username: The username of this Attendee
+//     */
+//    protected void viewSignedUpForEvent(String username) {
+//        List<String> signedUpFor = userManager.getAttendingEvents(username);
+//        List<Event> chronological = eventManager.chronologicalEvents(signedUpFor);
+//        p.displaySignedUpEvents(chronological);
+//    }
+
     /**
      * Prints the scheduled events of an attendee
      * @param username: The username of this Attendee
@@ -286,7 +318,8 @@ public class AttendeeController extends UserController {
     protected void viewSignedUpForEvent(String username) {
         List<String> signedUpFor = userManager.getAttendingEvents(username);
         List<Event> chronological = eventManager.chronologicalEvents(signedUpFor);
-        p.displaySignedUpEvents(chronological);
+        List<String> stringsOfEvents = getToStringsOfEvents(chronological);
+        p.displaySignedUpEvents(stringsOfEvents);
     }
 
     /**
