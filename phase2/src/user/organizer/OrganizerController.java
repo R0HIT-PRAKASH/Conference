@@ -74,7 +74,7 @@ public class OrganizerController extends AttendeeController {
             case 1:
                 p.displayEventOptions();
                 int choice1 = p.nextInt();
-                final int endCond1 = 10;
+                final int endCond1 = 11;
                 while (choice1 != endCond1) {
                     determineInput1(choice1);
                     choice1 = p.nextInt();
@@ -622,8 +622,9 @@ public class OrganizerController extends AttendeeController {
             case 9:
                 getStats();
                 break;
-
-
+            case 10:
+                searchForEvents();
+                break;
             case 14:
                 p.displayEventOptions();
                 break;

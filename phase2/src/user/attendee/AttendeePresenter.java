@@ -36,7 +36,7 @@ public class AttendeePresenter extends UserPresenter {
      */
     public void displayEventOptions(){
         System.out.println("(0) View Event List\n(1) View My Scheduled Events\n(2) Cancel Event Reservation\n" +
-                "(3) Sign up for an Event\n(4) Go back to Main Screen");
+                "(3) Sign up for an Event\n(4) Search for an event\n(5) Go back to Main Screen");
     }
 
     /**
@@ -259,5 +259,72 @@ public class AttendeePresenter extends UserPresenter {
 
     public void displaySuccessfulRequestSubmission(){
         System.out.println("Your request was successfully submitted.");
+    }
+
+    public String displayPromptSearchForEvents() {
+        System.out.println("Would you like to search events by name or by tag (categories)?:");
+        return scan.nextLine();
+    }
+
+    public void displayInvalidPromptSearchForEvents() {
+        System.out.println("Invalid choice. Please type in name or tag:");
+    }
+
+    public String displayPromptSearchForEventsByName() {
+        System.out.println("Please enter in the name of the event you are looking for:");
+        return scan.nextLine();
+    }
+
+    public String displayPromptSearchForEventsByTag() {
+        System.out.println("Please enter in the tag you are looking for the events of:");
+        return scan.nextLine();
+    }
+
+    /**
+     * Prints the event specified by the event name.
+     */
+    public void displayEventByName(List<Event> events, String name){
+        boolean found = false;
+        int i = 0;
+        while(!found && i < events.size()){
+            Event event = events.get(i);
+            if (event.getName().equals(name)){
+                System.out.println("This is the registered event with the name: " + name);
+                System.out.println(events.get(i));
+                found = true;
+                return;
+            }
+            i++;
+        }
+        System.out.println("There is no registered event with this name. Please try again.");
+    }
+
+
+    public void displayEventsByTag(List<Event> events, String tag){
+        int i = 0;
+        boolean found = false;
+        while(i < events.size()){
+            Event event = events.get(i);
+            if (event.getTag().equals(tag)){
+                System.out.println("Here are the registered events with the tag: " + tag);
+                System.out.println(events.get(i));
+                found = true;
+            }
+            i++;
+        }
+        if (found){
+            return;
+        }
+        System.out.println("There are no registered events with this tag.");
+    }
+
+    public String displayPromptSearchForAnotherEvent(){
+        System.out.println("Would you like to search for another event? (Y/N): ");
+        return scan.nextLine();
+    }
+
+    public String displayErrorSearchForAnotherEvent(){
+        System.out.println("Invalid input. Please enter Y or N: ");
+        return scan.nextLine();
     }
 }

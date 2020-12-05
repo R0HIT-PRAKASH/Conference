@@ -62,7 +62,7 @@ public class AttendeeController extends UserController {
             case 1:
                 p.displayEventOptions();
                 int choice1 = p.nextInt();
-                final int endCond1 = 4;
+                final int endCond1 = 5;
                 while (choice1 != endCond1){
                     determineInput1(choice1);
                     choice1 = p.nextInt();
@@ -124,13 +124,15 @@ public class AttendeeController extends UserController {
             case 1:
                 viewSignedUpForEvent(this.username);
                 break;
-
             case 2:
                 determineInputCancelEventReservation();
                 break;
 
             case 3:
                 determineInputSignUpEvent();
+                break;
+            case 4:
+                searchForEvents();
                 break;
             default:
                 p.displayEventOptionsInvalidChoice();
@@ -323,5 +325,28 @@ public class AttendeeController extends UserController {
         return attendees;
     }
 
-
+    protected void searchForEvents(){
+        List<Event> chronological = eventManager.chronologicalEvents(eventManager.getAllEventNamesOnly());
+        String resp = "y";
+        do{
+            String response = p.displayPromptSearchForEvents().toLowerCase();
+            while (!response.equals("name") && !response.equals("tag")){
+                p.displayInvalidPromptSearchForEvents();
+                response = p.displayPromptSearchForEvents().toLowerCase();
+            }
+            if (response.equals("name")){
+                String name = p.displayPromptSearchForEventsByName().toLowerCase();
+                p.displayEventByName(chronological, name);
+            }
+            else if (response.equals("tag")){
+                String tag = p.displayPromptSearchForEventsByTag().toLowerCase();
+                p.displayEventsByTag(chronological, tag);
+            }
+            resp = p.displayPromptSearchForAnotherEvent().toLowerCase();
+            while (!resp.equals("y") && !resp.equals("n")){
+                p.displayErrorSearchForAnotherEvent();
+                resp = p.displayPromptSearchForAnotherEvent().toLowerCase();
+            }
+        }while(!resp.equals("n"));
+    }
 }

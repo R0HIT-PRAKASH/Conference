@@ -47,7 +47,7 @@ public class OrganizerPresenter extends AttendeePresenter {
     public void displayEventOptions() {
         System.out.println("(0) View Event List\n(1) View My Scheduled Events\n(2) Cancel Event Reservation\n(3) Sign up for Event" +
                 "\n(4) Add Event\n(5) Cancel Event\n(6) Reschedule Event\n(7) Add Room \n(8) Modify an Event's capacity\n" +
-                "(9) Display Conference Statistic\n(10)Go back to main screen ");
+                "(9) Display Conference Statistic\n(10)Search for events\n(11)Go back to main screen ");
     }
 
     /**

@@ -47,7 +47,7 @@ public class VipController extends AttendeeController {
             case 1:
                 p.displayEventOptions();
                 int choice1 = p.nextInt();
-                final int endCond1 = 4;
+                final int endCond1 = 5;
                 while (choice1 != endCond1) {
                     determineInput1(choice1);
                     choice1 = p.nextInt();
