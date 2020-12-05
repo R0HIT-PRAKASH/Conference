@@ -280,6 +280,8 @@ public class EventManager implements Serializable {
      * @param email Refers to the email of the speaker.
      * @param username Refers to the username of the speaker.
      * @param password Refers to the password of the speaker.
+     * @param company Refers to the company of the speaker.
+     * @param bio Refers to the bio of the speaker.
      * @return Returns the created speaker.
      */
     public Speaker createNewSpeaker(String name, String address, String email, String username, String password, String company, String bio){
