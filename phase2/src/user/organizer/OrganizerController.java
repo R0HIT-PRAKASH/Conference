@@ -886,6 +886,7 @@ public class OrganizerController extends AttendeeController {
         User newUser = userFactory.createNewUser(name, address, email, username, password, usertype, company, bio);
         userManager.addUser(newUser);
         messageManager.addUserInbox(username);
+        requestManager.addUserRequests(username);
         p.displayNewUserCreated(newUser.getUsername(), newUser.getPassword());
         return newUser.getUsername();
     }

@@ -117,7 +117,7 @@ public class RequestManager {
      * @return refers to a list containing all requests with indicated status
      */
     public List<Request> getStatusRequests(String status){
-        return this.allRequests.get(status);
+        return this.requestStatus.get(status);
     }
 
     /**
