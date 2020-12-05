@@ -26,7 +26,7 @@ public class VipController extends AttendeeController {
         p.displayTaskInput();
         int input = 0;
         input = p.nextInt();
-        while (input != 3) { // 3 is ending condition
+        while (input != 4) { // 4 is ending condition
             determineInput(input);
             input = p.nextInt();
         }
@@ -65,7 +65,14 @@ public class VipController extends AttendeeController {
                 break;
 
             case 3:
-
+                p.displayVipUserOptions();
+                int choice3 = p.nextInt();
+                final int endCond3 = 5;
+                while (choice3 != endCond3){
+                    determineInput3(choice3);
+                    choice3 = p.nextInt();
+                }
+                break;
 
             case 6:
                 p.displayOptions();
@@ -101,7 +108,7 @@ public class VipController extends AttendeeController {
                 break;
 
             default:
-
+                p.displayInvalidVipUserChoice();
                 break;
         }
         p.displayNextTaskPromptAttendee();

@@ -16,10 +16,7 @@ public class Vip extends Attendee {
 
     private List<String> attendingEvents;
     private List<Request> requestsMade;
-    private String company;
     private HashMap<String, String> supporting;
-    private HashMap<String, String> employees;
-    private String bio;
 
     /**
      * This method constructs a new vip object with an empty list of attendingEvents.
@@ -36,7 +33,6 @@ public class Vip extends Attendee {
         this.attendingEvents = new ArrayList<>();
         this.requestsMade = new ArrayList<Request>();
         this.supporting = new HashMap<>();
-        this.employees = new HashMap<>();
     }
 
     /**
@@ -63,21 +59,6 @@ public class Vip extends Attendee {
         this.supporting = supporting;
     }
 
-    /**
-     * This methods get the users that this VIP has employed.
-     * @return The users that this VIP has employed.
-     */
-    public HashMap<String, String> getEmployees(){
-        return this.employees;
-    }
-
-    /**
-     * This method sets the users that this VIP has employed.
-     * @param employees The users that this VIP has employed.
-     */
-    public void setEmployees(HashMap<String, String> employees){
-        this.employees = employees;
-    }
 }
 
 
