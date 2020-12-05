@@ -114,7 +114,7 @@ public abstract class User implements Comparable<User>, Serializable {
      * @param newName Refers to the new name of the user.
      */
     public void setName(String newName){
-        this.name = name;
+        this.name = newName;
     }
 
     /**
@@ -122,7 +122,7 @@ public abstract class User implements Comparable<User>, Serializable {
      * @param newAddress Refers to the new address of the user.
      */
     public void setAddress(String newAddress){
-        this.address = address;
+        this.address = newAddress;
     }
 
     /**
