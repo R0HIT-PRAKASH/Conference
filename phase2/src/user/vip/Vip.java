@@ -46,6 +46,38 @@ public class Vip extends Attendee {
     public String getUserType(){
         return "vip";
     }
+
+    /**
+     * This method gets the users that this VIP is financially supporting.
+     * @return The users this user is financially supporting.
+     */
+    public HashMap<String, String> getSupporting(){
+        return this.supporting;
+    }
+
+    /**
+     * This method sets the users that this VIP is financially supporting.
+     * @param supporting The users this user is financially supporting.
+     */
+    public void setSupporting(HashMap<String, String> supporting) {
+        this.supporting = supporting;
+    }
+
+    /**
+     * This methods get the users that this VIP has employed.
+     * @return The users that this VIP has employed.
+     */
+    public HashMap<String, String> getEmployees(){
+        return this.employees;
+    }
+
+    /**
+     * This method sets the users that this VIP has employed.
+     * @param employees The users that this VIP has employed.
+     */
+    public void setEmployees(HashMap<String, String> employees){
+        this.employees = employees;
+    }
 }
 
 
