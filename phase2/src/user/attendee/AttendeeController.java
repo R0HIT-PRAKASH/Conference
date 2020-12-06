@@ -170,6 +170,7 @@ public class AttendeeController extends UserController {
 
     private void determineInputSignUpEvent() {
         List<Event> future = viewFutureEventList();
+        //List<String> stringsOfEvents = getToStringsOfEvents();
         p.displayAllFutureEvents(future);
         if (future.size() == 0){
             return;
@@ -269,20 +270,8 @@ public class AttendeeController extends UserController {
      */
     protected void viewEventList() {
         List<Event> chronological = eventManager.chronologicalEvents(eventManager.getAllEventNamesOnly());
-        List<String> strings = getToStringsOfEvents(chronological);
+        List<String> strings = eventManager.getToStringsOfEvents(chronological);
         p.displayEventList(strings);
-    }
-
-    /**
-     * This method returns a list of strings describing all events given in a list of events.
-     * @return Returns a list of strings describing all events given in a list of events.
-     */
-    protected List<String> getToStringsOfEvents(List<Event> events){
-        List<String> strings = new ArrayList<String>();
-        for (Event event: events){
-            strings.add(event.toString());
-        }
-        return strings;
     }
 
     /**
@@ -318,7 +307,7 @@ public class AttendeeController extends UserController {
     protected void viewSignedUpForEvent(String username) {
         List<String> signedUpFor = userManager.getAttendingEvents(username);
         List<Event> chronological = eventManager.chronologicalEvents(signedUpFor);
-        List<String> stringsOfEvents = getToStringsOfEvents(chronological);
+        List<String> stringsOfEvents = eventManager.getToStringsOfEvents(chronological);
         p.displaySignedUpEvents(stringsOfEvents);
     }
 

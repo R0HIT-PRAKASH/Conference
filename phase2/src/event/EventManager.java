@@ -579,4 +579,15 @@ public class EventManager implements Serializable {
         events.remove(event.getName());
     }
 
+    /**
+     * This method returns a list of strings describing all events given in a list of events.
+     * @return Returns a list of strings describing all events given in a list of events.
+     */
+    public List<String> getToStringsOfEvents(List<Event> events){
+        List<String> strings = new ArrayList<String>();
+        for (Event event: events){
+            strings.add(event.toString());
+        }
+        return strings;
+    }
 }
