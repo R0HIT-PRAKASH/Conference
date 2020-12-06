@@ -49,8 +49,15 @@ public abstract class UserController {
      */
     protected void viewMessages(String username) {
         List<Message> allMessages = messageManager.viewMessages(username);
-        p.displayPrintMessages(allMessages);
-        if(allMessages.size()>0) {
+        List<Message> normalMessages = new ArrayList<Message>();
+
+        for (Message message: allMessages) {
+            if (!message.isArchived() && !message.isDeleted()) {
+                normalMessages.add(message);
+            }
+        }
+        p.displayPrintMessages(normalMessages);
+        if(normalMessages.size()>0) {
             int requestedMessage = p.displaySelectMessage();
             while (requestedMessage > allMessages.size() || requestedMessage < 1) {
                 p.displayMessageNonExistent();

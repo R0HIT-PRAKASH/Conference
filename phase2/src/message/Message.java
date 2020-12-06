@@ -136,6 +136,7 @@ public class Message implements Serializable {
      */
     public void setDeleted(){
         this.deleted = true;
+        this.starred = false;
         this.dateTimeDeleted = LocalDateTime.now();
     }
 
@@ -150,7 +151,10 @@ public class Message implements Serializable {
     /**
      * Sets the message's archived status as archived.
      */
-    public void setArchived(){this.archived = true;}
+    public void setArchived(){
+        this.archived = true;
+        this.starred = false;
+    }
 
     /**
      * Sets the message's archived status as unarchived.
