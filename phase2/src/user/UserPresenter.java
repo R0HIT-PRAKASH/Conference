@@ -305,13 +305,13 @@ public class UserPresenter extends Presenter {
             for (int i = deletedMessages.size() - 1; i > -1; i--) {
                 if ((deletedMessages.get(i).getContent().length()) >= 10) {
                     System.out.println(buffer + "\n" + counter + ". Sent By: " + deletedMessages.get(i).getSender() +
-                            "\n\uD83D\uDDD1 * Message: " +
+                            "\n\uD83D\uDDD1 Message: " +
                             deletedMessages.get(i).getContent().substring(0, 10) + "..." +
                             "\n" + dtf.format(deletedMessages.get(i).getDateTimeCreated()));
                     counter++;
                 } else {
                     System.out.println(buffer + "\n" + counter + ". Sent By: " + deletedMessages.get(i).getSender()
-                            + "\n\uD83D\uDDD1 * Message: " +
+                            + "\n\uD83D\uDDD1 Message: " +
                             deletedMessages.get(i).getContent() +
                             "\n" + dtf.format(deletedMessages.get(i).getDateTimeCreated()));
                     counter++;
