@@ -270,4 +270,13 @@ public class MessageManager implements java.io.Serializable {
             message.setUnarchived();
         }
     }
+
+    public void setDateTimeCreatedStatus(Message message, String status, LocalDateTime LDT){
+        message.setDateTimeCreated(LDT);
+        if(status.equals("pin")){
+            message.setPinned();
+        }else{
+            message.setUnpinned();
+        }
+    }
 }
