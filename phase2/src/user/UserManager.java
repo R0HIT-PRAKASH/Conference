@@ -24,15 +24,16 @@ import java.util.Map;
 public class UserManager implements Serializable {
 
     private HashMap<String, User> userMap;
+    private UserFactory userFactory;
     ReaderWriter RW;
 
     /**
      * Constructs a UserManager Object.
      */
     public UserManager(ReaderWriter RW){
-
         userMap = new HashMap<>();
         this.RW = RW;
+        this.userFactory = new UserFactory();
     }
 
     /**
@@ -40,6 +41,7 @@ public class UserManager implements Serializable {
      */
     public UserManager(){
         userMap = new HashMap<>();
+        this.userFactory = new UserFactory();
     }
 
     /**
@@ -79,14 +81,22 @@ public class UserManager implements Serializable {
 
     /**
      * This method adds a new user to userMap if it is not already a user.
-     * @param newUser This parameter refers to the User object representing a potential new User.
+     * @param name Name of this new user
+     * @param address Address of this new user
+     * @param email Email of this new user
+     * @param username Username of this new user
+     * @param password Password of this new user
+     * @param type Type of this new user
+     * @param company Company of this new user
+     * @param bio Bio of this new user
      * @return Returns true if the user was added to userMap and false otherwise.
      */
-    public boolean addUser(User newUser){
-        if(checkCredentials(newUser.getUsername())){
+    public boolean addUser(String name, String address, String email, String username, String password, String type,
+                           String company, String bio){
+        if(checkCredentials(username)){
             return false;
         }
-
+        User newUser = userFactory.createNewUser(name, address, email, username, password, type, company, bio);
         userMap.put(newUser.getUsername(), newUser);
         return true;
     }

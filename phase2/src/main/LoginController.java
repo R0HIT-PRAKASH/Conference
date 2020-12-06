@@ -115,8 +115,7 @@ public class LoginController {
         String company = p.displayEnterCompanyPrompt();
         String bio = p.displayEnterBioPrompt();
 
-        User newUser = userFactory.createNewUser(name, address, email, username, password, type, company, bio);
-        userManager.addUser(newUser);
+        userManager.addUser(name, address, email, username, password, type, company, bio);
         messageManager.addUserInbox(username);
         requestManager.addUserRequests(username);
         return username;
