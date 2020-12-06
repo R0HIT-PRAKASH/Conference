@@ -22,6 +22,8 @@ public class VipController extends AttendeeController {
      * Runs the Attendee controller by asking for input and performing the actions
      */
     public void run() {
+        deletedMessagesCheck();
+
         p.displayVipOptions();
         p.displayTaskInput();
         int input = 0;

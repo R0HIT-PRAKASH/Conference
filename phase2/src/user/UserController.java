@@ -11,6 +11,7 @@ import user.UserManager;
 import user.attendee.Attendee;
 import user.speaker.SpeakerPresenter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -241,6 +242,25 @@ public abstract class UserController {
             } else if (messageAction.equalsIgnoreCase("UNARCHIVE")) {
                 archivedMessages.remove(selectedMessage);
                 messageManager.setArchiveStatus(selectedMessage, "restore");
+            }
+        }
+    }
+
+    protected void deletedMessagesCheck() {
+        // deleted message check
+        List<Message> allMessages = messageManager.viewMessages(username);
+        List<Message> deletedMessages = new ArrayList<>();
+
+        for (Message message : allMessages) {
+            if (messageManager.getDeletionStatus(message)) {
+                deletedMessages.add(message);
+            }
+        }
+        LocalDateTime currentTime = LocalDateTime.now();
+        int currentMinute = currentTime.getMinute();
+        for (Message message : deletedMessages) {
+            if (messageManager.getDeletionDateInfo(message).getMinute() < currentMinute) {
+                allMessages.remove(message);
             }
         }
     }

@@ -47,6 +47,8 @@ public class OrganizerController extends AttendeeController {
      * Runs the OrganizerController by asking for input and performing the actions
      */
     public void run(){
+        deletedMessagesCheck();
+
         p.displayOptions2();
         p.displayTaskInput();
 
@@ -84,7 +86,7 @@ public class OrganizerController extends AttendeeController {
             case 2:
                 p.displayUserOptions();
                 int choice2 = p.nextInt();
-                final int endCond2 = 5;
+                final int endCond2 = 6;
                 while (choice2 != endCond2) {
                     determineInput2(choice2);
                     choice2 = p.nextInt();

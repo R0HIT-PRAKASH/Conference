@@ -36,6 +36,7 @@ public class SpeakerController extends UserController {
      * Runs the Speaker controller by asking for input and performing the actions
      */
     public void run(){
+        deletedMessagesCheck();
         p.displayOptions3();
         p.displayTaskInput();
         int input = p.nextInt();
