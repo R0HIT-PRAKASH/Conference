@@ -220,7 +220,7 @@ public class UserManager implements Serializable {
                 }
             }
             ((Attendee) user).signUpForEvent(event.getName());
-            eventManager.addAttendee(event, user);
+            eventManager.addAttendee(event.getName(), username);
 
         }
 
@@ -231,7 +231,7 @@ public class UserManager implements Serializable {
                 }
             }
             ((Vip) user).signUpForEvent(event.getName());
-            eventManager.addAttendee(event, user);
+            eventManager.addAttendee(event.getName(), username);
         }
 
         else if(user.getUserType().equals("organizer")){
@@ -241,7 +241,7 @@ public class UserManager implements Serializable {
                 }
             }
             ((Organizer) user).signUpForEvent(event.getName());
-            eventManager.addAttendee(event, user);
+            eventManager.addAttendee(event.getName(), username);
 
         }else{
             return false;
@@ -293,7 +293,7 @@ public class UserManager implements Serializable {
      * @param event Refers to the event that is to be added to the list of events that organizer has organized.
      * @param organizers Refers to the organizers organizing the event.
      */
-    public void createdEvent(Event event, List<String> organizers){
+    public void createdEvent(String event, List<String> organizers){
         for (String name : organizers){
             Organizer curr = (Organizer)getUser(name);
             curr.createdEvent(event);
@@ -346,6 +346,24 @@ public class UserManager implements Serializable {
      */
     public void setBio(String bio, String username){
         userMap.get(username).setBio(bio);
+    }
+
+    /**
+     * The method should only be used for reading in. Used to directly add events to the list of attending events for
+     * users
+     * @param username The username of the user
+     * @param eventname The name of the event the user is attending
+     */
+    public void directSignUp(String username, String eventname) {
+        if (userMap.get(username).getUserType().equalsIgnoreCase("attendee")){
+            ((Attendee)userMap.get(username)).signUpForEvent(eventname);
+        }
+        else if (userMap.get(username).getUserType().equalsIgnoreCase("organizer")){
+            ((Organizer)userMap.get(username)).signUpForEvent(eventname);
+        }
+        if (userMap.get(username).getUserType().equalsIgnoreCase("VIP")){
+            ((Vip)userMap.get(username)).signUpForEvent(eventname);
+        }
     }
 
 }
