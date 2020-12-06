@@ -20,7 +20,8 @@ public class UserFactory {
      * @param username This parameter refers to the username of the user.
      * @param password This parameter refers to the password of the user.
      * @param userType This parameter refers to the type of user this person is.
-     * @param company
+     * @param company This parameter refers to the company of the user
+     * @param bio This parameter refers to the bio of the user
      * @return Returns the new User object,
      */
     public User createNewUser(String name, String address, String email,
@@ -42,5 +43,4 @@ public class UserFactory {
         }
         return null;
     }
-
 }

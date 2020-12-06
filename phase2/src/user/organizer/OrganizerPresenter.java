@@ -55,7 +55,8 @@ public class OrganizerPresenter extends AttendeePresenter {
      */
     public void displayUserOptions() {
         System.out.println("(0) Add New User\n(1) View All Rooms\n(2) View Speakers\n(3) View Attendees\n(4) View Organizers" +
-                "\n(5) View VIPs\n(6) Go back to main screen");
+                "\n(5) View VIPs\n(6) View Corporation\n(7) Edit Corporation Information\n" +
+                "(8) View Bio\n(9) Edit Bio\n(10) Go back to main screen");
     }
 
     /**
@@ -83,7 +84,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      * Prints a message that tells the user that their input is invalid when navigating the users menu.
      */
     public void displayUserOptionsInvalidChoice() {
-        System.out.println("Invalid input. Please enter a number between 0 and 5:");
+        System.out.println("Invalid input. Please enter a number between 0 and 9:");
     }
 
     /**

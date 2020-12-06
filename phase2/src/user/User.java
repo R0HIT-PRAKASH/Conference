@@ -37,6 +37,8 @@ public abstract class User implements Comparable<User>, Serializable {
         this.bio = bio;
     }
 
+    // Getter Methods
+
     /**
      * This method gets the name of the user.
      * @return Returns the name of the user.
@@ -86,19 +88,27 @@ public abstract class User implements Comparable<User>, Serializable {
     }
 
     /**
-     * This method sets the company of the user.
-     * @param company The company of the user.
-     */
-    public void setCompany(String company){
-        this.company = company;
-    }
-
-    /**
      * This methods get the bio of a user.
      * @return The bio of the user.
      */
     public String getBio(){
         return this.bio;
+    }
+
+    /**
+     * This method returns the type of user this person is.
+     * @return Will return a string representation of the user type.
+     */
+    public abstract String getUserType();
+
+    // Setter Methods
+
+    /**
+     * This method sets the company of the user.
+     * @param company The company of the user.
+     */
+    public void setCompany(String company){
+        this.company = company;
     }
 
     /**
@@ -141,11 +151,7 @@ public abstract class User implements Comparable<User>, Serializable {
         this.username = newUserName;
     }
 
-    /**
-     * This method returns the type of user this person is.
-     * @return Will return a string representation of the user type.
-     */
-    public abstract String getUserType();
+    // Other Methods
 
     /**
      * This method returns the amount of different characters between two usernames.
@@ -163,5 +169,4 @@ public abstract class User implements Comparable<User>, Serializable {
     public String toString() {
         return "Username: " + getUsername() + "| Name: " + getName() + "| Email: " + getEmail();
     }
-
 }

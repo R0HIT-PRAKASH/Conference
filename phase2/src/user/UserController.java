@@ -44,7 +44,6 @@ public abstract class UserController {
         p = new UserPresenter();
     }
 
-
     /**
      * Prints all the messages that this attendee has received
      * @param username: The username of the Attendee
@@ -58,7 +57,6 @@ public abstract class UserController {
                 normalMessages.add(message);
             }
         }
-
         Collections.sort(normalMessages);
 
         p.displayPrintMessages(normalMessages);
@@ -68,7 +66,6 @@ public abstract class UserController {
                 p.displayMessageNonExistent();
                 requestedMessage = p.displaySelectMessage();
             }
-
             Message selectedMessage = (allMessages.get(allMessages.size() - requestedMessage));
             p.displaySelectedMessage(selectedMessage);
             messageManager.setMessageReadStatus(selectedMessage, "read");
@@ -285,7 +282,6 @@ public abstract class UserController {
         }
     }
 
-
     /**
      * Sends a reply to the oldest message in an attendees inbox
      * @param recipient: The username of the User we are replying too
@@ -296,11 +292,23 @@ public abstract class UserController {
         p.displayMessageSentPrompt();
     }
 
+    /**
+     * Displays the requests made by a user with given username
+     * @param username The String username of the user
+     */
     protected void viewRequests(String username){
-        List<Request> requests = requestManager.getUserRequests(username);
-        p.displayRequests(requests);
+        List<List<String>> userRequestInfo = requestManager.getUsersRequestInfo(username);
+        p.displayRequestsHeader(userRequestInfo);
+        for(List<String> requestInfo : userRequestInfo){
+            p.displayRequestsBody(requestInfo.get(0), requestInfo.get(1));
+        }
     }
 
+    /**
+     * Creates a new request
+     * @param content the String content of the request
+     * @param username the String username of the individual making the request
+     */
     protected void makeRequest(String content, String username){
         Request request = requestManager.createNewRequest(content, username);
         requestManager.addRequest(username, request);

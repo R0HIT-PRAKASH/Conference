@@ -86,7 +86,7 @@ public class OrganizerController extends AttendeeController {
             case 2:
                 p.displayUserOptions();
                 int choice2 = p.nextInt();
-                final int endCond2 = 6;
+                final int endCond2 = 10;
                 while (choice2 != endCond2) {
                     determineInput2(choice2);
                     choice2 = p.nextInt();
@@ -651,8 +651,39 @@ public class OrganizerController extends AttendeeController {
             case 4:
                 p.displayUserList(users("organizer"), "Organizer");
                 break;
+
             case 5:
                 p.displayUserList(users("vip"), "VIP");
+                break;
+
+            case 6:
+                viewCorporation();
+                break;
+
+            case 7:
+                String corporation = p.displayEnterCompanyPrompt();
+                if(corporation.equalsIgnoreCase("q")){
+                    break;
+                }
+                while(corporation.equalsIgnoreCase("")){
+                    corporation = p.displayInvalidCompanyError();
+                }
+                editCorporation(corporation);
+                break;
+
+            case 8:
+                viewBio();
+                break;
+
+            case 9:
+                String bio = p.displayEnterBioPrompt();
+                if(bio.equalsIgnoreCase("q")){
+                    break;
+                }
+                while(bio.equalsIgnoreCase("")){
+                    bio = p.displayInvalidBioError();
+                }
+                editBio(bio);
                 break;
 
             default:

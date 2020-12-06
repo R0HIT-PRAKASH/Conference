@@ -461,19 +461,19 @@ public class UserPresenter extends Presenter {
      * This method prints all the requests a user has made.
      * @param requests The requests a user has made
      */
-    public void displayRequests(List<Request> requests){
+    public void displayRequestsHeader(List<List<String>> requests){
         if(requests.size() == 0){
             System.out.println("You have not made any requests.");
         }
         else{
             System.out.println("Requests you have made: ");
-            for (Request request : requests){
-                System.out.print(request.getRequestStatus() + " : ");
-                System.out.println(request.getContent());
-            }
         }
     }
 
+    public void displayRequestsBody(String requestStatus, String requestContent){
+        System.out.print(requestStatus + " : ");
+        System.out.println(requestContent);
+    }
     /**
      * This method prints the corporation a user is currently associated with.
      * @param corporation The corporation the user is associated with.

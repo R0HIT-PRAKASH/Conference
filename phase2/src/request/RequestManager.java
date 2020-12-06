@@ -78,6 +78,20 @@ public class RequestManager {
         return this.allRequests.get(username);
     }
 
+    /**
+     * Gets the status of a request
+     * @param request The request we want the status of
+     * @return either "pending", "addressed", or "rejected".
+     */
+    public String getRequestStatus(Request request){return request.getRequestStatus();}
+
+    /**
+     * Gets the string content of the request
+     * @param request The request we want the content of
+     * @return the String content of the request.
+     */
+    public String getRequestContent(Request request){return request.getContent();}
+
     // Setter Methods
 
     /**
@@ -195,5 +209,21 @@ public class RequestManager {
      */
     public void addUserRequests(String username){
         this.allRequests.put(username, new ArrayList<Request>());
+    }
+
+    public List<String> getRequestInformation(Request request){
+        List<String> requestInfo = new ArrayList<>();
+        requestInfo.add(getRequestStatus(request));
+        requestInfo.add(getRequestContent(request));
+        return requestInfo;
+    }
+
+    public List<List<String>> getUsersRequestInfo(String username){
+        List<Request> requests = getUserRequests(username);
+        List<List<String>> usersRequests = new ArrayList<>();
+        for(Request request : requests){
+            usersRequests.add(getRequestInformation(request));
+        }
+        return usersRequests;
     }
 }
