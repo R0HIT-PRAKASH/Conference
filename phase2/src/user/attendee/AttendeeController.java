@@ -308,14 +308,27 @@ public class AttendeeController extends UserController {
         p.displaySignedUpEvents(stringsOfEvents);
     }
 
+//    /**
+//     * Removes an attendee from an event they were signed up for
+//     * @param eventName: The name of the Event we want to cancel our spot in
+//     */
+//    protected void cancelSpotInEvent(String eventName) {
+//        Event event = eventManager.getEvent(eventName);
+//        userManager.cancelEventSpot(this.username, event, eventManager);
+//        p.displaySuccessfulCancellation();
+//    }
+
     /**
      * Removes an attendee from an event they were signed up for
      * @param eventName: The name of the Event we want to cancel our spot in
      */
     protected void cancelSpotInEvent(String eventName) {
-        Event event = eventManager.getEvent(eventName);
-        userManager.cancelEventSpot(this.username, event, eventManager);
-        p.displaySuccessfulCancellation();
+        boolean inList = eventManager.checkEventIsRegistered(eventName);
+        boolean successful = userManager.cancelEventSpot(this.username, eventName, inList);
+        if (successful){
+            p.displaySuccessfulCancellation();
+        }
+        p.displayUnsuccessfulCancellation();
     }
 
     /**

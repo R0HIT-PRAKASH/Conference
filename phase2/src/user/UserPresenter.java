@@ -95,6 +95,13 @@ public class UserPresenter extends Presenter {
     }
 
     /**
+     * Notifies a User that they successfully canceled their spot in an event.
+     */
+    public void displayUnsuccessfulCancellation(){
+        System.out.println("Cancellation of spot in event was unsuccessful");
+    }
+
+    /**
      * Notifies a User that the selected message they attemped to unstar is not starred.
      */
     public void displayUnstarError(){
