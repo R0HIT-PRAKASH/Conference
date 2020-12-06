@@ -1108,7 +1108,7 @@ public class OrganizerPresenter extends AttendeePresenter {
     public void displayUserRequests(List<Request> requests){
         System.out.println("This user has made the following requests: ");
         for (Request request : requests){
-            System.out.print(request.getRequestStatus() + " : " + request.getContent());
+            System.out.println(request.getRequestStatus() + " : " + request.getContent());
         }
     }
 

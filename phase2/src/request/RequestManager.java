@@ -163,7 +163,7 @@ public class RequestManager {
                 r.editStatus(status);
             }
         }
-        this.requestStatus.remove("pending", request);
+        this.requestStatus.get("pending").remove(request);
         request.editStatus(status);
         this.requestStatus.get(status).add(request);
     }

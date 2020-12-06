@@ -71,4 +71,14 @@ public class Request implements Serializable {
     }
 
     // didn't include setter for content and username, because those should not be changed
+
+    // Other Methods
+    /**
+     * A method that compares two requests
+     * @param r the request being compared to
+     * @return If this request and r are equivalent
+     */
+    public boolean equals(Request r){
+        return this.requesterUsername.equals(r.getRequesterUsername()) && this.content.equals(r.getContent());
+    }
 }
