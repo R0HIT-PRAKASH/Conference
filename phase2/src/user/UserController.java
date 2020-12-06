@@ -124,6 +124,9 @@ public abstract class UserController {
                 starredMessages.add(message);
             }
         }
+
+        Collections.sort(starredMessages);
+
         p.displayPrintStarredMessages(starredMessages);
         if(starredMessages.size()>0) {
             int requestedMessage = p.displaySelectMessage();
@@ -183,6 +186,9 @@ public abstract class UserController {
                 deletedMessages.add(message);
             }
         }
+
+        Collections.sort(deletedMessages);
+
         p.displayDeletedMessages(deletedMessages);
         if(deletedMessages.size()>0) {
             int requestedMessage = p.displaySelectMessage();
@@ -229,6 +235,9 @@ public abstract class UserController {
                 archivedMessages.add(message);
             }
         }
+
+        Collections.sort(archivedMessages);
+
         p.displayArchivedMessages(archivedMessages);
         if (archivedMessages.size() > 0) {
             int requestedMessage = p.displaySelectMessage();
