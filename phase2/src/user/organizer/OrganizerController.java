@@ -898,12 +898,11 @@ public class OrganizerController extends AttendeeController {
         }
         String company = p.displayEnterCompanyPrompt();
         String bio = p.displayEnterBioPrompt();
-        User newUser = userFactory.createNewUser(name, address, email, username, password, usertype, company, bio);
-        userManager.addUser(newUser);
+        userManager.addUser(name, address, email, username, password, usertype, company, bio);
         messageManager.addUserInbox(username);
         requestManager.addUserRequests(username);
-        p.displayNewUserCreated(newUser.getUsername(), newUser.getPassword());
-        return newUser.getUsername();
+        p.displayNewUserCreated(username, password);
+        return username;
     }
 
     private List<String> getSenders(String username){
