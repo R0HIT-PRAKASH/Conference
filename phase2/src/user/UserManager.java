@@ -205,7 +205,19 @@ public class UserManager implements Serializable {
             ((Attendee) user).signUpForEvent(event);
             eventManager.addAttendee(event, user);
 
-        }else if(user.getUserType().equals("organizer")){
+        }
+
+        else if(user.getUserType().equals("vip")) {
+            for (String eventName : ((Attendee) user).getAttendingEvents()) {
+                if (!helpSignUp(eventName, event, eventManager)) {
+                    return false;
+                }
+            }
+            ((Vip) user).signUpForEvent(event);
+            eventManager.addAttendee(event, user);
+        }
+
+        else if(user.getUserType().equals("organizer")){
             for(String eventName : ((Organizer) user).getAttendingEvents()){
                 if(!helpSignUp(eventName, event, eventManager)){
                     return false;
