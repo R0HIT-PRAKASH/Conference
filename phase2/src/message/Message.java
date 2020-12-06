@@ -15,6 +15,7 @@ public class Message implements Serializable {
     private String recipientUsername;
     private boolean beenRead;
     private LocalDateTime dateTimeCreated;
+    private LocalDateTime dateTimeDeleted;
     private boolean starred;
     private boolean deleted;
     private boolean archived;
@@ -31,6 +32,7 @@ public class Message implements Serializable {
         this.recipientUsername = recipientUsername;
         this.beenRead = false;
         this.dateTimeCreated = LocalDateTime.now();
+        this.dateTimeDeleted = null;
     }
 
     // Getters
@@ -58,6 +60,12 @@ public class Message implements Serializable {
      * @return Returns dateTimeCreated variable of the message.
      */
     public LocalDateTime getDateTimeCreated(){ return dateTimeCreated;}
+
+    /**
+     * Gets the the date and time of a deleted message was deleted.
+     * @return Returns dateTimeDeleted variable of the message.
+     */
+    public LocalDateTime getDateTimeDeleted(){ return dateTimeDeleted;}
 
     /**
      * Gets the read or unread status of the message.
@@ -126,12 +134,18 @@ public class Message implements Serializable {
     /**
      * Sets the message's deletion status as deleted.
      */
-    public void setDeleted(){this.deleted = true;}
+    public void setDeleted(){
+        this.deleted = true;
+        this.dateTimeDeleted = LocalDateTime.now();
+    }
 
     /**
      * Sets the message's deletion status as not deleted.
      */
-    public void setUndeleted(){this.deleted = false;}
+    public void setUndeleted(){
+        this.deleted = false;
+        this.dateTimeDeleted = null;
+    }
 
     /**
      * Sets the message's archived status as archived.

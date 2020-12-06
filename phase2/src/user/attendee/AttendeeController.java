@@ -38,6 +38,7 @@ public class AttendeeController extends UserController {
      * Runs the Attendee controller by asking for input and performing the actions
      */
     public void run(){
+        deletedMessagesCheck();
         p.displayOptions();
         p.displayTaskInput();
         int input = 0;
