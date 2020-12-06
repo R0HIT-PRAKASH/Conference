@@ -35,7 +35,7 @@ public class UserPresenter extends Presenter {
     }
 
     public void displayNextTaskPromptOrgOptDisplayed(){
-        System.out.print("Please enter next task:\n");
+        System.out.println("Please enter next task:\n");
     }
 
     public void displayNextTaskPrompt(){
