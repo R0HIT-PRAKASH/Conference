@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 /**
  * This class represents a Message object. Message objects have a string content, username of the sender,
- * and a username of the recipient.
+ * and a username of the recipient. NEED TO FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  */
 public class Message implements Serializable, Comparable<Message> {
 
@@ -15,11 +15,12 @@ public class Message implements Serializable, Comparable<Message> {
     private String recipientUsername;
     private boolean beenRead;
     private LocalDateTime dateTimeCreated;
-    private LocalDateTime tempDateTimeCreated;
+    private LocalDateTime dateTimeCreatedCopy;
     private LocalDateTime dateTimeDeleted;
     private boolean starred;
     private boolean deleted;
     private boolean archived;
+    private boolean pinned;
 
     /**
      * This method constructs a Message object.
@@ -33,8 +34,9 @@ public class Message implements Serializable, Comparable<Message> {
         this.recipientUsername = recipientUsername;
         this.beenRead = false;
         this.dateTimeCreated = LocalDateTime.now();
-        this.tempDateTimeCreated = null;
+        this.dateTimeCreatedCopy = LocalDateTime.now();
         this.dateTimeDeleted = null;
+        this.pinned = false;
     }
 
     /**
@@ -90,6 +92,12 @@ public class Message implements Serializable, Comparable<Message> {
     public LocalDateTime getDateTimeCreated(){ return dateTimeCreated;}
 
     /**
+     * Gets the the copy of date and time of creation of the message.
+     * @return Returns dateTimeCreatedCopy variable of the message.
+     */
+    public LocalDateTime getDateTimeCreatedCopy(){ return dateTimeCreatedCopy;}
+
+    /**
      * Gets the the date and time of a deleted message was deleted.
      * @return Returns dateTimeDeleted variable of the message.
      */
@@ -118,6 +126,12 @@ public class Message implements Serializable, Comparable<Message> {
      * @return Returns a boolean, where true means the message is in the archive folder.
      */
     public boolean isArchived(){ return archived;}
+
+    /**
+     * Gets the pinned status of the message.
+     * @return Returns a boolean, where true means the message is pinned.
+     */
+    public boolean isPinned(){ return pinned;}
 
     // Setters
 
@@ -188,6 +202,23 @@ public class Message implements Serializable, Comparable<Message> {
      * Sets the message's archived status as unarchived.
      */
     public void setUnarchived(){this.archived = false;}
+
+    /**
+     * Sets the message's pinned status as pinned.
+     */
+    public void setPinned(){this.pinned = true;}
+
+    /**
+     * Sets the message's pinned status as unpinned.
+     */
+    public void setUnpinned(){this.pinned = false;}
+
+    /**
+     * Sets the message's dateTimeCreated variable.
+     */
+    public void setDateTimeCreated(LocalDateTime LDT){
+        this.dateTimeCreated = LDT;
+    }
 
     @Override
     public int compareTo(Message message) {
