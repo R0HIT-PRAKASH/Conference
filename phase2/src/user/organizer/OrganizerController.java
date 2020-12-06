@@ -824,8 +824,7 @@ public class OrganizerController extends AttendeeController {
 
         for(String user : userTypes.keySet()) {
             if(userTypes.get(user).equals(blastType)) {
-                Message mssg = messageManager.createNewMessage(message, this.username, user);
-                messageManager.addMessage(user, mssg);
+                messageManager.addMessage(this.username, message, user);
             }
         }
 
