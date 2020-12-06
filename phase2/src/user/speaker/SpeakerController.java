@@ -106,8 +106,6 @@ public class SpeakerController extends UserController {
             case 0:
                 viewMessages(this.username);
                 break;
-
-
             case 1:
                 viewStarredMessages(this.username);
                 break;
@@ -117,17 +115,17 @@ public class SpeakerController extends UserController {
             case 3:
                 viewArchivedMessages(this.username);
                 break;
-
             case 4:
-                List<Event> allEvents = eventManager.chronologicalEvents(userManager.getSpeakingEvents(username));
-                p.displayAllEventsGiven(allEvents);
-                if (allEvents.size() == 0){
+                p.displayAllEventsGiven(eventManager.chronologicalEvents(userManager.getSpeakingEvents(username)));
+                if (eventManager.chronologicalEvents(userManager.getSpeakingEvents(username)).size() == 0){
                     break;
                 }
+
+                p.displayEnterNumberOfEventsToMessage();
                 int num = p.nextInt();
 
-                while(num < 1 || num > allEvents.size()){
-                    num = p.nextInt();
+                while(num < 1 || num > eventManager.chronologicalEvents(userManager.getSpeakingEvents(username)).size()){
+                    num = p.displayInvalidNumberOfEventsToMessage();
                     if (num == -1){
                         break;
                     }
@@ -147,14 +145,14 @@ public class SpeakerController extends UserController {
                     if (next.equals("q")){
                         break;
                     }
-                    if (allEvents.contains(eventManager.getEvent(next)) && !eventNames.contains(next)) {
+                    if (eventManager.chronologicalEvents(userManager.getSpeakingEvents(username)).contains(eventManager.getEvent(next)) && !eventNames.contains(next)) {
                         eventNames.add(next);
                     }
-                    else if(allEvents.contains(eventManager.getEvent(next))){
+                    else if(eventManager.chronologicalEvents(userManager.getSpeakingEvents(username)).contains(eventManager.getEvent(next))){
                         p.displayEventAlreadyAddedError();
                         i--;
                     }
-                    else if(!allEvents.contains(next)){
+                    else if(!eventManager.chronologicalEvents(userManager.getSpeakingEvents(username)).contains(next)){
                         p.displayEventNotGivenError();
                         i--;
                     }
@@ -194,10 +192,6 @@ public class SpeakerController extends UserController {
         p.displayMessageOptions();
     }
 
-    /**
-     * Used to determine what event task the user would like to do based off their keyboard input.
-     * @param input: The integer value that corresponds to the task the user would like to do.
-     */
     private void determineInputEvent(int input){
         switch (input){
             case 0:
@@ -211,16 +205,11 @@ public class SpeakerController extends UserController {
         p.displayEventOptions();
     }
 
-    /**
-     * Used to determine what request task the user would like to do based off their keyboard input.
-     * @param input: The integer value that corresponds to the task the user would like to do.
-     */
     private void determineInputRequest(int input){
         switch (input){
             case 0:
                 viewRequests(username);
                 break;
-
             case 1:
                 String req = p.displayMakeRequest();
                 boolean valid = requestManager.checkIsValidRequest(req);
@@ -232,7 +221,6 @@ public class SpeakerController extends UserController {
                 makeRequest(req, username);
                 p.displaySuccessfulRequestSubmission();
                 break;
-
             default:
                 p.displayRequestsOptionsInvalidChoice();
                 break;

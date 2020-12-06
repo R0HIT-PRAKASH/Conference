@@ -17,6 +17,9 @@ import java.util.Set;
  */
 public class SpeakerPresenter extends UserPresenter {
 
+    /**
+     * Constructs a SpeakerPresenter object.
+     */
     public SpeakerPresenter(){}
 
     /**
@@ -148,7 +151,6 @@ public class SpeakerPresenter extends UserPresenter {
         System.out.println("That event isn't one you have given. ");
     }
 
-
     /**
      * Asks the name of the attendee that you are replying to
      * @return The name
@@ -157,8 +159,6 @@ public class SpeakerPresenter extends UserPresenter {
         System.out.print("Which attendee are you replying to (it is case sensitive): ");
         return scan.nextLine();
     }
-
-
 
     /**
      * Prints the message the date input is invalid.
@@ -205,24 +205,35 @@ public class SpeakerPresenter extends UserPresenter {
         return scan.nextLine();
     }
 
-//    public void displayRequests(List<Request> requests){
-//        System.out.println("Requests you have made: ");
-//        for (Request request : requests){
-//            System.out.print(request.getRequestStatus() + " : ");
-//            System.out.println(request.getContent());
-//        }
-//    }
-
+    /**
+     * Prompts the speaker for a request.
+     * @return Returns the string representation of their input.
+     */
     public String displayMakeRequest(){
         System.out.println("Please enter your request (< 200 characters)");
         return scan.nextLine();
     }
 
+    /**
+     * Informs the user that their request is greater than or equal to 200 characters.
+     */
     public void invalidRequest(){
         System.out.println("Requests must be less than 200 characters. Please re-enter content");
     }
 
+    /**
+     * Informs the user that their request was successfully submitted.
+     */
     public void displaySuccessfulRequestSubmission(){
         System.out.println("Your request was successfully submitted.");
+    }
+
+    public void displayEnterNumberOfEventsToMessage(){
+        System.out.println("How many sets of event attendees would you like to message? Enter -1 to quit.");
+    }
+
+    public int displayInvalidNumberOfEventsToMessage(){
+        System.out.println("You cannot message that amount of sets of event attendees. Try again or -1 to quit.");
+        return nextInt();
     }
 }
