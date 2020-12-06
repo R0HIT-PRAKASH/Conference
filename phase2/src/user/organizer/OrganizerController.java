@@ -747,7 +747,7 @@ public class OrganizerController extends AttendeeController {
                     userManager.addSpeakingEvent(s, name);
                 }
             }
-            userManager.createdEvent(eventManager.getEvent(name), creators);
+            userManager.createdEvent(name, creators);
         }
     }
 

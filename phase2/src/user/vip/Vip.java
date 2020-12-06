@@ -14,7 +14,6 @@ import java.util.List;
 public class Vip extends Attendee {
 
     private List<String> attendingEvents;
-    private HashMap<String, String> supporting;
 
     /**
      * This method constructs a new vip object with an empty list of attendingEvents.
@@ -29,7 +28,6 @@ public class Vip extends Attendee {
     public Vip(String name, String address, String email, String userName, String password, String company, String bio) {
         super(name, address, email, userName, password, company, bio);
         this.attendingEvents = new ArrayList<>();
-        this.supporting = new HashMap<>();
     }
 
     // Getter Methods
@@ -42,22 +40,6 @@ public class Vip extends Attendee {
         return "vip";
     }
 
-    /**
-     * This method gets the users that this VIP is financially supporting.
-     * @return The users this user is financially supporting.
-     */
-    public HashMap<String, String> getSupporting(){
-        return this.supporting;
-    }
-
-    // Setter Methods
-    /**
-     * This method sets the users that this VIP is financially supporting.
-     * @param supporting The users this user is financially supporting.
-     */
-    public void setSupporting(HashMap<String, String> supporting) {
-        this.supporting = supporting;
-    }
 }
 
 
