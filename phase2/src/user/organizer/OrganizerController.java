@@ -664,7 +664,7 @@ public class OrganizerController extends AttendeeController {
         p.displayUserOptions();
     }
 
-    private void determineInput3(int input) {
+    protected void determineInput3(int input) {
         label:
         switch (input) {
             case 0: //address requests

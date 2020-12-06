@@ -15,7 +15,7 @@ import user.speaker.Speaker;
  */
 public class EventManager implements Serializable {
 
-    public HashMap<String, Event> events;
+    private HashMap<String, Event> events;
     private List<Room> rooms;
     private EventFactory eventFactory;
     private ReaderWriter RW;
@@ -619,6 +619,18 @@ public class EventManager implements Serializable {
      */
     public List<String> getToStringsOfSignedUpEvents(List<String> signedupFor){
         List<Event> chronological = chronologicalEvents(signedupFor);
+        List<String> strings = new ArrayList<String>();
+        LocalDateTime now = LocalDateTime.now();
+        for (Event curr: chronological){
+            if (getTime(curr).compareTo(now) > 0){
+                strings.add(curr.toString());
+            }
+        }
+        return strings;
+    }
+
+    public List<String> getToStringsOfSpeakingEvents(List<String> speakingEventsNames){
+        List<Event> chronological = chronologicalEvents(speakingEventsNames);
         List<String> strings = new ArrayList<String>();
         LocalDateTime now = LocalDateTime.now();
         for (Event curr: chronological){

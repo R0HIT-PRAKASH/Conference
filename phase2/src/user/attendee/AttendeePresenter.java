@@ -20,15 +20,25 @@ public class AttendeePresenter extends UserPresenter {
     /**
      * Prints the tasks which an Attendee is able to do.
      */
+
     public void displayOptions(){
-        System.out.println("(0) Messages\n(1) Events\n(2) Requests\n(3) Quit");
+        System.out.println("(0) Messages\n(1) Events\n(2) Requests\n(3) User Options\n(4) Quit");
     }
+
     /**
      * Prints the things an attendee can do relating to Messages
      */
     public void displayMessageOptions(){
         System.out.println("(0) See Inbox\n(1) See Starred Messages\n(2) See Deleted Messages\n(3) See Archived Messages\n" +
                 "(4) Send Message\n(5) Go back to Main Screen");
+    }
+
+    /**
+     * Displays all the user options that an Attendee/VIP user is able to perform.
+     */
+    public void displayUserOptions(){
+        System.out.println("(0) View Corporation\n(1) Edit Corporation Information\n" +
+                "(2) View Bio\n(3) Edit Bio\n(4) Go back to Main Screen");
     }
 
     /**
@@ -109,6 +119,10 @@ public class AttendeePresenter extends UserPresenter {
         return scan.nextLine();
     }
 
+    /**
+     * Displays an error message which notifies the user that they entered an invalid action.
+     * @return The action the user wants to select.
+     */
     public String displayIncorrectSelection(){
         System.out.println("That is not a valid action. Please type out fully an action you wish to take: ");
         return scan.nextLine();
@@ -213,6 +227,10 @@ public class AttendeePresenter extends UserPresenter {
                 "signed up for an event to use this feature.");
     }
 
+    /**
+     * Displays all the future events in the conference.
+     * @param stringsOfEvents The list of future events.
+     */
     public void displayAllFutureEvents(List<String> stringsOfEvents){
         if (stringsOfEvents.size() == 0){
             displaySignUpError2();
@@ -259,6 +277,13 @@ public class AttendeePresenter extends UserPresenter {
     }
 
     /**
+     * This method displays an error message to the user that the task they selected was out of range.
+     */
+    public void displayInvalidUserChoice(){
+        System.out.println("Invalid input. Please enter a number between 0 and 3:");
+    }
+
+    /**
      * Prints an error message that the Event sign up was unsuccessful since there are no events in this conference.
      */
     public void displaySignUpError2(){
@@ -281,33 +306,58 @@ public class AttendeePresenter extends UserPresenter {
 //        }
 //    }
 
+    /**
+     * Displays a prompt to the user to enter their request.
+     * @return The user request.
+     */
     public String displayMakeRequest(){
         System.out.println("Please enter your request (< 200 characters)");
         return scan.nextLine();
     }
 
+    /**
+     * Displays an error message notifying the user that their request was over the character limit.
+     */
     public void invalidRequest(){
         System.out.println("Requests must be less than 200 characters. Please re-enter content");
     }
 
+    /**
+     * Displays a message that the users request was successful.
+     */
     public void displaySuccessfulRequestSubmission(){
         System.out.println("Your request was successfully submitted.");
     }
 
+    /**
+     * Displays a prompt to the user to ask them if they would like to search by name or tag.
+     * @return The way the user would like to search for an event.
+     */
     public String displayPromptSearchForEvents() {
         System.out.println("Would you like to search events by name or by tag (categories)?:");
         return scan.nextLine();
     }
 
+    /**
+     * Displays an error message which notifies that the user entered an invalid event name or tag.
+     */
     public void displayInvalidPromptSearchForEvents() {
         System.out.println("Invalid choice. Please type in name or tag:");
     }
 
+    /**
+     * Displays a prompt to the user to enter the name of the event they are searching for.
+     * @return The name of the event the user is searching for.
+     */
     public String displayPromptSearchForEventsByName() {
         System.out.println("Please enter in the name of the event you are looking for:");
         return scan.nextLine();
     }
 
+    /**
+     * Displays a prompt to the user to enter the tag of an event they are searching for.
+     * @return The tag of the event the user is searching for.
+     */
     public String displayPromptSearchForEventsByTag() {
         System.out.println("Please enter in the tag you are looking for the events of:");
         return scan.nextLine();
@@ -325,7 +375,11 @@ public class AttendeePresenter extends UserPresenter {
         }
     }
 
-
+    /**
+     * Displays the events with the appropriate tag that the user was searching for.
+     * @param strings The list of events with the appropriate tag.
+     * @param tag The tag the user selected.
+     */
     public void displayEventsByTag(List<String> strings, String tag){
 
         if (strings.size() == 0){
@@ -340,11 +394,19 @@ public class AttendeePresenter extends UserPresenter {
 
     }
 
+    /**
+     * Displays a prompt to the user to select whether or not they want to search for another event.
+     * @return The users response to whether they would like to search for another event.
+     */
     public String displayPromptSearchForAnotherEvent(){
         System.out.println("Would you like to search for another event? (Y/N): ");
         return scan.nextLine();
     }
 
+    /**
+     * Displays an error message which notifies the user that they entered an invalid input as to whether or not they wanted to search for another event.
+     * @return The answer to whether the user wants to search for another event.
+     */
     public String displayErrorSearchForAnotherEvent(){
         System.out.println("Invalid input. Please enter Y or N: ");
         return scan.nextLine();
