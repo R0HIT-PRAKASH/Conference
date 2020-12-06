@@ -104,7 +104,7 @@ public class AttendeeController extends UserController {
                 viewDeletedMessages(this.username);
                 break;
             case 3:
-                //viewArchivedMessages(this.username);
+                viewArchivedMessages(this.username);
                 break;
             case 4:
                 determineInputSendMessages();
@@ -182,7 +182,7 @@ public class AttendeeController extends UserController {
             return;
         }
         while (!eventManager.checkEventIsRegistered(eventSignedUp) ||
-                !eventManager.checkIfEventIsVIp(eventSignedUp)){    // Checks if the event is VIP exclusive and then prompts attendee that they cannot sign up for that event
+                eventManager.checkIfEventIsVIp(eventSignedUp)){    // Checks if the event is VIP exclusive and then prompts attendee that they cannot sign up for that event
             eventSignedUp = p.displayInvalidEventSignUp();
             if (eventSignedUp.equalsIgnoreCase("q")){
                 break;

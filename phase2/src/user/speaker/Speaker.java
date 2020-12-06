@@ -13,7 +13,6 @@ import java.util.List;
 public class Speaker extends User {
 
     private List<String> speakingEvents;
-    private List<Request> requestsMade;
 
     /**
      * This method constructs a new speaker object with an empty list of speakingEvents.
@@ -28,7 +27,6 @@ public class Speaker extends User {
     public Speaker(String name, String address, String email, String userName, String password, String company, String bio) {
         super(name, address, email, userName, password, company, bio);
         this.speakingEvents = new ArrayList<String>();
-        this.requestsMade = new ArrayList<Request>();
     }
 
     /**
@@ -61,19 +59,5 @@ public class Speaker extends User {
      */
     public int getNumberOfEvents() { return this.speakingEvents.size(); }
 
-    /**
-     * This method gets the list of requests this speaker has made
-     * @return Returns the list of requests the speaker has made
-     */
-    public List<Request> getRequestsMade(){
-        return this.requestsMade;
-    }
 
-    /**
-     * Adds a request to the list of requests made by the speaker.
-     * @param request Refers to the speaker that will be added to the list of requests made.
-     */
-    public void addRequest(Request request){
-        requestsMade.add(request);
-    }
 }

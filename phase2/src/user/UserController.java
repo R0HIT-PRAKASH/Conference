@@ -292,7 +292,6 @@ public abstract class UserController {
     protected void makeRequest(String content, String username){
         Request request = requestManager.createNewRequest(content, username);
         requestManager.addRequest(username, request);
-        ((Attendee)userManager.getUser(username)).addRequest(request);
     }
 }
 

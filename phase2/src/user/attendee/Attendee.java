@@ -15,7 +15,6 @@ import java.util.List;
 public class Attendee extends User {
 
     private List<String> attendingEvents;
-    private List<Request> requestsMade;
 
     /**
      * This method constructs a new attendee object with an empty list of attendingEvents.
@@ -30,7 +29,7 @@ public class Attendee extends User {
     public Attendee(String name, String address, String email, String userName, String password, String company, String bio) {
         super(name, address, email, userName, password, company, bio);
         this.attendingEvents = new ArrayList<String>();
-        this.requestsMade = new ArrayList<Request>();
+//        this.requestsMade = new ArrayList<Request>();
     }
 
     /**
@@ -57,21 +56,6 @@ public class Attendee extends User {
         return "attendee";
     }
 
-    /**
-     * This method gets the list of requests this attendee has made
-     * @return Returns the list of requests the attendee has made
-     */
-    public List<Request> getRequestsMade(){
-        return this.requestsMade;
-    }
-
-    /**
-     * Adds a request to the list of requests.
-     * @param request Refers to the list of requests that will be added.
-     */
-    public void addRequest(Request request){
-        requestsMade.add(request);
-    }
 }
 
 
