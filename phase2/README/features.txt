@@ -1,0 +1,25 @@
+A list of features/extensioons for our project:
+
+1. There are now many types of events including talks panels and parties. These events also now have flexible durations down to the minute.
+
+2. Events can be canceled and rescheduled by an organizer, and other organizers can do the same if given authorization.
+
+3. There is now a VIP user type as well. They can access VIP only events.
+
+4. Events have a maximum size which can be changed by an organizer and is bounded by the room capacity.
+
+5. Users can mark messages as unread, deleted and archived.
+
+6. Organizers can access detailed statistical information about the conference including numbers of types of users, size of events and more.
+
+7. Users can request more specific items such as accessibility or dietary restrictions. They can be tagged as completed by organizers.
+
+8. Events can be created with custom numbers of tables, chairs et cetera.
+
+9. Events can be tagged with categories like motivational and networking, and are searchable by name.
+
+10. Prevent trolls?
+
+11. Search for events by name
+
+12. All data will be stored in a MySQL database.
