@@ -629,6 +629,26 @@ public class EventManager implements Serializable {
         return strings;
     }
 
+    public String getToStringOfEventByName(String eventName){
+        Event event = getEvent(eventName);
+        if (event == null){
+            return "NoEvent";
+        }
+        return event.toString();
+    }
+
+    public List<String> getToStringsOfEventsByTag(String tag){
+        List<Event> chronological = chronologicalEvents(getAllEventNamesOnly());
+        List<String> strings = new ArrayList<String>();
+
+        for (Event event: chronological){
+            if (event.getTag().equals(tag)){
+                strings.add(event.toString());
+            }
+        }
+        return strings;
+    }
+
     /**
      * Checks to see if the event is only for VIP's.
      * @param eventName Refers to the name of the event.
