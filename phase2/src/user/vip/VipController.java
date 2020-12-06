@@ -22,7 +22,7 @@ public class VipController extends AttendeeController {
      * Runs the Attendee controller by asking for input and performing the actions
      */
     public void run() {
-        p.displayOptions();
+        p.displayVipOptions();
         p.displayTaskInput();
         int input = 0;
         input = p.nextInt();
@@ -75,7 +75,7 @@ public class VipController extends AttendeeController {
                 break;
 
             case 6:
-                p.displayOptions();
+                p.displayVipOptions();
                 break;
 
             default:
@@ -107,10 +107,14 @@ public class VipController extends AttendeeController {
                 System.out.println("IN PROGRESS.");
                 break;
 
+            case 6:
+                p.displayVipUserOptions();
+                break;
+
             default:
                 p.displayInvalidVipUserChoice();
                 break;
         }
-        p.displayNextTaskPromptAttendee();
+        p.displayNextTaskPromptVip();
     }
 }
