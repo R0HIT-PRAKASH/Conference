@@ -63,10 +63,10 @@ public class Organizer extends User implements Serializable {
 
     /**
      * This method adds an event to the list of events the organizer will attend.
-     * @param event Refers to the event the organizer will now attend.
+     * @param name Refers to the name of the event the organizer will now attend.
      */
-    public void signUpForEvent(Event event){
-        this.attendingEvents.add(event.getName());
+    public void signUpForEvent(String name){
+        this.attendingEvents.add(name);
     }
 
     /**

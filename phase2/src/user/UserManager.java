@@ -219,7 +219,7 @@ public class UserManager implements Serializable {
                     return false;
                 }
             }
-            ((Attendee) user).signUpForEvent(event);
+            ((Attendee) user).signUpForEvent(event.getName());
             eventManager.addAttendee(event, user);
 
         }
@@ -230,7 +230,7 @@ public class UserManager implements Serializable {
                     return false;
                 }
             }
-            ((Vip) user).signUpForEvent(event);
+            ((Vip) user).signUpForEvent(event.getName());
             eventManager.addAttendee(event, user);
         }
 
@@ -240,7 +240,7 @@ public class UserManager implements Serializable {
                     return false;
                 }
             }
-            ((Organizer) user).signUpForEvent(event);
+            ((Organizer) user).signUpForEvent(event.getName());
             eventManager.addAttendee(event, user);
 
         }else{
