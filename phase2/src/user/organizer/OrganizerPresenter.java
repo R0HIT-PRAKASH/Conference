@@ -832,6 +832,28 @@ public class OrganizerPresenter extends AttendeePresenter {
         System.out.println("There are no Events or Stats to display!");
     }
 
+    public void displayHistogram(List<Integer> list, String title) {
+        if(list.isEmpty()) return;
+
+        System.out.println(title);
+        int max = Collections.max(list);
+        int min = Collections.min(list);
+
+        int[] hist = new int[max - min];
+
+        for(int i : list) hist[i - min]++;
+
+        for (int i = 0; i < hist.length; i++) {
+            if (hist[i] > 0) {
+                System.out.print(i + ": ");
+                for (int j = 0; j < hist[i]; j++) {
+                    System.out.print("*");
+                }
+                System.out.println();
+            }
+        }
+    }
+
     /**
      * Asks the organizer what type of user they would like to create.
      * @return The type of the new user.
