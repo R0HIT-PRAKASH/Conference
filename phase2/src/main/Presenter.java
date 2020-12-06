@@ -3,6 +3,9 @@ package main;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+/**
+ * This class is the presenter class for all controllers.
+ */
 public abstract class Presenter {
 
     protected final Scanner scan;
@@ -16,7 +19,7 @@ public abstract class Presenter {
      * Prints an error message when the user does not successfully specify if they are a new or returning user.
      */
     public void displayInvalidNumberError(){
-        System.out.println("The input should be a nonnegative integer, please try again: ");
+        System.out.println("The input should be a non-negative integer, please try again: ");
     }
 
     /**
@@ -24,7 +27,6 @@ public abstract class Presenter {
      * @return The username
      */
     public String displayEnterUsernamePrompt(){
-
         System.out.print("Enter Username: ");
         String username = scan.nextLine();
 
@@ -56,7 +58,6 @@ public abstract class Presenter {
      * @return The password
      */
     public String displayEnterPasswordPrompt(){
-
         System.out.print("Enter Password: ");
         String password = scan.nextLine();
 
@@ -90,7 +91,6 @@ public abstract class Presenter {
     public void displayNewUserGreeting(){
         System.out.println("It looks like you are a new user. Please enter some information");
     }
-
 
     /**
      * Prints an error message that the entered username must be at least 3 characters, asks user to enter another username.
@@ -130,7 +130,6 @@ public abstract class Presenter {
      * @return The address
      */
     public String displayEnterAddressPrompt(){
-
         System.out.print("Enter Your Address: ");
         String address = scan.nextLine();
 
@@ -154,7 +153,6 @@ public abstract class Presenter {
      * @return The email
      */
     public String displayEnterEmailPrompt(){
-
         System.out.print("Enter Your Email: ");
         String email = scan.nextLine();
 
@@ -178,7 +176,6 @@ public abstract class Presenter {
      * @return The type
      */
     public String displayEnterStatusPrompt(){
-
         System.out.print("Enter your status in the conference. This can be \"organizer\", \"attendee\", \"VIP\" or \"speaker\": ");
         String type = scan.nextLine();
 
@@ -187,7 +184,6 @@ public abstract class Presenter {
             type = displayInvalidStatusError();
 
         }
-
         return type;
     }
 
@@ -205,14 +201,12 @@ public abstract class Presenter {
      * @return The company of the user.
      */
     public String displayEnterCompanyPrompt(){
-
         System.out.println("What company are you associated with? If you are not associated with any company, please enter \'none\': ");
         String company = scan.nextLine();
 
         while(company.equalsIgnoreCase("")){
             company = displayInvalidCompanyError();
         }
-
         return company;
     }
 
@@ -230,14 +224,12 @@ public abstract class Presenter {
      * @return The bio of the user.
      */
     public String displayEnterBioPrompt(){
-
         System.out.println("What would you like to add to your bio? Enter it below: ");
         String company = scan.nextLine();
 
         while(company.equalsIgnoreCase("")){
             company = displayInvalidBioError();
         }
-
         return company;
     }
 
@@ -256,7 +248,6 @@ public abstract class Presenter {
      */
     public int nextInt() {
         int input = 0;
-
         do {
             try {
                 input = Integer.parseInt(scan.nextLine());
@@ -266,7 +257,6 @@ public abstract class Presenter {
                 displayInvalidNumberError();
             }
         } while(true);
-
         return input;
     }
 
