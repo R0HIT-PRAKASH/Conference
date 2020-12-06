@@ -38,6 +38,8 @@ public class Room implements Serializable {
         this.chairs = chairs;
     }
 
+    // Getter methods
+
     /**
      * This method gets the capacity of the room.
      * @return Returns the capacity of the room.
@@ -63,11 +65,11 @@ public class Room implements Serializable {
     }
 
     /**
-     * This method sets the number of computers in the room.
-     * @param computers Refers to the new number of computers in the room.
+     * This method gets the number of tables in the room.
+     * @return Returns the number of tables in the room.
      */
-    public void setComputers(int computers){
-        this.computers = computers;
+    public int getTables(){
+        return this.tables;
     }
 
     /**
@@ -79,19 +81,29 @@ public class Room implements Serializable {
     }
 
     /**
-     * This method sets whether or not there is a projector in the room.
-     * @param projector Refers to whether or not a projector will be added or removed from the room.
-     */
-    public void setProjector(boolean projector){
-        this.projector = projector;
-    }
-
-    /**
      * This method gets the number of chairs in the room.
      * @return Returns the number of chairs in the room.
      */
     public int getChairs(){
         return this.chairs;
+    }
+
+    // Setter Methods
+
+    /**
+     * This method sets the number of computers in the room.
+     * @param computers Refers to the new number of computers in the room.
+     */
+    public void setComputers(int computers){
+        this.computers = computers;
+    }
+
+    /**
+     * This method sets whether or not there is a projector in the room.
+     * @param projector Refers to whether or not a projector will be added or removed from the room.
+     */
+    public void setProjector(boolean projector){
+        this.projector = projector;
     }
 
     /**
@@ -103,20 +115,14 @@ public class Room implements Serializable {
     }
 
     /**
-     * This method gets the number of tables in the room.
-     * @return Returns the number of tables in the room.
-     */
-    public int getTables(){
-        return this.tables;
-    }
-
-    /**
      * This method sets the number of tables in the room.
      * @param tables Refers to the new number of tables in the room.
      */
     public void setTables(int tables){
         this.tables = tables;
     }
+
+    // Other Methods
 
     /**
      * This method formats a room object into a string.
