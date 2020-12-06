@@ -34,6 +34,14 @@ public class RequestManager {
         this.RW = RW;
     }
 
+    public RequestManager(){
+        this.allRequests = new HashMap<String, List<Request>>();
+        this.requestStatus = new HashMap<String, List<Request>>();
+        this.requestStatus.put("pending", new ArrayList<Request>());
+        this.requestStatus.put("addressed", new ArrayList<Request>());
+        this.requestStatus.put("rejected", new ArrayList<Request>());
+    }
+
     // Getter Methods
 
     /**
@@ -120,6 +128,19 @@ public class RequestManager {
      */
     public Request createNewRequest(String content, String requesterUsername){
         return new Request(content, requesterUsername);
+    }
+
+    /**
+     * Creates a new Request object
+     * @param content refers to the content of the request
+     * @param requesterUsername refers to the username of the requester
+     * @param requestStatus refers to the status of the request
+     * @return Return the created Request
+     */
+    public void createNewRequest(String content, String requesterUsername, String requestStatus){
+        Request readIn = new Request(content, requesterUsername);
+        addRequest(requesterUsername, readIn);
+        updateRequestStatus(readIn, requestStatus);
     }
 
     /**
