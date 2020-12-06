@@ -1041,11 +1041,16 @@ public class OrganizerPresenter extends AttendeePresenter {
      * @param requests Refers to the list of all of the requests.
      */
     public void displayPendingRequests(List<Request> requests){
-        System.out.println("Pending Requests: ");
-        int counter = 1;
-        for (Request request : requests){
-            System.out.println(counter + " : " + request.getContent());
-            counter++;
+        if(requests.size() == 0){
+            System.out.println("There are no pending requests at this time.");
+        }
+        else {
+            System.out.println("Pending Requests: ");
+            int counter = 1;
+            for (Request request : requests) {
+                System.out.println(counter + " : " + request.getContent());
+                counter++;
+            }
         }
     }
 

@@ -11,6 +11,7 @@ import user.UserManager;
 import user.attendee.Attendee;
 import user.speaker.SpeakerPresenter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -48,8 +49,15 @@ public abstract class UserController {
      */
     protected void viewMessages(String username) {
         List<Message> allMessages = messageManager.viewMessages(username);
-        p.displayPrintMessages(allMessages);
-        if(allMessages.size()>0) {
+        List<Message> normalMessages = new ArrayList<Message>();
+
+        for (Message message: allMessages) {
+            if (!message.isArchived() && !message.isDeleted()) {
+                normalMessages.add(message);
+            }
+        }
+        p.displayPrintMessages(normalMessages);
+        if(normalMessages.size()>0) {
             int requestedMessage = p.displaySelectMessage();
             while (requestedMessage > allMessages.size() || requestedMessage < 1) {
                 p.displayMessageNonExistent();
@@ -241,6 +249,25 @@ public abstract class UserController {
             } else if (messageAction.equalsIgnoreCase("UNARCHIVE")) {
                 archivedMessages.remove(selectedMessage);
                 messageManager.setArchiveStatus(selectedMessage, "restore");
+            }
+        }
+    }
+
+    protected void deletedMessagesCheck() {
+        // deleted message check
+        List<Message> allMessages = messageManager.viewMessages(username);
+        List<Message> deletedMessages = new ArrayList<>();
+
+        for (Message message : allMessages) {
+            if (messageManager.getDeletionStatus(message)) {
+                deletedMessages.add(message);
+            }
+        }
+        LocalDateTime currentTime = LocalDateTime.now();
+        int currentMinute = currentTime.getMinute();
+        for (Message message : deletedMessages) {
+            if (messageManager.getDeletionDateInfo(message).getMinute() < currentMinute) {
+                allMessages.remove(message);
             }
         }
     }

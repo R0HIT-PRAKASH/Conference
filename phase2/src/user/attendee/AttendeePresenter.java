@@ -316,39 +316,28 @@ public class AttendeePresenter extends UserPresenter {
     /**
      * Prints the event specified by the event name.
      */
-    public void displayEventByName(List<Event> events, String name){
-        boolean found = false;
-        int i = 0;
-        while(!found && i < events.size()){
-            Event event = events.get(i);
-            if (event.getName().equals(name)){
-                System.out.println("This is the registered event with the name: " + name);
-                System.out.println(events.get(i));
-                found = true;
-                return;
-            }
-            i++;
+    public void displayEventByName(String string, String name){
+        if (name.equals("NoEvent")){
+            System.out.println("There is no registered event with this name. Please try again.");
+        }else{
+            System.out.println("This is the registered event with the name: " + name);
+            System.out.println(string);
         }
-        System.out.println("There is no registered event with this name. Please try again.");
     }
 
 
-    public void displayEventsByTag(List<Event> events, String tag){
-        int i = 0;
-        boolean found = false;
-        while(i < events.size()){
-            Event event = events.get(i);
-            if (event.getTag().equals(tag)){
-                System.out.println("Here are the registered events with the tag: " + tag);
-                System.out.println(events.get(i));
-                found = true;
+    public void displayEventsByTag(List<String> strings, String tag){
+
+        if (strings.size() == 0){
+            System.out.println("There are no registered events with the tag: " + tag);
+        }
+        else{
+            System.out.println("Here are the registered events with the tag: " + tag);
+            for (String string: strings){
+                System.out.println(string);
             }
-            i++;
         }
-        if (found){
-            return;
-        }
-        System.out.println("There are no registered events with this tag.");
+
     }
 
     public String displayPromptSearchForAnotherEvent(){

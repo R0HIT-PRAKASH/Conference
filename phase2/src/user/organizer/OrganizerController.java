@@ -47,6 +47,8 @@ public class OrganizerController extends AttendeeController {
      * Runs the OrganizerController by asking for input and performing the actions
      */
     public void run(){
+        deletedMessagesCheck();
+
         p.displayOptions2();
         p.displayTaskInput();
 
@@ -84,7 +86,7 @@ public class OrganizerController extends AttendeeController {
             case 2:
                 p.displayUserOptions();
                 int choice2 = p.nextInt();
-                final int endCond2 = 5;
+                final int endCond2 = 6;
                 while (choice2 != endCond2) {
                     determineInput2(choice2);
                     choice2 = p.nextInt();
@@ -666,20 +668,21 @@ public class OrganizerController extends AttendeeController {
         switch (input) {
             case 0: //address requests
                 int to_change = getRequestToDecide();
-                Request update = requestManager.getStatusRequests("pending").get(to_change - 1);
-                String decision = p.displayRequestDecisionPrompt(update);
-                boolean valid = requestManager.checkIsValidStatus(decision);
-                while(!valid){
-                    p.requestDecisionInvalid();
-                    decision = p.displayRequestDecisionPrompt(update);
-                    valid = requestManager.checkIsValidStatus(decision);
-                }
-                requestManager.updateRequestStatus(update, decision);
-                if(decision.equals("addressed")){
-                    p.successfullyAddressedRequest();
-                }
-                else{
-                    p.successfullyRejectedRequest();
+                if (to_change != -1) {
+                    Request update = requestManager.getStatusRequests("pending").get(to_change - 1);
+                    String decision = p.displayRequestDecisionPrompt(update);
+                    boolean valid = requestManager.checkIsValidStatus(decision);
+                    while (!valid) {
+                        p.requestDecisionInvalid();
+                        decision = p.displayRequestDecisionPrompt(update);
+                        valid = requestManager.checkIsValidStatus(decision);
+                    }
+                    requestManager.updateRequestStatus(update, decision);
+                    if (decision.equals("addressed")) {
+                        p.successfullyAddressedRequest();
+                    } else {
+                        p.successfullyRejectedRequest();
+                    }
                 }
                 break;
 
@@ -952,7 +955,12 @@ public class OrganizerController extends AttendeeController {
     public int getRequestToDecide(){
         List<Request> pending = requestManager.getStatusRequests("pending");
         p.displayPendingRequests(pending);
-        return p.viewRequestPrompt();
+        if (pending.size() > 0){
+            return p.viewRequestPrompt();
+        }
+        else{
+            return -1;
+        }
     }
 
     public void getUserRequests(String username){

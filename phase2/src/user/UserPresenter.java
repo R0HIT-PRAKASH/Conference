@@ -305,13 +305,13 @@ public class UserPresenter extends Presenter {
             for (int i = deletedMessages.size() - 1; i > -1; i--) {
                 if ((deletedMessages.get(i).getContent().length()) >= 10) {
                     System.out.println(buffer + "\n" + counter + ". Sent By: " + deletedMessages.get(i).getSender() +
-                            "\n\uD83D\uDDD1 * Message: " +
+                            "\n\uD83D\uDDD1 Message: " +
                             deletedMessages.get(i).getContent().substring(0, 10) + "..." +
                             "\n" + dtf.format(deletedMessages.get(i).getDateTimeCreated()));
                     counter++;
                 } else {
                     System.out.println(buffer + "\n" + counter + ". Sent By: " + deletedMessages.get(i).getSender()
-                            + "\n\uD83D\uDDD1 * Message: " +
+                            + "\n\uD83D\uDDD1 Message: " +
                             deletedMessages.get(i).getContent() +
                             "\n" + dtf.format(deletedMessages.get(i).getDateTimeCreated()));
                     counter++;
@@ -462,10 +462,15 @@ public class UserPresenter extends Presenter {
      * @param requests The requests a user has made
      */
     public void displayRequests(List<Request> requests){
-        System.out.println("Requests you have made: ");
-        for (Request request : requests){
-            System.out.print(request.getRequestStatus() + " : ");
-            System.out.println(request.getContent());
+        if(requests.size() == 0){
+            System.out.println("You have not made any requests.");
+        }
+        else{
+            System.out.println("Requests you have made: ");
+            for (Request request : requests){
+                System.out.print(request.getRequestStatus() + " : ");
+                System.out.println(request.getContent());
+            }
         }
     }
 

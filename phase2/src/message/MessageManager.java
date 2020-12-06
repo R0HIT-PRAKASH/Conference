@@ -209,6 +209,15 @@ public class MessageManager implements java.io.Serializable {
     }
 
     /**
+     * This method returns the time and date a deleted message was deleted.
+     * @param message Refers to the message being checked.
+     * @return Returns true if the message is in the junk folder, and false otherwise.
+     */
+    public LocalDateTime getDeletionDateInfo(Message message){
+        return message.getDateTimeDeleted();
+    }
+
+    /**
      * This method returns the archive status of a message.
      * @param message Refers to the message being checked.
      * @return Returns true if the message is in the archive folder, and false otherwise.
