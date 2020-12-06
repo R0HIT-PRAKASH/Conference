@@ -450,6 +450,10 @@ public class UserPresenter extends Presenter {
                 "conference. Please try again at a later time.");
     }
 
+    /**
+     * This method prints all the requests a user has made.
+     * @param requests The requests a user has made
+     */
     public void displayRequests(List<Request> requests){
         System.out.println("Requests you have made: ");
         for (Request request : requests){
@@ -458,10 +462,18 @@ public class UserPresenter extends Presenter {
         }
     }
 
+    /**
+     * This method prints the corporation a user is currently associated with.
+     * @param corporation The corporation the user is associated with.
+     */
     public void displayViewCorporation(String corporation){
         System.out.println(corporation);
     }
 
+    /**
+     * This method prints the bio of a user.
+     * @param bio The bio of a user.
+     */
     public void displayViewBio(String bio){
         System.out.println(bio);
     }
