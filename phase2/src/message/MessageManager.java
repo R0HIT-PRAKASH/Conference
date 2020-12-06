@@ -1,6 +1,7 @@
 package message;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,6 +57,26 @@ public class MessageManager implements java.io.Serializable {
      */
     public void addMessage(String username, String message, String recipientUsername){
         Message newMessage = createNewMessage(message, username, recipientUsername);
+        this.allUserMessages.get(username).add(newMessage);
+    }
+
+    /**
+     * Adds a read in message to the list of all messages a user has
+     * @param username username of the sender
+     * @param message content of the message
+     * @param recipientUsername username of the recipient
+     * @param beenRead whether or not this message has been read
+     * @param dateTimeCreated The date and time this message was created and sent
+     * @param dateTimeDeleted The date and time this message was deleted (if it has been deleted)
+     * @param starred Whether or not this message has been starred
+     * @param deleted Whether or not this message has been deleted
+     * @param archived Whether or not this message has been archived
+     */
+    public void addMessage(String username, String message, String recipientUsername, boolean beenRead,
+                           LocalDateTime dateTimeCreated, LocalDateTime dateTimeDeleted, boolean starred,
+                           boolean deleted, boolean archived){
+        Message newMessage = new Message(message, username, recipientUsername, beenRead, dateTimeCreated,
+                dateTimeDeleted, starred, deleted, archived);
         this.allUserMessages.get(username).add(newMessage);
     }
 
@@ -141,8 +162,7 @@ public class MessageManager implements java.io.Serializable {
     public void speakerBlastMessage(List<String> eventNames, String message, EventManager eventManager, String sender){
         for(String name : eventNames) {
             for (String receiver : eventManager.getEvent(name).getAttendeeSet()) {
-                Message toBeSent = createNewMessage(message, sender, receiver);
-                this.addMessage(receiver, toBeSent);
+                this.addMessage(sender, message, receiver);
             }
         }
     }
