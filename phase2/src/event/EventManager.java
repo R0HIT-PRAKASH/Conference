@@ -466,8 +466,8 @@ public class EventManager implements Serializable {
      * @param event the event we want to get the date time for
      * @return The event's date time
      */
-    public LocalDateTime getTime(Event event){
-        return event.getTime();
+    public LocalDateTime getTime(String event){
+        return getEvent(event).getTime();
     }
 
     /**
@@ -611,7 +611,7 @@ public class EventManager implements Serializable {
         List<String> strings = new ArrayList<String>();
         LocalDateTime now = LocalDateTime.now();
         for (Event curr: chronological){
-            if (getTime(curr).compareTo(now) > 0){
+            if (getTime(curr.getName()).compareTo(now) > 0){
                 strings.add(curr.toString());
             }
         }
@@ -628,7 +628,7 @@ public class EventManager implements Serializable {
         List<String> strings = new ArrayList<String>();
         LocalDateTime now = LocalDateTime.now();
         for (Event curr: chronological){
-            if (getTime(curr).compareTo(now) > 0){
+            if (getTime(curr.getName()).compareTo(now) > 0){
                 strings.add(curr.toString());
             }
         }
@@ -670,6 +670,15 @@ public class EventManager implements Serializable {
             stringsOfRooms.add("Room #" + room.getRoomNumber());
         }
         return stringsOfRooms;
+    }
+
+    /**
+     * Returns the capacity of a room
+     * @param roomNumber The roomnumber of the room we want the capacity for
+     * @return The capacity of the room
+     */
+    public int getRoomCapacity(int roomNumber){
+        return getRoom(roomNumber).getCapacity();
     }
 
     /**
