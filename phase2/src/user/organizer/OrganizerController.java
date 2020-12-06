@@ -636,7 +636,8 @@ public class OrganizerController extends AttendeeController {
                 break;
 
             case 1:
-                p.displayRoomList(eventManager.getRooms());
+                List<String> stringsOfRooms = eventManager.getToStringsOfRooms();
+                p.displayRoomList(stringsOfRooms);
                 break;
 
             case 2:

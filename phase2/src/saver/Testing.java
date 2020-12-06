@@ -8,7 +8,7 @@ import java.time.*;
 public class Testing {
     public static void main(String[] args) throws SQLException {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/conference",
-                "root", "Playback25!")) {
+                "root", ".....")) {
             boolean isValid = conn.isValid(0);
             System.out.println("Do we have a valid db connection? = " + isValid);
 //                Object [][] students = {{"first", 3.58, LocalDateTime.now()}, {"second", 3.00, LocalDateTime.now()},
