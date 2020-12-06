@@ -7,6 +7,7 @@ import message.MessageManager;
 import request.Request;
 import request.RequestManager;
 import user.UserController;
+import user.attendee.AttendeeController;
 import user.UserManager;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import java.util.Set;
 /**
  * A controller that deals with Speaker users
  */
-public class SpeakerController extends UserController {
+public class SpeakerController extends AttendeeController {
     SpeakerPresenter p;
 
     /**
@@ -40,7 +41,7 @@ public class SpeakerController extends UserController {
         p.displayOptions3();
         p.displayTaskInput();
         int input = p.nextInt();
-        final int END_CONDITION = 3;
+        final int END_CONDITION = 4;
         while (input != END_CONDITION){
             determineInput(input);
             input = p.nextInt();
@@ -85,6 +86,15 @@ public class SpeakerController extends UserController {
                 }
                 break;
 
+            case 3:
+                p.displayUserOptions();
+                int choice4 = p.nextInt();
+                final int endCond4 = 4;
+                while (choice4 != endCond4){
+                    determineInput3(choice4);
+                    choice4 = p.nextInt();
+                }
+                break;
 
             case 5:
                 p.displayOptions3();
@@ -94,6 +104,7 @@ public class SpeakerController extends UserController {
                 p.displayInvalidInputError();
                 break;
         }
+        p.displayOptions3();
         p.displayNextTaskPromptSpeaker();
     }
 
