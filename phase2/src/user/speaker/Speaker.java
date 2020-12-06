@@ -1,6 +1,5 @@
 package user.speaker;
 
-import request.Request;
 import user.User;
 
 import java.util.ArrayList;
@@ -29,6 +28,8 @@ public class Speaker extends User {
         this.speakingEvents = new ArrayList<String>();
     }
 
+    // Getter Methods
+
     /**
      * This method gets the type of user this person is.
      * @return Returns to the string representation of "speaker".
@@ -46,18 +47,18 @@ public class Speaker extends User {
     }
 
     /**
+     * Returns the number of events assigned to this speaker
+     * @return int
+     */
+    public int getNumberOfEvents() { return this.speakingEvents.size(); }
+
+    // Other Methods
+
+    /**
      * This method adds a new event to the list of events the speaker will speak at.
      * @param eventName Refers to name of the event.
      */
     public void addSpeakingEvent(String eventName) {
         speakingEvents.add(eventName);
     }
-
-    /**
-     * Returns the number of events assigned to this speaker
-     * @return int
-     */
-    public int getNumberOfEvents() { return this.speakingEvents.size(); }
-
-
 }

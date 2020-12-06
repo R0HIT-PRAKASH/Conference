@@ -33,6 +33,8 @@ public class Organizer extends User implements Serializable {
         this.organizingEvents = new ArrayList<String>();
     }
 
+    // Getter Methods
+
     /**
      * This method gets the list of events the organizer is organizing.
      * @return Returns the list of events the organizer is organizing.
@@ -48,6 +50,16 @@ public class Organizer extends User implements Serializable {
     public List<String> getAttendingEvents(){
         return this.attendingEvents;
     }
+
+    /**
+     * This method returns a string representation of the type of user this person is.
+     * @return Returns "organizer".
+     */
+    public String getUserType(){
+        return "organizer";
+    }
+
+    // Other Methods: relating to events
 
     /**
      * This method adds an event to the list of events the organizer will attend.
@@ -68,12 +80,4 @@ public class Organizer extends User implements Serializable {
      * @param event Refers to the event the organizer has created.
      */
     public void removeEvent(Event event){ this.organizingEvents.remove(event.getName());}
-
-    /**
-     * This method returns a string representation of the type of user this person is.
-     * @return Returns "organizer".
-     */
-    public String getUserType(){
-        return "organizer";
-    }
 }

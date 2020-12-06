@@ -229,11 +229,11 @@ public class SpeakerPresenter extends UserPresenter {
     }
 
     public void displayEnterNumberOfEventsToMessage(){
-        System.out.println("How many sets of event attendees would you like to message? Enter -1 to quit.");
+        System.out.println("How many events would you like to send messages to? Enter -1 to quit.");
     }
 
     public int displayInvalidNumberOfEventsToMessage(){
-        System.out.println("You cannot message that amount of sets of event attendees. Try again or -1 to quit.");
+        System.out.println("You cannot message that amount of events. Try again or -1 to quit.");
         return nextInt();
     }
 }

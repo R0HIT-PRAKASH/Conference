@@ -1,6 +1,5 @@
 package user.vip;
 
-import request.Request;
 import user.attendee.Attendee;
 
 import java.util.ArrayList;
@@ -15,7 +14,6 @@ import java.util.List;
 public class Vip extends Attendee {
 
     private List<String> attendingEvents;
-    private List<Request> requestsMade;
     private HashMap<String, String> supporting;
 
     /**
@@ -31,9 +29,10 @@ public class Vip extends Attendee {
     public Vip(String name, String address, String email, String userName, String password, String company, String bio) {
         super(name, address, email, userName, password, company, bio);
         this.attendingEvents = new ArrayList<>();
-        this.requestsMade = new ArrayList<Request>();
         this.supporting = new HashMap<>();
     }
+
+    // Getter Methods
 
     /**
      * This method gets the type of user this person is.
@@ -51,6 +50,7 @@ public class Vip extends Attendee {
         return this.supporting;
     }
 
+    // Setter Methods
     /**
      * This method sets the users that this VIP is financially supporting.
      * @param supporting The users this user is financially supporting.
@@ -58,7 +58,6 @@ public class Vip extends Attendee {
     public void setSupporting(HashMap<String, String> supporting) {
         this.supporting = supporting;
     }
-
 }
 
 
