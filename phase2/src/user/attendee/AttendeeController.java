@@ -103,7 +103,7 @@ public class AttendeeController extends UserController {
                 viewDeletedMessages(this.username);
                 break;
             case 3:
-                //viewArchivedMessages(this.username);
+                viewArchivedMessages(this.username);
                 break;
             case 4:
                 determineInputSendMessages();
