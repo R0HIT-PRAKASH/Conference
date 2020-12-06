@@ -305,4 +305,22 @@ public class UserManager implements Serializable {
         ((Organizer) userMap.get(username)).removeEvent(event);
     }
 
+    /**
+     * This methods edits the corporation that a user is working for.
+     * @param corporation Refers to the new corporation the user is working for.
+     * @param username Refers to the username of the user whose company is being edited.
+     */
+    public void setCorporation(String corporation, String username){
+        userMap.get(username).setCompany(corporation);
+    }
+
+    /**
+     * This methods edits the bio that a user has set.
+     * @param bio The new bio the user wants to set.
+     * @param username The username of the user whose bio is being altered.
+     */
+    public void setBio(String bio, String username){
+        userMap.get(username).setBio(bio);
+    }
+
 }

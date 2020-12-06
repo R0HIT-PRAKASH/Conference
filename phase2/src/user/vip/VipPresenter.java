@@ -9,12 +9,12 @@ public class VipPresenter extends AttendeePresenter {
     }
 
     public void displayVipUserOptions(){
-        System.out.println("(0) Edit Corporation Information\n(1) View Donations\n(2) Edit Donations \n" +
-                "(3) View Bio\n(4) Edit Bio\n(5) Go back to Main Screen");
+        System.out.println("(0) View Corporation\n(1) Edit Corporation Information\n" +
+                "(2) View Bio\n(3) Edit Bio\n(4) Go back to Main Screen");
     }
 
     public void displayInvalidVipUserChoice(){
-        System.out.println("Invalid input. Please enter a number between 0 and 4:");
+        System.out.println("Invalid input. Please enter a number between 0 and 3:");
     }
 
     public void displayVipOptions(){
@@ -24,4 +24,5 @@ public class VipPresenter extends AttendeePresenter {
     public void displayNextTaskPromptVip(){
         System.out.println("Enter another task. Reminder, you can press '6' to see what options are available at this moment.");
     }
+
 }

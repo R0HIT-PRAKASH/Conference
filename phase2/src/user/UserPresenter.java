@@ -458,4 +458,12 @@ public class UserPresenter extends Presenter {
         }
     }
 
+    public void displayViewCorporation(String corporation){
+        System.out.println(corporation);
+    }
+
+    public void displayViewBio(String bio){
+        System.out.println(bio);
+    }
+
 }

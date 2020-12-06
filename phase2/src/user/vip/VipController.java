@@ -67,7 +67,7 @@ public class VipController extends AttendeeController {
             case 3:
                 p.displayVipUserOptions();
                 int choice3 = p.nextInt();
-                final int endCond3 = 5;
+                final int endCond3 = 4;
                 while (choice3 != endCond3){
                     determineInput3(choice3);
                     choice3 = p.nextInt();
@@ -88,23 +88,33 @@ public class VipController extends AttendeeController {
     private void determineInput3(int input) {
         switch (input) {
             case 0:
-                System.out.println("IN PROGRESS");
+                viewCorporation();
                 break;
 
             case 1:
-                System.out.println("IN PROG");
+                String corporation = p.displayEnterCompanyPrompt();
+                if(corporation.equalsIgnoreCase("q")){
+                    break;
+                }
+                while(corporation.equalsIgnoreCase("")){
+                    corporation = p.displayInvalidCompanyError();
+                }
+                editCorporation(corporation);
                 break;
 
             case 2:
-                System.out.println("IN PROG.");
+                viewBio();
                 break;
 
             case 3:
-                System.out.println("IN PROG..");
-                break;
-
-            case 4:
-                System.out.println("IN PROGRESS.");
+                String bio = p.displayEnterBioPrompt();
+                if(bio.equalsIgnoreCase("q")){
+                    break;
+                }
+                while(bio.equalsIgnoreCase("")){
+                    bio = p.displayInvalidBioError();
+                }
+                editBio(bio);
                 break;
 
             case 6:
@@ -116,5 +126,21 @@ public class VipController extends AttendeeController {
                 break;
         }
         p.displayNextTaskPromptVip();
+    }
+
+    private void editCorporation(String corporation){
+        userManager.setCorporation(corporation, this.username);
+    }
+
+    private void viewBio(){
+        p.displayViewBio(userManager.getUser(this.username).getBio());
+    }
+
+    private void editBio(String bio){
+        userManager.setBio(bio, this.username);
+    }
+
+    private void viewCorporation(){
+        p.displayViewCorporation(userManager.getUser(this.username).getCompany());
     }
 }
