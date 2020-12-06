@@ -106,8 +106,6 @@ public class SpeakerController extends UserController {
             case 0:
                 viewMessages(this.username);
                 break;
-
-
             case 1:
                 viewStarredMessages(this.username);
                 break;
@@ -117,17 +115,18 @@ public class SpeakerController extends UserController {
             case 3:
                 viewArchivedMessages(this.username);
                 break;
-
             case 4:
                 List<Event> allEvents = eventManager.chronologicalEvents(userManager.getSpeakingEvents(username));
                 p.displayAllEventsGiven(allEvents);
                 if (allEvents.size() == 0){
                     break;
                 }
+
+                p.displayEnterNumberOfEventsToMessage();
                 int num = p.nextInt();
 
                 while(num < 1 || num > allEvents.size()){
-                    num = p.nextInt();
+                    num = p.displayInvalidNumberOfEventsToMessage();
                     if (num == -1){
                         break;
                     }
@@ -194,10 +193,6 @@ public class SpeakerController extends UserController {
         p.displayMessageOptions();
     }
 
-    /**
-     * Used to determine what event task the user would like to do based off their keyboard input.
-     * @param input: The integer value that corresponds to the task the user would like to do.
-     */
     private void determineInputEvent(int input){
         switch (input){
             case 0:
@@ -211,16 +206,11 @@ public class SpeakerController extends UserController {
         p.displayEventOptions();
     }
 
-    /**
-     * Used to determine what request task the user would like to do based off their keyboard input.
-     * @param input: The integer value that corresponds to the task the user would like to do.
-     */
     private void determineInputRequest(int input){
         switch (input){
             case 0:
                 viewRequests(username);
                 break;
-
             case 1:
                 String req = p.displayMakeRequest();
                 boolean valid = requestManager.checkIsValidRequest(req);
@@ -232,7 +222,6 @@ public class SpeakerController extends UserController {
                 makeRequest(req, username);
                 p.displaySuccessfulRequestSubmission();
                 break;
-
             default:
                 p.displayRequestsOptionsInvalidChoice();
                 break;
