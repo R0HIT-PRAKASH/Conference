@@ -116,15 +116,17 @@ public class SpeakerController extends UserController {
                 viewArchivedMessages(this.username);
                 break;
             case 4:
-                p.displayAllEventsGiven(eventManager.chronologicalEvents(userManager.getSpeakingEvents(username)));
-                if (eventManager.chronologicalEvents(userManager.getSpeakingEvents(username)).size() == 0){
+                List<String> speakingEventsNames = userManager.getSpeakingEvents(username);
+                List<String> speakingEventsToString = eventManager.getToStringsOfSpeakingEvents(speakingEventsNames);
+                p.displayAllEventsGiven(speakingEventsToString);
+                if (speakingEventsNames.size() == 0){
                     break;
                 }
 
                 p.displayEnterNumberOfEventsToMessage();
                 int num = p.nextInt();
 
-                while(num < 1 || num > eventManager.chronologicalEvents(userManager.getSpeakingEvents(username)).size()){
+                while(num < 1 || num > speakingEventsNames.size()){
                     num = p.displayInvalidNumberOfEventsToMessage();
                     if (num == -1){
                         break;
@@ -145,14 +147,15 @@ public class SpeakerController extends UserController {
                     if (next.equals("q")){
                         break;
                     }
-                    if (eventManager.chronologicalEvents(userManager.getSpeakingEvents(username)).contains(eventManager.getEvent(next)) && !eventNames.contains(next)) {
+                    // NEED TO FIX BELOW
+                    if (speakingEventsNames.contains(next) && !eventNames.contains(next)) {
                         eventNames.add(next);
                     }
-                    else if(eventManager.chronologicalEvents(userManager.getSpeakingEvents(username)).contains(eventManager.getEvent(next))){
+                    else if(speakingEventsNames.contains(next)){
                         p.displayEventAlreadyAddedError();
                         i--;
                     }
-                    else if(!eventManager.chronologicalEvents(userManager.getSpeakingEvents(username)).contains(next)){
+                    else if(!speakingEventsNames.contains(next)){
                         p.displayEventNotGivenError();
                         i--;
                     }
@@ -168,7 +171,7 @@ public class SpeakerController extends UserController {
             case 5:
                 String eventName = p.displayEventSelectorPrompt();
                 viewScheduledEvents(username);
-                if(eventManager.events.containsKey(eventName)){
+                if(eventManager.getAllEvents().containsKey(eventName)){
                     Set<String> eventAttendees = eventManager.getEventAttendees(eventName);
                     String toMessage = p.displayEventAttendeesList(eventAttendees);
                     ArrayList<String> usernameList = new ArrayList<String>();
