@@ -8,15 +8,15 @@ import java.time.*;
 public class Testing {
     public static void main(String[] args) throws SQLException {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/conference",
-                "root", "csc@207uoft")) {
+                "root", "Playback25!")) {
             boolean isValid = conn.isValid(0);
             System.out.println("Do we have a valid db connection? = " + isValid);
-                Object [][] students = {{"first", 3.58, LocalDateTime.now()}, {"second", 3.00, LocalDateTime.now()},
-                        {"third", 4.00, LocalDateTime.now()}, {"fourth", 1.6, LocalDateTime.now()}};
-                Writing nameWriter = new Writing(conn);
-                for (Object[] student: students){
-                    nameWriter.insertStudent((String)student[0], (double)student[1], (LocalDateTime) student[2]);
-                }
+//                Object [][] students = {{"first", 3.58, LocalDateTime.now()}, {"second", 3.00, LocalDateTime.now()},
+//                        {"third", 4.00, LocalDateTime.now()}, {"fourth", 1.6, LocalDateTime.now()}};
+//                Writing nameWriter = new Writing(conn);
+//                for (Object[] student: students){
+//                    nameWriter.insertStudent((String)student[0], (double)student[1], (LocalDateTime) student[2]);
+//                }
 //                String[] names = {"first", "second", "third", "fourth", "fifth"};
 //                Testing.Writing nameWriter = new Testing.Writing(conn);
 //                nameWriter.insertNames(names);
