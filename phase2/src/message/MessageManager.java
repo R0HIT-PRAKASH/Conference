@@ -141,8 +141,7 @@ public class MessageManager implements java.io.Serializable {
     public void speakerBlastMessage(List<String> eventNames, String message, EventManager eventManager, String sender){
         for(String name : eventNames) {
             for (String receiver : eventManager.getEvent(name).getAttendeeSet()) {
-                Message toBeSent = createNewMessage(message, sender, receiver);
-                this.addMessage(receiver, toBeSent);
+                this.addMessage(sender, message, receiver);
             }
         }
     }

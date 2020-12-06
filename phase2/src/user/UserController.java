@@ -288,8 +288,11 @@ public abstract class UserController {
     }
 
     protected void viewRequests(String username){
-        List<Request> requests = requestManager.getUserRequests(username);
-        p.displayRequests(requests);
+        List<List<String>> userRequestInfo = requestManager.getUsersRequestInfo(username);
+        p.displayRequestsHeader(userRequestInfo);
+        for(List<String> requestInfo : userRequestInfo){
+            p.displayRequestsBody(requestInfo.get(0), requestInfo.get(1));
+        }
     }
 
     protected void makeRequest(String content, String username){
