@@ -295,10 +295,10 @@ public abstract class Event implements Comparable<Event>, Serializable {
 
     /**
      * This method adds an attendee
-     * @param attendee The attendee to be added
+     * @param attendee The attendee username to be added
      */
-    public void addAttendee(User attendee) {
-        this.attendeeSet.add(attendee.getUsername());
+    public void addAttendee(String attendee) {
+        this.attendeeSet.add(attendee);
     }
 
 }

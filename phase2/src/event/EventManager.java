@@ -475,8 +475,8 @@ public class EventManager implements Serializable {
      * @param event the event who's list of attendees we want to update.
      * @param user the user being added to the list of attendees.
      */
-    public void addAttendee(Event event, User user) {
-        event.addAttendee(user);
+    public void addAttendee(String event, String user) {
+        getEvent(event).addAttendee(user);
     }
 
     /**

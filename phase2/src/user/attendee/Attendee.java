@@ -52,10 +52,10 @@ public class Attendee extends User {
 
     /**
      * Adds an event to the list of events the attendee will attend.
-     * @param event Refers to the event that will be added to the list of events that will be attended.
+     * @param name Refers to the name of the event that will be added to the list of events that will be attended.
      */
-    public void signUpForEvent(Event event){ //PRIVATE OR PUBLIC?
-        this.attendingEvents.add(event.getName());
+    public void signUpForEvent(String name){ //PRIVATE OR PUBLIC?
+        this.attendingEvents.add(name);
     }
 }
 
