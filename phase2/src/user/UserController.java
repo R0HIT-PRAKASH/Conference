@@ -10,9 +10,11 @@ import user.UserController;
 import user.UserManager;
 import user.attendee.Attendee;
 import user.speaker.SpeakerPresenter;
+import java.util.Comparator;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -56,6 +58,9 @@ public abstract class UserController {
                 normalMessages.add(message);
             }
         }
+
+        Collections.sort(normalMessages);
+
         p.displayPrintMessages(normalMessages);
         if(normalMessages.size()>0) {
             int requestedMessage = p.displaySelectMessage();
@@ -122,12 +127,12 @@ public abstract class UserController {
         p.displayPrintStarredMessages(starredMessages);
         if(starredMessages.size()>0) {
             int requestedMessage = p.displaySelectMessage();
-            while (requestedMessage > allMessages.size() || requestedMessage < 1) {
+            while (requestedMessage > starredMessages.size() || requestedMessage < 1) {
                 p.displayMessageNonExistent();
                 requestedMessage = p.displaySelectMessage();
             }
 
-            Message selectedMessage = (allMessages.get(allMessages.size() - requestedMessage));
+            Message selectedMessage = (starredMessages.get(starredMessages.size() - requestedMessage));
             p.displaySelectedMessage(selectedMessage);
             messageManager.setMessageReadStatus(selectedMessage, "read");
 
@@ -181,12 +186,12 @@ public abstract class UserController {
         p.displayDeletedMessages(deletedMessages);
         if(deletedMessages.size()>0) {
             int requestedMessage = p.displaySelectMessage();
-            while (requestedMessage > allMessages.size() || requestedMessage < 1) {
+            while (requestedMessage > deletedMessages.size() || requestedMessage < 1) {
                 p.displayMessageNonExistent();
                 requestedMessage = p.displaySelectMessage();
             }
 
-            Message selectedMessage = (allMessages.get(allMessages.size() - requestedMessage));
+            Message selectedMessage = (deletedMessages.get(deletedMessages.size() - requestedMessage));
             p.displaySelectedMessage(selectedMessage);
             messageManager.setMessageReadStatus(selectedMessage, "read");
 
@@ -227,12 +232,12 @@ public abstract class UserController {
         p.displayArchivedMessages(archivedMessages);
         if (archivedMessages.size() > 0) {
             int requestedMessage = p.displaySelectMessage();
-            while (requestedMessage > allMessages.size() || requestedMessage < 1) {
+            while (requestedMessage > archivedMessages.size() || requestedMessage < 1) {
                 p.displayMessageNonExistent();
                 requestedMessage = p.displaySelectMessage();
             }
 
-            Message selectedMessage = (allMessages.get(allMessages.size() - requestedMessage));
+            Message selectedMessage = (archivedMessages.get(archivedMessages.size() - requestedMessage));
             p.displaySelectedMessage(selectedMessage);
             messageManager.setMessageReadStatus(selectedMessage, "read");
 
@@ -254,7 +259,6 @@ public abstract class UserController {
     }
 
     protected void deletedMessagesCheck() {
-        // deleted message check
         List<Message> allMessages = messageManager.viewMessages(username);
         List<Message> deletedMessages = new ArrayList<>();
 

@@ -8,13 +8,14 @@ import java.time.LocalDateTime;
  * This class represents a Message object. Message objects have a string content, username of the sender,
  * and a username of the recipient.
  */
-public class Message implements Serializable {
+public class Message implements Serializable, Comparable<Message> {
 
     private String content;
     private String senderUsername;
     private String recipientUsername;
     private boolean beenRead;
     private LocalDateTime dateTimeCreated;
+    private LocalDateTime tempDateTimeCreated;
     private LocalDateTime dateTimeDeleted;
     private boolean starred;
     private boolean deleted;
@@ -32,6 +33,7 @@ public class Message implements Serializable {
         this.recipientUsername = recipientUsername;
         this.beenRead = false;
         this.dateTimeCreated = LocalDateTime.now();
+        this.tempDateTimeCreated = null;
         this.dateTimeDeleted = null;
     }
 
@@ -180,5 +182,10 @@ public class Message implements Serializable {
      * Sets the message's archived status as unarchived.
      */
     public void setUnarchived(){this.archived = false;}
+
+    @Override
+    public int compareTo(Message message) {
+        return this.getDateTimeCreated().compareTo(message.getDateTimeCreated());
+    }
 }
 
