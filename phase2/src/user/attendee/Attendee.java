@@ -1,7 +1,6 @@
 package user.attendee;
 
 import event.Event;
-import request.Request;
 import user.User;
 
 import java.util.ArrayList;
@@ -29,16 +28,9 @@ public class Attendee extends User {
     public Attendee(String name, String address, String email, String userName, String password, String company, String bio) {
         super(name, address, email, userName, password, company, bio);
         this.attendingEvents = new ArrayList<String>();
-//        this.requestsMade = new ArrayList<Request>();
     }
 
-    /**
-     * Adds an event to the list of events the attendee will attend.
-     * @param event Refers to the event that will be added to the list of events that will be attended.
-     */
-    public void signUpForEvent(Event event){ //PRIVATE OR PUBLIC?
-        this.attendingEvents.add(event.getName());
-    }
+    // Getter Methods
 
     /**
      * This method gets the list of events the attendee will attend.
@@ -56,6 +48,15 @@ public class Attendee extends User {
         return "attendee";
     }
 
+    // Other Methods
+
+    /**
+     * Adds an event to the list of events the attendee will attend.
+     * @param event Refers to the event that will be added to the list of events that will be attended.
+     */
+    public void signUpForEvent(Event event){ //PRIVATE OR PUBLIC?
+        this.attendingEvents.add(event.getName());
+    }
 }
 
 
