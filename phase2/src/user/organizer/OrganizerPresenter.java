@@ -850,7 +850,7 @@ public class OrganizerPresenter extends AttendeePresenter {
 
         for (int i = 0; i < hist.length; i++) {
             if (hist[i] > 0) {
-                System.out.print(i + ": ");
+                System.out.print((i + 1) + ": ");
                 for (int j = 0; j < hist[i]; j++) {
                     System.out.print("*");
                 }

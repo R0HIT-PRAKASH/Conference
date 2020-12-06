@@ -897,6 +897,8 @@ public class OrganizerController extends AttendeeController {
 
     private void getStats() {
 
+        System.out.println(eventManager.getAllEventNamesOnly());
+
         Map<String, Double> stats = new HashMap<>();
         Map<String, List<String>> lists = new HashMap<>();
 
@@ -911,9 +913,9 @@ public class OrganizerController extends AttendeeController {
         }
 
         stats.put("Average Event Size: ", eventManager.numberOfEvents() == 0 ? 0
-                : 1.0 * (eventManager.getAllEventNamesOnly().stream()
-                .map(event -> eventManager.getEventAttendees(event).size())
-                .reduce(0, Integer::sum)) / eventManager.getAllEventNamesOnly().size()
+                : 1.0 * (eventManager.getAllEvents().values().stream()
+                .map(Event::getSize)
+                .reduce(0, Integer::sum)) / eventManager.getAllEvents().size()
         );
 
         stats.put("Average Number of Events Per Speaker: ", numSpeakers == 0.0 ? 0
