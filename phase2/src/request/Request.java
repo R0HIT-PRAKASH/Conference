@@ -35,6 +35,7 @@ public class Request implements Serializable {
     }
 
     // Getter Methods
+
     /**
      * Gets the String content of the request.
      * @return Returns the String content of the request.
@@ -58,7 +59,9 @@ public class Request implements Serializable {
     public String getRequestStatus(){
         return this.requestStatus;
     }
+
     //Setter Methods
+
     /**
      * Sets the request status of the request
      * @param newStatus refers to the new Status of the request
