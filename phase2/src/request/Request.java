@@ -22,18 +22,6 @@ public class Request implements Serializable {
         this.requestStatus = "pending";
     }
 
-    /**
-     * This method constructs a Request object
-     * @param content The request content
-     * @param requesterUsername The requester username
-     * @param requestStatus The status of this request
-     */
-    public Request(String content, String requesterUsername, String requestStatus){
-        this.content = content;
-        this.requesterUsername = requesterUsername;
-        this.requestStatus = requestStatus;
-    }
-
     // Getter Methods
 
     /**
@@ -71,4 +59,14 @@ public class Request implements Serializable {
     }
 
     // didn't include setter for content and username, because those should not be changed
+
+    // Other Methods
+    /**
+     * A method that compares two requests
+     * @param r the request being compared to
+     * @return If this request and r are equivalent
+     */
+    public boolean equals(Request r){
+        return this.requesterUsername.equals(r.getRequesterUsername()) && this.content.equals(r.getContent());
+    }
 }

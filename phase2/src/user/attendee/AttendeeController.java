@@ -306,8 +306,7 @@ public class AttendeeController extends UserController {
      * @param messageContents: The content of the message the Attendee is sending
      */
     protected void sendMessage(String recipient, String messageContents) {
-        Message newMessage = messageManager.createNewMessage(messageContents, this.username, recipient);
-        messageManager.addMessage(recipient, newMessage);
+        messageManager.addMessage(username, messageContents, recipient);
     }
 
 

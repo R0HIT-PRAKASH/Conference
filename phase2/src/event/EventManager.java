@@ -632,11 +632,8 @@ public class EventManager implements Serializable {
     public List<String> getToStringsOfSpeakingEvents(List<String> speakingEventsNames){
         List<Event> chronological = chronologicalEvents(speakingEventsNames);
         List<String> strings = new ArrayList<String>();
-        LocalDateTime now = LocalDateTime.now();
         for (Event curr: chronological){
-            if (getTime(curr).compareTo(now) > 0){
-                strings.add(curr.toString());
-            }
+            strings.add(curr.toString());
         }
         return strings;
     }

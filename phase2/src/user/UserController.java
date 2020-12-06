@@ -292,8 +292,7 @@ public abstract class UserController {
      * @param content: The content of the message the Attendee is sending
      */
     protected void replyMessage(String content, String recipient){
-        Message message = messageManager.createNewMessage(content, username, recipient);
-        messageManager.addMessage(recipient, message);
+        messageManager.addMessage(username, content, recipient);
         p.displayMessageSentPrompt();
     }
 

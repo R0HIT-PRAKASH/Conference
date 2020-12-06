@@ -34,6 +34,14 @@ public class RequestManager {
         this.RW = RW;
     }
 
+    public RequestManager(){
+        this.allRequests = new HashMap<String, List<Request>>();
+        this.requestStatus = new HashMap<String, List<Request>>();
+        this.requestStatus.put("pending", new ArrayList<Request>());
+        this.requestStatus.put("addressed", new ArrayList<Request>());
+        this.requestStatus.put("rejected", new ArrayList<Request>());
+    }
+
     // Getter Methods
 
     /**
@@ -123,6 +131,19 @@ public class RequestManager {
     }
 
     /**
+     * Creates a new Request object
+     * @param content refers to the content of the request
+     * @param requesterUsername refers to the username of the requester
+     * @param requestStatus refers to the status of the request
+     * @return Return the created Request
+     */
+    public void createNewRequest(String content, String requesterUsername, String requestStatus){
+        Request readIn = new Request(content, requesterUsername);
+        addRequest(requesterUsername, readIn);
+        updateRequestStatus(readIn, requestStatus);
+    }
+
+    /**
      * Adds a new request to the list of all requests a user has made
      * @param username Refers to the username of the user.
      * @param request Refers to the request to be added.
@@ -163,7 +184,7 @@ public class RequestManager {
                 r.editStatus(status);
             }
         }
-        this.requestStatus.remove("pending", request);
+        this.requestStatus.get("pending").remove(request);
         request.editStatus(status);
         this.requestStatus.get(status).add(request);
     }
