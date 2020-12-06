@@ -43,7 +43,7 @@ public class AttendeeController extends UserController {
         p.displayTaskInput();
         int input = 0;
         input = p.nextInt();
-        while (input != 3){ // 3 is ending condition
+        while (input != 4){ // 4 is ending condition
             determineInput(input);
             input = p.nextInt();
         }
@@ -54,7 +54,7 @@ public class AttendeeController extends UserController {
             case 0:
                 p.displayMessageOptions();
                 int choice = p.nextInt();
-                final int endCond = 5;
+                final int endCond = 2;
                 while (choice != endCond) {
                     determineInput0(choice);
                     choice = p.nextInt();
@@ -65,7 +65,7 @@ public class AttendeeController extends UserController {
                 p.displayEventOptions();
                 int choice1 = p.nextInt();
                 final int endCond1 = 5;
-                while (choice1 != endCond1){
+                while (choice1 != endCond1) {
                     determineInput1(choice1);
                     choice1 = p.nextInt();
                 }
@@ -75,9 +75,19 @@ public class AttendeeController extends UserController {
                 p.displayRequestOptions();
                 int choice2 = p.nextInt();
                 final int endCond2 = 2;
-                while (choice2 != endCond2){
+                while (choice2 != endCond2) {
                     determineInput2(choice2);
                     choice2 = p.nextInt();
+                }
+                break;
+
+            case 3:
+                p.displayUserOptions();
+                int choice3 = p.nextInt();
+                final int endCond3 = 4;
+                while (choice3 != endCond3){
+                    determineInput3(choice3);
+                    choice3 = p.nextInt();
                 }
                 break;
 
@@ -89,6 +99,7 @@ public class AttendeeController extends UserController {
                 p.displayInvalidInputError();
                 break;
         }
+        p.displayOptions();
         p.displayNextTaskPromptAttendee();
     }
 
@@ -167,6 +178,49 @@ public class AttendeeController extends UserController {
         }
         p.displayNextTaskPromptOrgOptDisplayed();
         p.displayRequestOptions();
+    }
+
+    protected void determineInput3(int input) {
+        switch (input) {
+            case 0:
+                viewCorporation();
+                break;
+
+            case 1:
+                String corporation = p.displayEnterCompanyPrompt();
+                if(corporation.equalsIgnoreCase("q")){
+                    break;
+                }
+                while(corporation.equalsIgnoreCase("")){
+                    corporation = p.displayInvalidCompanyError();
+                }
+                editCorporation(corporation);
+                break;
+
+            case 2:
+                viewBio();
+                break;
+
+            case 3:
+                String bio = p.displayEnterBioPrompt();
+                if(bio.equalsIgnoreCase("q")){
+                    break;
+                }
+                while(bio.equalsIgnoreCase("")){
+                    bio = p.displayInvalidBioError();
+                }
+                editBio(bio);
+                break;
+
+            case 6:
+                p.displayUserOptions();
+                break;
+
+            default:
+                p.displayInvalidUserChoice();
+                break;
+        }
+        p.displayUserOptions();
     }
 
     protected void determineInputSignUpEvent() {
@@ -386,5 +440,21 @@ public class AttendeeController extends UserController {
                 resp = p.displayPromptSearchForAnotherEvent().toLowerCase();
             }
         }while(!resp.equals("n"));
+    }
+
+    protected void editCorporation(String corporation){
+        userManager.setCorporation(corporation, this.username);
+    }
+
+    protected void viewBio(){
+        p.displayViewBio(userManager.getUser(this.username).getBio());
+    }
+
+    protected void editBio(String bio){
+        userManager.setBio(bio, this.username);
+    }
+
+    protected void viewCorporation(){
+        p.displayViewCorporation(userManager.getUser(this.username).getCompany());
     }
 }

@@ -31,7 +31,7 @@ public class UserPresenter extends Presenter {
      * Prompts an Organizer to choose another task once they have completed a task.
      */
     public void displayNextTaskPromptOrganizer(){
-        System.out.print("Please enter next task (reminder, you can type '14' to see what you can do): ");
+        System.out.print("Please enter next task (reminder, you can type '14' to see what you can do):\n ");
     }
 
     public void displayNextTaskPromptOrgOptDisplayed(){

@@ -21,7 +21,7 @@ public class AttendeePresenter extends UserPresenter {
      * Prints the tasks which an Attendee is able to do.
      */
     public void displayOptions(){
-        System.out.println("(0) Messages\n(1) Events\n(2) Requests\n(3) Quit");
+        System.out.println("(0) Messages\n(1) Events\n(2) Requests\n(3) User Options\n(4) Quit");
     }
     /**
      * Prints the things an attendee can do relating to Messages
@@ -29,6 +29,11 @@ public class AttendeePresenter extends UserPresenter {
     public void displayMessageOptions(){
         System.out.println("(0) See Inbox\n(1) See Starred Messages\n(2) See Deleted Messages\n(3) See Archived Messages\n" +
                 "(4) Send Message\n(5) Go back to Main Screen");
+    }
+
+    public void displayUserOptions(){
+        System.out.println("(0) View Corporation\n(1) Edit Corporation Information\n" +
+                "(2) View Bio\n(3) Edit Bio\n(4) Go back to Main Screen");
     }
 
     /**
@@ -256,6 +261,13 @@ public class AttendeePresenter extends UserPresenter {
         System.out.print("That is not an Event you can sign up for. Please re-enter the name " +
                 "(it is case sensitive) or enter 'q' to quit: ");
         return scan.nextLine();
+    }
+
+    /**
+     * This method displays an error message to the user that the task they selected was out of range.
+     */
+    public void displayInvalidUserChoice(){
+        System.out.println("Invalid input. Please enter a number between 0 and 3:");
     }
 
     /**
