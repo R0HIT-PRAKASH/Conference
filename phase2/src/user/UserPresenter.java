@@ -462,10 +462,15 @@ public class UserPresenter extends Presenter {
      * @param requests The requests a user has made
      */
     public void displayRequests(List<Request> requests){
-        System.out.println("Requests you have made: ");
-        for (Request request : requests){
-            System.out.print(request.getRequestStatus() + " : ");
-            System.out.println(request.getContent());
+        if(requests.size() == 0){
+            System.out.println("You have not made any requests.");
+        }
+        else{
+            System.out.println("Requests you have made: ");
+            for (Request request : requests){
+                System.out.print(request.getRequestStatus() + " : ");
+                System.out.println(request.getContent());
+            }
         }
     }
 
