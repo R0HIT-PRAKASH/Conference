@@ -29,7 +29,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      * Prints all the tasks which an Organizer can do.
      */
     public void displayOptions2() {
-        System.out.println("(0) Messages\n(1) Events\n(2) User Options\n(3) Requests\n(4) Quit");
+        System.out.println("\n(0) Messages\n(1) Events\n(2) User Options\n(3) Requests\n(4) Quit");
     }
 
     /**
@@ -47,7 +47,7 @@ public class OrganizerPresenter extends AttendeePresenter {
     public void displayEventOptions() {
         System.out.println("(0) View Event List\n(1) View My Scheduled Events\n(2) Cancel Event Reservation\n(3) Sign up for Event" +
                 "\n(4) Add Event\n(5) Cancel Event\n(6) Reschedule Event\n(7) Add Room \n(8) Modify an Event's capacity\n" +
-                "(9) Display Conference Statistic\n(10)Search for events\n(11)Go back to main screen ");
+                "(9) Display Conference Statistics\n(10)Search for events\n(11)Go back to main screen ");
     }
 
     /**
@@ -661,7 +661,7 @@ public class OrganizerPresenter extends AttendeePresenter {
 
         System.out.println("There is no room with this room number. \nDo you want to create a new room " +
                 "or do you want to be suggested a room from the existing ones? Please enter " +
-                "\n(1) 'create' to create a room \n(2) 'q' to quit\nIf you choose to create a room, the room number" +
+                "\n(1) 'create' to create a room \n(2) 'q' to quit\nIf you choose to create a room, the room number " +
                 "you enter will be used for the event by default.");
         String ans = scan.nextLine();
 
@@ -832,6 +832,11 @@ public class OrganizerPresenter extends AttendeePresenter {
         System.out.println("There are no Events or Stats to display!");
     }
 
+    /**
+     * Displays a Histogram of data
+     * @param list A frequency list
+     * @param title The title of the chart
+     */
     public void displayHistogram(List<Integer> list, String title) {
         if(list.isEmpty()) return;
 
@@ -839,7 +844,7 @@ public class OrganizerPresenter extends AttendeePresenter {
         int max = Collections.max(list);
         int min = Collections.min(list);
 
-        int[] hist = new int[max - min];
+        int[] hist = new int[max - min + 1];
 
         for(int i : list) hist[i - min]++;
 
