@@ -427,16 +427,16 @@ public class OrganizerPresenter extends AttendeePresenter {
 
     /**
      * Prints all the rooms in this conference.
-     * @param rooms: a List of rooms in this conference.
+     * @param stringsOfRooms: a List of strings describing all rooms in this conference.
      */
-    public void displayRoomList(List<Room> rooms) {
-        if (rooms.size() == 0) {
+    public void displayRoomList(List<String> stringsOfRooms) {
+        if (stringsOfRooms.size() == 0) {
             System.out.println("No rooms have been created yet. ");
             return;
         }
         System.out.println("These are all the created rooms");
-        for (Room room : rooms) {
-            System.out.println("Room #" + room.getRoomNumber());
+        for (String roomString : stringsOfRooms) {
+            System.out.println(roomString);
         }
 
     }
@@ -830,6 +830,28 @@ public class OrganizerPresenter extends AttendeePresenter {
      */
     public void displayNoStats() {
         System.out.println("There are no Events or Stats to display!");
+    }
+
+    public void displayHistogram(List<Integer> list, String title) {
+        if(list.isEmpty()) return;
+
+        System.out.println(title);
+        int max = Collections.max(list);
+        int min = Collections.min(list);
+
+        int[] hist = new int[max - min];
+
+        for(int i : list) hist[i - min]++;
+
+        for (int i = 0; i < hist.length; i++) {
+            if (hist[i] > 0) {
+                System.out.print(i + ": ");
+                for (int j = 0; j < hist[i]; j++) {
+                    System.out.print("*");
+                }
+                System.out.println();
+            }
+        }
     }
 
     /**

@@ -649,6 +649,14 @@ public class EventManager implements Serializable {
         return strings;
     }
 
+    public List<String> getToStringsOfRooms(){
+        List<String> stringsOfRooms = new ArrayList<>();
+        for (Room room: rooms){
+            stringsOfRooms.add("Room #" + room.getRoomNumber());
+        }
+        return stringsOfRooms;
+    }
+
     /**
      * Checks to see if the event is only for VIP's.
      * @param eventName Refers to the name of the event.

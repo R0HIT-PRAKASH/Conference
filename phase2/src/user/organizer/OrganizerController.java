@@ -636,7 +636,8 @@ public class OrganizerController extends AttendeeController {
                 break;
 
             case 1:
-                p.displayRoomList(eventManager.getRooms());
+                List<String> stringsOfRooms = eventManager.getToStringsOfRooms();
+                p.displayRoomList(stringsOfRooms);
                 break;
 
             case 2:
@@ -923,6 +924,11 @@ public class OrganizerController extends AttendeeController {
                 .filter(e -> e.getTime().isAfter(LocalDateTime.now())).count()
         );
 
+        stats.put("Number of Messages", (double) messageManager.getAllUserMessages().values().stream()
+                .map(List::size)
+                .reduce(0, Integer::sum)
+        );
+
 
         List<String> events = eventManager.getAllEvents().values().stream()
                 .sorted(Comparator.comparingInt(Event::getSize))
@@ -949,6 +955,13 @@ public class OrganizerController extends AttendeeController {
 
         p.displayNumberStats(stats);
         p.displayListStats(lists);
+
+        List<Integer> eventSizes = eventManager.getAllEvents().values().stream()
+                .map(Event::getSize)
+                .collect(Collectors.toList());
+
+        p.displayHistogram(eventSizes, "Distribution of Event Sizes");
+
 
     }
 

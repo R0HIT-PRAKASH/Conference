@@ -35,6 +35,26 @@ public class Message implements Serializable {
         this.dateTimeDeleted = null;
     }
 
+    /**
+     * This method constructs a Message object.
+     * @param content Refers to the string content of the message.
+     * @param senderUsername Refers to the username of the sender.
+     * @param recipientUsername Refers to the username of the recipient.
+     */
+    public Message(String content, String senderUsername, String recipientUsername, boolean beenRead,
+                   LocalDateTime dateTimeCreated, LocalDateTime dateTimeDeleted, boolean starred, boolean deleted,
+                   boolean archived){
+        this.content = content;
+        this.senderUsername = senderUsername;
+        this.recipientUsername = recipientUsername;
+        this.dateTimeCreated = dateTimeCreated;
+        this.dateTimeDeleted = dateTimeDeleted;
+        this.beenRead = beenRead;
+        this.starred = starred;
+        this.deleted = deleted;
+        this.archived = archived;
+    }
+
     // Getters
 
     /**

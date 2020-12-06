@@ -33,8 +33,8 @@ public class MessageManager implements java.io.Serializable {
     /**
      * This method constructs a MessageManager object with an empty allUserMessages.
      */
-    public MessageManager(HashMap<String, List<Message>> allUserMessages){
-        this.allUserMessages = allUserMessages;
+    public MessageManager(){
+        this.allUserMessages = new HashMap<String, List<Message>>();
     }
 
     /**
