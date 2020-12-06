@@ -27,7 +27,5 @@ public class EventFactory {
         else{
             return null;
         }
-
-
     }
 }

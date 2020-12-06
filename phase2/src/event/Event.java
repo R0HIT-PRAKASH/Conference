@@ -64,6 +64,7 @@ public abstract class Event implements Comparable<Event>, Serializable {
         this.tag = tag;
     }
 
+    // Getter Methods
     /**
      * This method is a getter for name
      * @return String name
@@ -112,6 +113,87 @@ public abstract class Event implements Comparable<Event>, Serializable {
         return attendeeSet;
     }
 
+    /**
+     * This method gets the capacity of the event.
+     * @return Returns the capacity of the event.
+     */
+    public int getCapacity(){
+        return this.capacity;
+    }
+
+    /**
+     * This method gets the required number of computers in the event.
+     * @return Returns the required number of computers in the event.
+     */
+    public int getRequiredComputers(){
+        return this.requiredComputers;
+    }
+
+    /**
+     * This method gets whether or not a projector is required for the event.
+     * @return Returns true if a projector is required and false otherwise.
+     */
+    public boolean getRequiredProjector(){
+        return this.requiredProjector;
+    }
+
+    /**
+     * This method returns how big the attendee set is.
+     * @return an int giving the size of the attendee set.
+     */
+    public int getSize() {
+        return attendeeSet.size();
+    }
+
+    /**
+     * This method returns the type of Event this event is.
+     * @return Will return a string representation of the Event type.
+     */
+    public abstract String getEventType();
+
+    /**
+     * This method is a getter for the speaker's username (Only applicable for Talk.java)
+     * @return Returns speaker's username (Only applicable for Talk.java)
+     */
+    public abstract String getSpeakerName();
+
+    /**
+     * This method is a getter for the list of speakers (Only applicable for Panel)
+     * @return Returns the list of speakers (Only applicable for Panel)
+     */
+    public abstract List<String> getSpeakersList();
+
+    /**
+     * This method gets whether or not the event is VIP exclusive.
+     * @return Refers to whether or not this event is exclusive to VIP's only.
+     */
+    public boolean getVipEvent(){ return this.vipEvent; }
+
+    /**
+     * This method gets the list of creator usernames that were responsible for creating the event.
+     * @return Returns the list of creators.
+     */
+    public List<String> getCreators(){
+        return this.creators;
+    }
+
+    /**
+     * This method gets the required number of tables required for the event.
+     * @return Returns the required number of tables required for the event.
+     */
+    public int getRequiredTables(){
+        return this.requiredTables;
+    }
+
+    /**
+     * This method gets the number of chairs required for the event.
+     * @return Returns the required number of chairs in the event.
+     */
+    public int getRequiredChairs(){
+        return this.requiredChairs;
+    }
+
+    // Setter Methods
 
     /**
      * This method is a setter for the event name
@@ -162,35 +244,11 @@ public abstract class Event implements Comparable<Event>, Serializable {
     }
 
     /**
-     * This method gets the capacity of the event.
-     * @return Returns the capacity of the event.
-     */
-    public int getCapacity(){
-        return this.capacity;
-    }
-
-    /**
-     * This method gets the required number of computers in the event.
-     * @return Returns the required number of computers in the event.
-     */
-    public int getRequiredComputers(){
-        return this.requiredComputers;
-    }
-
-    /**
      * This method sets the number of computers in the room.
      * @param requiredComputers Refers to the new number of required computers for the event.
      */
     public void setRequiredComputers(int requiredComputers){
         this.requiredComputers = requiredComputers;
-    }
-
-    /**
-     * This method gets whether or not a projector is required for the event.
-     * @return Returns true if a projector is required and false otherwise.
-     */
-    public boolean getRequiredProjector(){
-        return this.requiredProjector;
     }
 
     /**
@@ -202,27 +260,11 @@ public abstract class Event implements Comparable<Event>, Serializable {
     }
 
     /**
-     * This method gets the number of chairs required for the event.
-     * @return Returns the required number of chairs in the event.
-     */
-    public int getRequiredChairs(){
-        return this.requiredChairs;
-    }
-
-    /**
      * This method sets the number of chairs required for the event.
      * @param requiredChairs Refers to the new number of required chairs for the event.
      */
     public void setRequiredChairs(int requiredChairs){
         this.requiredChairs = requiredChairs;
-    }
-
-    /**
-     * This method gets the required number of tables required for the event.
-     * @return Returns the required number of tables required for the event.
-     */
-    public int getRequiredTables(){
-        return this.requiredTables;
     }
 
     /**
@@ -234,32 +276,12 @@ public abstract class Event implements Comparable<Event>, Serializable {
     }
 
     /**
-     * This method gets the list of creator usernames that were responsible for creating the event.
-     * @return Returns the list of creators.
-     */
-    public List<String> getCreators(){
-        return this.creators;
-    }
-
-    /**
-     * This method adds an attendee
-     * @param attendee The attendee to be added
-     */
-    public void addAttendee(User attendee) {
-        this.attendeeSet.add(attendee.getUsername());
-    }
-
-    /**
-     * This method gets whether or not the event is VIP exclusive.
-     * @return Refers to whether or not this event is exclusive to VIP's only.
-     */
-    public boolean getVipEvent(){ return this.vipEvent; }
-
-    /**
      * This methods sets whether or not the event is VIP exclusive.
      * @param vipEvent The status of whether or not the event is VIP exclusive.
      */
     public void setVipEvent(boolean vipEvent){ this.vipEvent = vipEvent;}
+
+    // Other Methods
 
     /**
      * CompareTo
@@ -270,25 +292,13 @@ public abstract class Event implements Comparable<Event>, Serializable {
         return this.getTime().compareTo(e.getTime());
     }
 
-    public int getSize() {
-        return attendeeSet.size();
+
+    /**
+     * This method adds an attendee
+     * @param attendee The attendee to be added
+     */
+    public void addAttendee(User attendee) {
+        this.attendeeSet.add(attendee.getUsername());
     }
 
-    /**
-     * This method returns the type of Event this event is.
-     * @return Will return a string representation of the Event type.
-     */
-    public abstract String getEventType();
-
-    /**
-     * This method is a getter for the speaker's username (Only applicable for Talk.java)
-     * @return Returns speaker's username (Only applicable for Talk.java)
-     */
-    public abstract String getSpeakerName();
-
-    /**
-     * This method is a getter for the list of speakers (Only applicable for Panel)
-     * @return Returns the list of speakers (Only applicable for Panel)
-     */
-    public abstract List<String> getSpeakersList();
 }

@@ -51,7 +51,6 @@ public class Party extends Event{
      * @return Returns a string representation of the attributes of an event.
      */
     public String toString() {
-
         DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
         String date = getTime().format(formatter);
         int projector = 0;

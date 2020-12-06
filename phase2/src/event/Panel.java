@@ -55,16 +55,14 @@ public class Panel extends Event{
         return null;
     }
 
+    // This method returns the Speakers of this panel in String format
     private String speakersToString(){
-
         String string = speakers.get(0);
-
         if (speakers.size() > 1){
             for (int i = 1; i < speakers.size(); i++){
                 string = string + ", " + speakers.get(i);
             }
         }
-
         return string;
     }
 
@@ -73,7 +71,6 @@ public class Panel extends Event{
      * @return Returns a string representation of the attributes of an event.
      */
     public String toString() {
-
         DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
         String date = getTime().format(formatter);
         int projector = 0;
