@@ -45,7 +45,12 @@ The Optional Extensions that we implemented were:
     (4) Add additional constraints to the scheduling for various types of events (e.g. technology requirements for
     presentations, tables vs rows of chairs). When organizers are creating events, they can see a suggested list of
     rooms that fit the requirements of their event.
-        Details: Events can be created with custom numbers of tables, chairs et cetera.
+        Details: Events can be created with custom numbers of tables, chairs, computers, and a projector. When rooms
+        are created, they will be initialized with some number of tables, chairs, computers, and a projector. Events
+        will have similar parameters, except these would be the objects the event requires to be present in the room
+        in order for the event to occur there. Projector is different from the other three. A room can either have 0
+        or 1 projectors. If a room doesn't contain the minimum equipment according to the event, the event cannot be
+        scheduled in that room.
 
 Features of our own that we implemented were:
     (1) Events now have associated tags, such as networking, motivational, development, etc. that indicate what type of
