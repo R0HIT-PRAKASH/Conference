@@ -168,7 +168,7 @@ public class AttendeeController extends UserController {
         p.displayRequestOptions();
     }
 
-    private void determineInputSignUpEvent() {
+    protected void determineInputSignUpEvent() {
         List<String> future = eventManager.getToStringsOfFutureEvents();
         //List<String> stringsOfEvents = getToStringsOfEvents();
         p.displayAllFutureEvents(future);
@@ -324,7 +324,10 @@ public class AttendeeController extends UserController {
      */
     protected void cancelSpotInEvent(String eventName) {
         boolean inList = eventManager.checkEventIsRegistered(eventName);
-        boolean successful = userManager.cancelEventSpot(this.username, eventName, inList);
+        if (!inList){
+            p.displayUnsuccessfulCancellation();
+        }
+        boolean successful = userManager.cancelEventSpot(this.username, eventName);
         if (successful){
             p.displaySuccessfulCancellation();
         }
