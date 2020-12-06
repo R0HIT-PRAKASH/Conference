@@ -362,7 +362,7 @@ public class AttendeeController extends UserController {
     }
 
     protected void searchForEvents(){
-        List<Event> chronological = eventManager.chronologicalEvents(eventManager.getAllEventNamesOnly());
+
         String resp = "y";
         do{
             String response = p.displayPromptSearchForEvents().toLowerCase();
@@ -371,12 +371,14 @@ public class AttendeeController extends UserController {
                 response = p.displayPromptSearchForEvents().toLowerCase();
             }
             if (response.equals("name")){
-                String name = p.displayPromptSearchForEventsByName().toLowerCase();
-                p.displayEventByName(chronological, name);
+                String name = p.displayPromptSearchForEventsByName();
+                String string = eventManager.getToStringOfEventByName(name);
+                p.displayEventByName(string, name);
             }
             else if (response.equals("tag")){
-                String tag = p.displayPromptSearchForEventsByTag().toLowerCase();
-                p.displayEventsByTag(chronological, tag);
+                String tag = p.displayPromptSearchForEventsByTag();
+                List<String> strings = eventManager.getToStringsOfEventsByTag(tag);
+                p.displayEventsByTag(strings, tag);
             }
             resp = p.displayPromptSearchForAnotherEvent().toLowerCase();
             while (!resp.equals("y") && !resp.equals("n")){
