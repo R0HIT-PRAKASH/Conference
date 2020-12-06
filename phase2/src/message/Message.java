@@ -38,10 +38,16 @@ public class Message implements Serializable, Comparable<Message> {
     }
 
     /**
-     * This method constructs a Message object.
-     * @param content Refers to the string content of the message.
-     * @param senderUsername Refers to the username of the sender.
-     * @param recipientUsername Refers to the username of the recipient.
+     * This method constructs a read in Message object.
+     * @param content content of the message
+     * @param senderUsername username of the sender
+     * @param recipientUsername username of the recipient
+     * @param beenRead whether or not this message has been read
+     * @param dateTimeCreated The date and time this message was created and sent
+     * @param dateTimeDeleted The date and time this message was deleted (if it has been deleted)
+     * @param starred Whether or not this message has been starred
+     * @param deleted Whether or not this message has been deleted
+     * @param archived Whether or not this message has been archived
      */
     public Message(String content, String senderUsername, String recipientUsername, boolean beenRead,
                    LocalDateTime dateTimeCreated, LocalDateTime dateTimeDeleted, boolean starred, boolean deleted,

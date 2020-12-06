@@ -36,6 +36,13 @@ public class UserManager implements Serializable {
     }
 
     /**
+     * Constructs a UserManger object
+     */
+    public UserManager(){
+        userMap = new HashMap<>();
+    }
+
+    /**
      * checkCredentials determines if the user is in userMap based on the username.
      * @param username This parameter refers to the username of the user.
      * @return This method returns true if the user is in userMap and false if it isn't.

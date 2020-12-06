@@ -31,6 +31,12 @@ public class EventManager implements Serializable {
         this.RW = RW;
     }
 
+    public EventManager(){
+        events = new HashMap<>();
+        rooms =  new ArrayList<Room>();
+        eventFactory = new EventFactory();
+    }
+
     /**
      * Creates a new event object.
      * @param name Refers to the name of the event.
