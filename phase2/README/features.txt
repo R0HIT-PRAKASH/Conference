@@ -1,25 +1,57 @@
-A list of features/extensioons for our project:
+For Phase 2, we implemented all of the Mandatory Extensions, i.e.:
+    (1) There will now be many types of events. A one-speaker event is the same as a "talk" from Phase 1. You can have
+    multi-speaker events, like a panel discussion, and no-speaker events, like a party. Events can last as long as you
+    want. You can measure the duration of an event in hours, or minutes. You get to decide.
+        Details: For this part of the extension, we implemented panels, talks, and parties. These events now also have
+        flexible durations down to the minute.
 
-1. There are now many types of events including talks panels and parties. These events also now have flexible durations down to the minute.
+    (2) Events can be canceled + reschedule by at least one organizer.
+        Details: Events can be canceled and rescheduled by an organizer, and other organizers can do the same if
+        given authorization.
 
-2. Events can be canceled and rescheduled by an organizer, and other organizers can do the same if given authorization.
+    (3) At least one more type of user will be included in your program. For example, an Admin user who can delete
+    messages or events with no attendees, or a VIP user who can access VIP-only events.
+        Details: We added a VIP User. They can access VIP only events.
 
-3. There is now a VIP user type as well. They can access VIP only events.
+    (4) Organizers can also create Speaker accounts, Attendee accounts, and any other type of user accounts that are in
+    your program.
+        Details:
 
-4. Events have a maximum size which can be changed by an organizer and is bounded by the room capacity.
+    (5) Each event has a maximum number of people who can attend it. This amount can be set when the event is created
+    and also changed later, by an organizer. Your program should check the maximum capacity for the room where the
+    event will be held, and prevent the number of attendees from going above the room's capacity
+        Details: Events have a maximum size which can be changed by an organizer and is bounded by the room capacity.
 
-5. Users can mark messages as unread, deleted and archived.
+The Optional Extensions that we implemented were:
+    (1) Enhance the user's messaging experience by allowing them to "mark as unread", delete, or archive messages after
+    reading them.
+        Details: Users can mark messages as unread, deleted, archived, and starred.
 
-6. Organizers can access detailed statistical information about the conference including numbers of types of users, size of events and more.
+    (2) Expand the menus available to organizers to allow them to get useful summary stats about the conference.
+    Include app traffic statistics, event enrollment statistics, and top-five lists (or something similar). You should
+    include enough statistics to make this option as complicated as the other ones on this list.
+        Details: Organizers can access detailed statistical information about the conference including numbers of types
+        of users, size of events and more.
 
-7. Users can request more specific items such as accessibility or dietary restrictions. They can be tagged as completed by organizers.
+    (3) Allow the system to support additional user requests (e.g. dietary restrictions, accessibility requirements)
+    where organizers can tag a request as "pending" or "addressed". All organizers see the same list of requests, so if
+    one tags a request as addressed, all other organizers can log in and see that.
+        Details: The system supports all requests, where an attendee, speaker, or vip user can make any request- the
+        only constraint is that it must be under 200 characters. When requests are made, they are tagged "pending".
+        Then, any organizer can log in and address the requests as "addressed", meaning they are accepted, or they can
+        tag a request as "rejected", meaning it has been rejected. Organizers always have the option to view all
+        requests that have been addressed, or view a specific user's requests.
 
-8. Events can be created with custom numbers of tables, chairs et cetera.
+    (4) Add additional constraints to the scheduling for various types of events (e.g. technology requirements for
+    presentations, tables vs rows of chairs). When organizers are creating events, they can see a suggested list of
+    rooms that fit the requirements of their event.
+        Details: Events can be created with custom numbers of tables, chairs et cetera.
 
-9. Events can be tagged with categories like motivational and networking, and are searchable by name.
-
-10. Prevent trolls?
-
-11. Search for events by name
-
-12. All data will be stored in a MySQL database.
+Features of our own that we implemented were:
+    (1) Events now have associated tags, such as networking, motivational, development, etc. that indicate what type of
+    event this is.
+    (2) All data will be stored in a MySQL database.
+    (3) Events can now be searched for by name
+    (4) New menus for each type of user
+    (5) Added company association for all Users.
+    (6) Added bios for Users.
