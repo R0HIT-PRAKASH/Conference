@@ -169,8 +169,8 @@ public class AttendeeController extends UserController {
         p.displayRequestOptions();
     }
 
-    private void determineInputSignUpEvent() {
-        List<Event> future = viewFutureEventList();
+    protected void determineInputSignUpEvent() {
+        List<String> future = eventManager.getToStringsOfFutureEvents();
         //List<String> stringsOfEvents = getToStringsOfEvents();
         p.displayAllFutureEvents(future);
         if (future.size() == 0){
@@ -181,9 +181,8 @@ public class AttendeeController extends UserController {
         if (eventSignedUp.equals("q")){
             return;
         }
-        while (eventManager.getEvent(eventSignedUp) == null ||
-                !future.contains(eventManager.getEvent(eventSignedUp)) ||
-                eventManager.getEvent(eventSignedUp).getVipEvent()){    // Checks if the event is VIP exclusive and then prompts attendee that they cannot sign up for that event
+        while (!eventManager.checkEventIsRegistered(eventSignedUp) ||
+                !eventManager.checkIfEventIsVIp(eventSignedUp)){    // Checks if the event is VIP exclusive and then prompts attendee that they cannot sign up for that event
             eventSignedUp = p.displayInvalidEventSignUp();
             if (eventSignedUp.equalsIgnoreCase("q")){
                 break;
@@ -270,26 +269,25 @@ public class AttendeeController extends UserController {
      * This method prints the event list for the entire conference
      */
     protected void viewEventList() {
-        List<Event> chronological = eventManager.chronologicalEvents(eventManager.getAllEventNamesOnly());
-        List<String> strings = eventManager.getToStringsOfEvents(chronological);
+        List<String> strings = eventManager.getToStringsOfEvents();
         p.displayEventList(strings);
     }
 
-    /**
-     * This method returns a list of events that will occur.
-     * @return Returns a list of events that have not occurred yet.
-     */
-    protected List<Event> viewFutureEventList() {
-        List<Event> chronological = eventManager.chronologicalEvents(eventManager.getAllEventNamesOnly());
-        List<Event> future = new ArrayList<>();
-        LocalDateTime now = LocalDateTime.now();
-        for (Event curr: chronological){
-            if (eventManager.getTime(curr).compareTo(now) > 0){
-                future.add(curr);
-            }
-        }
-        return future;
-    }
+//    /**
+//     * This method returns a list of events that will occur.
+//     * @return Returns a list of events that have not occurred yet.
+//     */
+//    protected List<Event> viewFutureEventList() {
+//        List<Event> chronological = eventManager.chronologicalEvents(eventManager.getAllEventNamesOnly());
+//        List<Event> future = new ArrayList<>();
+//        LocalDateTime now = LocalDateTime.now();
+//        for (Event curr: chronological){
+//            if (eventManager.getTime(curr).compareTo(now) > 0){
+//                future.add(curr);
+//            }
+//        }
+//        return future;
+//    }
 
 //    /**
 //     * Prints the scheduled events of an attendee
@@ -307,19 +305,34 @@ public class AttendeeController extends UserController {
      */
     protected void viewSignedUpForEvent(String username) {
         List<String> signedUpFor = userManager.getAttendingEvents(username);
-        List<Event> chronological = eventManager.chronologicalEvents(signedUpFor);
-        List<String> stringsOfEvents = eventManager.getToStringsOfEvents(chronological);
+        List<String> stringsOfEvents = eventManager.getToStringsOfSignedUpEvents(signedUpFor);
         p.displaySignedUpEvents(stringsOfEvents);
     }
+
+//    /**
+//     * Removes an attendee from an event they were signed up for
+//     * @param eventName: The name of the Event we want to cancel our spot in
+//     */
+//    protected void cancelSpotInEvent(String eventName) {
+//        Event event = eventManager.getEvent(eventName);
+//        userManager.cancelEventSpot(this.username, event, eventManager);
+//        p.displaySuccessfulCancellation();
+//    }
 
     /**
      * Removes an attendee from an event they were signed up for
      * @param eventName: The name of the Event we want to cancel our spot in
      */
     protected void cancelSpotInEvent(String eventName) {
-        Event event = eventManager.getEvent(eventName);
-        userManager.cancelEventSpot(this.username, event, eventManager);
-        p.displaySuccessfulCancellation();
+        boolean inList = eventManager.checkEventIsRegistered(eventName);
+        if (!inList){
+            p.displayUnsuccessfulCancellation();
+        }
+        boolean successful = userManager.cancelEventSpot(this.username, eventName);
+        if (successful){
+            p.displaySuccessfulCancellation();
+        }
+        p.displayUnsuccessfulCancellation();
     }
 
     /**

@@ -213,15 +213,15 @@ public class AttendeePresenter extends UserPresenter {
                 "signed up for an event to use this feature.");
     }
 
-    public void displayAllFutureEvents(List<Event> events){
-        if (events.size() == 0){
+    public void displayAllFutureEvents(List<String> stringsOfEvents){
+        if (stringsOfEvents.size() == 0){
             displaySignUpError2();
             return;
         }
         System.out.println("Here is the list of all future events: ");
         int counter = 1;
-        for (Event curr : events){
-            System.out.println(counter + ". " + curr);
+        for (String curr : stringsOfEvents) {
+            System.out.println(counter + ": " + curr);
         }
 
     }

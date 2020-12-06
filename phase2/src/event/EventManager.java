@@ -289,7 +289,7 @@ public class EventManager implements Serializable {
     }
 
     /**
-     * Finds and gets the specified event from the map of events.
+     * Finds and gets the specified event from the map of events.  SHOULD BE PRIVATE NOT PUBLIC!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      * @param eventName Refers the name of the event.
      * @return Returns the specified event.
      */
@@ -302,8 +302,17 @@ public class EventManager implements Serializable {
         return null;
     }
 
+    public boolean checkEventIsRegistered(String eventName){
+        for (String i : events.keySet()){
+            if (i.equals(eventName)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
-     * @return Returns map of events.
+     * @return Returns map of events. SHOULD NOT BE HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
      */
     public HashMap<String, Event> getAllEvents(){
         return events;
@@ -583,11 +592,44 @@ public class EventManager implements Serializable {
      * This method returns a list of strings describing all events given in a list of events.
      * @return Returns a list of strings describing all events given in a list of events.
      */
-    public List<String> getToStringsOfEvents(List<Event> events){
+    public List<String> getToStringsOfEvents(){
+        List<Event> events = chronologicalEvents(getAllEventNamesOnly());
         List<String> strings = new ArrayList<String>();
         for (Event event: events){
             strings.add(event.toString());
         }
         return strings;
+    }
+
+    public List<String> getToStringsOfFutureEvents(){
+        List<Event> chronological = chronologicalEvents(getAllEventNamesOnly());
+        List<String> strings = new ArrayList<String>();
+        LocalDateTime now = LocalDateTime.now();
+        for (Event curr: chronological){
+            if (getTime(curr).compareTo(now) > 0){
+                strings.add(curr.toString());
+            }
+        }
+        return strings;
+    }
+
+    public List<String> getToStringsOfSignedUpEvents(List<String> signedupFor){
+        List<Event> chronological = chronologicalEvents(signedupFor);
+        List<String> strings = new ArrayList<String>();
+        LocalDateTime now = LocalDateTime.now();
+        for (Event curr: chronological){
+            if (getTime(curr).compareTo(now) > 0){
+                strings.add(curr.toString());
+            }
+        }
+        return strings;
+    }
+
+    public boolean checkIfEventIsVIp(String eventName){
+        Event event = getEvent(eventName);
+        if (event.getVipEvent()){
+            return true;
+        }
+        return false;
     }
 }

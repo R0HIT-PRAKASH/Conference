@@ -236,26 +236,7 @@ public class OrganizerController extends AttendeeController {
                 break;
 
             case 3:
-                List<Event> future = viewFutureEventList();
-                p.displayAllFutureEvents(future);
-                if (future.size() == 0){
-                    break;
-                }
-                String eventSignedUp = p.displayEventSignUpPrompt();
-                if (eventSignedUp.equals("q")){
-                    break;
-                }
-                while (eventManager.getEvent(eventSignedUp) == null ||
-                        !future.contains(eventManager.getEvent(eventSignedUp))){
-                    eventSignedUp = p.displayInvalidEventSignUp();
-                    if (eventSignedUp.equalsIgnoreCase("q")){
-                        break;
-                    }
-                }
-                if (eventSignedUp.equalsIgnoreCase("q")){
-                    break;
-                }
-                signUp(eventSignedUp);
+                determineInputSignUpEvent();
                 break;
 
             case 4:
@@ -515,7 +496,7 @@ public class OrganizerController extends AttendeeController {
 
                 //Remove event from every attendee's list of attending events
                 for(String username : eventManager.getEventAttendees(event)){
-                    userManager.cancelEventSpot(username, eventManager.getEvent(event), eventManager);
+                    userManager.cancelEventSpot(username, event);
                 }
 
                 //Remove event from list of events

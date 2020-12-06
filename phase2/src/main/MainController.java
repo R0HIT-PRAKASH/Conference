@@ -49,13 +49,12 @@ public class MainController {
      * @return Returns 0 if only the users is a file, 1 if users, messages, and events are files, and 2 otherwise.
      */
     public int filesExist() {
-
         File users = new File("users.ser");
         File messages = new File("messages.ser");
         File events = new File("events.ser");
         File rooms = new File("rooms.ser");
         File requests = new File("requests.ser");
-        // File requestStatuses = new File("requestStatuses.ser"); Dont need to check for - included in requests check
+        // File requestStatuses = new File("requestStatuses.ser"); Don't need to check for - included in requests check
 
         if (users.isFile() && messages.isFile() && !events.isFile() && !rooms.isFile() && !requests.isFile()) {
             return 0;
