@@ -255,14 +255,10 @@ public class UserManager implements Serializable {
      * This method cancels the user's spot in the event.
      * @param username Refers to the username of the user.
      * @param eventName Refers to the the name of the event.
-     * @param inList Refers to if the event is is registered or not.
      * @return Returns true if the event was removed from the list of events the user will attend or false otherwise.
      */
-    public boolean cancelEventSpot(String username, String eventName, boolean inList){
+    public boolean cancelEventSpot(String username, String eventName){
         User user = userMap.get(username);
-        if (!inList){
-            return false;
-        }
 
         if(user.getUserType().equals("attendee")){
             if(((Attendee) user).getAttendingEvents().contains(eventName)){
