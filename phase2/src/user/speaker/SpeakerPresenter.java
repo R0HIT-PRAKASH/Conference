@@ -3,6 +3,7 @@ package user.speaker;
 import event.Event;
 import request.Request;
 import user.UserPresenter;
+import user.attendee.AttendeePresenter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,7 +16,7 @@ import java.util.Set;
  * This class is a Presenter Class with specific functionality for Speaker Controllers.
  * It handles asking for user input and printing any error messages.
  */
-public class SpeakerPresenter extends UserPresenter {
+public class SpeakerPresenter extends AttendeePresenter {
 
     /**
      * Constructs a SpeakerPresenter object.
@@ -49,7 +50,7 @@ public class SpeakerPresenter extends UserPresenter {
      * Prints all the tasks which a Speaker can do.
      */
     public void displayOptions3(){
-        System.out.println("(0) Messages\n(1) Events\n(2) Requests\n(3) Quit");
+        System.out.println("(0) Messages\n(1) Events\n(2) Requests\n(3) User Options\n(4) Quit");
     }
 
     /**
