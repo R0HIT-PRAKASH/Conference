@@ -75,16 +75,16 @@ public class SpeakerPresenter extends UserPresenter {
 
     /**
      * Prints all events that a Speaker is speaking at.
-     * @param events: a List of events which the Speaker is attending.
+     * @param stringOfEvents: a List of strings for events which the Speaker is speaking at.
      */
-    public void displayAllEventsGiven(List<Event> events){
-        if (events.size() == 0){
+    public void displayAllEventsGiven(List<String> stringOfEvents){
+        if (stringOfEvents.size() == 0){
             System.out.println("You haven't given any events yet. ");
             return;
         }
         System.out.println("Here are all the events that you have given/will give: ");
         int counter = 1;
-        for (Event curr : events){
+        for (String curr : stringOfEvents){
             System.out.println(counter + ": " + curr);
             counter++;
         }
