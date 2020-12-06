@@ -51,8 +51,6 @@ public class EventManager implements Serializable {
     public Event createNewEvent(String eventType, String name, LocalDateTime time, Integer duration, int roomNumber,
                                 int capacity, int computers, boolean projector, int chairs, int tables,
                                 List<String> creators, boolean vip, String speaker, List<String> speakers, String tag){
-//        Event event = new Event(name, speakerName, time, duration, roomNumber, capacity, computers, projector,
-//                chairs, tables, creators, vip);
         Event event = eventFactory.getEvent(eventType, name, time, duration, roomNumber, capacity, computers, projector, chairs, tables, creators, vip, speaker, speakers, tag);
         if (getRoom(roomNumber) == null){
             addRoom(roomNumber, capacity, computers, projector, chairs, tables);
@@ -160,10 +158,7 @@ public class EventManager implements Serializable {
     }
 
     private boolean compareSpeakersTalkTalk(Event event, Event e){
-        if (event.getSpeakerName().equals(e.getSpeakerName())){
-            return true;
-        }
-        return false;
+        return event.getSpeakerName().equals(e.getSpeakerName());
     }
 
     private boolean compareSpeakersTalkPanel(Event event, Event e){
@@ -312,7 +307,7 @@ public class EventManager implements Serializable {
     }
 
     /**
-     * @return Returns map of events. SHOULD NOT BE HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
+     * @return Returns map of events.
      */
     public HashMap<String, Event> getAllEvents(){
         return events;
@@ -601,6 +596,10 @@ public class EventManager implements Serializable {
         return strings;
     }
 
+    /**
+     * Returns a list of strings that represent all of the events that have not occurred yet.
+     * @return The list of strings that represent events that have not occurred yet.
+     */
     public List<String> getToStringsOfFutureEvents(){
         List<Event> chronological = chronologicalEvents(getAllEventNamesOnly());
         List<String> strings = new ArrayList<String>();
@@ -613,6 +612,11 @@ public class EventManager implements Serializable {
         return strings;
     }
 
+    /**
+     * Gets the list of strings that represent the events that have been signed up for that have not occurred.
+     * @param signedupFor Refers to the list of strings that represent events that a user has signed up for, but has not attended.
+     * @return Returns a list of strings that represent events that the user has signed up for that have not occurred.
+     */
     public List<String> getToStringsOfSignedUpEvents(List<String> signedupFor){
         List<Event> chronological = chronologicalEvents(signedupFor);
         List<String> strings = new ArrayList<String>();
@@ -625,11 +629,13 @@ public class EventManager implements Serializable {
         return strings;
     }
 
+    /**
+     * Checks to see if the event is only for VIP's.
+     * @param eventName Refers to the name of the event.
+     * @return Returns true if the event is only for VIP's and false otherwise.
+     */
     public boolean checkIfEventIsVIp(String eventName){
         Event event = getEvent(eventName);
-        if (event.getVipEvent()){
-            return true;
-        }
-        return false;
+        return event.getVipEvent();
     }
 }
