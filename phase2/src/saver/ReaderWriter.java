@@ -54,24 +54,6 @@ public class ReaderWriter {
     }
 
     /**
-     * Writes the rooms.ser file
-     * @param <T> Refers to generic objects.
-     * @param rooms The list of Rooms to write into the file
-     */
-    public <T> void writeList(List<T> rooms) {
-        if (rooms.isEmpty()) return;
-        try {
-            FileOutputStream fos = new FileOutputStream("rooms.ser");
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(rooms);
-            oos.close();
-            fos.close();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
-    }
-
-    /**
      * Reads the serialized Object from the users.ser file.
      * @return returns the Object read from the users.ser file.
      * @throws IOException Refers to the exception that is raised when the program can't get input or output from users.
