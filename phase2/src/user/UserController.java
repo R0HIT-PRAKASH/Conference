@@ -45,241 +45,153 @@ public abstract class UserController {
     }
 
     /**
-     * Prints all the messages that this attendee has received
-     * @param username: The username of the Attendee
+     * Displays all of the messages this user has received of a certain type.
+     * @param username Refers to the user whose messages are printed.
+     * @param messageList Refers to a list of messages (encoded as a list of strings) that live in the inbox we display.
+     * @param inboxType Refers to the type of inbox that the messages live in.
      */
-    protected void viewMessages(String username) {
-        List<Message> allMessages = messageManager.viewMessages(username);
-        List<Message> normalMessages = new ArrayList<Message>();
+    protected void viewMessages(String username, List<List<String>> messageList, String inboxType) {
 
-        for (Message message: allMessages) {
-            if (!message.isArchived() && !message.isDeleted()) {
-                normalMessages.add(message);
+        if (messageList.size() == 0) {
+            p.displayEmptyInbox();
+        } else {
+
+            // display all the user's messages
+            int counter = messageList.size();
+
+            for (List<String> effectiveMessage : messageList) {
+                p.displayUserMessages(effectiveMessage, counter, inboxType);
+                counter--;
             }
-        }
-        Collections.sort(normalMessages);
 
-        p.displayPrintMessages(normalMessages);
-        if(normalMessages.size()>0) {
+            // prompt the user to choose what message to read
             int requestedMessage = p.displaySelectMessage();
-            while (requestedMessage > allMessages.size() || requestedMessage < 1) {
+            while (requestedMessage > messageList.size() || requestedMessage < 1) {
                 p.displayMessageNonExistent();
                 requestedMessage = p.displaySelectMessage();
             }
-            Message selectedMessage = (normalMessages.get(normalMessages.size() - requestedMessage));
-            p.displaySelectedMessage(selectedMessage);
-            messageManager.setMessageReadStatus(selectedMessage, "read");
 
-            // this method may be too large now, but this prompts the user to take an action on the selected message
-            String messageAction = p.displayMessageActionPrompt();
-            int pinningDateCounter = 3000;
+            List<String> effectiveRequestedMessage = messageList.get(messageList.size() - requestedMessage);
+
+            // based on inbox type and choice, allow user to select what action to take
+            String messageAction;
+            switch (inboxType){
+                case "deleted":
+                    messageAction = p.displayDeletedActionPrompt();
+                    break;
+                case "archived":
+                    messageAction = p.displayArchivedActionPrompt();
+                    break;
+                default:
+                    messageAction = p.displayMessageActionPrompt();
+                    break;
+            }
+            takeMessageAction(messageAction, effectiveRequestedMessage, inboxType);
+
+        }
+    }
+
+
+    /**
+     * Prompts the user to take an action (and performs this action) on a selected message.
+     * @param messageAction Refers to the action that the user wants to take on the message.
+     * @param selectedMessage Refers to the message (encoded as a list of strings) to be acted upon.
+     * @param inboxType Refers to the type of inbox that the message lives in.
+     */
+    protected void takeMessageAction(String messageAction, List<String> selectedMessage, String inboxType) {
+
+        String username = selectedMessage.get(8);
+        int index = Integer.parseInt(selectedMessage.get(7));
+        boolean isStarred = (selectedMessage.get(4).equals("true"));
+        boolean isPinned = (selectedMessage.get(9).equals("true"));
+        messageManager.setMessageReadStatus(messageManager.getMessageAtIndex(username, index), "read");
+
+        int pinningDateCounter = 3000;
+
+        // actions common to all:
+        if (messageAction.equalsIgnoreCase("REPLY")) {
+            String content = p.displayEnterMessagePrompt();
+            replyMessage(content, selectedMessage.get(0));
+        } else if (messageAction.equalsIgnoreCase("CLOSE")) {
+        }
+
+
+        if (inboxType.equals("inbox") || inboxType.equals("starred")) {
             while (!messageAction.equalsIgnoreCase("REPLY") &&
                     !messageAction.equalsIgnoreCase("MARK AS UNREAD") &&
                     !messageAction.equalsIgnoreCase("CLOSE") &&
                     !messageAction.equalsIgnoreCase("MARK AS STARRED") &&
                     !messageAction.equalsIgnoreCase("UNSTAR") &&
-                    !messageAction.equalsIgnoreCase("DELETE")  &&
+                    !messageAction.equalsIgnoreCase("DELETE") &&
                     !messageAction.equalsIgnoreCase("ARCHIVE") &&
                     !messageAction.equalsIgnoreCase("PIN") &&
                     !messageAction.equalsIgnoreCase("UNPIN")) {
                 messageAction = p.displayMessageActionPrompt();
             }
-            if (messageAction.equalsIgnoreCase("REPLY")) {
-                String content = p.displayEnterMessagePrompt();
-                replyMessage(content, selectedMessage.getSender());
-            } else if (messageAction.equalsIgnoreCase("MARK AS UNREAD")) {
-                messageManager.setMessageReadStatus(selectedMessage, "unread");
+
+            if (messageAction.equalsIgnoreCase("MARK AS UNREAD")) {
+                messageManager.setMessageReadStatus(messageManager.getMessageAtIndex(username, index), "unread");
             } else if (messageAction.equalsIgnoreCase("MARK AS STARRED")) {
-                if (selectedMessage.isStarred()) {
+                if (isStarred) {
                     p.displayStarError();
                 } else {
-                    messageManager.setMessageStarredStatus(selectedMessage, "starred");
+                    messageManager.setMessageStarredStatus(messageManager.getMessageAtIndex(username, index), "starred");
                 }
             } else if (messageAction.equalsIgnoreCase("UNSTAR")) {
-                if (selectedMessage.isStarred()) {
-                    messageManager.setMessageStarredStatus(selectedMessage, "unstar");
+                if (isStarred) {
+                    messageManager.setMessageStarredStatus(messageManager.getMessageAtIndex(username, index), "unstar");
                 } else {
                     p.displayUnstarError();
                 }
-            } else if (messageAction.equalsIgnoreCase("CLOSE")){
-            } else if (messageAction.equalsIgnoreCase("DELETE")){
-                messageManager.setDeletionStatus(selectedMessage, "delete");
-            } else if (messageAction.equalsIgnoreCase("ARCHIVE")){
-                messageManager.setArchiveStatus(selectedMessage, "archive");
+            } else if (messageAction.equalsIgnoreCase("DELETE")) {
+                messageManager.setDeletionStatus(messageManager.getMessageAtIndex(username, index), "delete");
+            } else if (messageAction.equalsIgnoreCase("ARCHIVE")) {
+                messageManager.setArchiveStatus(messageManager.getMessageAtIndex(username, index), "archive");
             } else if (messageAction.equalsIgnoreCase("PIN")) {
-                if (selectedMessage.isPinned()) {
+                if (isPinned) {
                     p.displayPinnedError();
                 } else {
                     LocalDateTime newLDT = LocalDateTime.of(pinningDateCounter, 1, 1, 1, 1);
-                    messageManager.setDateTimeCreatedStatus(selectedMessage, "pin", newLDT);
-                    pinningDateCounter++;
+                    messageManager.setDateTimeCreatedStatus(messageManager.getMessageAtIndex(username, index), "pin", newLDT);
                 }
             } else if (messageAction.equalsIgnoreCase("UNPIN")) {
-                if (selectedMessage.isPinned()) {
-                    messageManager.setDateTimeCreatedStatus(selectedMessage, "unpin", selectedMessage.getDateTimeCreatedCopy());
+                if (isPinned) {
+                    messageManager.setDateTimeCreatedStatus(messageManager.getMessageAtIndex(username, index), "unpin",
+                            messageManager.getMessageAtIndex(username, index).getDateTimeCreatedCopy());
                 } else {
                     p.displayUnpinnedError();
                 }
             }
-        }
-    }
 
-    /**
-     * Prints all the messages that this attendee has starred
-     * @param username: The username of the Attendee
-     */
-    protected void viewStarredMessages(String username) {
-        List<Message> allMessages = messageManager.viewMessages(username);
-        // get starred messages
-        List<Message> starredMessages = new ArrayList<Message>();
 
-        for (Message message: allMessages) {
-            if (message.isStarred()) {
-                starredMessages.add(message);
-            }
-        }
-
-        Collections.sort(starredMessages);
-
-        p.displayPrintStarredMessages(starredMessages);
-        if(starredMessages.size()>0) {
-            int requestedMessage = p.displaySelectMessage();
-            while (requestedMessage > starredMessages.size() || requestedMessage < 1) {
-                p.displayMessageNonExistent();
-                requestedMessage = p.displaySelectMessage();
-            }
-
-            Message selectedMessage = (starredMessages.get(starredMessages.size() - requestedMessage));
-            p.displaySelectedMessage(selectedMessage);
-            messageManager.setMessageReadStatus(selectedMessage, "read");
-
-            // this method may be too large now, but this prompts the user to take an action on the selected message
-            String messageAction = p.displayMessageActionPrompt();
-            while (!messageAction.equalsIgnoreCase("REPLY") &&
-                    !messageAction.equalsIgnoreCase("MARK AS UNREAD") &&
-                    !messageAction.equalsIgnoreCase("CLOSE") &&
-                    !messageAction.equalsIgnoreCase("MARK AS STARRED") &&
-                    !messageAction.equalsIgnoreCase("UNSTAR")&&
-                    !messageAction.equalsIgnoreCase("DELETE")  &&
-                    !messageAction.equalsIgnoreCase("ARCHIVE")) {
-                messageAction = p.displayMessageActionPrompt();
-            }
-            if (messageAction.equalsIgnoreCase("REPLY")) {
-                String content = p.displayEnterMessagePrompt();
-                replyMessage(content, selectedMessage.getSender());
-            } else if (messageAction.equalsIgnoreCase("MARK AS UNREAD")) {
-                messageManager.setMessageReadStatus(selectedMessage, "unread");
-            } else if (messageAction.equalsIgnoreCase("MARK AS STARRED")) {
-                if (selectedMessage.isStarred()) {
-                    p.displayStarError();
-                } else {
-                    messageManager.setMessageStarredStatus(selectedMessage, "starred");
-                }
-            } else if (messageAction.equalsIgnoreCase("UNSTAR")) {
-                if (selectedMessage.isStarred()) {
-                    messageManager.setMessageStarredStatus(selectedMessage, "unstar");
-                } else {
-                    p.displayUnstarError();
-                }
-            } else if (messageAction.equalsIgnoreCase("CLOSE")){
-            } else if (messageAction.equalsIgnoreCase("DELETE")){
-                messageManager.setDeletionStatus(selectedMessage, "delete");
-            } else if (messageAction.equalsIgnoreCase("ARCHIVE")){
-                messageManager.setArchiveStatus(selectedMessage, "archive");
-            }
-        }
-    }
-
-    protected void viewDeletedMessages(String username){
-        List<Message> allMessages = messageManager.viewMessages(username);
-        // get deleted messages
-        List<Message> deletedMessages = new ArrayList<>();
-
-        for (Message message: allMessages) {
-            if (messageManager.getDeletionStatus(message)) {
-                deletedMessages.add(message);
-            }
-        }
-
-        Collections.sort(deletedMessages);
-
-        p.displayDeletedMessages(deletedMessages);
-        if(deletedMessages.size()>0) {
-            int requestedMessage = p.displaySelectMessage();
-            while (requestedMessage > deletedMessages.size() || requestedMessage < 1) {
-                p.displayMessageNonExistent();
-                requestedMessage = p.displaySelectMessage();
-            }
-
-            Message selectedMessage = (deletedMessages.get(deletedMessages.size() - requestedMessage));
-            p.displaySelectedMessage(selectedMessage);
-            messageManager.setMessageReadStatus(selectedMessage, "read");
-
-            // this method may be too large now, but this prompts the user to take an action on the selected message
-            String messageAction = p.displayDeletedActionPrompt();
-            while (!messageAction.equalsIgnoreCase("REPLY") &&
-                    !messageAction.equalsIgnoreCase("DELETE") &&
-                    !messageAction.equalsIgnoreCase("CLOSE") &&
+        } else if (inboxType.equals("deleted")) {
+            while (!messageAction.equalsIgnoreCase("DELETE") &&
                     !messageAction.equalsIgnoreCase("RESTORE")) {
                 messageAction = p.displayDeletedActionPrompt();
             }
-            if (messageAction.equalsIgnoreCase("REPLY")) {
-                String content = p.displayEnterMessagePrompt();
-                replyMessage(content, selectedMessage.getSender());
-            } else if (messageAction.equalsIgnoreCase("CLOSE")){
-            } else if (messageAction.equalsIgnoreCase("DELETE")){
-                if(p.displayDeleteConfirmation().equalsIgnoreCase("YES")){
-                    deletedMessages.remove(selectedMessage);
-                    allMessages.remove(selectedMessage);
+            if (messageAction.equalsIgnoreCase("DELETE")) {
+                if (p.displayDeleteConfirmation().equalsIgnoreCase("YES")) {
+//                    deletedMessages.remove(selectedMessage);
+                    messageManager.getAllUserMessages().get(username).remove(messageManager.getMessageAtIndex(username, index));
                 }
-            } else if (messageAction.equalsIgnoreCase("RESTORE")){
-                deletedMessages.remove(selectedMessage);
-                messageManager.setDeletionStatus(selectedMessage, "restore");
+            } else if (messageAction.equalsIgnoreCase("RESTORE")) {
+//                deletedMessages.remove(selectedMessage);
+                messageManager.setDeletionStatus(messageManager.getMessageAtIndex(username, index), "restore");
             }
-        }
-    }
-
-    protected void viewArchivedMessages(String username) {
-        List<Message> allMessages = messageManager.viewMessages(username);
-        // get archived messages
-        List<Message> archivedMessages = new ArrayList<>();
-
-        for (Message message : allMessages) {
-            if (messageManager.getArchivedStatus(message)) {
-                archivedMessages.add(message);
-            }
-        }
-
-        Collections.sort(archivedMessages);
-
-        p.displayArchivedMessages(archivedMessages);
-        if (archivedMessages.size() > 0) {
-            int requestedMessage = p.displaySelectMessage();
-            while (requestedMessage > archivedMessages.size() || requestedMessage < 1) {
-                p.displayMessageNonExistent();
-                requestedMessage = p.displaySelectMessage();
-            }
-
-            Message selectedMessage = (archivedMessages.get(archivedMessages.size() - requestedMessage));
-            p.displaySelectedMessage(selectedMessage);
-            messageManager.setMessageReadStatus(selectedMessage, "read");
-
-            String messageAction = p.displayArchivedActionPrompt();
-            while (!messageAction.equalsIgnoreCase("REPLY") &&
-                    !messageAction.equalsIgnoreCase("CLOSE") &&
-                    !messageAction.equalsIgnoreCase("UNARCHIVE")) {
+        } else if (inboxType.equals("archived")) {
+            while (!messageAction.equalsIgnoreCase("UNARCHIVE")) {
                 messageAction = p.displayDeletedActionPrompt();
             }
-            if (messageAction.equalsIgnoreCase("REPLY")) {
-                String content = p.displayEnterMessagePrompt();
-                replyMessage(content, selectedMessage.getSender());
-            } else if (messageAction.equalsIgnoreCase("CLOSE")) {
-            } else if (messageAction.equalsIgnoreCase("UNARCHIVE")) {
-                archivedMessages.remove(selectedMessage);
-                messageManager.setArchiveStatus(selectedMessage, "restore");
+            if (messageAction.equalsIgnoreCase("UNARCHIVE")) {
+//                archivedMessages.remove(selectedMessage);
+                messageManager.setArchiveStatus(messageManager.getMessageAtIndex(username, index), "restore");
             }
         }
     }
+
+
+
+
 
     protected void deletedMessagesCheck() {
         List<Message> allMessages = messageManager.viewMessages(username);

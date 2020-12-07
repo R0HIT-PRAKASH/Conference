@@ -120,19 +120,23 @@ public class OrganizerController extends AttendeeController {
         label:
         switch (input) {
             case 0:
-                viewMessages(this.username);
+                viewMessages(this.username, messageManager.generateEffectiveMessageList(this.username, "inbox"),
+                        "inbox");
                 break;
 
             case 1:
-                viewStarredMessages(this.username);
+                viewMessages(this.username, messageManager.generateEffectiveMessageList(this.username, "starred"),
+                        "starred");
                 break;
 
             case 2:
-                viewDeletedMessages(this.username);
+                viewMessages(this.username, messageManager.generateEffectiveMessageList(this.username, "deleted"),
+                        "deleted");
                 break;
 
             case 3:
-                viewArchivedMessages(this.username);
+                viewMessages(this.username, messageManager.generateEffectiveMessageList(this.username, "archived"),
+                        "archived");
                 break;
 
             case 4:

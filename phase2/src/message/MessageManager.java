@@ -3,15 +3,14 @@ package message;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import event.EventManager;
 import saver.ReaderWriter;
 import user.User;
 import user.UserManager;
+// using this https://stackoverflow.com/questions/40715424/printing-out-datetime-in-a-specific-format-in-java/40715452
+import java.time.format.DateTimeFormatter;
 
 /**
  * The MessageManager class is responsible for handling message-related actions. allUserMessages
@@ -204,7 +203,7 @@ public class MessageManager implements java.io.Serializable {
     /**
      * This method get a Message's read status as either read or unread.
      * @param message Refers to the message to be interacted with.
-     * @return if the message has been read or not
+     * @return Return true if the message has been read.
      */
     public boolean getMessageReadStatus(Message message){
         return message.hasBeenRead();
@@ -299,7 +298,7 @@ public class MessageManager implements java.io.Serializable {
     /**
      * Returns the date and time this message was created.
      * @param message The message whose date we are looking for
-     * @return the date the message was created
+     * @return Returns the date the message was created
      */
     public LocalDateTime getTimeCreated(Message message){
         return message.getDateTimeCreated();
@@ -313,4 +312,102 @@ public class MessageManager implements java.io.Serializable {
     public LocalDateTime getTimeCreatedCopy(Message message){
         return message.getDateTimeCreatedCopy();
     }
+
+    /**
+     * Returns a List of "messages", where messages are encoded as a List of strings.
+     * @param username the username of the User who's messages you want to generate.
+     * @return Returns a list of the user's messages, where messages are of the form [sender, content, timestamp,
+     * read status, starred status, deletion status, archive status]
+     */
+    public List<List<String>> generateEffectiveMessageList(String username, String inboxType){
+
+        List<Message> messageList = new ArrayList<>();
+        switch (inboxType) {
+            case "inbox": {
+                messageList = generateUserInboxList(username);
+                break;
+            }
+            case "deleted": {
+                messageList = generateDeletedMessageList(username);
+                break;
+            }
+            case "starred": {
+                messageList = generateStarredMessageList(username);
+                break;
+            }
+            default: {
+                messageList = generateArchivedMessageList(username);
+                break;
+            }
+        }
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        List<List<String>> messageSenderContentTimestamp = new ArrayList<>();
+        Collections.sort(messageList);
+        for(Message message: (messageList)){
+            List<String> messageInfo = new ArrayList<>();
+            messageInfo.add(message.getSender());
+            messageInfo.add(message.getContent());
+            // using Date Time Created Copy to support pinning messages.
+            messageInfo.add(dtf.format(message.getDateTimeCreatedCopy()));
+            messageInfo.add(String.valueOf(message.hasBeenRead()));
+            messageInfo.add(String.valueOf(message.isStarred()));
+            messageInfo.add((String.valueOf(message.isDeleted())));
+            messageInfo.add(String.valueOf(message.isArchived()));
+            messageInfo.add(String.valueOf(allUserMessages.get(username).indexOf(message)));
+            messageInfo.add(username);
+            messageInfo.add(String.valueOf(message.isPinned()));
+            messageSenderContentTimestamp.add(messageInfo);
+        }
+        return messageSenderContentTimestamp;
+    }
+
+    private List<Message> generateDeletedMessageList(String username){
+        List<Message> userMessages = allUserMessages.get(username);
+        List<Message> deletedMessages = new ArrayList<Message>();
+        for(Message message: userMessages){
+            if(message.isDeleted()){
+                deletedMessages.add(message);
+            }
+        }
+        return deletedMessages;
+    }
+
+    private List<Message> generateArchivedMessageList(String username){
+        List<Message> userMessages = allUserMessages.get(username);
+        List<Message> archivedMessages = new ArrayList<Message>();
+        for(Message message: userMessages){
+            if(message.isArchived()){
+                archivedMessages.add(message);
+            }
+        }
+        return archivedMessages;
+    }
+
+    private List<Message> generateStarredMessageList(String username){
+        List<Message> userMessages = allUserMessages.get(username);
+        List<Message> starredMessages = new ArrayList<Message>();
+        for(Message message: userMessages){
+            if(message.isStarred()){
+                starredMessages.add(message);
+            }
+        }
+        return starredMessages;
+    }
+
+    private List<Message> generateUserInboxList(String username){
+        List<Message> userMessages = allUserMessages.get(username);
+        List<Message> inboxMessages = new ArrayList<Message>();
+        for(Message message: userMessages){
+            if(!(message.isDeleted()) && !(message.isArchived())){
+                inboxMessages.add(message);
+            }
+        }
+        return inboxMessages;
+    }
+
+    public Message getMessageAtIndex(String username, int index){
+        return allUserMessages.get(username).get(index);
+    }
+
 }
