@@ -459,9 +459,9 @@ public class UserManager implements Serializable {
     }
 
     /**
-     * Checks if the corresponding User is attending no events
+     * Checks if the corresponding User is not attending any events
      * @return returns true if the User corresponding to username is attending no events
-     * and false the User is attending at least 1 event
+     * and false if the User is attending at least 1 event
      */
     public boolean isAttendingEventsEmpty(String username) {
         Attendee temp = (Attendee) getUser(username);
