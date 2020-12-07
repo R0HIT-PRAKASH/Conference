@@ -56,6 +56,8 @@ Features of our own that we implemented were:
     (1) Events now have associated tags, such as networking, motivational, development, etc. that indicate what type of
     event this is.
     (2) All data will be stored in a MySQL database.
+        Data will be broken down to their smallest components and saved in the MYSQL database while saving, and will be
+        put back together when the program is started.
     (3) Events can now be searched for by name
     (4) New menus for each type of user
     (5) Added company association for all Users.
