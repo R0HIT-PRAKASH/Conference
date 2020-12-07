@@ -1,5 +1,4 @@
 package user.organizer;
-
 import event.Event;
 import event.EventManager;
 import event.Talk;
@@ -13,7 +12,6 @@ import user.User;
 import user.UserManager;
 import user.attendee.AttendeeController;
 import user.speaker.Speaker;
-
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.regex.Pattern;
