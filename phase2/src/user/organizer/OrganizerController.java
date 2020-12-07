@@ -645,19 +645,23 @@ public class OrganizerController extends AttendeeController {
                 break;
 
             case 2:
-                p.displayUserList(users("speaker"), "Speaker");
+                List<String> stringsOfSpeakers = userManager.getToStringsOfUsers("speaker");
+                p.displayUserList(stringsOfSpeakers, "Speaker");
                 break;
 
             case 3:
-                p.displayUserList(users("attendee"), "Attendee");
+                List<String> stringsOfAttendees = userManager.getToStringsOfUsers("attendee");
+                p.displayUserList(stringsOfAttendees, "Attendee");
                 break;
 
             case 4:
-                p.displayUserList(users("organizer"), "Organizer");
+                List<String> stringsOfOrganizers = userManager.getToStringsOfUsers("organizer");
+                p.displayUserList(stringsOfOrganizers, "Organizer");
                 break;
 
             case 5:
-                p.displayUserList(users("vip"), "VIP");
+                List<String> stringsOfVIP = userManager.getToStringsOfUsers("vip");
+                p.displayUserList(stringsOfVIP, "VIP");
                 break;
 
             case 6:

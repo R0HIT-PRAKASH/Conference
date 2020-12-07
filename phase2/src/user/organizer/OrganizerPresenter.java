@@ -503,13 +503,13 @@ public class OrganizerPresenter extends AttendeePresenter {
 
     /**
      * Displays a list of Users
-     * @param userList The list to be displayed
+     * @param stringsUserList The list of strings describing all users of type to be displayed
      * @param type     The type of User
      */
-    public void displayUserList(List<User> userList, String type) {
-        Collections.sort(userList);
+    public void displayUserList(List<String> stringsUserList, String type) {
+        Collections.sort(stringsUserList);
         System.out.println("Here is the " + type + " List");
-        for (User u : userList) {
+        for (String u : stringsUserList) {
             System.out.println(u);
         }
     }

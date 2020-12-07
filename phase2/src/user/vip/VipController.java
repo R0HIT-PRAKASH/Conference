@@ -6,17 +6,18 @@ import user.UserFactory;
 import user.UserManager;
 import request.RequestManager;
 import user.attendee.AttendeeController;
+import user.attendee.AttendeePresenter;
 
 import java.util.List;
 
 public class VipController extends AttendeeController {
 
     UserFactory userFactory;
-    VipPresenter p;
+    AttendeePresenter p;
 
     public VipController(UserManager userManager, EventManager eventManager, MessageManager messageManager, String username, RequestManager requestManager) {
         super(userManager, eventManager, messageManager, username, requestManager);
-        this.p = new VipPresenter();
+        this.p = new AttendeePresenter();
         this.userFactory = new UserFactory();
     }
 
