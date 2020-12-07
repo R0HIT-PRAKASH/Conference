@@ -258,7 +258,7 @@ public class OrganizerPresenter extends AttendeePresenter {
         Scanner scan = new Scanner(System.in);
         if (responsibleEvents.size() == 0) {
             System.out.println("You are not responsible for any events. ");
-            responses[0] = "qq";
+            responses[0] = "q";
             return;
         }
         System.out.println("Here are all the events you are responsible for ");
