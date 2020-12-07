@@ -27,8 +27,8 @@ public class SpeakerPresenter extends AttendeePresenter {
      * Prints all the message related tasks that a Speaker can do.
      */
     public void displayMessageOptions(){
-        System.out.println("(0) See Inbox\n(1) See Starred Messages\n(2) See Archived Messages" +
-                "\n(3) See Deleted Messages\n(4) Message Event Attendees" +
+        System.out.println("(0) See Inbox\n(1) See Starred Messages\n(2) See Deleted Messages" +
+                "\n(3) See Archived Messages\n(4) Message Event Attendees" +
                 "\n(5) Message Specific Attendee\n(6) Go Back to Main Screen");
     }
 
