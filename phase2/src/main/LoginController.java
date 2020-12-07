@@ -4,7 +4,7 @@ import message.MessageManager;
 import request.RequestManager;
 import user.User;
 import user.UserManager;
-import user.UserFactory;
+
 
 /**
  * A controller that deals with logging into the program.
@@ -14,7 +14,6 @@ public class LoginController {
     private UserManager userManager;
     private MessageManager messageManager;
     private RequestManager requestManager;
-    UserFactory userFactory;
     MainPresenter p;
 
     /**
@@ -29,7 +28,6 @@ public class LoginController {
         this.messageManager = messageManager;
         this.requestManager = requestManager;
         p = new MainPresenter();
-        userFactory = new UserFactory();
         String username = "";
         // if there are no detected files, display the new User message and prompt them to create an account, and
         // returns the username of the account that was created
