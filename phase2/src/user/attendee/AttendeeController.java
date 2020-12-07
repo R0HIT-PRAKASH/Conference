@@ -54,7 +54,7 @@ public class AttendeeController extends UserController {
             case 0:
                 p.displayMessageOptions();
                 int choice = p.nextInt();
-                final int endCond = 2;
+                final int endCond = 5;
                 while (choice != endCond) {
                     determineInput0(choice);
                     choice = p.nextInt();

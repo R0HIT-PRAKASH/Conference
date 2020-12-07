@@ -2,14 +2,8 @@
     Welcome to the program! We begin in ProgramMain. Run the main method and let's begin.
 
     You will be asked if you would like to read from a file or not:
-    If you choose to read from a file, you will be reading from the users.ser, messages.ser, events.ser and rooms.ser
-    files that we have provided, and you will begin the program with defaults;
-    If you choose not to read from a file, you will not be starting with any defaults.
-
-    To read from the files and start with defaults, you will find an input folder in our submission file. You need to
-    move the four files in the input folder to the outermost group_0564 folder in order for the program to read them. If
-    you do not do this, the program will not be able to read the input files and you will not start the program with
-    any defaults.
+    If you choose to read from a file, you will be reading from the presets we have provided. See below for details.
+    If you choose not to, you will be starting from scratch.
 
     Follow the prompts on screen for either option. See the defaults provided and adding user section below for
     conditions and additional details.
@@ -19,6 +13,28 @@
     If you decide to create a new user, see the new user account conditions section.
     If working with the defaults provided and signing in as an existing user, see the defaults section below
     for the usernames and passwords of existing users.
+
+    The following section is about specific users and what they can do:
+
+===== USER MANUAL =====
+    === Attendees ===
+    Once attendees log in, they will be shown a menu of 5 options.
+        Messages (0)- attendees may:
+            - see their inbox
+            - see starred, deleted, or archived messages
+            - send a message
+        Events (1)
+        Requests (2)
+        User Options (3)
+    Quit (4)
+    At any menu, there is option of going back to the main screen.
+    === VIPs ===
+
+    === Speakers ===
+
+    === Organizers ===
+
+
 
 ===== NAVIGATING =====
     Once you follow all prompts and are logged into your account, you will be provided a menu of options. Enter the
@@ -41,34 +57,26 @@
 
 ===== DEFAULTS PROVIDED =====
     ==Organizers==
-    (1) username: esherman, password: hello11 [name: Ellis Sherman, address: 100 Demo Circle, email: ellis@email.com]
-    (2) username: ablythe, password: this22 [name: Aizah Blythe, address: 22 CSC207 Road, email: aizah@email.com]
 
     ==Attendees==
-    (1) username: mkent, password: is33 [name: Melody Kent, address: 16 Phase One Blvd, email: melody@email.com]
-    (2) username: jdalton, password: a44 [name: Jillian Dalton, address: 48 Read Me Dr, email: jillian@email.com]
-    (3) username: jframe, password: demo55 [name: Jamil Frame, address: 29 Attendee Street, email: jamil@email.com]
 
     ==Speakers==
-    (1) username: kmalone, password: its88 [name: Kerry Malone, address: 57 Program Main, email: kerry@email.com]
-    (2) username: fwiley, password: user99 [name: Ferne Wiley, address: 92 Ser File, email: ferne@email.com]
-    (3) username: cwhitmore, password: settings [name: Cat Whitmore, address: 58 Terminal Road, email: cat@email.com]
+
+    ==VIPs==
+
+    ==Requests==
 
     ==Messages==
-    jframe --> mkent 'Are you going to event1'
-    mkent --> jframe 'Yes!'
 
     ==Rooms==
-    Rooms: [‘101’, ‘102’, ‘103’, ‘104’]
 
     ==Events==
-    {name: event1, speakerName: kmalone, time: 2020-11-28-09:00, roomNumber: 101}
-    {name: event2, speakerName: fwiley, time: 2020-11-28-10:30, roomNumber: 102}
-    {name: event3, speakerName: kmalone, time: 2020-11-28-10:00, roomNumber: 103}
-    {name: event4, speakerName: fwiley, time: 2020-11-28-13:00, roomNumber: 102}
-    {name: event5, speakerName: fwiley, time: 2020-11-28-14:00, roomNumber: 104}
 
-    mkent and jdalton are both signed up for event 1.
+        ==Parties==
+
+        ==Panels==
+
+        ==Talks==
 
 ===== NEW USER ACCOUNT CONDITIONS =====
     If you choose to create a new account, the following conditions MUST hold:
@@ -77,7 +85,7 @@
         - address at least 6 characters
     The email must also follow standard email conventions.
 
-
-===== QUESTIONS FOR TA =====
-(1) Are our controllers handling too much? If so, how should we go about fixing this?
-(2) In what ways can we improve our use of Clean Architecture (please specify which classes if possible)?
+    You will also be prompted about which company you are associated with.
+        - You can either enter 'none' for your company, OR
+        - Enter the company name; in this case:
+            - you must enter some input that is at least one character
