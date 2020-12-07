@@ -260,6 +260,13 @@ public class MessageManager implements java.io.Serializable {
     }
 
     /**
+     * This method returns the read status of a message.
+     * @param message Refers to the message being checked.
+     * @return Returns true if the message is starred, and false otherwise.
+     */
+    public boolean getStarredStatus(Message message){ return message.isStarred();}
+
+    /**
      * This method sets a Message's deletion status as either deleted or restored;
      * @param message Refers to the message to be interacted with.
      * @param status Refers to the status you want to set the message to have.
@@ -287,5 +294,14 @@ public class MessageManager implements java.io.Serializable {
         }else{
             message.setUnpinned();
         }
+    }
+
+    /**
+     * Returns the date and time this message was created.
+     * @param message The message whose date we are looking for
+     * @return the date the message was created
+     */
+    public LocalDateTime getTimeCreated(Message message){
+        return message.getDateTimeCreated();
     }
 }

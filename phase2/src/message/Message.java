@@ -59,6 +59,7 @@ public class Message implements Serializable, Comparable<Message> {
         this.recipientUsername = recipientUsername;
         this.dateTimeCreated = dateTimeCreated;
         this.dateTimeDeleted = dateTimeDeleted;
+        this.dateTimeCreatedCopy = dateTimeCreated;
         this.beenRead = beenRead;
         this.starred = starred;
         this.deleted = deleted;
