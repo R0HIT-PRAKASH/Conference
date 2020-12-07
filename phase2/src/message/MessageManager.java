@@ -57,7 +57,7 @@ public class MessageManager implements java.io.Serializable {
      */
     public void addMessage(String username, String message, String recipientUsername){
         Message newMessage = createNewMessage(message, username, recipientUsername);
-        this.allUserMessages.get(username).add(newMessage);
+        this.allUserMessages.get(recipientUsername).add(newMessage);
     }
 
     /**
