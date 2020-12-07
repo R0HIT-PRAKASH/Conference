@@ -252,7 +252,7 @@ public class AttendeeController extends UserController {
 
     }
 
-    private void determineInputCancelEventReservation() {
+    public void determineInputCancelEventReservation() {
 //        Attendee temp = (Attendee) userManager.getUser(this.username);
 //        if(temp.getAttendingEvents().isEmpty()){
         if (userManager.isAttendingEventsEmpty(username)) {
