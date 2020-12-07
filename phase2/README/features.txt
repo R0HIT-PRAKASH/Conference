@@ -61,7 +61,11 @@ Features of our own that we implemented were:
 
     (2) All data will be stored in a MySQL database.
         Details: Data will be broken down to their smallest components and saved in the MYSQL database while saving, and will be
-        put back together when the program is started.
+        put back together when the program is started. Theoretically, the code could be reworked to not need to store
+        any sort of hashmap or list of entities anymore. Instead, we could utilise the gateway classes to retrieve
+        information as and when it is required, allowing our operations to execute much faster. This would also give us
+        the ability to retrieve results in sorted order (mysql has its own sort) as opposed to running algorithms that
+        require multiple nested for loops.
 
     (3) Events can now be searched for by name
         Details: Users can now search for specific events in the conference by name. This simplifies the process of
