@@ -39,17 +39,6 @@ public class Writing {
     }
 
 }
-    public void insertStudent(String name, double GPA, LocalDateTime start) throws SQLException{
-        PreparedStatement statement = conn.prepareStatement("insert into testers (name, gpa, start) values (?, ?, ?)");
-        int insertedRows = 0;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String date = start.format(formatter);
-        statement.setString(1, name);
-        statement.setDouble(2, GPA);
-        statement.setString(3, date);
-        insertedRows += statement.executeUpdate();
-        System.out.println("I just inserted " + insertedRows + " users");
-    }
 
     public static void clearEverything() throws SQLException {
         int clear = 0;
@@ -248,29 +237,6 @@ public class Writing {
 
 
         }
-    }
-
-    public boolean insertUser(String userType, String userName, String password, String address, String email,
-                              String company, String bio, Object[] localVar){
-        return true;
-
-    }
-
-    private boolean insertAttendee(String userName, String password, String address, String email,
-                                   String company, String bio, Object[] localVar) throws SQLException {
-        PreparedStatement insertStatement = conn.prepareStatement("insert into users (username, userType, " +
-                "password, address, email, company, bio, name) values (?, ?, ?, ?, ?, ?, ?, ?");
-
-        return true;
-    }
-
-    public Object[] readInAll() throws SQLException{
-        UserManager userManager = readInUsers();
-        MessageManager messageManager = readInMessages();
-        EventManager eventManager = readInEvents();
-        RequestManager requestManager = readInRequests();
-        Object [] end = {userManager, messageManager, eventManager,  requestManager};
-        return end;
     }
 
     public UserManager readInUsers() throws SQLException {
