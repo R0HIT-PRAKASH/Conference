@@ -4,9 +4,7 @@ import event.Event;
 import event.EventManager;
 import message.Message;
 import message.MessageManager;
-import request.Request;
 import request.RequestManager;
-import user.UserController;
 import user.attendee.AttendeeController;
 import user.UserManager;
 
@@ -192,7 +190,7 @@ public class SpeakerController extends AttendeeController {
                 if(eventManager.getAllEvents().containsKey(eventName)){
                     Set<String> eventAttendees = eventManager.getEventAttendees(eventName);
                     String toMessage = p.displayEventAttendeesList(eventAttendees);
-                    ArrayList<String> usernameList = new ArrayList<String>();
+                    ArrayList<String> usernameList = new ArrayList<>();
                     usernameList.addAll(eventAttendees);
                     if(usernameList.contains(toMessage)){
                         String messageContent = p.displayEnterMessagePrompt();
@@ -254,23 +252,6 @@ public class SpeakerController extends AttendeeController {
         p.displayNextTaskPrompt();
         p.displayRequestOptions();
     }
-
-    private void viewOptions(){
-        p.displayOptions3();
-    }
-
-    private List<String> getAttendees(String username){
-        List<Message> allMessages = messageManager.viewMessages(username);
-        List<String> attendees = new ArrayList<>();
-        for (Message message: allMessages){
-            String name = messageManager.getSender(message);
-            if(!attendees.contains(name)){
-                attendees.add(name);
-            }
-        }
-        return attendees;
-    }
-
 
     private void viewScheduledEvents(String username){
         List<String> allEvents = userManager.getSpeakingEvents(username);
