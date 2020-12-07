@@ -50,6 +50,7 @@ public class OrganizerController extends AttendeeController {
         final int END_CONDITION = 4;
         int input = p.nextInt();
         while (input != END_CONDITION){
+            deletedMessagesCheck();
             determineInput(input);
             input = p.nextInt();
         }
@@ -107,12 +108,12 @@ public class OrganizerController extends AttendeeController {
                 p.displayInvalidInputError();
                 break;
         }
+        deletedMessagesCheck();
         p.displayNextTaskPromptOrganizer();
         p.displayOptions2();
     }
 
     protected void determineInput0(int input) {
-        label:
         switch (input) {
             case 0:
                 viewMessages(this.username, messageManager.generateEffectiveMessageList(this.username, "inbox"),
@@ -197,6 +198,7 @@ public class OrganizerController extends AttendeeController {
                 break;
 
         }
+        deletedMessagesCheck();
         p.displayNextTaskPromptOrgOptDisplayed();
         p.displayMessageOptions();
     }
@@ -389,13 +391,13 @@ public class OrganizerController extends AttendeeController {
                 break;
 
         }
+        deletedMessagesCheck();
         p.displayNextTaskPromptOrgOptDisplayed();
         p.displayEventOptions();
     }
 
 
     protected void determineInput2(int input) {
-        label:
         switch (input) {
             case 0:
                 String newUserType = p.displayNewUserCreation();
@@ -468,12 +470,12 @@ public class OrganizerController extends AttendeeController {
                 break;
 
         }
+        deletedMessagesCheck();
         p.displayNextTaskPromptOrgOptDisplayed();
         p.displayUserOptions();
     }
 
     protected void determineInput3(int input) {
-        label:
         switch (input) {
             case 0: //address requests
                 int to_change = getRequestToDecide();
@@ -508,6 +510,7 @@ public class OrganizerController extends AttendeeController {
                 break;
 
         }
+        deletedMessagesCheck();
         p.displayNextTaskPromptOrgOptDisplayed();
         p.displayRequestOptions();
     }
