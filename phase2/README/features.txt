@@ -59,6 +59,23 @@ Features of our own that we implemented were:
         Data will be broken down to their smallest components and saved in the MYSQL database while saving, and will be
         put back together when the program is started.
     (3) Events can now be searched for by name
+
     (4) New menus for each type of user
+        Details: Each type of user has a redesigned task menu which they are presented with once they login to the
+        conference. Each user is initially presented with a menu which displays the options which they can select from
+        such as messages, requests, events, and so on. Once a user selects one of these general options, they will be
+        presented with a sub-menu which contains all the tasks that this user can do in that category. The tasks availa-
+        ble in the sub-menus only display tasks that can be done by that particular user based on their status in the
+        conference. The new design also allows users to seamlessly switch between different categories of tasks they
+        would like to perform and reduces the number of options a user sees at any one moment.
+
     (5) Added company association for all Users.
+        Details: When any type of user signs up for the conference (organizer, vip, speaker and attendee), they have the
+        option to add the name of the corporation for which they are associated with. Users also have the ability to
+        modify the corporation that they are associated with throughout the duration of the conference (they could have
+        networked with other users and received a job offer).
+
     (6) Added bios for Users.
+        Details: When any type of user signs up for the conference (organizer, vip, speaker and attendee), they have the
+        option to add a bio to their profile. Users also have the ability to modify their bio throughout the duration of
+        the conference. The bio is generally used to describe the user and display some relevant information about them.
