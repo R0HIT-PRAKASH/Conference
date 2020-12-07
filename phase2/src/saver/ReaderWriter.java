@@ -26,6 +26,7 @@ public class ReaderWriter {
      * of the HashMap object's values
      * @param hashmap the HashMap object we want to save
      * @param <T> the type of the values in the HashMap object
+     * @param file Refers to the name of the file.
      */
     public <T> void write(HashMap<String, T> hashmap, String file) {
         List<Object> list = new ArrayList<>(hashmap.values());
@@ -54,6 +55,7 @@ public class ReaderWriter {
 
     /**
      * Writes the rooms.ser file
+     * @param <T> Refers to generic objects.
      * @param rooms The list of Rooms to write into the file
      */
     public <T> void writeList(List<T> rooms) {

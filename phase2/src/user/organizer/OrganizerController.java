@@ -30,6 +30,7 @@ public class OrganizerController extends AttendeeController {
      * @param eventManager Refers to the EventManager object.
      * @param messageManager Refers to the MessageManager object.
      * @param username Refers to the username of the organizer.
+     * @param requestManager Refers to the RequestManager object.
      */
     public OrganizerController(UserManager userManager, EventManager eventManager, MessageManager messageManager, String username, RequestManager requestManager) {
         super(userManager, eventManager, messageManager, username, requestManager);
@@ -767,8 +768,7 @@ public class OrganizerController extends AttendeeController {
         }
         return speaker;
     }
-
-
+    
     /**
      * Adds an event to the event list.
      * @param name Refers to the name of the event.

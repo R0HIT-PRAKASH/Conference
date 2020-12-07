@@ -23,6 +23,7 @@ public class EventManager implements Serializable {
     /**
      * Constructs a new EventManager with an empty map of events
      * and an empty list of rooms.
+     * @param RW Refers to an instance of the class that reads and writes to files.
      */
     public EventManager(ReaderWriter RW){
         events = new HashMap<>();
@@ -39,6 +40,7 @@ public class EventManager implements Serializable {
 
     /**
      * Creates a new event object.
+     * @param eventType Refers to the type of the event.
      * @param name Refers to the name of the event.
      * @param time Refers to the starting time of the event.
      * @param duration The Event Duration.
@@ -52,6 +54,7 @@ public class EventManager implements Serializable {
      * @param vip Refers to whether or not this event is VIP exclusive.
      * @param speaker Refers to the speaker username if this is a talk.
      * @param speakers Refers to the list of speakers if this is a panel.
+     * @param tag Refers to an event tag.
      * @return Returns the created event.
      */
     public Event createNewEvent(String eventType, String name, LocalDateTime time, Integer duration, int roomNumber,
@@ -67,6 +70,7 @@ public class EventManager implements Serializable {
 
     /**
      * Adds an event to the event list.
+     * @param eventType Refers to the type of the event.
      * @param name Refers to the name of the event.
      * @param time Refers to the starting time of the event.
      * @param duration The Event Duration.
