@@ -53,13 +53,13 @@ public class Message implements Serializable, Comparable<Message> {
      */
     public Message(String content, String senderUsername, String recipientUsername, boolean beenRead,
                    LocalDateTime dateTimeCreated, LocalDateTime dateTimeDeleted, boolean starred, boolean deleted,
-                   boolean archived){
+                   boolean archived, LocalDateTime dateTimeCreatedCopy){
         this.content = content;
         this.senderUsername = senderUsername;
         this.recipientUsername = recipientUsername;
         this.dateTimeCreated = dateTimeCreated;
         this.dateTimeDeleted = dateTimeDeleted;
-        this.dateTimeCreatedCopy = dateTimeCreated;
+        this.dateTimeCreatedCopy = dateTimeCreatedCopy;
         this.beenRead = beenRead;
         this.starred = starred;
         this.deleted = deleted;

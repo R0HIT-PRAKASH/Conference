@@ -74,9 +74,9 @@ public class MessageManager implements java.io.Serializable {
      */
     public void addMessage(String username, String message, String recipientUsername, boolean beenRead,
                            LocalDateTime dateTimeCreated, LocalDateTime dateTimeDeleted, boolean starred,
-                           boolean deleted, boolean archived){
+                           boolean deleted, boolean archived, LocalDateTime dateTimeCreatedCopy){
         Message newMessage = new Message(message, username, recipientUsername, beenRead, dateTimeCreated,
-                dateTimeDeleted, starred, deleted, archived);
+                dateTimeDeleted, starred, deleted, archived, dateTimeCreatedCopy);
         this.allUserMessages.get(username).add(newMessage);
     }
 
@@ -303,5 +303,14 @@ public class MessageManager implements java.io.Serializable {
      */
     public LocalDateTime getTimeCreated(Message message){
         return message.getDateTimeCreated();
+    }
+
+    /**
+     * Returns the copy date and time this message was created.
+     * @param message The message whose date we are looking for
+     * @return the copy date the message was created
+     */
+    public LocalDateTime getTimeCreatedCopy(Message message){
+        return message.getDateTimeCreatedCopy();
     }
 }
