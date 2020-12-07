@@ -2,7 +2,6 @@ package user; /**
  * This class is a Presenter Class with common functionality between Attendee, Organizer and Speaker Controllers.
  * It handles asking for user input and printing any error messages.
  */
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import main.Presenter;
 import message.Message;
 import request.Request;

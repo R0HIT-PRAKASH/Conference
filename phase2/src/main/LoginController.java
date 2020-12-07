@@ -31,7 +31,7 @@ public class LoginController {
         String username = "";
         // if there are no detected files, display the new User message and prompt them to create an account, and
         // returns the username of the account that was created
-        if (value != 0 && value != 1 && value != 2 && value != 3 && value != 4 && value != 5){
+        if (value == 0){
             p.displayNewFirstUserMessage();
             username = createAccount();
             return username;
