@@ -77,7 +77,7 @@ public class MessageManager implements java.io.Serializable {
                            boolean deleted, boolean archived, LocalDateTime dateTimeCreatedCopy){
         Message newMessage = new Message(message, username, recipientUsername, beenRead, dateTimeCreated,
                 dateTimeDeleted, starred, deleted, archived, dateTimeCreatedCopy);
-        this.allUserMessages.get(username).add(newMessage);
+        this.allUserMessages.get(recipientUsername).add(newMessage);
     }
 
     /**
@@ -162,7 +162,7 @@ public class MessageManager implements java.io.Serializable {
     public void speakerBlastMessage(List<String> eventNames, String message, EventManager eventManager, String sender){
         for(String name : eventNames) {
             for (String receiver : eventManager.getEvent(name).getAttendeeSet()) {
-                this.addMessage(sender, message, receiver);
+                addMessage(sender, message, receiver);
             }
         }
     }
