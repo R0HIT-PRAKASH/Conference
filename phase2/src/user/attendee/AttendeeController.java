@@ -253,8 +253,9 @@ public class AttendeeController extends UserController {
     }
 
     private void determineInputCancelEventReservation() {
-        Attendee temp = (Attendee) userManager.getUser(this.username);
-        if(temp.getAttendingEvents().isEmpty()){
+//        Attendee temp = (Attendee) userManager.getUser(this.username);
+//        if(temp.getAttendingEvents().isEmpty()){
+        if (userManager.isAttendingEventsEmpty(username)) {
             p.displayNotAttendingAnyEvents();
             return;
         }
@@ -397,25 +398,15 @@ public class AttendeeController extends UserController {
      * @param eventName: The name of the Event we want to sign up for
      */
     protected void signUp(String eventName) {
-        Event event = eventManager.getEvent(eventName);
-        if (userManager.signUpForEvent(this.username, event, eventManager)){
+        //
+//        Event event = eventManager.getEvent(eventName);
+//        if (userManager.signUpForEvent(this.username, event, eventManager)){
+        if (userManager.signUpHelper(username, eventManager, eventName)) {
             p.displayEventSignUp();
         }
         else {
             p.displayEventFull();
         }
-    }
-
-    private List<String> getSenders(String username){
-        List<Message> allMessages = messageManager.viewMessages(username);
-        List<String> attendees = new ArrayList<>();
-        for (Message message: allMessages) {
-            String name = messageManager.getSender(message);
-            if (!attendees.contains(name)) {
-                attendees.add(name);
-            }
-        }
-        return attendees;
     }
 
     protected void searchForEvents(){

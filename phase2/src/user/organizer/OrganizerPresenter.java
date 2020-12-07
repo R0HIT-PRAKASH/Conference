@@ -488,7 +488,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      * @return VIP exclusivity
      */
     public String displayVipPrompt() {
-        System.out.println("Is this event exclusive to VIP's? Enter yes if there is and no if there isn't. Press q to quit.");
+        System.out.println("Is this event exclusive to VIP's? Type 'Yes' or 'No'. Type 'q' to quit.");
         return scan.nextLine();
     }
 
@@ -577,7 +577,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      */
     public String displayProjectorPrompt() {
 
-        System.out.println("Does this event need/room have a projector? Enter yes if there is and no if there isn't. Press q to quit.");
+        System.out.println("Does this event need a projector? Type 'Yes' or 'No'. Type 'q' to quit.");
         String disp = scan.nextLine();
 
         while(!disp.equalsIgnoreCase("yes") && !disp.equalsIgnoreCase("no") && !disp.equalsIgnoreCase("q")) {

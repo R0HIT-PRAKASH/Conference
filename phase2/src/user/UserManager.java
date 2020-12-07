@@ -448,5 +448,24 @@ public class UserManager implements Serializable {
         return userMap.size();
     }
 
+    /**
+     * Attempts to sign up an attendee for an Event
+     * @return returns true if the attendee was signed up successfully and false if the
+     * attendee was not able to sign up
+     */
+    public boolean signUpHelper(String username, EventManager eventManager, String eventName) {
+        Event event = eventManager.getEvent(eventName);
+        return signUpForEvent(username, event, eventManager);
+    }
+
+    /**
+     * Checks if the corresponding User is attending no events
+     * @return returns true if the User corresponding to username is attending no events
+     * and false the User is attending at least 1 event
+     */
+    public boolean isAttendingEventsEmpty(String username) {
+        Attendee temp = (Attendee) getUser(username);
+        return temp.getAttendingEvents().isEmpty();
+    }
 
 }
