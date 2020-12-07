@@ -1,21 +1,13 @@
 package saver;
 
 import event.EventManager;
-import message.Message;
 import message.MessageManager;
-import request.Request;
 import request.RequestManager;
-import room.Room;
 import user.UserManager;
-import user.attendee.Attendee;
-import user.organizer.Organizer;
-import user.speaker.Speaker;
+
 
 import java.sql.*;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+
 
 public class Connector {
     Connection conn;
@@ -25,7 +17,7 @@ public class Connector {
     public Connector() throws SQLException{
         try{
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/conference",
-                    "root", "csc@207uoft");
+                    "root", "");
             writer = new Writing(conn);
             reader = new Reader(conn);
         } catch (SQLException e) {
@@ -61,7 +53,6 @@ public class Connector {
     //Also violates clean architecture, can't isolate Messages otherwise
     public void saveMessageManager(MessageManager messageManager) throws SQLException{
         writer.saveMessageManager(messageManager);
-
     }
 
     public void saveRequestManager(RequestManager requestManager) throws SQLException{
