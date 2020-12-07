@@ -200,6 +200,13 @@ public class EventManager implements Serializable {
         return false;
     }
 
+    /**
+     * @param eventname Name of the event
+     * @return Returns true if event is in events list, otherwise return false.
+     */
+    public boolean containsEvent(String eventname){
+        return getAllEvents().containsKey(eventname);
+    }
 
     /**
      * This method gets the attendees attending the event.

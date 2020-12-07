@@ -446,16 +446,16 @@ public class OrganizerPresenter extends AttendeePresenter {
      * Displays a series of messages that prompts the user to add more organizers to the list of people responsible
      * for creating the event.
      * @param creators   Refers to the list of creators responsible for creating the event.
-     * @param organizers Refers to the list of all of the organizers.
+     * @param organizers Refers to the list of all organizers' usernames.
      */
-    public void displayAndGetCreators(List<String> creators, List<Organizer> organizers) {
+    public void displayAndGetCreators(List<String> creators, List<String> organizers) {
         Scanner scan = new Scanner(System.in);
         List<String> allUsernames = new ArrayList<>();
         if (organizers.size() > 1) {
-            System.out.println("Here is the list of all the other organizers at this conference: ");
+            System.out.println("Here is the list of all the organizers at this conference: ");
             for (int i = 0; i < organizers.size(); i++) {
-                System.out.print(i + ". " + organizers.get(i).getUsername() + "   ");
-                allUsernames.add(organizers.get(i).getUsername());
+                System.out.print(i + ". " + organizers.get(i) + "   ");
+                allUsernames.add(organizers.get(i));
                 if (i < organizers.size() - 1 && (i + 1) % 5 == 0) {
                     System.out.println();
                 }

@@ -159,14 +159,14 @@ public class UserManager implements Serializable {
         ((Speaker) userMap.get(username)).addSpeakingEvent(eventName);
     }
     /**
-     * This method returns a list of all of the organizers in userMap.
-     * @return A list of all of the organizers in userMap.
+     * This method returns a list of all organizers' usernames.
+     * @return Returns a list of all organizers' usernames.
      */
-    public List<Organizer> getOrganizers(){
-        List<Organizer> organizers = new ArrayList<>();
+    public List<String> getOrganizerUsernames(){
+        List<String> organizers = new ArrayList<>();
         for(String username : userMap.keySet()){
             if(userMap.get(username) instanceof Organizer){
-                organizers.add((Organizer) userMap.get(username));
+                organizers.add(username);
             }
         }
         return organizers;

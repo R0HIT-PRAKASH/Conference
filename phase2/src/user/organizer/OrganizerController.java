@@ -140,7 +140,7 @@ public class OrganizerController extends AttendeeController {
                 break;
 
             case 4:
-                if(userManager.getUserMap().size() == 1) {
+                if(userManager.getSizeOfUserMap() == 1) {
                     p.displayConferenceError();
                     break;
                 }
@@ -218,25 +218,7 @@ public class OrganizerController extends AttendeeController {
                 break;
 
             case 2:
-                Organizer temp = (Organizer) userManager.getUser(this.username);
-                if(temp.getAttendingEvents().isEmpty()){
-                    p.displayNotAttendingAnyEvents();
-                    break;
-                }
-                viewSignedUpForEvent(this.username);
-                String cancel = p.displayEventCancelPrompt();
-                if (cancel.equals("q")){
-                    break;
-                }
-                if(!userManager.getAttendingEvents(this.username).contains(cancel)) {
-                    p.displayEventCancelPrompt();
-                    break;
-                }
-                else if(userManager.getAttendingEvents(this.username).size() == 0){
-                    p.displayEventCancellationError2();
-                    break;
-                }
-                cancelSpotInEvent(cancel);
+                determineInputCancelEventReservation();
                 break;
 
             case 3:
@@ -244,217 +226,8 @@ public class OrganizerController extends AttendeeController {
                 break;
 
             case 4:
-                //Ask user what type of event they would like to create (Talk.java, Panel, Party).
-                //Depending on what type of event they chose, ask appropriate questions. (Same except for how we ask for
-                //the speakers, i.e one speaker for talk, multiple speakers for panel, no speaker for party).
-                //Call addEvent in eventManager and pass in type of event and other prompts.
-                //EventManager will then call eventFactory so eventFactory.getEvent("talk", hashmap)
-                //Then eventManager will add in the event into the list of events.
 
-                //Ask for type of event
-                String eventType = p.displayPromptEventType();
-                while(!eventType.equalsIgnoreCase("talk") && !eventType.equalsIgnoreCase("panel")
-                        && !eventType.equalsIgnoreCase("party") && !eventType.equalsIgnoreCase("q")){
-                    eventType = p.displayInvalidEventType();
-                }
-                if(eventType.equalsIgnoreCase("q")){
-                    break;
-                }
-
-                //Ask for category of event
-                String eventTag = "";
-                if (eventType.equalsIgnoreCase("talk")){
-                    eventTag = p.displayPromptEventTagTalk().toLowerCase();
-                    while(!eventTag.equals("development") && !eventTag.equals("motivational") && !eventTag.equals("networking") && !eventTag.equals("q")){
-                        eventTag = p.displayInvalidTagCategoryType();
-                    }
-                    if(eventTag.equalsIgnoreCase("q")){
-                        break;
-                    }
-                }
-                else if (eventType.equalsIgnoreCase("panel")){
-                    eventTag = p.displayPromptEventTagPanel().toLowerCase();
-                    while(!eventTag.equals("development") && !eventTag.equals("motivational") && !eventTag.equals("networking") && !eventTag.equals("q")){
-                        eventTag = p.displayInvalidTagCategoryType();
-                    }
-                    if(eventTag.equalsIgnoreCase("q")){
-                        break;
-                    }
-                }
-                else if (eventType.equalsIgnoreCase("party")){
-                    eventTag = p.displayPromptEventTagParty().toLowerCase();
-                    while(!eventTag.equals("company") && !eventTag.equals("graduation") && !eventTag.equals("q")){
-                        eventTag = p.displayInvalidTagCategoryType();
-                    }
-                    if(eventTag.equalsIgnoreCase("q")){
-                        break;
-                    }
-                }
-
-
-                //Ask for time of event
-                p.displayAddConferencePrompt();
-                LocalDateTime time = p.askTime();
-                while(!eventManager.between9to5(time) || !eventManager.checkTimeIsAfterNow(time)) {
-                    if (!eventManager.between9to5(time)) {
-                        p.displayInvalidHourError();
-                        time = p.askTime();
-                    } else if (!eventManager.checkTimeIsAfterNow(time)) {
-                        p.displayInvalidDateError();
-                        time = p.askTime();
-                    }
-                }
-
-                //Ask if event is for VIP users
-                String answerVip = p.displayVipPrompt();
-                boolean vip = false;
-                while(!answerVip.equalsIgnoreCase("yes") && !answerVip.equalsIgnoreCase("no")){
-                    if(answerVip.equalsIgnoreCase("q")){
-                        break;
-                    }
-                    answerVip = p.displayInvalidVip();
-                }
-
-                if(answerVip.equalsIgnoreCase("q")){
-                    break;
-                }else if(answerVip.equalsIgnoreCase("yes")) {
-                    vip = true;
-                }
-
-                //Ask for name of event
-                String name = p.displayEventTitlePrompt();
-                while(eventManager.getAllEvents().keySet().contains(name) && !name.equalsIgnoreCase("q")){
-                    name = p.displayInvalidEventName();
-                }
-                // Adding the option to end the case early here in case a User wants to go back
-                if (name.equals("q")){
-                    break;
-                }
-
-                int duration = p.displayDurationPrompt();
-
-                if(duration == 0){
-                    break;
-                }
-
-                // Adding the speakers to the event
-                String speaker = "";
-                List<String> speakers = new ArrayList<>();
-                switch (eventType) {
-                    case "talk":
-                        speaker = determineInputGetSpeaker(time, duration);
-                        if (speaker.equalsIgnoreCase("q")) {
-                            break label;
-                        }
-                        speakers = null;
-                        break;
-                    case "party":
-                        speaker = null;
-                        speakers = null;
-                        break;
-                    case "panel":
-                        String response;
-                        String speakerName;
-                        do {
-                            speakerName = determineInputGetSpeaker(time, duration);
-                            if (speakerName.equalsIgnoreCase("q")) {
-                                break;
-                            }else if(speakers.contains(speakerName)){
-                                p.displaySpeakerAlreadyAdded();
-                            }else{
-                                speakers.add(speakerName);
-                            }
-                            response = p.askNewSpeakerPrompt();
-                            if(!response.equals("Y") && speakers.size() < 2) {
-                                p.notEnoughPeople();
-                            }
-                        } while (response.equals("Y") || speakers.size() < 2);
-                        speaker = null;
-                        break;
-                }
-
-                int num = p.displayEnterRoomNumberPrompt();
-                while(eventManager.roomIsOccupied(num, time, duration)){
-                    num = p.displayOccupiedRoom();
-                }
-                Room room = eventManager.getRoom(num);
-                String ans;
-                if(eventManager.getRoom(num) == null) {
-                    ans = eventManager.getRooms().isEmpty() ?
-                            p.displayRoomNumberQuestion1() : p.displayRoomNumberQuestion2();
-
-                    if (ans.equalsIgnoreCase("q")) {
-                        break;
-                    }
-                    int capacity = p.displayEventCapacityPrompt();
-
-                    if(capacity == -1){
-                        break;
-                    }
-
-                    int comp = p.displayComputersPrompt();
-
-                    if(comp == -1){
-                        break;
-                    }
-
-                    String answerProject = p.displayProjectorPrompt();
-                    boolean project = false;
-
-
-                    if(answerProject.equalsIgnoreCase("q")){
-                        break;
-                    }else if(answerProject.equalsIgnoreCase("yes")) {
-                        project = true;
-                    }
-
-
-                    int cha = p.displayChairsPrompt();
-
-                    if(cha == -1){
-                        break;
-                    }
-
-                    int tab = p.displayTablesPrompt();
-
-                    if(tab == -1){
-                        break;
-                    }
-
-                    if(ans.equalsIgnoreCase("suggestions")) {
-                        p.displayRecommendedRooms(capacity, comp, project, cha, tab, eventManager.getRooms());
-                        num = p.displayEnterRoomNumberPrompt();
-                    }
-
-                    while(eventManager.roomIsOccupied(num, time, duration)){
-                        num = p.displayOccupiedRoom();
-                    }
-
-                    List<Organizer> organizers = userManager.getOrganizers();
-                    List<String> creators = new ArrayList<>();
-                    creators.add(this.username);
-                    p.displayAndGetCreators(creators, organizers);
-
-                    eventManager.addEvent(eventType, name, time, duration, num, capacity, comp, project, cha, tab, creators, vip, speaker, speakers, eventTag);
-                    addEvent(eventType, name, speaker, speakers, creators, eventManager.getAllEvents().keySet().contains(name));
-
-                }else{ // room exists
-                    int cap = p.displayEnterEventCapacityPrompt(room.getCapacity());
-                    while (cap > room.getCapacity() || cap < 0) {
-                        cap = p.displayRoomCapacityError();
-                    }
-                    if(cap == 0){
-                        break;
-                    }
-
-                    List<Organizer> organizers = userManager.getOrganizers();
-                    List<String> creators = new ArrayList<>();
-                    creators.add(this.username);
-                    p.displayAndGetCreators(creators, organizers);
-
-                    eventManager.addEvent(eventType, name, time, duration, num, room.getCapacity(), room.getComputers(), room.getProjector(), room.getChairs(), room.getTables(), creators, vip, speaker, speakers, eventTag);
-                    addEvent(eventType, name, speaker, speakers, creators, eventManager.getAllEvents().keySet().contains(name));
-                }
+                determineInputAddEvent();
                 break;
 
             case 5:
@@ -625,6 +398,7 @@ public class OrganizerController extends AttendeeController {
         p.displayEventOptions();
     }
 
+
     protected void determineInput2(int input) {
         label:
         switch (input) {
@@ -741,6 +515,219 @@ public class OrganizerController extends AttendeeController {
         }
         p.displayNextTaskPromptOrgOptDisplayed();
         p.displayRequestOptions();
+    }
+
+    private void determineInputAddEvent() {
+        //Ask for type of event
+        String eventType = p.displayPromptEventType();
+        while(!eventType.equalsIgnoreCase("talk") && !eventType.equalsIgnoreCase("panel")
+                && !eventType.equalsIgnoreCase("party") && !eventType.equalsIgnoreCase("q")){
+            eventType = p.displayInvalidEventType();
+        }
+        if(eventType.equalsIgnoreCase("q")){
+            return;
+        }
+
+        //Ask for category of event
+        String eventTag = askForEventTag(eventType);
+        if (eventTag.equals("q")) return;
+
+
+        //Ask for time of event
+        p.displayAddConferencePrompt();
+        LocalDateTime time = p.askTime();
+        while(!eventManager.between9to5(time) || !eventManager.checkTimeIsAfterNow(time)) {
+            if (!eventManager.between9to5(time)) {
+                p.displayInvalidHourError();
+                time = p.askTime();
+            } else if (!eventManager.checkTimeIsAfterNow(time)) {
+                p.displayInvalidDateError();
+                time = p.askTime();
+            }
+        }
+
+        //Ask if event is for VIP users
+        String answerVip = p.displayVipPrompt();
+        boolean vip = false;
+        while(!answerVip.equalsIgnoreCase("yes") && !answerVip.equalsIgnoreCase("no")){
+            if(answerVip.equalsIgnoreCase("q")){
+                break;
+            }
+            answerVip = p.displayInvalidVip();
+        }
+
+        if(answerVip.equalsIgnoreCase("q")){
+            return;
+        }else if(answerVip.equalsIgnoreCase("yes")) {
+            vip = true;
+        }
+
+        //Ask for name of event
+        String name = p.displayEventTitlePrompt();
+        while(eventManager.getAllEvents().keySet().contains(name) && !name.equalsIgnoreCase("q")){
+            name = p.displayInvalidEventName();
+        }
+        // Adding the option to end the case early here in case a User wants to go back
+        if (name.equals("q")){
+            return;
+        }
+
+        int duration = p.displayDurationPrompt();
+
+        if(duration == 0){
+            return;
+        }
+
+        // Adding the speakers to the event
+        String speaker = "";
+        List<String> speakers = new ArrayList<>();
+        switch (eventType) {
+            case "talk":
+                speaker = determineInputGetSpeaker(time, duration);
+                if (speaker.equalsIgnoreCase("q")) {
+                    return;
+                }
+                speakers = null;
+                break;
+            case "party":
+                speaker = null;
+                speakers = null;
+                break;
+            case "panel":
+                String response;
+                String speakerName;
+                do {
+                    speakerName = determineInputGetSpeaker(time, duration);
+                    if (speakerName.equalsIgnoreCase("q")) {
+                        break;
+                    }else if(speakers.contains(speakerName)){
+                        p.displaySpeakerAlreadyAdded();
+                    }else{
+                        speakers.add(speakerName);
+                    }
+                    response = p.askNewSpeakerPrompt();
+                    if(!response.equals("Y") && speakers.size() < 2) {
+                        p.notEnoughPeople();
+                    }
+                } while (response.equals("Y") || speakers.size() < 2);
+                speaker = null;
+                break;
+        }
+
+        int num = p.displayEnterRoomNumberPrompt();
+        while(eventManager.roomIsOccupied(num, time, duration)){
+            num = p.displayOccupiedRoom();
+        }
+        Room room = eventManager.getRoom(num);
+        String ans;
+        if(eventManager.getRoom(num) == null) {
+            ans = eventManager.getRooms().isEmpty() ?
+                    p.displayRoomNumberQuestion1() : p.displayRoomNumberQuestion2();
+
+            if (ans.equalsIgnoreCase("q")) {
+                return;
+            }
+            int capacity = p.displayEventCapacityPrompt();
+
+            if(capacity == -1){
+                return;
+            }
+
+            int comp = p.displayComputersPrompt();
+
+            if(comp == -1){
+                return;
+            }
+
+            String answerProject = p.displayProjectorPrompt();
+            boolean project = false;
+
+
+            if(answerProject.equalsIgnoreCase("q")){
+                return;
+            }else if(answerProject.equalsIgnoreCase("yes")) {
+                project = true;
+            }
+
+
+            int cha = p.displayChairsPrompt();
+
+            if(cha == -1){
+                return;
+            }
+
+            int tab = p.displayTablesPrompt();
+
+            if(tab == -1){
+                return;
+            }
+
+            if(ans.equalsIgnoreCase("suggestions")) {
+                p.displayRecommendedRooms(capacity, comp, project, cha, tab, eventManager.getRooms());
+                num = p.displayEnterRoomNumberPrompt();
+            }
+
+            while(eventManager.roomIsOccupied(num, time, duration)){
+                num = p.displayOccupiedRoom();
+            }
+
+            List<String> organizers = userManager.getOrganizerUsernames();
+            List<String> creators = new ArrayList<>();
+            creators.add(this.username);
+            p.displayAndGetCreators(creators, organizers);
+
+            eventManager.addEvent(eventType, name, time, duration, num, capacity, comp, project, cha, tab, creators, vip, speaker, speakers, eventTag);
+            addEvent(eventType, name, speaker, speakers, creators, eventManager.containsEvent(name));
+
+        }else{ // room exists
+            int cap = p.displayEnterEventCapacityPrompt(room.getCapacity());
+            while (cap > room.getCapacity() || cap < 0) {
+                cap = p.displayRoomCapacityError();
+            }
+            if(cap == 0){
+                return;
+            }
+
+            List<String> organizers = userManager.getOrganizerUsernames();
+            List<String> creators = new ArrayList<>();
+            creators.add(this.username);
+            p.displayAndGetCreators(creators, organizers);
+
+            eventManager.addEvent(eventType, name, time, duration, num, room.getCapacity(), room.getComputers(), room.getProjector(), room.getChairs(), room.getTables(), creators, vip, speaker, speakers, eventTag);
+            addEvent(eventType, name, speaker, speakers, creators, eventManager.containsEvent(name));
+        }
+    }
+
+    private String askForEventTag(String eventType) {
+        String eventTag = "";
+        if (eventType.equalsIgnoreCase("talk")){
+            eventTag = p.displayPromptEventTagTalk().toLowerCase();
+            while(!eventTag.equals("development") && !eventTag.equals("motivational") && !eventTag.equals("networking") && !eventTag.equals("q")){
+                eventTag = p.displayInvalidTagCategoryType();
+            }
+            if(eventTag.equalsIgnoreCase("q")){
+                return "q";
+            }
+        }
+        else if (eventType.equalsIgnoreCase("panel")){
+            eventTag = p.displayPromptEventTagPanel().toLowerCase();
+            while(!eventTag.equals("development") && !eventTag.equals("motivational") && !eventTag.equals("networking") && !eventTag.equals("q")){
+                eventTag = p.displayInvalidTagCategoryType();
+            }
+            if(eventTag.equalsIgnoreCase("q")){
+                return "q";
+            }
+        }
+        else if (eventType.equalsIgnoreCase("party")){
+            eventTag = p.displayPromptEventTagParty().toLowerCase();
+            while(!eventTag.equals("company") && !eventTag.equals("graduation") && !eventTag.equals("q")){
+                eventTag = p.displayInvalidTagCategoryType();
+            }
+            if(eventTag.equalsIgnoreCase("q")){
+                return "q";
+            }
+        }
+        return eventTag;
     }
 
     private void addEvent(String eventType, String name, String speaker, List<String> speakers, List<String> creators, boolean added) {
