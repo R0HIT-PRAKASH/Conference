@@ -441,5 +441,12 @@ public class UserManager implements Serializable {
 
     }
 
+    /**
+     * @return returns the size of the User Map
+     */
+    public int getSizeOfUserMap(){
+        return userMap.size();
+    }
+
 
 }
