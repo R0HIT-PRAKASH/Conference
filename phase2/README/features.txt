@@ -28,7 +28,7 @@ The Optional Extensions that we implemented were:
         Details: Users can mark messages as unread, deleted, archived, starred and pinned. Messages when unpinned,
         unarchived or undeleted go back to their chronological order in the inbox. Additionally, deleted messages are
         automatically wiped from the deleted messages inbox after they have been there for a specified period of time.
-        For demonstrating purposes, we have designed the program to wipe a deleted messages when it has been deleted
+        For demonstrating purposes, we have designed the program to wipe a deleted message when it has been deleted
         for over 2 minutes.
 
 
