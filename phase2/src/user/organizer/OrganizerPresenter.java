@@ -581,8 +581,7 @@ public class OrganizerPresenter extends AttendeePresenter {
         String disp = scan.nextLine();
 
         while(!disp.equalsIgnoreCase("yes") && !disp.equalsIgnoreCase("no") && !disp.equalsIgnoreCase("q")) {
-            displayInvalidProjector();
-            disp = scan.nextLine();
+            disp = displayInvalidProjector();
         }
         return disp;
     }
