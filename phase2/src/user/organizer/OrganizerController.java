@@ -882,16 +882,16 @@ public class OrganizerController extends AttendeeController {
         while(password.length() < 3){
             password = p.displayPasswordLengthError();
         }
-        String name = p.displayEnterSpeakerNamePrompt();
+        String name = p.displayEnterUserNamePrompt();
         while(name.length() < 2) {
-            name = p.displaySpeakerNameError();
+            name = p.displayUserNameError();
         }
-        String address = p.displayEnterSpeakerAddressPrompt();
+        String address = p.displayEnterUserAddressPrompt();
 
         while(address.length() < 6) {
             address = p.displayAddressLengthError();
         }
-        String email = p.displayEnterSpeakerEmailPrompt();
+        String email = p.displayEnterUserEmailPrompt();
         Pattern email_pattern = Pattern.compile("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");
         while(!email_pattern.matcher(email).matches()){
             email = p.displayInvalidEmail();

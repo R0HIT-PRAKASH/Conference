@@ -74,9 +74,9 @@ public class MessageManager implements java.io.Serializable {
      */
     public void addMessage(String username, String message, String recipientUsername, boolean beenRead,
                            LocalDateTime dateTimeCreated, LocalDateTime dateTimeDeleted, boolean starred,
-                           boolean deleted, boolean archived){
+                           boolean deleted, boolean archived, LocalDateTime dateTimeCreatedCopy){
         Message newMessage = new Message(message, username, recipientUsername, beenRead, dateTimeCreated,
-                dateTimeDeleted, starred, deleted, archived);
+                dateTimeDeleted, starred, deleted, archived, dateTimeCreatedCopy);
         this.allUserMessages.get(username).add(newMessage);
     }
 
@@ -202,6 +202,15 @@ public class MessageManager implements java.io.Serializable {
     }
 
     /**
+     * This method get a Message's read status as either read or unread.
+     * @param message Refers to the message to be interacted with.
+     * @return if the message has been read or not
+     */
+    public boolean getMessageReadStatus(Message message){
+        return message.hasBeenRead();
+    }
+
+    /**
      * This method sets a Message's starred status as either starred or unstarred.
      * @param message Refers to the message to be interacted with.
      * @param status Refers to the status you want to set the message to have.
@@ -251,6 +260,13 @@ public class MessageManager implements java.io.Serializable {
     }
 
     /**
+     * This method returns the read status of a message.
+     * @param message Refers to the message being checked.
+     * @return Returns true if the message is starred, and false otherwise.
+     */
+    public boolean getStarredStatus(Message message){ return message.isStarred();}
+
+    /**
      * This method sets a Message's deletion status as either deleted or restored;
      * @param message Refers to the message to be interacted with.
      * @param status Refers to the status you want to set the message to have.
@@ -269,5 +285,32 @@ public class MessageManager implements java.io.Serializable {
         }else{
             message.setUnarchived();
         }
+    }
+
+    public void setDateTimeCreatedStatus(Message message, String status, LocalDateTime LDT){
+        message.setDateTimeCreated(LDT);
+        if(status.equals("pin")){
+            message.setPinned();
+        }else{
+            message.setUnpinned();
+        }
+    }
+
+    /**
+     * Returns the date and time this message was created.
+     * @param message The message whose date we are looking for
+     * @return the date the message was created
+     */
+    public LocalDateTime getTimeCreated(Message message){
+        return message.getDateTimeCreated();
+    }
+
+    /**
+     * Returns the copy date and time this message was created.
+     * @param message The message whose date we are looking for
+     * @return the copy date the message was created
+     */
+    public LocalDateTime getTimeCreatedCopy(Message message){
+        return message.getDateTimeCreatedCopy();
     }
 }

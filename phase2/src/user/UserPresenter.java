@@ -115,6 +115,20 @@ public class UserPresenter extends Presenter {
         System.out.println("Invalid input. The selected message is already starred.");
     }
 
+    /**
+     * Notifies a User that the selected message they attemped to pin is already pinned.
+     */
+    public void displayPinnedError(){
+        System.out.println("Invalid input. The selected message is already pinned.");
+    }
+
+    /**
+     * Notifies a User that the selected message they attemped to unpin is already unpinned.
+     */
+    public void displayUnpinnedError(){
+        System.out.println("Invalid input. The selected message is already unpinned.");
+    }
+
 
     /**
      * Prints an error message when a User inputs an invalid Event.
@@ -149,61 +163,119 @@ public class UserPresenter extends Presenter {
                 if ((allMessages.get(i).getContent().length()) >= 10) {
                     if (!(allMessages.get(i).hasBeenRead())) {
                         if (allMessages.get(i).isStarred()) {
-                            System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender() +
-                                    "\n\u25CF * Message: " +
-                                    allMessages.get(i).getContent().substring(0, 10) + "..." +
-                                    "\n" + dtf.format(allMessages.get(i).getDateTimeCreated()));
+                            if (allMessages.get(i).isPinned()) {
+                                System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender() +
+                                        "\n\u25CF * (PINNED) Message: " +
+                                        allMessages.get(i).getContent().substring(0, 10) + "..." +
+                                        "\n" + dtf.format(allMessages.get(i).getDateTimeCreatedCopy()));
+                            } else {
+                                System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender() +
+                                        "\n\u25CF * Message: " +
+                                        allMessages.get(i).getContent().substring(0, 10) + "..." +
+                                        "\n" + dtf.format(allMessages.get(i).getDateTimeCreated()));
+                            }
                         } else {
-                            System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender() +
-                                    "\n\u25CF Message: " +
-                                    allMessages.get(i).getContent().substring(0, 10) + "..." +
-                                    "\n" + dtf.format(allMessages.get(i).getDateTimeCreated()));
+                            if (allMessages.get(i).isPinned()) {
+                                System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender() +
+                                        "\n\u25CF (PINNED) Message: " +
+                                        allMessages.get(i).getContent().substring(0, 10) + "..." +
+                                        "\n" + dtf.format(allMessages.get(i).getDateTimeCreatedCopy()));
+                            } else {
+                                System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender() +
+                                        "\n\u25CF Message: " +
+                                        allMessages.get(i).getContent().substring(0, 10) + "..." +
+                                        "\n" + dtf.format(allMessages.get(i).getDateTimeCreated()));
+                            }
                         }
                         counter++;
                         // If the message has been read, display without a dot.
                     } else {
                         if (allMessages.get(i).isStarred()) {
-                            System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender() +
-                                    "\n* Message: " +
-                                    allMessages.get(i).getContent().substring(0, 10) + "..." +
-                                    "\n" + dtf.format(allMessages.get(i).getDateTimeCreated()));
+                            if (allMessages.get(i).isPinned()) {
+                                System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender() +
+                                        "\n* (PINNED) Message: " +
+                                        allMessages.get(i).getContent().substring(0, 10) + "..." +
+                                        "\n" + dtf.format(allMessages.get(i).getDateTimeCreatedCopy()));
+                            } else {
+                                System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender() +
+                                        "\n* Message: " +
+                                        allMessages.get(i).getContent().substring(0, 10) + "..." +
+                                        "\n" + dtf.format(allMessages.get(i).getDateTimeCreated()));
+                            }
                             counter++;
                         } else {
-                            System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender() +
-                                    "\nMessage: " +
-                                    allMessages.get(i).getContent().substring(0, 10) + "..." +
-                                    "\n" + dtf.format(allMessages.get(i).getDateTimeCreated()));
-                            counter++;
+                            if (allMessages.get(i).isPinned()) {
+                                System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender() +
+                                        "\n (PINNED) Message: " +
+                                        allMessages.get(i).getContent().substring(0, 10) + "..." +
+                                        "\n" + dtf.format(allMessages.get(i).getDateTimeCreatedCopy()));
+                                counter++;
+                            } else{
+                                System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender() +
+                                        "\nMessage: " +
+                                        allMessages.get(i).getContent().substring(0, 10) + "..." +
+                                        "\n" + dtf.format(allMessages.get(i).getDateTimeCreated()));
+                                counter++;
+                            }
                         }
                     }
                 } else {
                     if (!(allMessages.get(i).hasBeenRead())) {
                         if (allMessages.get(i).isStarred()) {
-                            System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender()
-                                    + "\n\u25CF * Message: " +
-                                    allMessages.get(i).getContent() +
-                                    "\n" + dtf.format(allMessages.get(i).getDateTimeCreated()));
+                            if (allMessages.get(i).isPinned()) {
+                                System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender()
+                                        + "\n\u25CF * (PINNED) Message: " +
+                                        allMessages.get(i).getContent() +
+                                        "\n" + dtf.format(allMessages.get(i).getDateTimeCreatedCopy()));
+                            } else{
+                                System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender()
+                                        + "\n\u25CF * Message: " +
+                                        allMessages.get(i).getContent() +
+                                        "\n" + dtf.format(allMessages.get(i).getDateTimeCreated()));
+                            }
                             counter++;
                         } else {
-                            System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender()
-                                    + "\n\u25CF Message: " +
-                                    allMessages.get(i).getContent() +
-                                    "\n" + dtf.format(allMessages.get(i).getDateTimeCreated())) ;
+                            if (allMessages.get(i).isPinned()) {
+                                System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender()
+                                        + "\n\u25CF (PINNED) Message: " +
+                                        allMessages.get(i).getContent() +
+                                        "\n" + dtf.format(allMessages.get(i).getDateTimeCreatedCopy())) ;
+                            } else {
+                                System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender()
+                                        + "\n\u25CF Message: " +
+                                        allMessages.get(i).getContent() +
+                                        "\n" + dtf.format(allMessages.get(i).getDateTimeCreated())) ;
+                            }
                             counter++;
                         }
                     } else {
                         if (allMessages.get(i).isStarred()) {
-                            System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender()
-                                    + "\n* Message: " +
-                                    allMessages.get(i).getContent() +
-                                    "\n" + dtf.format(allMessages.get(i).getDateTimeCreated()));
+                            if (allMessages.get(i).isPinned()) {
+                                System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender()
+                                        + "\n* (PINNED) Message: " +
+                                        allMessages.get(i).getContent() +
+                                        "\n" + dtf.format(allMessages.get(i).getDateTimeCreatedCopy()));
+                            } else {
+                                System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender()
+                                        + "\n* Message: " +
+                                        allMessages.get(i).getContent() +
+                                        "\n" + dtf.format(allMessages.get(i).getDateTimeCreated()));
+                            }
                             counter++;
                         } else {
-                            System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender()
-                                    + "\n Message: " +
-                                    allMessages.get(i).getContent() +
-                                    "\n" + dtf.format(allMessages.get(i).getDateTimeCreated()));
-                            counter++;
+                            if (allMessages.get(i).isPinned()) {
+                                System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender()
+                                        + "\n (PINNED) Message: " +
+                                        allMessages.get(i).getContent() +
+                                        "\n" + dtf.format(allMessages.get(i).getDateTimeCreatedCopy()));
+                                counter++;
+                            } else {
+                                System.out.println(buffer + "\n" + counter + ". Sent By: " + allMessages.get(i).getSender()
+                                        + "\n Message: " +
+                                        allMessages.get(i).getContent() +
+                                        "\n" + dtf.format(allMessages.get(i).getDateTimeCreated()));
+                                counter++;
+                            }
                         }
                     }
                 }
@@ -390,7 +462,7 @@ public class UserPresenter extends Presenter {
      */
     public String displayMessageActionPrompt(){
         System.out.println("What would you like to do with this message?(reply, mark as unread, mark as starred, " +
-                "unstar, delete, archive, close)");
+                "unstar, delete, archive, pin, unpin, close)");
         return scan.nextLine();
     }
 

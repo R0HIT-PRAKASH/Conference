@@ -66,19 +66,22 @@ public abstract class UserController {
                 p.displayMessageNonExistent();
                 requestedMessage = p.displaySelectMessage();
             }
-            Message selectedMessage = (allMessages.get(allMessages.size() - requestedMessage));
+            Message selectedMessage = (normalMessages.get(normalMessages.size() - requestedMessage));
             p.displaySelectedMessage(selectedMessage);
             messageManager.setMessageReadStatus(selectedMessage, "read");
 
             // this method may be too large now, but this prompts the user to take an action on the selected message
             String messageAction = p.displayMessageActionPrompt();
+            int pinningDateCounter = 3000;
             while (!messageAction.equalsIgnoreCase("REPLY") &&
                     !messageAction.equalsIgnoreCase("MARK AS UNREAD") &&
                     !messageAction.equalsIgnoreCase("CLOSE") &&
                     !messageAction.equalsIgnoreCase("MARK AS STARRED") &&
                     !messageAction.equalsIgnoreCase("UNSTAR") &&
                     !messageAction.equalsIgnoreCase("DELETE")  &&
-                    !messageAction.equalsIgnoreCase("ARCHIVE")) {
+                    !messageAction.equalsIgnoreCase("ARCHIVE") &&
+                    !messageAction.equalsIgnoreCase("PIN") &&
+                    !messageAction.equalsIgnoreCase("UNPIN")) {
                 messageAction = p.displayMessageActionPrompt();
             }
             if (messageAction.equalsIgnoreCase("REPLY")) {
@@ -103,6 +106,20 @@ public abstract class UserController {
                 messageManager.setDeletionStatus(selectedMessage, "delete");
             } else if (messageAction.equalsIgnoreCase("ARCHIVE")){
                 messageManager.setArchiveStatus(selectedMessage, "archive");
+            } else if (messageAction.equalsIgnoreCase("PIN")) {
+                if (selectedMessage.isPinned()) {
+                    p.displayPinnedError();
+                } else {
+                    LocalDateTime newLDT = LocalDateTime.of(pinningDateCounter, 1, 1, 1, 1);
+                    messageManager.setDateTimeCreatedStatus(selectedMessage, "pin", newLDT);
+                    pinningDateCounter++;
+                }
+            } else if (messageAction.equalsIgnoreCase("UNPIN")) {
+                if (selectedMessage.isPinned()) {
+                    messageManager.setDateTimeCreatedStatus(selectedMessage, "unpin", selectedMessage.getDateTimeCreatedCopy());
+                } else {
+                    p.displayUnpinnedError();
+                }
             }
         }
     }
@@ -121,6 +138,9 @@ public abstract class UserController {
                 starredMessages.add(message);
             }
         }
+
+        Collections.sort(starredMessages);
+
         p.displayPrintStarredMessages(starredMessages);
         if(starredMessages.size()>0) {
             int requestedMessage = p.displaySelectMessage();
@@ -180,6 +200,9 @@ public abstract class UserController {
                 deletedMessages.add(message);
             }
         }
+
+        Collections.sort(deletedMessages);
+
         p.displayDeletedMessages(deletedMessages);
         if(deletedMessages.size()>0) {
             int requestedMessage = p.displaySelectMessage();
@@ -226,6 +249,9 @@ public abstract class UserController {
                 archivedMessages.add(message);
             }
         }
+
+        Collections.sort(archivedMessages);
+
         p.displayArchivedMessages(archivedMessages);
         if (archivedMessages.size() > 0) {
             int requestedMessage = p.displaySelectMessage();

@@ -366,4 +366,65 @@ public class UserManager implements Serializable {
         }
     }
 
+    /**
+     * Returns the password of this user
+     * @param username The username of the user
+     * @return The password of the user
+     */
+    public String getPassword(String username){
+        String password = getUser(username).getPassword();
+        return password;
+    }
+
+    /**
+     * Returns the address of this user
+     * @param username The username of the user
+     * @return The address of the user
+     */
+    public String getAddress(String username){
+        String address = getUser(username).getAddress();
+        return address;
+    }
+
+    /**
+     * Returns the email of this user
+     * @param username The username of the user
+     * @return The email of the user
+     */
+    public String getEmail(String username){
+        String email = getUser(username).getEmail();
+        return email;
+    }
+
+    /**
+     * Returns the company of this user
+     * @param username The username of the user
+     * @return The company of the user
+     */
+    public String getCompany(String username){
+        String company = getUser(username).getCompany();
+        return company;
+    }
+
+    /**
+     * Returns the bio of this user
+     * @param username The username of the user
+     * @return The bio of the user
+     */
+    public String getBio(String username){
+        String bio = getUser(username).getBio();
+        return bio;
+    }
+
+    /**
+     * Returns the name of this user
+     * @param username The username of the user
+     * @return The name of the user
+     */
+    public String getName(String username){
+        String name = getUser(username).getName();
+        return name;
+    }
+
+
 }
