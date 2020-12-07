@@ -202,6 +202,15 @@ public class MessageManager implements java.io.Serializable {
     }
 
     /**
+     * This method get a Message's read status as either read or unread.
+     * @param message Refers to the message to be interacted with.
+     * @return if the message has been read or not
+     */
+    public boolean getMessageReadStatus(Message message){
+        return message.hasBeenRead();
+    }
+
+    /**
      * This method sets a Message's starred status as either starred or unstarred.
      * @param message Refers to the message to be interacted with.
      * @param status Refers to the status you want to set the message to have.

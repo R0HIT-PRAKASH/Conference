@@ -690,4 +690,103 @@ public class EventManager implements Serializable {
         Event event = getEvent(eventName);
         return event.getVipEvent();
     }
+
+    /**
+     * Returns the duration of an event
+     * @param name The name of the event whose duration we are checking
+     * @return The duration of the event
+     */
+    public int getDuration(String name){
+        return getEvent(name).getDuration();
+    }
+
+    /**
+     * Returns the roomnumber an event takes place in
+     * @param name The name of the event whose roomnumber we are checking
+     * @return The roomnumber of the event
+     */
+    public int getRoomNumber(String name){
+        return getEvent(name).getRoomNumber();
+    }
+
+    /**
+     * Returns the number of computers an event needs
+     * @param name The name of the event we are checking
+     * @return The required number of computers
+     */
+    public int getComputers(String name){
+        return getEvent(name).getRequiredComputers();
+    }
+
+    /**
+     * Returns if an event needs a projector
+     * @param name The name of the event we are checking
+     * @return If the event needs a projector
+     */
+    public boolean getProjector(String name){
+        return getEvent(name).getRequiredProjector();
+    }
+
+    /**
+     * Returns number of chairs an event needs
+     * @param name The name of the event we are checking
+     * @return number of chairs an event needs
+     */
+    public int getChairs(String name){
+        return getEvent(name).getRequiredChairs();
+    }
+
+    /**
+     * Returns number of tables an event needs
+     * @param name The name of the event we are checking
+     * @return number of tables an event needs
+     */
+    public int getTables(String name){
+        return getEvent(name).getRequiredTables();
+    }
+
+    /**
+     * Returns if an event is for VIPs only
+     * @param name The name of the event we are checking
+     * @return If the event is for VIPs only
+     */
+    public boolean getVipEvent(String name){
+        return getEvent(name).getVipEvent();
+    }
+
+    /**
+     * Returns the tag of an event
+     * @param name The name of the event whose duration we are checking
+     * @return The tag of the event
+     */
+    public String getTag(String name){
+        return getEvent(name).getTag();
+    }
+
+    /**
+     * Returns the type of an event
+     * @param name The name of the event whose duration we are checking
+     * @return The type of the event
+     */
+    public String getType(String name){
+        return getEvent(name).getEventType();
+    }
+
+    /**
+     * Returns the name of the speaker of an event
+     * @param name The name of the event whose duration we are checking
+     * @return the name of the speaker of an event
+     */
+    public String getSpeakerName(String name){
+        return getEvent(name).getSpeakerName();
+    }
+
+    /**
+     * Returns the names of the speakers of an event
+     * @param name The name of the event whose duration we are checking
+     * @return the names of the speakers of an event
+     */
+    public List<String> getSpeakerList(String name){
+        return getEvent(name).getSpeakersList();
+    }
 }
