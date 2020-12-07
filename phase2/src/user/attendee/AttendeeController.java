@@ -44,6 +44,7 @@ public class AttendeeController extends UserController {
         int input = 0;
         input = p.nextInt();
         while (input != 4){ // 4 is ending condition
+            deletedMessagesCheck();
             determineInput(input);
             input = p.nextInt();
         }
@@ -99,6 +100,7 @@ public class AttendeeController extends UserController {
                 p.displayInvalidInputError();
                 break;
         }
+        deletedMessagesCheck();
         p.displayOptions();
         p.displayNextTaskPromptAttendee();
     }
@@ -128,6 +130,7 @@ public class AttendeeController extends UserController {
                 p.displayMessageOptionsInvalidChoice();
                 break;
         }
+        deletedMessagesCheck();
         p.displayNextTaskPromptOrgOptDisplayed();
         p.displayMessageOptions();
     }
@@ -155,6 +158,7 @@ public class AttendeeController extends UserController {
                 p.displayEventOptionsInvalidChoice();
                 break;
         }
+        deletedMessagesCheck();
         p.displayNextTaskPromptOrgOptDisplayed();
         p.displayEventOptions();
     }
@@ -180,6 +184,7 @@ public class AttendeeController extends UserController {
                 p.displayRequestsOptionsInvalidChoice();
                 break;
         }
+        deletedMessagesCheck();
         p.displayNextTaskPromptOrgOptDisplayed();
         p.displayRequestOptions();
     }
@@ -224,6 +229,8 @@ public class AttendeeController extends UserController {
                 p.displayInvalidUserChoice();
                 break;
         }
+        deletedMessagesCheck();
+        p.displayNextTaskPromptOrgOptDisplayed();
         p.displayUserOptions();
     }
 
