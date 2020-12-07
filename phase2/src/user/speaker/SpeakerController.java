@@ -43,6 +43,7 @@ public class SpeakerController extends AttendeeController {
         int input = p.nextInt();
         final int END_CONDITION = 4;
         while (input != END_CONDITION){
+            deletedMessagesCheck();
             determineInput(input);
             input = p.nextInt();
         }
@@ -104,8 +105,9 @@ public class SpeakerController extends AttendeeController {
                 p.displayInvalidInputError();
                 break;
         }
-        p.displayOptions3();
+        deletedMessagesCheck();
         p.displayNextTaskPromptSpeaker();
+        p.displayOptions3();
     }
 
     /**
@@ -207,6 +209,8 @@ public class SpeakerController extends AttendeeController {
                 p.displayMessageOptionsInvalidChoice();
                 break;
         }
+        deletedMessagesCheck();
+        p.displayNextTaskPrompt();
         p.displayMessageOptions();
     }
 
@@ -220,6 +224,8 @@ public class SpeakerController extends AttendeeController {
                 p.displayEventOptionsInvalidChoice();
                 break;
         }
+        deletedMessagesCheck();
+        p.displayNextTaskPrompt();
         p.displayEventOptions();
     }
 
@@ -243,6 +249,8 @@ public class SpeakerController extends AttendeeController {
                 p.displayRequestsOptionsInvalidChoice();
                 break;
         }
+        deletedMessagesCheck();
+        p.displayNextTaskPrompt();
         p.displayRequestOptions();
     }
 

@@ -237,4 +237,8 @@ public class SpeakerPresenter extends AttendeePresenter {
         System.out.println("You cannot message that amount of events. Try again or -1 to quit.");
         return nextInt();
     }
+
+    public void displayNextTaskPrompt(){
+        System.out.println("Enter the next task:");
+    }
 }
