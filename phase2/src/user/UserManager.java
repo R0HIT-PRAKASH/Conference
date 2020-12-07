@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 public class UserManager implements Serializable {
 
     private HashMap<String, User> userMap;
-    private UserFactory userFactory;
+    UserFactory userFactory;
     ReaderWriter RW;
 
     /**

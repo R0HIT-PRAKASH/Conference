@@ -10,7 +10,6 @@ import request.RequestManager;
 import request.Request;
 import room.Room;
 import user.User;
-import user.UserFactory;
 import user.UserManager;
 import user.attendee.AttendeeController;
 import user.speaker.Speaker;
@@ -25,7 +24,6 @@ import java.util.stream.Collectors;
  */
 public class OrganizerController extends AttendeeController {
 
-    UserFactory userFactory;
     OrganizerPresenter p;
 
     /**
@@ -38,7 +36,6 @@ public class OrganizerController extends AttendeeController {
     public OrganizerController(UserManager userManager, EventManager eventManager, MessageManager messageManager, String username, RequestManager requestManager) {
         super(userManager, eventManager, messageManager, username, requestManager);
         p = new OrganizerPresenter();
-        userFactory = new UserFactory();
     }
 
 

@@ -2,7 +2,6 @@ package user.vip;
 
 import event.EventManager;
 import message.MessageManager;
-import user.UserFactory;
 import user.UserManager;
 import request.RequestManager;
 import user.attendee.AttendeeController;
@@ -12,13 +11,11 @@ import java.util.List;
 
 public class VipController extends AttendeeController {
 
-    UserFactory userFactory;
     AttendeePresenter p;
 
     public VipController(UserManager userManager, EventManager eventManager, MessageManager messageManager, String username, RequestManager requestManager) {
         super(userManager, eventManager, messageManager, username, requestManager);
         this.p = new AttendeePresenter();
-        this.userFactory = new UserFactory();
     }
 
     /**

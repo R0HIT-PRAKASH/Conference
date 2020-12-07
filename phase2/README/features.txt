@@ -15,7 +15,7 @@ For Phase 2, we implemented all of the Mandatory Extensions, i.e.:
 
     (4) Organizers can also create Speaker accounts, Attendee accounts, and any other type of user accounts that are in
     your program.
-        Details:
+        Details: Organizers can now make any account through User options.
 
     (5) Each event has a maximum number of people who can attend it. This amount can be set when the event is created
     and also changed later, by an organizer. Your program should check the maximum capacity for the room where the
