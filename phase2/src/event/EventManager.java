@@ -635,6 +635,11 @@ public class EventManager implements Serializable {
         return strings;
     }
 
+    /**
+     * Gets the list of strings that represent the events that a speaker is/has speaking/spoken at
+     * @param speakingEventsNames Refers to the list of strings that represent events that a speaker is/has speaking/spoken at
+     * @return Returns a list of strings that represent events that a speaker is/has speaking/spoken at
+     */
     public List<String> getToStringsOfSpeakingEvents(List<String> speakingEventsNames){
         List<Event> chronological = chronologicalEvents(speakingEventsNames);
         List<String> strings = new ArrayList<String>();
@@ -644,6 +649,11 @@ public class EventManager implements Serializable {
         return strings;
     }
 
+    /**
+     * Gets the string representation of the event specified.
+     * @param eventName Refers to the name of the event.
+     * @return Returns the string representation of the event specified.
+     */
     public String getToStringOfEventByName(String eventName){
         Event event = getEvent(eventName);
         if (event == null){
@@ -652,6 +662,11 @@ public class EventManager implements Serializable {
         return event.toString();
     }
 
+    /**
+     * Gets the list of strings of all events with the given tag (category)
+     * @param tag Refers to the tag (category) of events.
+     * @return Returns the list of strings of all events with the given tag (category)
+     */
     public List<String> getToStringsOfEventsByTag(String tag){
         List<Event> chronological = chronologicalEvents(getAllEventNamesOnly());
         List<String> strings = new ArrayList<String>();
@@ -664,6 +679,10 @@ public class EventManager implements Serializable {
         return strings;
     }
 
+    /**
+     * Gets the list of string representations of all rooms.
+     * @return Returns the list of string representations of all rooms.
+     */
     public List<String> getToStringsOfRooms(){
         List<String> stringsOfRooms = new ArrayList<>();
         for (Room room: rooms){
