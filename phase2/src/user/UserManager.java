@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * The UserManager class stores a list of all of the users. userMap
@@ -424,6 +425,20 @@ public class UserManager implements Serializable {
     public String getName(String username){
         String name = getUser(username).getName();
         return name;
+    }
+
+    public List<String> getToStringsOfUsers(String type){
+
+        if (getUserMap() == null) return new ArrayList<>();
+        else{
+            List <User> attendees = getUserMap().values().stream().filter(user -> user.getUserType().equals(type)).collect(Collectors.toList());
+            List<String> stringsOfAttendees = new ArrayList<>();
+            for (User user: attendees){
+                stringsOfAttendees.add(user.toString());
+            }
+            return stringsOfAttendees;
+        }
+
     }
 
 
