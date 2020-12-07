@@ -166,7 +166,8 @@ public abstract class UserController {
 
         } else if (inboxType.equals("deleted")) {
             while (!messageAction.equalsIgnoreCase("DELETE") &&
-                    !messageAction.equalsIgnoreCase("RESTORE")) {
+                    !messageAction.equalsIgnoreCase("RESTORE") &&
+                    !messageAction.equalsIgnoreCase("CLOSE")) {
                 messageAction = p.displayDeletedActionPrompt();
             }
             if (messageAction.equalsIgnoreCase("DELETE")) {
@@ -179,7 +180,9 @@ public abstract class UserController {
                 messageManager.setDeletionStatus(messageManager.getMessageAtIndex(username, index), "restore");
             }
         } else if (inboxType.equals("archived")) {
-            while (!messageAction.equalsIgnoreCase("UNARCHIVE")) {
+            while (!messageAction.equalsIgnoreCase("UNARCHIVE") &&
+                    !messageAction.equalsIgnoreCase("CLOSE") &&
+                    !messageAction.equalsIgnoreCase("REPLY")) {
                 messageAction = p.displayDeletedActionPrompt();
             }
             if (messageAction.equalsIgnoreCase("UNARCHIVE")) {
