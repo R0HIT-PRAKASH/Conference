@@ -5,7 +5,6 @@ import request.RequestManager;
 import user.User;
 import user.UserManager;
 
-
 /**
  * A controller that deals with logging into the program.
  */
@@ -75,6 +74,15 @@ public class LoginController {
         return username;
     }
 
+    // Getter Methods
+
+    // This method returns the User associated with the given username
+    private User getUserInfo(String username){
+        return this.userManager.getUser(username);
+    }
+
+    // Other Methods
+
     // This method checks if the login information is correct, i.e. if the username is a valid username in the
     // database, and then checking if the password matches that username and returning the result
     private boolean checkLoginInfo(String username, String password){
@@ -84,11 +92,6 @@ public class LoginController {
             password_valid = (this.getUserInfo(username).getPassword().equals(password));
         }
         return password_valid;
-    }
-
-    // This method returns the User associated with the given username
-    private User getUserInfo(String username){
-        return this.userManager.getUser(username);
     }
 
     // This method creates a new Account
