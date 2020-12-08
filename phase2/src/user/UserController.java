@@ -134,6 +134,7 @@ public abstract class UserController {
                     !messageAction.equalsIgnoreCase("ARCHIVE") &&
                     !messageAction.equalsIgnoreCase("PIN") &&
                     !messageAction.equalsIgnoreCase("UNPIN")) {
+                p.displayInvalidInput();
                 messageAction = p.displayMessageActionPrompt();
             }
 
@@ -176,6 +177,7 @@ public abstract class UserController {
             while (!messageAction.equalsIgnoreCase("DELETE") &&
                     !messageAction.equalsIgnoreCase("RESTORE") &&
                     !messageAction.equalsIgnoreCase("CLOSE")) {
+                p.displayInvalidInput();
                 messageAction = p.displayDeletedActionPrompt();
             }
             if (messageAction.equalsIgnoreCase("DELETE")) {
@@ -191,6 +193,7 @@ public abstract class UserController {
             while (!messageAction.equalsIgnoreCase("UNARCHIVE") &&
                     !messageAction.equalsIgnoreCase("CLOSE") &&
                     !messageAction.equalsIgnoreCase("REPLY")) {
+                p.displayInvalidInput();
                 messageAction = p.displayDeletedActionPrompt();
             }
             if (messageAction.equalsIgnoreCase("UNARCHIVE")) {
@@ -205,21 +208,7 @@ public abstract class UserController {
 
 
     protected void deletedMessagesCheck() {
-        List<Message> allMessages = messageManager.viewMessages(username);
-        List<Message> deletedMessages = new ArrayList<>();
-
-        for (Message message : allMessages) {
-            if (messageManager.getDeletionStatus(message)) {
-                deletedMessages.add(message);
-            }
-        }
-        LocalDateTime currentTime = LocalDateTime.now();
-        int currentMinute = currentTime.getMinute();
-        for (Message message : deletedMessages) {
-            if (messageManager.getDeletionDateInfo(message).getMinute() + 1 < currentMinute) {
-                allMessages.remove(message);
-            }
-        }
+        messageManager.deletedMessagesCheckMM(username);
     }
 
     /**
