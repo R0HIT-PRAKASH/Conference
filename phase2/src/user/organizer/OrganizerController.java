@@ -263,9 +263,7 @@ public class OrganizerController extends AttendeeController {
                 }
 
                 //Removing event from the organizer's list of organized events
-                System.out.println(eventManager.getOrganizersList(event));
                 for(String username : eventManager.getOrganizersList(event)){
-                    System.out.println("ha");
                     userManager.removeCreatedEvent(username, eventManager.getEvent(event));
                 }
 
@@ -352,7 +350,6 @@ public class OrganizerController extends AttendeeController {
                     p.displayNoOrganizedEvents();
                     break;
                 }
-                System.out.println(namesOfEvents);
                 List<Event> usersFutureEvents = eventManager.chronologicalEvents(eventManager.eventNotHappened(namesOfEvents));
                 p.displayYourCreatedEvents(usersFutureEvents);
 
