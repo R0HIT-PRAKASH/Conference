@@ -30,6 +30,7 @@ public class UserManager implements Serializable {
 
     /**
      * Constructs a UserManager Object.
+     * @param RW Refers to an instance of the class that reads and writes to files.
      */
     public UserManager(ReaderWriter RW){
         userMap = new HashMap<>();
@@ -450,6 +451,9 @@ public class UserManager implements Serializable {
 
     /**
      * Attempts to sign up an attendee for an Event
+     * @param username Refers to the username of the user.
+     * @param eventManager Refers to the use case class for events.
+     * @param eventName Refers to the naem of the event.
      * @return returns true if the attendee was signed up successfully and false if the
      * attendee was not able to sign up
      */
@@ -460,6 +464,7 @@ public class UserManager implements Serializable {
 
     /**
      * Checks if the corresponding User is not attending any events
+     * @param username Refers to the username of the user.
      * @return returns true if the User corresponding to username is attending no events
      * and false if the User is attending at least 1 event
      */

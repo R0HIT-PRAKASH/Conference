@@ -21,6 +21,7 @@ public class LoginController {
      * @param userManager The instance of the User Manager
      * @param messageManager The instance of the Message Manager
      * @param value Whether or not to start from scratch
+     * @param requestManager The instance of the Request Manager.
      * @return String username (of the user who was able to log in)
      */
     public String login(UserManager userManager, MessageManager messageManager, int value, RequestManager requestManager){

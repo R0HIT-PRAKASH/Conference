@@ -23,6 +23,7 @@ public class MessageManager implements java.io.Serializable {
 
     /**
      * This method constructs a MessageManager object with an empty allUserMessages.
+     * @param RW Refers to an instance of the class that reads and writes to files.
      */
     public MessageManager(ReaderWriter RW){
     this.allUserMessages =  new HashMap<String, List<Message>>();
@@ -70,6 +71,7 @@ public class MessageManager implements java.io.Serializable {
      * @param starred Whether or not this message has been starred
      * @param deleted Whether or not this message has been deleted
      * @param archived Whether or not this message has been archived
+     * @param dateTimeCreatedCopy Refers to the date and time the message was created and sent.
      */
     public void addMessage(String username, String message, String recipientUsername, boolean beenRead,
                            LocalDateTime dateTimeCreated, LocalDateTime dateTimeDeleted, boolean starred,
@@ -316,6 +318,7 @@ public class MessageManager implements java.io.Serializable {
     /**
      * Returns a List of "messages", where messages are encoded as a List of strings.
      * @param username the username of the User who's messages you want to generate.
+     * @param inboxType Refers to the type of inbox.
      * @return Returns a list of the user's messages, where messages are of the form [sender, content, timestamp,
      * read status, starred status, deletion status, archive status]
      */
@@ -333,6 +336,10 @@ public class MessageManager implements java.io.Serializable {
             }
             case "starred": {
                 messageList = generateStarredMessageList(username);
+                break;
+            }
+            case "all": {
+                messageList = allUserMessages.get(username);
                 break;
             }
             default: {
@@ -357,6 +364,12 @@ public class MessageManager implements java.io.Serializable {
             messageInfo.add(String.valueOf(allUserMessages.get(username).indexOf(message)));
             messageInfo.add(username);
             messageInfo.add(String.valueOf(message.isPinned()));
+            if(!(getDeletionDateInfo(message) == null)) {
+                messageInfo.add(dtf.format(getDeletionDateInfo(message)));
+            } else{
+                messageInfo.add("null");
+            }
+            messageInfo.add(dtf.format(getTimeCreatedCopy(message)));
             messageSenderContentTimestamp.add(messageInfo);
         }
         return messageSenderContentTimestamp;

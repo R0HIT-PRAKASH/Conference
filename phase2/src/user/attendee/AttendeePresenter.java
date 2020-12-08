@@ -74,6 +74,7 @@ public class AttendeePresenter extends UserPresenter {
 
     /**
      * Prompts an Organizer or Attendee on which User they would like to message.
+     * @return Returns the user's next string input.
      */
     public String displayMethodPrompt(){
         System.out.println("Who would you like to message? (Please enter the username of the recipient). Otherwise, type 'q' to exit");
@@ -98,6 +99,7 @@ public class AttendeePresenter extends UserPresenter {
     /**
      * Prompts an Attendee or Organizer to enter the contents of the message they would like to send.
      * @param recipient: The username of the User who is being messaged.
+     * @return Returns the next string input from the user.
      */
     public String displayEnterMessagePrompt(String recipient){
         System.out.println("Enter the message you would like to send to " + recipient + ". " + "If you would no longer like to send a message, type 'q' to exit. ");
@@ -207,6 +209,7 @@ public class AttendeePresenter extends UserPresenter {
 
     /**
      * Prompts an Attendee or Organizer for the name of the Event they would like to sign up for.
+     * @return Returns the next string input from the user.
      */
     public String displayEventSignUpPrompt(){
         System.out.println("What is the name of the event you would like to sign up for? Type 'q' if you would no longer like to sign up for an event.");
@@ -230,6 +233,7 @@ public class AttendeePresenter extends UserPresenter {
 
     /**
      * Prints an error message that user cannot sign up for this event
+     * @return Returns the next string input from the user.
      */
     public String displayInvalidEventSignUp(){
         System.out.print("That is not an Event you can sign up for. Please re-enter the name " +
@@ -318,6 +322,8 @@ public class AttendeePresenter extends UserPresenter {
 
     /**
      * Prints the event specified by the event name.
+     * @param string Refers to the string representation of the event.
+     * @param name Refers to the name of the event.
      */
     public void displayEventByName(String string, String name){
         if (name.equals("NoEvent")){

@@ -35,6 +35,7 @@ public class MainController {
     /**
      * Constructs a MainController object with MessageManager, UserManager, EventManager, ReaderWriter objects,
      * and a String username.
+     * @throws SQLException Refers to the exception that is raised when there is a problem accessing the database.
      */
     public MainController() throws SQLException {
         RW = new ReaderWriter();
@@ -213,6 +214,7 @@ public class MainController {
     /**
      * This method is responsible for calling the appropriate controller depending on the user. At the end, it saves
      * all the users, messages, events, and rooms to the appropriate files.
+     * @throws SQLException Refers to the exception that is raised when there is a problem accessing the database.
      */
     public void run() throws SQLException {
         LoginController log = new LoginController();
