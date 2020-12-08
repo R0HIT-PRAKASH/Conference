@@ -17,18 +17,22 @@
     The following section is about specific users and what they can do:
 
 ===== USER MANUAL =====
-    === Attendees ===
-    Once attendees log in, they will be shown a menu of 5 options.
-        Messages (0)- attendees may:
+    === Attendees and VIPs ===
+    Once they log in, they will be shown a menu of 5 options.
+        Messages (0)- they may:
             - see their inbox
             - see starred, deleted, or archived messages
             - send a message
-        Events (1)
-        Requests (2)
-        User Options (3)
+        Events (1)- they may:
+            - view event list, and their scheduled events
+            - sign up for, and search for events
+            - cancel event reservations
+        Requests (2)- they may view their requests, or make requests
+        User Options (3)- they may:
+            - view their corporation and edit their corporation information
+            - view their bio, and edit their bio
     Quit (4)
-    At any menu, there is option of going back to the main screen.
-    === VIPs ===
+    At any menu, there is the option of going back to the main screen.
 
     === Speakers ===
 
