@@ -203,6 +203,10 @@ public class UserPresenter extends Presenter {
         }
     }
 
+    /**
+     * Displays the full message
+     * @param effectiveMessage Refers to a list of strings that represents the components of the message
+     */
     public void displayFullMessage(List<String> effectiveMessage){
         System.out.println("Sent By: " + effectiveMessage.get(0) + "\n" +
                "Message: " +
