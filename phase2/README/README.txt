@@ -16,6 +16,64 @@
 
     The following section is about specific users and what they can do:
 
+
+===== SETTING UP MySQL =====
+    === Windows ===
+    Download the MySQL Community Server installer here: https://dev.mysql.com/downloads/windows/installer/8.0.html
+    Follow instructions
+        During the Choose a Setup Type, select custom
+        Add the following three files
+            MySQL Server x64
+            MySQL Java Connector (J/Connector)
+            Under applications, MySQL Shell x64
+    Leave everything else as default
+    It will ask you to set up a password during the installation phase, make sure you remember the password
+    Make sure you know where the files are being saved
+    Complete the installation
+    Open the MySQL Command Line Client
+    Enter your password
+    Enter the following
+        CREATE DATABASE conference;
+        exit;
+
+    === MacOS ===
+    Download the MySQL Community Server here: https://dev.mysql.com/downloads/windows/installer/8.0.html
+        Select the DMG Archive Version
+        Start installation
+        It will ask you to create a password, make sure you remember it
+        Leave everything else as default
+        Complete installation
+    Open System Preferences
+    MySQL should appear in the bottom row
+    Click it, then start the server
+    Open the terminal
+    Type the following
+        echo 'export PATH=usr/local/mysql/bin:$PATH' >> ~/.bash_profile
+        . ~/.bash_profile
+    Then type the following
+        mysql -u root -p
+    Enter the password you created during installing
+    Enter the following
+        CREATE DATABASE conference;
+    Download the Connector/J here https://dev.mysql.com/downloads/connector/j/ (use platform independent,
+    ZIP is probably easier)
+
+    === Both Platforms ===
+    Open IntelliJ and the project file
+    In the project pane, right click the project file (the top level file on the project pane)
+    Open Module Settings
+    Select libraries
+    Select the + button
+    Select Java
+    Navigate to wherever your Connector/J file is and find the mysql-connector-java-8.0.22.jar file and select it
+    Open the CreateConferenceTables java file in the saver package
+    Change the password on line 16 to your password (the third string)
+    Run the main method in this file
+    Open the Connector java file
+    Again, in the constructor look for the spot to enter your password again
+    The program is now ready to run
+
+
 ===== USER MANUAL =====
     === Attendees and VIPs ===
     Once they log in, they will be shown a menu of 5 options.
