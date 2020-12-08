@@ -3,7 +3,6 @@ import event.Event;
 import event.EventManager;
 import event.Talk;
 import event.Panel;
-import message.Message;
 import message.MessageManager;
 import request.RequestManager;
 import request.Request;
@@ -30,6 +29,7 @@ public class OrganizerController extends AttendeeController {
      * @param eventManager Refers to the EventManager object.
      * @param messageManager Refers to the MessageManager object.
      * @param username Refers to the username of the organizer.
+     * @param requestManager Refers to the RequestManager object.
      */
     public OrganizerController(UserManager userManager, EventManager eventManager, MessageManager messageManager, String username, RequestManager requestManager) {
         super(userManager, eventManager, messageManager, username, requestManager);
@@ -57,7 +57,6 @@ public class OrganizerController extends AttendeeController {
     }
 
     private void determineInput(int input) {
-        label:
         switch (input) {
             case 0:
                 p.displayMessageOptions();
@@ -204,7 +203,6 @@ public class OrganizerController extends AttendeeController {
     }
 
     protected void determineInput1(int input) {
-        label:
         switch (input) {
             case 0:
                 viewEventList();
@@ -262,9 +260,7 @@ public class OrganizerController extends AttendeeController {
                 }
 
                 //Removing event from the organizer's list of organized events
-                System.out.println(eventManager.getOrganizersList(event));
                 for(String username : eventManager.getOrganizersList(event)){
-                    System.out.println("ha");
                     userManager.removeCreatedEvent(username, eventManager.getEvent(event));
                 }
 
@@ -351,7 +347,6 @@ public class OrganizerController extends AttendeeController {
                     p.displayNoOrganizedEvents();
                     break;
                 }
-                System.out.println(namesOfEvents);
                 List<Event> usersFutureEvents = eventManager.chronologicalEvents(eventManager.eventNotHappened(namesOfEvents));
                 p.displayYourCreatedEvents(usersFutureEvents);
 
@@ -361,7 +356,7 @@ public class OrganizerController extends AttendeeController {
                 }
                 while(!namesOfEvents.contains(eventNameToModify)){
                     eventNameToModify = p.displayCannotModifyEvent();
-                    // extend so you handle when they do an event you didnt create with specific error
+                    // extend so you handle when they do an event you didn't create with specific error
                     if (eventNameToModify.equalsIgnoreCase("q")) {
                         break;
                     }
@@ -768,29 +763,6 @@ public class OrganizerController extends AttendeeController {
         return speaker;
     }
 
-
-    /**
-     * Adds an event to the event list.
-     * @param name Refers to the name of the event.
-     * @param speaker Refers to the name of the speaker of this event.
-     * @param time Refers to the starting time of the event.
-     * @param duration The Event Duration.
-     * @param roomNumber Refers to the room number of this event.
-     * @param capacity The room capacity.
-     * @param computers Refers to the number of computers in the room.
-     * @param projector Refers to whether or not the room has a projector.
-     * @param chairs Refers to the number of chairs in the room.
-     * @param tables Refers to the number of tables in the room.
-     * @param creators The list of creators.
-     * @param vip Refers to whether or not this event is VIP exclusive.
-     * @return Returns the created event.
-     */
-    boolean addEvent(String eventType, String name, LocalDateTime time, Integer duration, int roomNumber, int capacity,
-                     int computers, boolean projector, int chairs, int tables, List<String> creators, boolean vip, String speaker, List<String> speakers) {
-        return eventManager.addEvent(eventType, name, time, duration, roomNumber, capacity, computers, projector,
-                chairs, tables, creators, vip, speaker, speakers, "");
-    }
-
     /**
      * This method sends a message to all the attendees at the conference.
      * @param message This parameter is the message text
@@ -814,14 +786,6 @@ public class OrganizerController extends AttendeeController {
      */
     void messageAllSpeakers(String message) {
         createBlastMessage("speaker", message);
-    }
-
-    /**
-     * This method cancels an event
-     * @param name This is the title of the event to be canceled
-     */
-    void cancelEvent(String name) {
-        eventManager.getAllEvents().remove(name);
     }
 
     /**
@@ -897,16 +861,6 @@ public class OrganizerController extends AttendeeController {
         p.displayNewUserCreated(username, password);
         return username;
     }
-
-    private List<String> getSenders(String username){
-        List<Message> allMessages = messageManager.viewMessages(username);
-        List<String> users = new ArrayList<>();
-        for (Message message: allMessages){
-            users.add(messageManager.getSender(message));
-        }
-        return users;
-    }
-
 
     private List<User> users(String type) {
 
@@ -989,6 +943,10 @@ public class OrganizerController extends AttendeeController {
 
     }
 
+    /**
+     * This method determines which request an organizer wants to view from a specific user.
+     * @return The request that the user wants to view.
+     */
     public int getRequestToDecide(){
         List<Request> pending = requestManager.getStatusRequests("pending");
         p.displayPendingRequests(pending);
@@ -1000,6 +958,10 @@ public class OrganizerController extends AttendeeController {
         }
     }
 
+    /**
+     * This method prints which requests a user has made.
+     * @param username The username of the user whose requests we are viewing.
+     */
     public void getUserRequests(String username){
         List<Request> user_req = requestManager.getUserRequests(username);
         if (user_req.size() == 0){
@@ -1010,6 +972,9 @@ public class OrganizerController extends AttendeeController {
         }
     }
 
+    /**
+     * This method prints a message telling the user there are no addressed requests.
+     */
     public void getAddressedRequests(){
         List<Request> addressed = requestManager.getStatusRequests("addressed");
         if (addressed.size() == 0){

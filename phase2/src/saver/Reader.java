@@ -16,7 +16,7 @@ public class Reader {
 
     public Reader(Connection conn) {
         this.conn = conn;
-        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
     }
 
     public UserManager readInUsers() throws SQLException {

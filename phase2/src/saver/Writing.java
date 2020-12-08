@@ -23,7 +23,7 @@ public class Writing {
 
     public Writing(Connection conn) {
         this.conn = conn;
-        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
     }
 
     public void clearEverything() throws SQLException {
@@ -109,18 +109,16 @@ public class Writing {
 
     //Clean architecture is violated here. Need to refactor how rooms are stored
     public void saveEventManager(EventManager eventManager) throws SQLException {
-        List<Room> rooms = eventManager.getRooms();
-        for (Room room : rooms){
+        List<List<Integer>> rooms = eventManager.getEffectiveRoomList();
+        for (List<Integer> room : rooms){
             PreparedStatement insertRoom = conn.prepareStatement("insert into room (" +
                     "roomnumber, capacity, computers, projector, tables, chairs) values (?, ?, ?, ?, ?, ?)");
-            insertRoom.setInt(1, room.getRoomNumber());
-            insertRoom.setInt(2, room.getCapacity());
-            insertRoom.setInt(3, room.getComputers());
-            int projector = 0;
-            if(room.getProjector()) projector = 1;
-            insertRoom.setInt(4, projector);
-            insertRoom.setInt(5, room.getTables());
-            insertRoom.setInt(6, room.getChairs());
+            insertRoom.setInt(1, room.get(0));
+            insertRoom.setInt(2, room.get(1));
+            insertRoom.setInt(3, room.get(2));
+            insertRoom.setInt(4, room.get(3));
+            insertRoom.setInt(5, room.get(4));
+            insertRoom.setInt(6, room.get(5));
             insertRoom.executeUpdate();
         }
         List<String> eventNames = eventManager.getAllEventNamesOnly();
@@ -169,39 +167,40 @@ public class Writing {
     }
 
     //Also violates clean architecture, can't isolate Messages otherwise
+    // not anymore 😎
     public void saveMessageManager(MessageManager messageManager) throws SQLException{
         Set<String> usernames = messageManager.getAllUserMessages().keySet();
         for (String username : usernames){
-            List<Message> messages = messageManager.viewMessages(username);
-            for (Message message : messages){
+            List<List<String>> messages = messageManager.generateEffectiveMessageList(username, "all");
+            for (List<String> message : messages){
                 PreparedStatement insertMessage = conn.prepareStatement("insert into messages (content, " +
                         "senderUsername, recepientUsername, beenread, starred, deleted, archived, datetimecreated," +
                         " datetimedeleted, datetimecreatedcopy) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                insertMessage.setString(1, messageManager.getMessageContent(message));
+                insertMessage.setString(1, message.get(1));
                 insertMessage.setString(3, username);
-                insertMessage.setString(2, messageManager.getSender(message));
+                insertMessage.setString(2, message.get(0));
                 int beenread = 0;
-                if(messageManager.getMessageReadStatus(message)) beenread = 1;
+                if(Boolean.parseBoolean(message.get(3))) beenread = 1;
                 insertMessage.setInt(4, beenread);
                 int starred = 0;
-                if(messageManager.getStarredStatus(message)) starred = 1;
+                if(Boolean.parseBoolean(message.get(4))) starred = 1;
                 insertMessage.setInt(5, starred);
                 int deleted = 0;
-                if(messageManager.getDeletionStatus(message)) deleted = 1;
+                if(Boolean.parseBoolean(message.get(5))) deleted = 1;
                 insertMessage.setInt(6, deleted);
                 int archived = 0;
-                if(messageManager.getArchivedStatus(message)) archived = 1;
+                if(Boolean.parseBoolean(message.get(6))) archived = 1;
                 insertMessage.setInt(7, archived);
-                String created = messageManager.getTimeCreated(message).format(formatter);
+                String created = message.get(2);
                 insertMessage.setString(8, created);
                 if (deleted == 1){
-                    String deletedAt = messageManager.getDeletionDateInfo(message).format(formatter);
+                    String deletedAt = message.get(10);
                     insertMessage.setString(9, deletedAt);
                 }
                 else{
                     insertMessage.setString(9, "-1");
                 }
-                insertMessage.setString(10, messageManager.getTimeCreatedCopy(message).format(formatter));
+                insertMessage.setString(10, message.get(11));
                 insertMessage.executeUpdate();
             }
         }

@@ -50,6 +50,7 @@ public class Message implements Serializable, Comparable<Message> {
      * @param starred Whether or not this message has been starred
      * @param deleted Whether or not this message has been deleted
      * @param archived Whether or not this message has been archived
+     * @param dateTimeCreatedCopy Refers to the date and time the message was created and sent.
      */
     public Message(String content, String senderUsername, String recipientUsername, boolean beenRead,
                    LocalDateTime dateTimeCreated, LocalDateTime dateTimeDeleted, boolean starred, boolean deleted,
@@ -216,6 +217,7 @@ public class Message implements Serializable, Comparable<Message> {
 
     /**
      * Sets the message's dateTimeCreated variable.
+     * @param LDT Refers to the date the event is to take place.
      */
     public void setDateTimeCreated(LocalDateTime LDT){
         this.dateTimeCreated = LDT;

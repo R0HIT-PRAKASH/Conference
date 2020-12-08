@@ -186,6 +186,7 @@ public class UserPresenter extends Presenter {
         // read - 3, star - 4, delete - 5, archived - 6
         // index of message in user map lol - 7
         // recipient username - 8, isPinned - 9
+        // deletion date info - 10, time created copy - 11
         // if unread
 
         String sender = effectiveMessage.get(0);

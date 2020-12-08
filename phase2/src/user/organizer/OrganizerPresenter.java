@@ -1,10 +1,9 @@
 package user.organizer;
 
 import event.Event;
-import room.Room;
-import user.User;
-import user.attendee.AttendeePresenter;
 import request.Request;
+import room.Room;
+import user.attendee.AttendeePresenter;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -103,6 +102,7 @@ public class OrganizerPresenter extends AttendeePresenter {
 
     /**
      * Prompts the Organizer to add the Title of the Event they want to create.
+     * @return Returns a string representation of the user input.
      */
     public String displayEventTitlePrompt() {
         System.out.print("Enter the Event Title (or type 'q' to exit): ");
@@ -145,6 +145,7 @@ public class OrganizerPresenter extends AttendeePresenter {
 
     /**
      * Prompts the Organizer to enter the room number for the Event they want to create.
+     * @return Return an integer representation of the user's input that represents the desired room number.
      */
     public int displayEnterRoomNumberPrompt() {
         System.out.print("Enter a room number: ");
@@ -411,6 +412,7 @@ public class OrganizerPresenter extends AttendeePresenter {
 
     /**
      * Prompts the Organizer to enter the number of the Room they would like to create.
+     * @return Returns the integer input of the user input.
      */
     public int displayRoomCreationPrompt() {
         System.out.println("Enter the number of the Room you would " +
@@ -541,6 +543,7 @@ public class OrganizerPresenter extends AttendeePresenter {
 
     /**
      * Displays the message that prompts the user for the specified capacity of the event.
+     * @return Returns the integer input the user input.
      */
     public int displayEventCapacityPrompt() {
         System.out.println("Enter the capacity of the event you would like to add or -1 if you want to quit.");
@@ -549,6 +552,7 @@ public class OrganizerPresenter extends AttendeePresenter {
 
     /**
      * Displays the message that prompts the user for the specified capacity of the room.
+     * @return Returns the integer input of the user.
      */
     public int displayRoomCapacityPrompt() {
         System.out.println("Enter the capacity of the room you would like to add or -1 if you want to quit.");
@@ -557,6 +561,7 @@ public class OrganizerPresenter extends AttendeePresenter {
 
     /**
      * Displays the message that prompts the user for the wanted duration.
+     * @return Returns the integer input of the user that represents the length of the event.
      */
     public int displayDurationPrompt() {
         System.out.println("How long would you like the event to last(in hours)? You can enter 0 to quit.");
@@ -565,6 +570,7 @@ public class OrganizerPresenter extends AttendeePresenter {
 
     /**
      * Displays the message that prompts the user to enter the number of computers in the room.
+     * @return Returns the integer input of theuser that represents the number of computers.
      */
     public int displayComputersPrompt() {
         System.out.println("How many computers? Enter -1 to quit.");
@@ -597,6 +603,7 @@ public class OrganizerPresenter extends AttendeePresenter {
 
     /**
      * Displays the message that prompts the user to enter the number of chairs in the room.
+     * @return Returns the integer input of the user that represents the number of chairs.
      */
     public int displayChairsPrompt() {
         System.out.println("How many chairs? Enter -1 to quit.");
@@ -605,6 +612,7 @@ public class OrganizerPresenter extends AttendeePresenter {
 
     /**
      * Displays the message that prompts the user to enter the number of tables in the room.
+     * @return Returns the integer input of the user that represents the amount of tables.
      */
     public int displayTablesPrompt() {
         System.out.println("How many tables? Enter -1 to quit.");
