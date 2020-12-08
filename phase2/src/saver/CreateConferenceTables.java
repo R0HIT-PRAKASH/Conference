@@ -6,7 +6,7 @@ public class CreateConferenceTables {
 
     /**
      * Sets up the  tables for the database
-     * @param args
+     * @param args The passed-in command line arguments
      */
     public static void main(String [] args){
         try( Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/conference",

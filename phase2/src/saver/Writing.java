@@ -31,7 +31,7 @@ public class Writing {
 
     /**
      * Removes all information from the tables
-     * @throws SQLException
+     * @throws SQLException If it can't connect
      */
     public void clearEverything() throws SQLException {
         int clear = 0;
@@ -58,7 +58,7 @@ public class Writing {
     /**
      * Saves the usermanager information in the database
      * @param userManager The userManager we want to save
-     * @throws SQLException
+     * @throws SQLException If it can't connect
      */
     public void saveUserManager(UserManager userManager) throws SQLException{
         Set<String> setUsernames = userManager.getUserMap().keySet();
@@ -122,7 +122,7 @@ public class Writing {
     /**
      * Saves the eventManager information in the database
      * @param eventManager The eventManager we want to save
-     * @throws SQLException
+     * @throws SQLException If it can't connect
      */
     public void saveEventManager(EventManager eventManager) throws SQLException {
         List<List<Integer>> rooms = eventManager.getEffectiveRoomList();
@@ -185,7 +185,7 @@ public class Writing {
     /**
      * Saves the messageManager information in the database
      * @param messageManager The userManager we want to save
-     * @throws SQLException
+     * @throws SQLException If it can't connect
      */
     public void saveMessageManager(MessageManager messageManager) throws SQLException{
         Set<String> usernames = messageManager.getAllUserMessages().keySet();
@@ -229,7 +229,7 @@ public class Writing {
     /**
      * Saves the requestManager information in the database
      * @param requestManager The userManager we want to save
-     * @throws SQLException
+     * @throws SQLException If it can't connect
      */
     public void saveRequestManager(RequestManager requestManager) throws SQLException{
         Set<String> usernames = requestManager.getAllRequests().keySet();

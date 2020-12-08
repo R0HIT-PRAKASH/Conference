@@ -236,7 +236,7 @@ public class SpeakerPresenter extends AttendeePresenter {
 
     /**
      * Informs the user that they cannot send a message to the number of events they selected.
-     * @return
+     * @return The number of events
      */
     public int displayInvalidNumberOfEventsToMessage(){
         System.out.println("You cannot message that amount of events. Try again or -1 to quit.");

@@ -16,7 +16,7 @@ public class Connector {
 
     /**
      * Creates a connector between the database and this program
-     * @throws SQLException
+     * @throws SQLException If it can't connect
      */
     public Connector() throws SQLException{
         try{
@@ -33,7 +33,7 @@ public class Connector {
     /**
      * Checks to see if there are files that already exist or not
      * @return Whether or not files exist
-     * @throws SQLException
+     * @throws SQLException If it can't connect
      */
     public boolean determineExisting() throws SQLException {
         PreparedStatement exists = conn.prepareStatement("SELECT * from users");
@@ -45,7 +45,7 @@ public class Connector {
 
     /**
      * Closes the connection between the database and this program
-     * @throws SQLException
+     * @throws SQLException If it can't connect
      */
     public void end() throws SQLException {
         conn.close();
@@ -53,7 +53,7 @@ public class Connector {
 
     /**
      * Clears all the tables in the database
-     * @throws SQLException
+     * @throws SQLException If it can't connect
      */
     public void clearEverything() throws SQLException {
         writer.clearEverything();
@@ -62,7 +62,7 @@ public class Connector {
     /**
      * Saves the usermanager information in the database
      * @param userManager The userManager we want to save
-     * @throws SQLException
+     * @throws SQLException If it can't connect
      */
     public void saveUserManager(UserManager userManager) throws SQLException{
         writer.saveUserManager(userManager);
@@ -71,7 +71,7 @@ public class Connector {
     /**
      * Saves the eventManager information in the database
      * @param eventManager The eventManager we want to save
-     * @throws SQLException
+     * @throws SQLException If it can't connect
      */
     public void saveEventManager(EventManager eventManager) throws SQLException {
         writer.saveEventManager(eventManager);
@@ -81,7 +81,7 @@ public class Connector {
     /**
      * Saves the messageManager information in the database
      * @param messageManager The userManager we want to save
-     * @throws SQLException
+     * @throws SQLException If it can't connect
      */
     public void saveMessageManager(MessageManager messageManager) throws SQLException{
         writer.saveMessageManager(messageManager);
@@ -90,7 +90,7 @@ public class Connector {
     /**
      * Saves the requestManager information in the database
      * @param requestManager The userManager we want to save
-     * @throws SQLException
+     * @throws SQLException If it can't connect
      */
     public void saveRequestManager(RequestManager requestManager) throws SQLException{
         writer.saveRequestManager(requestManager);
@@ -99,7 +99,7 @@ public class Connector {
 
     /**
      * Reads in the userManager information from the database
-     * @throws SQLException
+     * @throws SQLException If it can't connect
      * @return The newly read in userManager
      */
     public UserManager readInUsers() throws SQLException {
@@ -108,7 +108,7 @@ public class Connector {
 
     /**
      * Reads in the messageManager information from the database
-     * @throws SQLException
+     * @throws SQLException If it can't connect
      * @return The newly read in messageManager
      */
     public MessageManager readInMessages() throws SQLException {
@@ -117,7 +117,7 @@ public class Connector {
 
     /**
      * Reads in the requestManager information from the database
-     * @throws SQLException
+     * @throws SQLException If it can't connect
      * @return The newly read in requestManager
      */
     public RequestManager readInRequests() throws SQLException{
@@ -126,7 +126,7 @@ public class Connector {
 
     /**
      * Reads in the eventManager information from the database
-     * @throws SQLException
+     * @throws SQLException If it can't connect
      * @return The newly read in eventManager
      */
     public EventManager readInEvents() throws SQLException{

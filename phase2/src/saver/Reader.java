@@ -21,7 +21,7 @@ public class Reader {
 
     /**
      * Reads in the userManager information from the database
-     * @throws SQLException
+     * @throws SQLException If it can't connect
      * @return The newly read in userManager
      */
     public UserManager readInUsers() throws SQLException {
@@ -73,7 +73,7 @@ public class Reader {
 
     /**
      * Reads in the messageManager information from the database
-     * @throws SQLException
+     * @throws SQLException If it can't connect
      * @return The newly read in messageManager
      */
     public MessageManager readInMessages() throws SQLException {
@@ -119,7 +119,7 @@ public class Reader {
 
     /**
      * Reads in the requestManager information from the database
-     * @throws SQLException
+     * @throws SQLException If it can't connect
      * @return The newly read in requestManager
      */
     public RequestManager readInRequests() throws SQLException{
@@ -142,7 +142,7 @@ public class Reader {
 
     /**
      * Reads in the eventManager information from the database
-     * @throws SQLException
+     * @throws SQLException If it can't connect
      * @return The newly read in eventManager
      */
     public EventManager readInEvents() throws SQLException{

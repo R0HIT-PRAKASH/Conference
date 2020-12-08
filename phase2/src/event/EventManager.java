@@ -393,6 +393,7 @@ public class EventManager implements Serializable {
 
     /**
      * Creates a new event object.
+     * @param eventType The type of event
      * @param name Refers to the name of the event.
      * @param time Refers to the starting time of the event.
      * @param duration The Event Duration.
@@ -423,6 +424,7 @@ public class EventManager implements Serializable {
 
     /**
      * Adds an event to the event list.
+     * @param eventType The type of event
      * @param name Refers to the name of the event.
      * @param time Refers to the starting time of the event.
      * @param duration The Event Duration.
