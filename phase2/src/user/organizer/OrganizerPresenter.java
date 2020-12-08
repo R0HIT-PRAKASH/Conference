@@ -1,10 +1,9 @@
 package user.organizer;
 
 import event.Event;
-import room.Room;
-import user.User;
-import user.attendee.AttendeePresenter;
 import request.Request;
+import room.Room;
+import user.attendee.AttendeePresenter;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;

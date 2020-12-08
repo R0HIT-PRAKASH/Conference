@@ -4,11 +4,9 @@ import event.Event;
 import event.EventManager;
 import message.Message;
 import message.MessageManager;
-import request.Request;
 import request.RequestManager;
-import user.UserController;
-import user.attendee.AttendeeController;
 import user.UserManager;
+import user.attendee.AttendeeController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -164,7 +162,6 @@ public class SpeakerController extends AttendeeController {
                     if (next.equals("q")){
                         break;
                     }
-                    // NEED TO FIX BELOW
                     if (speakingEventsNames.contains(next) && !eventNames.contains(next)) {
                         eventNames.add(next);
                     }
@@ -254,23 +251,6 @@ public class SpeakerController extends AttendeeController {
         p.displayRequestOptions();
     }
 
-    private void viewOptions(){
-        p.displayOptions3();
-    }
-
-    private List<String> getAttendees(String username){
-        List<Message> allMessages = messageManager.viewMessages(username);
-        List<String> attendees = new ArrayList<>();
-        for (Message message: allMessages){
-            String name = messageManager.getSender(message);
-            if(!attendees.contains(name)){
-                attendees.add(name);
-            }
-        }
-        return attendees;
-    }
-
-
     private void viewScheduledEvents(String username){
         List<String> allEvents = userManager.getSpeakingEvents(username);
         List<String> notHappened = eventManager.eventNotHappened(allEvents);
@@ -282,6 +262,4 @@ public class SpeakerController extends AttendeeController {
         messageManager.speakerBlastMessage(eventNames, message, eventManager, this.username);
         p.displayMessageSentPrompt2();
     }
-
-
 }
