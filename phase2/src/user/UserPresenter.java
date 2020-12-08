@@ -340,5 +340,24 @@ public class UserPresenter extends Presenter {
         System.out.println(bio);
     }
 
+    /**
+     * This method prints that the user has no message in their inbox.
+     */
     public void displayEmptyInbox(){System.out.println("No Messages :(");}
+
+    /**
+     * This method prints that the user has no starred messages.
+     */
+    public void displayEmptyStarredInbox(){System.out.println("No Starred Messages :(");}
+
+    /**
+     * This method prints that the user has no deleted messages.
+     */
+    public void displayEmptyDeletedInbox(){System.out.println("No Deleted Messages :(");}
+
+    /**
+     * This method prints that the user has no archived messages.
+     */
+    public void displayEmptyArchivedInbox(){System.out.println("No Archived Messages :(");}
+
 }
