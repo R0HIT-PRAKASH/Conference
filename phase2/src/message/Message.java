@@ -194,11 +194,13 @@ public class Message implements Serializable, Comparable<Message> {
     }
 
     /**
-     * Sets the message's archived status as archived. Starred status is set to unstarred in doing so.
+     * Sets the message's archived status as archived. Starred status is set to unstarred and pinned status is set
+     * to unpinned in doing so.
      */
     public void setArchived(){
         this.archived = true;
         this.starred = false;
+        this.pinned = false;
     }
 
     /**
