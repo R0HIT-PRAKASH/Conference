@@ -188,8 +188,7 @@ public class SpeakerController extends AttendeeController {
                 if(eventManager.getAllEvents().containsKey(eventName)){
                     Set<String> eventAttendees = eventManager.getEventAttendees(eventName);
                     String toMessage = p.displayEventAttendeesList(eventAttendees);
-                    ArrayList<String> usernameList = new ArrayList<>();
-                    usernameList.addAll(eventAttendees);
+                    ArrayList<String> usernameList = new ArrayList<>(eventAttendees);
                     if(usernameList.contains(toMessage)){
                         String messageContent = p.displayEnterMessagePrompt();
                         replyMessage(toMessage, messageContent);
@@ -212,14 +211,10 @@ public class SpeakerController extends AttendeeController {
     }
 
     private void determineInputEvent(int input){
-        switch (input){
-            case 0:
-                viewScheduledEvents(this.username);
-                break;
-
-            default:
-                p.displayEventOptionsInvalidChoice();
-                break;
+        if (input == 0) {
+            viewScheduledEvents(this.username);
+        } else {
+            p.displayEventOptionsInvalidChoice();
         }
         deletedMessagesCheck();
         p.displayNextTaskPrompt();

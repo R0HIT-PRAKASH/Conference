@@ -1,12 +1,13 @@
 package message;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.*;
+
 import event.EventManager;
 import saver.ReaderWriter;
 import user.UserManager;
-// using this https://stackoverflow.com/questions/40715424/printing-out-datetime-in-a-specific-format-in-java/40715452
+
+import java.io.IOException;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 /**
  * The MessageManager class is responsible for handling message-related actions. allUserMessages
@@ -99,10 +100,7 @@ public class MessageManager implements java.io.Serializable {
 
         if (userManager.getUserType(from).equals("attendee")){
             return userManager.getUserType(to).equals("attendee") || userManager.getUserType(to).equals("speaker");
-        } else if (userManager.getUserType(from).equals("organizer")){
-            return true;
-        }
-    return false;
+        } else return userManager.getUserType(from).equals("organizer");
     }
 
     /**

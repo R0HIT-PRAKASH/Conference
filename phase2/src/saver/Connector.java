@@ -5,7 +5,6 @@ import message.MessageManager;
 import request.RequestManager;
 import user.UserManager;
 
-
 import java.sql.*;
 
 
@@ -38,8 +37,7 @@ public class Connector {
     public boolean determineExisting() throws SQLException {
         PreparedStatement exists = conn.prepareStatement("SELECT * from users");
         ResultSet rs = exists.executeQuery();
-        if (rs.next()) return true;
-        return false;
+        return rs.next();
     }
 
 

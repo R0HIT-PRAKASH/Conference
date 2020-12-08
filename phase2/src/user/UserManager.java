@@ -3,7 +3,6 @@ package user;
 import event.Event;
 import event.EventManager;
 import saver.ReaderWriter;
-import user.User;
 import user.attendee.Attendee;
 import user.organizer.Organizer;
 import user.speaker.Speaker;
@@ -374,8 +373,7 @@ public class UserManager implements Serializable {
      * @return The password of the user
      */
     public String getPassword(String username){
-        String password = getUser(username).getPassword();
-        return password;
+        return getUser(username).getPassword();
     }
 
     /**
@@ -384,8 +382,7 @@ public class UserManager implements Serializable {
      * @return The address of the user
      */
     public String getAddress(String username){
-        String address = getUser(username).getAddress();
-        return address;
+        return getUser(username).getAddress();
     }
 
     /**
@@ -394,8 +391,7 @@ public class UserManager implements Serializable {
      * @return The email of the user
      */
     public String getEmail(String username){
-        String email = getUser(username).getEmail();
-        return email;
+        return getUser(username).getEmail();
     }
 
     /**
@@ -404,8 +400,7 @@ public class UserManager implements Serializable {
      * @return The company of the user
      */
     public String getCompany(String username){
-        String company = getUser(username).getCompany();
-        return company;
+        return getUser(username).getCompany();
     }
 
     /**
@@ -414,8 +409,7 @@ public class UserManager implements Serializable {
      * @return The bio of the user
      */
     public String getBio(String username){
-        String bio = getUser(username).getBio();
-        return bio;
+        return getUser(username).getBio();
     }
 
     /**
@@ -424,10 +418,13 @@ public class UserManager implements Serializable {
      * @return The name of the user
      */
     public String getName(String username){
-        String name = getUser(username).getName();
-        return name;
+        return getUser(username).getName();
     }
 
+    /**
+     * @param type Refers to the type of the user
+     * @return Returns the string representation of users that are type.
+     */
     public List<String> getToStringsOfUsers(String type){
 
         if (getUserMap() == null) return new ArrayList<>();
@@ -473,4 +470,17 @@ public class UserManager implements Serializable {
         return temp.getAttendingEvents().isEmpty();
     }
 
+    /**
+     * @param type Refers to the type of User
+     * @return Returns the number of users that are of the type: type in the total users list.
+     */
+    public int numOfUsersOfType(String type){
+        if (getUserMap().size() == 0){
+            return 0;
+        }
+
+        return getUserMap().values().stream()
+                .filter(user -> user.getUserType().equals(type))
+                .collect(Collectors.toList()).size();
+    }
 }

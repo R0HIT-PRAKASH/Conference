@@ -1,13 +1,14 @@
 package event;
 
-import java.io.IOException;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.*;
 import room.Room;
 import saver.ReaderWriter;
 import user.User;
 import user.speaker.Speaker;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.*;
 
 /**
  * The EventManager class is responsible for handling event-related actions. events is a map that stores
@@ -306,8 +307,7 @@ public class EventManager implements Serializable {
      * @return Returns a list of strings of event names.
      */
     public List<String> getAllEventNamesOnly(){
-        List<String> allNames = new ArrayList<>(events.keySet());
-        return allNames;
+        return new ArrayList<>(events.keySet());
     }
 
     /**
@@ -558,11 +558,9 @@ public class EventManager implements Serializable {
         List<String> eventSpeakersList = event.getSpeakersList();
         List<String> eSpeakersList = e.getSpeakersList();
 
-        for (int i = 0; i < eventSpeakersList.size(); i++){
-            String eventSpeakerName = eventSpeakersList.get(i);
-            for (int k=0; k < eSpeakersList.size(); k++){
-                String eSpeakerName = eSpeakersList.get(k);
-                if (eventSpeakerName.equals(eSpeakerName)){
+        for (String eventSpeakerName : eventSpeakersList) {
+            for (String eSpeakerName : eSpeakersList) {
+                if (eventSpeakerName.equals(eSpeakerName)) {
                     return true;
                 }
             }

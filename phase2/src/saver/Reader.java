@@ -1,14 +1,18 @@
 package saver;
 
-import java.sql.*;
-import java.time.*;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
+import event.EventManager;
+import message.MessageManager;
+import request.RequestManager;
+import user.UserManager;
 
-import user.*;
-import event.*;
-import request.*;
-import message.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 public class Reader {
 
     Connection conn;
@@ -208,8 +212,8 @@ public class Reader {
                 eventManager.addEvent(type, name, time, duration, roomNumber, capacity, computers, projector, chairs,
                         tables, creators, VIP, null, speakers, tag);
             }
-            for(int i = 0; i < attendees.size(); i++){
-                eventManager.addAttendee(name, attendees.get(i));
+            for (String attendee : attendees) {
+                eventManager.addAttendee(name, attendee);
             }
         }
         PreparedStatement getAllRooms = conn.prepareStatement("select * from room");

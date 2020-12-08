@@ -1,16 +1,18 @@
 package user.organizer;
+
 import event.Event;
 import event.EventManager;
-import event.Talk;
 import event.Panel;
+import event.Talk;
 import message.MessageManager;
-import request.RequestManager;
 import request.Request;
+import request.RequestManager;
 import room.Room;
 import user.User;
 import user.UserManager;
 import user.attendee.AttendeeController;
 import user.speaker.Speaker;
+
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.regex.Pattern;
@@ -557,7 +559,7 @@ public class OrganizerController extends AttendeeController {
 
         //Ask for name of event
         String name = p.displayEventTitlePrompt();
-        while(eventManager.getAllEvents().keySet().contains(name) && !name.equalsIgnoreCase("q")){
+        while(eventManager.getAllEvents().containsKey(name) && !name.equalsIgnoreCase("q")){
             name = p.displayInvalidEventName();
         }
         // Adding the option to end the case early here in case a User wants to go back
@@ -876,10 +878,10 @@ public class OrganizerController extends AttendeeController {
         Map<String, Double> stats = new HashMap<>();
         Map<String, List<String>> lists = new HashMap<>();
 
-        double numSpeakers = users("organizer").size();
+        double numSpeakers = userManager.numOfUsersOfType("organizer");
         stats.put("Number of Organizers: ", numSpeakers);
-        stats.put("Number of Speakers: ", (double) users("speaker").size());
-        stats.put("Number of Attendees: ", (double) users("attendee").size());
+        stats.put("Number of Speakers: ", (double) userManager.numOfUsersOfType("speaker"));
+        stats.put("Number of Attendees: ", (double) userManager.numOfUsersOfType("attendee"));
 
         if(stats.get("Number of Speakers: ") == 0) {
             p.displayNoStats();
