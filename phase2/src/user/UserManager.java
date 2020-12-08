@@ -11,10 +11,7 @@ import user.vip.Vip;
 import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -220,18 +217,6 @@ public class UserManager implements Serializable {
                     return false;
                 }
             }
-            ((Attendee) user).signUpForEvent(event.getName());
-            eventManager.addAttendee(event.getName(), username);
-
-        }
-
-        else if(user.getUserType().equals("vip")) {
-            for (String eventName : ((Attendee) user).getAttendingEvents()) {
-                if (!helpSignUp(eventName, event, eventManager)) {
-                    return false;
-                }
-            }
-            ((Vip) user).signUpForEvent(event.getName());
             eventManager.addAttendee(event.getName(), username);
         }
 
@@ -479,8 +464,35 @@ public class UserManager implements Serializable {
             return 0;
         }
 
-        return getUserMap().values().stream()
-                .filter(user -> user.getUserType().equals(type))
-                .collect(Collectors.toList()).size();
+        return users(type).size();
+    }
+
+    private List<User> users(String type) {
+
+            return userMap.values().stream()
+                    .filter(user -> user.getUserType().equals(type))
+                    .collect(Collectors.toList());
+
+    }
+
+    public List<String> getTopSpeakers(int i) {
+        List<String> speakers = users("speaker").stream()
+                .map(s -> (Speaker) s)
+                .sorted(Comparator.comparingInt(Speaker::getNumberOfEvents))
+                .map(User::toString)
+                .collect(Collectors.toList());
+
+        Collections.reverse(speakers);
+
+        if(speakers.size() > 5) speakers = speakers.subList(0, 4);
+
+        return speakers;
+    }
+
+    public List<Integer> speakerEvents() {
+        return users("speaker").stream()
+                .map(s -> (Speaker) s)
+                .map(Speaker::getNumberOfEvents)
+                .collect(Collectors.toList());
     }
 }
