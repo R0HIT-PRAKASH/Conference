@@ -2,8 +2,8 @@ package user.vip;
 
 import event.EventManager;
 import message.MessageManager;
-import user.UserManager;
 import request.RequestManager;
+import user.UserManager;
 import user.attendee.AttendeeController;
 import user.attendee.AttendeePresenter;
 

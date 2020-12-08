@@ -5,7 +5,6 @@ import message.MessageManager;
 import request.RequestManager;
 import user.UserManager;
 
-
 import java.sql.*;
 
 
@@ -21,7 +20,7 @@ public class Connector {
     public Connector() throws SQLException{
         try{
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/conference",
-                    "root", "csc@207uoft");
+                    "root", "Crypt0master");
             writer = new Writing(conn);
             reader = new Reader(conn);
         } catch (SQLException e) {

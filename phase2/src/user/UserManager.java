@@ -3,7 +3,6 @@ package user;
 import event.Event;
 import event.EventManager;
 import saver.ReaderWriter;
-import user.User;
 import user.attendee.Attendee;
 import user.organizer.Organizer;
 import user.speaker.Speaker;

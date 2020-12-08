@@ -1,22 +1,14 @@
 package user;
 
-import event.Event;
 import event.EventManager;
 import message.Message;
 import message.MessageManager;
 import request.Request;
 import request.RequestManager;
-import user.UserController;
-import user.UserManager;
-import user.attendee.Attendee;
-import user.speaker.SpeakerPresenter;
-import java.util.Comparator;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 public abstract class UserController {
     public UserManager userManager;

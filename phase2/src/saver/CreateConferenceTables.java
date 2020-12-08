@@ -1,6 +1,9 @@
 package saver;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class CreateConferenceTables {
 
@@ -10,7 +13,7 @@ public class CreateConferenceTables {
      */
     public static void main(String [] args){
         try( Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/conference",
-                "root", "csc@207uoft");){
+                "root", "Crypt0master");){
 
             //list of events
             PreparedStatement dropEL = conn.prepareStatement("CREATE TABLE eventlist(eventname varchar(200) PRIMARY" +

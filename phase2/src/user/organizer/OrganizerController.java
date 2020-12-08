@@ -1,16 +1,18 @@
 package user.organizer;
+
 import event.Event;
 import event.EventManager;
-import event.Talk;
 import event.Panel;
+import event.Talk;
 import message.MessageManager;
-import request.RequestManager;
 import request.Request;
+import request.RequestManager;
 import room.Room;
 import user.User;
 import user.UserManager;
 import user.attendee.AttendeeController;
 import user.speaker.Speaker;
+
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.regex.Pattern;

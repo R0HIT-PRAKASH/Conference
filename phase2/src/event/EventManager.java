@@ -1,13 +1,14 @@
 package event;
 
-import java.io.IOException;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.*;
 import room.Room;
 import saver.ReaderWriter;
 import user.User;
 import user.speaker.Speaker;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.*;
 
 /**
  * The EventManager class is responsible for handling event-related actions. events is a map that stores

@@ -1,8 +1,5 @@
 package main;
 
-import saver.Connector;
-import saver.Writing;
-
 import java.sql.SQLException;
 
 /**
