@@ -152,7 +152,7 @@ public class UserPresenter extends Presenter {
 
         System.out.println(buffer + "\n" + counter + ". Sent By: " + sender + "\n" +
                 (!isRead? ("\u25CF "): "") + (isStarred? ("\u2605"): "") + " Message: " +
-                content.substring(0, Math.min(10, content.length()-1)) + "..." +
+                content.substring(0, Math.min(10, content.length())) + "..." +
                 "\n" + time);
     }
 
@@ -161,7 +161,7 @@ public class UserPresenter extends Presenter {
 
         System.out.println(buffer + "\n" + counter + ". Sent By: " + sender + "\n" +
                  "\uD83D\uDDD1" + " Message: " +
-                content.substring(0, Math.min(10, content.length()-1)) + "..." +
+                content.substring(0, Math.min(10, content.length())) + "..." +
                 "\n" + time);
     }
 
@@ -170,7 +170,7 @@ public class UserPresenter extends Presenter {
 
         System.out.println(buffer + "\n" + counter + ". Sent By: " + sender + "\n" +
                 "\uD83D\uDCC2" + " Message: " +
-                content.substring(0, Math.min(10, content.length()-1)) + "..." +
+                content.substring(0, Math.min(10, content.length())) + "..." +
                 "\n" + time);
     }
 
@@ -206,6 +206,12 @@ public class UserPresenter extends Presenter {
         }
     }
 
+    public void displayFullMessage(List<String> effectiveMessage){
+        System.out.println("Sent By: " + effectiveMessage.get(0) + "\n" +
+               "Message: " +
+                effectiveMessage.get(1) +
+                "\n Sent on:" + effectiveMessage.get(2));
+    }
 
     /**
      * Asks the user if they really want to delete a message from their deleted messages inbox.

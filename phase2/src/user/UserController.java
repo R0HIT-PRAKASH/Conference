@@ -72,6 +72,7 @@ public abstract class UserController {
             }
 
             List<String> effectiveRequestedMessage = messageList.get(messageList.size() - requestedMessage);
+            p.displayFullMessage(effectiveRequestedMessage);
 
             // based on inbox type and choice, allow user to select what action to take
             String messageAction;
