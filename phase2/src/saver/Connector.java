@@ -20,7 +20,7 @@ public class Connector {
     public Connector() throws SQLException{
         try{
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/conference",
-                    "root", "Crypt0master");
+                    "root", "csc@207uoft");
             writer = new Writing(conn);
             reader = new Reader(conn);
         } catch (SQLException e) {
@@ -37,8 +37,7 @@ public class Connector {
     public boolean determineExisting() throws SQLException {
         PreparedStatement exists = conn.prepareStatement("SELECT * from users");
         ResultSet rs = exists.executeQuery();
-        if (rs.next()) return true;
-        return false;
+        return rs.next();
     }
 
 

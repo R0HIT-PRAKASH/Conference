@@ -1,7 +1,4 @@
-package user; /**
- * This class is a Presenter Class with common functionality between Attendee, Organizer and Speaker Controllers.
- * It handles asking for user input and printing any error messages.
- */
+package user;
 
 import main.Presenter;
 
@@ -9,6 +6,10 @@ import java.util.List;
 
 // using this https://stackoverflow.com/questions/40715424/printing-out-datetime-in-a-specific-format-in-java/40715452
 
+/**
+ * This class is a Presenter Class with common functionality between Attendee, Organizer and Speaker Controllers.
+ * It handles asking for user input and printing any error messages.
+ */
 public class UserPresenter extends Presenter {
 
     /**

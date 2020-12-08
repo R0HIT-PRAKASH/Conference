@@ -212,8 +212,8 @@ public class Reader {
                 eventManager.addEvent(type, name, time, duration, roomNumber, capacity, computers, projector, chairs,
                         tables, creators, VIP, null, speakers, tag);
             }
-            for(int i = 0; i < attendees.size(); i++){
-                eventManager.addAttendee(name, attendees.get(i));
+            for (String attendee : attendees) {
+                eventManager.addAttendee(name, attendee);
             }
         }
         PreparedStatement getAllRooms = conn.prepareStatement("select * from room");

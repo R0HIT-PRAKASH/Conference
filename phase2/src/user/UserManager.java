@@ -373,8 +373,7 @@ public class UserManager implements Serializable {
      * @return The password of the user
      */
     public String getPassword(String username){
-        String password = getUser(username).getPassword();
-        return password;
+        return getUser(username).getPassword();
     }
 
     /**
@@ -383,8 +382,7 @@ public class UserManager implements Serializable {
      * @return The address of the user
      */
     public String getAddress(String username){
-        String address = getUser(username).getAddress();
-        return address;
+        return getUser(username).getAddress();
     }
 
     /**
@@ -393,8 +391,7 @@ public class UserManager implements Serializable {
      * @return The email of the user
      */
     public String getEmail(String username){
-        String email = getUser(username).getEmail();
-        return email;
+        return getUser(username).getEmail();
     }
 
     /**
@@ -403,8 +400,7 @@ public class UserManager implements Serializable {
      * @return The company of the user
      */
     public String getCompany(String username){
-        String company = getUser(username).getCompany();
-        return company;
+        return getUser(username).getCompany();
     }
 
     /**
@@ -413,8 +409,7 @@ public class UserManager implements Serializable {
      * @return The bio of the user
      */
     public String getBio(String username){
-        String bio = getUser(username).getBio();
-        return bio;
+        return getUser(username).getBio();
     }
 
     /**
@@ -423,8 +418,7 @@ public class UserManager implements Serializable {
      * @return The name of the user
      */
     public String getName(String username){
-        String name = getUser(username).getName();
-        return name;
+        return getUser(username).getName();
     }
 
     public List<String> getToStringsOfUsers(String type){

@@ -559,7 +559,7 @@ public class OrganizerController extends AttendeeController {
 
         //Ask for name of event
         String name = p.displayEventTitlePrompt();
-        while(eventManager.getAllEvents().keySet().contains(name) && !name.equalsIgnoreCase("q")){
+        while(eventManager.getAllEvents().containsKey(name) && !name.equalsIgnoreCase("q")){
             name = p.displayInvalidEventName();
         }
         // Adding the option to end the case early here in case a User wants to go back
