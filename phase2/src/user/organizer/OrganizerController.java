@@ -873,8 +873,6 @@ public class OrganizerController extends AttendeeController {
 
     private void getStats() {
 
-        System.out.println(eventManager.getAllEventNamesOnly());
-
         Map<String, Double> stats = new HashMap<>();
         Map<String, List<String>> lists = new HashMap<>();
 
