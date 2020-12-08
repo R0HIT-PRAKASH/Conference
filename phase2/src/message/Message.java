@@ -174,11 +174,13 @@ public class Message implements Serializable, Comparable<Message> {
     public void setUnstarred(){this.starred = false;}
 
     /**
-     * Sets the message's deletion status as deleted. Starred status is set to unstarred in doing so.
+     * Sets the message's deletion status as deleted. Starred status is set to unstarred and Pinned status is set to
+     * unpinned in doing so.
      */
     public void setDeleted(){
         this.deleted = true;
         this.starred = false;
+        this.pinned = false;
         this.dateTimeDeleted = LocalDateTime.now();
     }
 
@@ -188,6 +190,7 @@ public class Message implements Serializable, Comparable<Message> {
     public void setUndeleted(){
         this.deleted = false;
         this.dateTimeDeleted = null;
+        this.dateTimeCreated = this.dateTimeCreatedCopy;
     }
 
     /**

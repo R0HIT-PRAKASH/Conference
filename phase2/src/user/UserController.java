@@ -63,7 +63,6 @@ public abstract class UserController {
                 p.displayEmptyArchivedInbox();
             }
         } else {
-
             // display all the user's messages
             int counter = messageList.size();
 
@@ -115,7 +114,6 @@ public abstract class UserController {
         boolean isPinned = (selectedMessage.get(9).equals("true"));
         messageManager.setMessageReadStatus(messageManager.getMessageAtIndex(username, index), "read");
 
-        int pinningDateCounter = 3000;
 
         // actions common to all:
         if (messageAction.equalsIgnoreCase("REPLY")) {
@@ -124,7 +122,7 @@ public abstract class UserController {
         } else if (messageAction.equalsIgnoreCase("CLOSE")) {
         }
 
-
+        int pinningDateCounter = 3000;
         if (inboxType.equals("inbox") || inboxType.equals("starred")) {
             while (!messageAction.equalsIgnoreCase("REPLY") &&
                     !messageAction.equalsIgnoreCase("MARK AS UNREAD") &&
@@ -163,6 +161,7 @@ public abstract class UserController {
                 } else {
                     LocalDateTime newLDT = LocalDateTime.of(pinningDateCounter, 1, 1, 1, 1);
                     messageManager.setDateTimeCreatedStatus(messageManager.getMessageAtIndex(username, index), "pin", newLDT);
+                    pinningDateCounter++;
                 }
             } else if (messageAction.equalsIgnoreCase("UNPIN")) {
                 if (isPinned) {

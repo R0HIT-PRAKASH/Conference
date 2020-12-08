@@ -144,11 +144,11 @@ public class UserPresenter extends Presenter {
 
 
     private void printInboxMessages(String sender, String content, String time, int counter, boolean isRead,
-                                    boolean isStarred){
+                                    boolean isStarred, boolean isPinned){
         String buffer = ("==========================");
 
         System.out.println(buffer + "\n" + counter + ". Sent By: " + sender + "\n" +
-                (!isRead? ("\u25CF "): "") + (isStarred? ("\u2605"): "") + " Message: " +
+                (!isRead? ("\u25CF "): "") + (isStarred? ("\u2605"): "") + (isPinned? ("(PINNED)"): "") + " Message: " +
                 content.substring(0, Math.min(10, content.length())) + "..." +
                 "\n" + time);
     }
@@ -191,9 +191,10 @@ public class UserPresenter extends Presenter {
         String time = effectiveMessage.get(2);
         boolean isRead = Boolean.parseBoolean(effectiveMessage.get(3));
         boolean isStarred = Boolean.parseBoolean(effectiveMessage.get(4));
+        boolean isPinned = Boolean.parseBoolean(effectiveMessage.get(9));
 
         if(inboxType.equals("inbox") || inboxType.equals("starred")){
-            printInboxMessages(sender, content, time, counter, isRead, isStarred);
+            printInboxMessages(sender, content, time, counter, isRead, isStarred, isPinned);
 
         } else if (inboxType.equals("deleted")){
             printDeletedMessages(sender, content, time, counter);

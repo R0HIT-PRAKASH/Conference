@@ -357,7 +357,6 @@ public class MessageManager implements java.io.Serializable {
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         List<List<String>> messageSenderContentTimestamp = new ArrayList<>();
-        Collections.sort(messageList);
         for(Message message: (messageList)){
             List<String> messageInfo = new ArrayList<>();
             messageInfo.add(message.getSender());
@@ -390,6 +389,7 @@ public class MessageManager implements java.io.Serializable {
                 deletedMessages.add(message);
             }
         }
+        Collections.sort(deletedMessages);
         return deletedMessages;
     }
 
@@ -401,6 +401,7 @@ public class MessageManager implements java.io.Serializable {
                 archivedMessages.add(message);
             }
         }
+        Collections.sort(archivedMessages);
         return archivedMessages;
     }
 
@@ -412,6 +413,7 @@ public class MessageManager implements java.io.Serializable {
                 starredMessages.add(message);
             }
         }
+        Collections.sort(starredMessages);
         return starredMessages;
     }
 
@@ -423,6 +425,7 @@ public class MessageManager implements java.io.Serializable {
                 inboxMessages.add(message);
             }
         }
+        Collections.sort(inboxMessages);
         return inboxMessages;
     }
 
