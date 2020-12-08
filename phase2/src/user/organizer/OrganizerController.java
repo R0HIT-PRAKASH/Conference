@@ -864,81 +864,49 @@ public class OrganizerController extends AttendeeController {
         return username;
     }
 
-    private List<User> users(String type) {
-
-        if(userManager == null || userManager.getUserMap() == null) return new ArrayList<>();
-
-        return userManager.getUserMap().values().stream()
-                .filter(user -> user.getUserType().equals(type))
-                .collect(Collectors.toList());
-    }
 
     private void getStats() {
 
         Map<String, Double> stats = new HashMap<>();
         Map<String, List<String>> lists = new HashMap<>();
 
-        double numSpeakers = userManager.numOfUsersOfType("organizer");
-        stats.put("Number of Organizers: ", numSpeakers);
-        stats.put("Number of Speakers: ", (double) userManager.numOfUsersOfType("speaker"));
+        double numSpeakers = userManager.numOfUsersOfType("speaker");
+        stats.put("Number of Organizers: ", (double) userManager.numOfUsersOfType("organizer"));
+        stats.put("Number of Speakers: ", numSpeakers);
         stats.put("Number of Attendees: ", (double) userManager.numOfUsersOfType("attendee"));
 
         if(stats.get("Number of Speakers: ") == 0) {
-            p.displayNoStats();
+            p.displayNumberStats(stats);
             return;
         }
 
-        stats.put("Average Event Size: ", eventManager.numberOfEvents() == 0 ? 0
-                : 1.0 * (eventManager.getAllEvents().values().stream()
-                .map(Event::getSize)
-                .reduce(0, Integer::sum)) / eventManager.getAllEvents().size()
+        stats.put("Average Event Size: ", eventManager.numberOfEvents() == 0 ? 0.0
+                : 1.0 * eventManager.totalCapacity() / eventManager.numberOfEvents()
         );
 
         stats.put("Average Number of Events Per Speaker: ", numSpeakers == 0.0 ? 0
                 : 1.0 * eventManager.numberOfEvents() / numSpeakers
         );
 
-        stats.put("Number of events that have yet to start", (double) eventManager.getAllEvents().values().stream()
-                .filter(e -> e.getTime().isAfter(LocalDateTime.now())).count()
-        );
-
-        stats.put("Number of Messages", (double) messageManager.getAllUserMessages().values().stream()
-                .map(List::size)
-                .reduce(0, Integer::sum)
-        );
+        stats.put("Number of events that have yet to start", (double) eventManager.getFutureEventNum(LocalDateTime.now()));
 
 
-        List<String> events = eventManager.getAllEvents().values().stream()
-                .sorted(Comparator.comparingInt(Event::getSize))
-                .map(Event::toString)
-                .collect(Collectors.toList());
+        stats.put("Number of Messages", (double) messageManager.getNumMessages());
 
-        Collections.reverse(events);
 
-        if(events.size() > 5) events = events.subList(0, 4);
 
-        lists.put("Top Five Events (By Capacity):", events);
+        lists.put("Top Five Events (By Capacity):", eventManager.getTopEvents(5));
 
-        List<String> speakers = users("speaker").stream()
-                .map(s1 -> (Speaker) s1)
-                .sorted(Comparator.comparingInt(Speaker::getNumberOfEvents))
-                .map(User::toString)
-                .collect(Collectors.toList());
 
-        Collections.reverse(speakers);
-
-        if(speakers.size() > 5) speakers = speakers.subList(0, 4);
-
-        lists.put("Most Popular Speakers (By Number of Events):", speakers);
+        lists.put("Most Popular Speakers (By Number of Events):", userManager.getTopSpeakers(5));
 
         p.displayNumberStats(stats);
         p.displayListStats(lists);
 
-        List<Integer> eventSizes = eventManager.getAllEvents().values().stream()
-                .map(Event::getSize)
-                .collect(Collectors.toList());
 
-        p.displayHistogram(eventSizes, "Distribution of Event Sizes");
+        p.displayHistogram(eventManager.eventSizes(), "Distribution of Event Sizes");
+
+        p.displayHistogram(userManager.speakerEvents(), "Distribution of The Number of Events Per Speaker");
 
 
     }

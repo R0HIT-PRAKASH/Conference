@@ -13,7 +13,7 @@ public class CreateConferenceTables {
      */
     public static void main(String [] args){
         try( Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/conference",
-                "root", "csc207@uoft");){
+                "root", "Crypt0master");){
 
             //list of events
             PreparedStatement dropEL = conn.prepareStatement("CREATE TABLE eventlist(eventname varchar(200) PRIMARY" +

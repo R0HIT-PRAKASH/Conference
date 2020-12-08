@@ -455,4 +455,10 @@ public class MessageManager implements java.io.Serializable {
             }
         }
     }
+
+    public int getNumMessages() {
+        return allUserMessages.values().stream()
+                .map(List::size)
+                .reduce(0, Integer::sum);
+    }
 }

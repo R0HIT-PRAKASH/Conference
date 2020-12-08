@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * The EventManager class is responsible for handling event-related actions. events is a map that stores
@@ -859,5 +860,35 @@ public class EventManager implements Serializable {
     public boolean checkIfEventIsVIp(String eventName){
         Event event = getEvent(eventName);
         return event.getVipEvent();
+    }
+
+    public int totalCapacity() {
+        return events.values().stream()
+                .map(Event::getSize)
+                .reduce(0, Integer::sum);
+    }
+
+    public int getFutureEventNum(LocalDateTime time) {
+        return (int) events.values().stream()
+                .filter(e -> e.getTime().isAfter(time)).count();
+    }
+
+    public List<String> getTopEvents(int i) {
+        List<String> eventList = events.values().stream()
+                .sorted(Comparator.comparingInt(Event::getSize))
+                .map(Event::toString)
+                .collect(Collectors.toList());
+
+        Collections.reverse(eventList);
+
+        if(eventList.size() > 5) eventList = eventList.subList(0, 4);
+
+        return eventList;
+    }
+
+    public List<Integer> eventSizes() {
+        return events.values().stream()
+                .map(Event::getSize)
+                .collect(Collectors.toList());
     }
 }
