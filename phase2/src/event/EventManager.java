@@ -815,4 +815,22 @@ public class EventManager implements Serializable {
     public List<String> getSpeakerList(String name){
         return getEvent(name).getSpeakersList();
     }
+
+
+    public List<List<Integer>> getEffectiveRoomList(){
+        List<List<Integer>> allRoomsInfo = new ArrayList<>();
+        for (Room room : rooms){
+            List<Integer> roomInfo = new ArrayList<>();
+            roomInfo.add(room.getRoomNumber());
+            roomInfo.add(room.getCapacity());
+            roomInfo.add(room.getComputers());
+            int projector = 0;
+            if(room.getProjector()) projector = 1;
+            roomInfo.add(projector);
+            roomInfo.add(room.getTables());
+            roomInfo.add(room.getChairs());
+            allRoomsInfo.add(roomInfo);
+        }
+        return allRoomsInfo;
+    }
 }
