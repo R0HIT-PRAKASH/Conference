@@ -188,6 +188,23 @@ public class EventManager implements Serializable {
         return strings;
     }
 
+    public List<List<Integer>> getEffectiveRoomList(){
+        List<List<Integer>> allRoomsInfo = new ArrayList<>();
+        for (Room room : rooms){
+            List<Integer> roomInfo = new ArrayList<>();
+            roomInfo.add(room.getRoomNumber());
+            roomInfo.add(room.getCapacity());
+            roomInfo.add(room.getComputers());
+            int projector = 0;
+            if(room.getProjector()) projector = 1;
+            roomInfo.add(projector);
+            roomInfo.add(room.getTables());
+            roomInfo.add(room.getChairs());
+            allRoomsInfo.add(roomInfo);
+        }
+        return allRoomsInfo;
+    }
+
     /**
      * Gets the list of strings that represent the events that a speaker is/has speaking/spoken at
      * @param speakingEventsNames Refers to the list of strings that represent events that a speaker is/has speaking/spoken at
