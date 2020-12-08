@@ -881,7 +881,7 @@ public class EventManager implements Serializable {
 
         Collections.reverse(eventList);
 
-        if(eventList.size() > 5) eventList = eventList.subList(0, 4);
+        if(eventList.size() > i) eventList = eventList.subList(0, i);
 
         return eventList;
     }

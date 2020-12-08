@@ -484,7 +484,7 @@ public class UserManager implements Serializable {
 
         Collections.reverse(speakers);
 
-        if(speakers.size() > 5) speakers = speakers.subList(0, 4);
+        if(speakers.size() > i) speakers = speakers.subList(0, i);
 
         return speakers;
     }
