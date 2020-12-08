@@ -33,6 +33,7 @@ public abstract class UserController {
      * @param eventManager   event use case
      * @param messageManager message use case
      * @param username       username of the user
+     * @param request        request user case
      */
     public UserController(UserManager userManager, EventManager eventManager, MessageManager messageManager,
                           String username, RequestManager request) {

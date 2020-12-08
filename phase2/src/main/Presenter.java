@@ -47,6 +47,7 @@ public abstract class Presenter {
 
     /**
      * Prints an error message that notifies the Organizer that the Speaker account username they tried to add was already taken.
+     * @return Return the next string input from the user.
      */
     public String displayRepeatUsernameError() {
         System.out.print("That username is already taken, please enter another one: ");

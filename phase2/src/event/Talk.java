@@ -27,6 +27,7 @@ public class Talk extends Event{
      * @param creators          Refers to the list of usernames of users that created the talk.
      * @param vipEvent          Refers to whether or not this talk is limited to VIP's only
      * @param speakerName       Refers to the username of the speaker speaking at the talk.
+     * @param tag               Refers to the tag of the event.
      */
     public Talk(String name, LocalDateTime time, Integer duration, int roomNumber, int capacity, int requiredComputers, boolean requiredProjector, int requiredChairs, int requiredTables, List<String> creators, boolean vipEvent, String speakerName, String tag) {
         super(name, time, duration, roomNumber, capacity, requiredComputers, requiredProjector, requiredChairs, requiredTables, creators, vipEvent, tag);
@@ -48,6 +49,7 @@ public class Talk extends Event{
 
     /**
      * This method is a setter for the speaker's username
+     * @param speakerName Refers to the new name of the speaker.
      */
     public void setSpeakerName(String speakerName) {
         this.speakerName = speakerName;

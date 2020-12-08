@@ -24,6 +24,7 @@ public class RequestManager {
     /**
      * This constructs a RequestManager object with an empty allRequests, and an empty requestStatus that is given it's
      * keys.
+     * @param RW Refers to an instance of the class that will read from and write to files.
      */
     public RequestManager( ReaderWriter RW){
         this.allRequests = new HashMap<String, List<Request>>();
@@ -96,6 +97,7 @@ public class RequestManager {
 
     /**
      * The method sets the requests HashMap
+     * @param requests Refers to the hashmap of usernames to list of requests made by the user.
      */
     public void setAllRequests(HashMap<String, List<Request>> requests){
         this.allRequests = requests;
@@ -103,6 +105,7 @@ public class RequestManager {
 
     /**
      * The method sets the requestStatus HashMap
+     * @param requestStatus Refers to the map of status of request to the list of requests.
      */
     public void setAllRequestStatuses(HashMap<String, List<Request>> requestStatus){
         this.requestStatus = requestStatus;
@@ -149,7 +152,6 @@ public class RequestManager {
      * @param content refers to the content of the request
      * @param requesterUsername refers to the username of the requester
      * @param requestStatus refers to the status of the request
-     * @return Return the created Request
      */
     public void createNewRequest(String content, String requesterUsername, String requestStatus){
         Request readIn = new Request(content, requesterUsername);
@@ -170,7 +172,7 @@ public class RequestManager {
     /**
      * Determines if the content of the Request is valid or not
      * @param content refers to the intended content of the request
-     * @return returns if the content is valid (<= 200 chars) or not
+     * @return returns true if the length of the content is less than or equal to 200 characters
      */
     public boolean checkIsValidRequest(String content){
         return content.length() <= 200;

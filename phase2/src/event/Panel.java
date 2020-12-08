@@ -27,6 +27,7 @@ public class Panel extends Event{
      * @param creators          Refers to the list of usernames of users that created the event.
      * @param vipEvent          Refers to whether or not this event is limited to VIP's only
      * @param speakers          Refers to the list of usernames of speakers that are speaking at the event.
+     * @param tag               Refers to the tag of the event.
      */
     public Panel(String name, LocalDateTime time, Integer duration, int roomNumber, int capacity, int requiredComputers,
                  boolean requiredProjector, int requiredChairs, int requiredTables, List<String> creators, boolean vipEvent, List<String> speakers, String tag) {
@@ -36,7 +37,7 @@ public class Panel extends Event{
 
     /**
      * This method is a getter for the speakers list
-     * @return Returns List<String> speakers
+     * @return Returns the list of speakers.
      */
     public List<String> getSpeakersList() {
         return speakers;

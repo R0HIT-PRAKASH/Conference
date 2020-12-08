@@ -25,7 +25,13 @@ For Phase 2, we implemented all of the Mandatory Extensions, i.e.:
 The Optional Extensions that we implemented were:
     (1) Enhance the user's messaging experience by allowing them to "mark as unread", delete, or archive messages after
     reading them.
-        Details: Users can mark messages as unread, deleted, archived, and starred.
+        Details: Users can mark messages as unread, deleted, archived, starred and pinned. Messages when unpinned,
+        unarchived or undeleted go back to their chronological order in the inbox. Additionally, deleted messages are
+        automatically wiped from the deleted messages inbox after they have been there for a specified period of time.
+        For demonstrating purposes, we have designed the program to wipe a deleted message when it has been deleted
+        for over 2 minutes.
+
+
 
     (2) Expand the menus available to organizers to allow them to get useful summary stats about the conference.
     Include app traffic statistics, event enrollment statistics, and top-five lists (or something similar). You should

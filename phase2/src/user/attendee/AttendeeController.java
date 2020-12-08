@@ -27,6 +27,7 @@ public class AttendeeController extends UserController {
      * @param eventManager the instance of the Event Manager
      * @param messageManager the instance of the Message Manager
      * @param username the username of the Attendee accessing the AttendeeController
+     * @param requestManager the instance of the Request Manager.
      */
     public AttendeeController(UserManager userManager, EventManager eventManager, MessageManager messageManager,
                               String username, RequestManager requestManager){
@@ -55,7 +56,7 @@ public class AttendeeController extends UserController {
             case 0:
                 p.displayMessageOptions();
                 int choice = p.nextInt();
-                final int endCond = 2;
+                final int endCond = 5;
                 while (choice != endCond) {
                     determineInput0(choice);
                     choice = p.nextInt();
