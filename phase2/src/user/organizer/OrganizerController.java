@@ -58,7 +58,6 @@ public class OrganizerController extends AttendeeController {
     }
 
     private void determineInput(int input) {
-        label:
         switch (input) {
             case 0:
                 p.displayMessageOptions();
@@ -205,7 +204,6 @@ public class OrganizerController extends AttendeeController {
     }
 
     protected void determineInput1(int input) {
-        label:
         switch (input) {
             case 0:
                 viewEventList();
@@ -986,6 +984,10 @@ public class OrganizerController extends AttendeeController {
 
     }
 
+    /**
+     * This method determines which request an organizer wants to view from a specific user.
+     * @return The request that the user wants to view.
+     */
     public int getRequestToDecide(){
         List<Request> pending = requestManager.getStatusRequests("pending");
         p.displayPendingRequests(pending);
@@ -997,6 +999,10 @@ public class OrganizerController extends AttendeeController {
         }
     }
 
+    /**
+     * This method prints which requests a user has made.
+     * @param username The username of the user whose requests we are viewing.
+     */
     public void getUserRequests(String username){
         List<Request> user_req = requestManager.getUserRequests(username);
         if (user_req.size() == 0){
@@ -1007,6 +1013,9 @@ public class OrganizerController extends AttendeeController {
         }
     }
 
+    /**
+     * This method prints a message telling the user there are no addressed requests.
+     */
     public void getAddressedRequests(){
         List<Request> addressed = requestManager.getStatusRequests("addressed");
         if (addressed.size() == 0){

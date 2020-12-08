@@ -5,8 +5,8 @@ import event.EventManager;
 import message.Message;
 import message.MessageManager;
 import request.RequestManager;
-import user.attendee.AttendeeController;
 import user.UserManager;
+import user.attendee.AttendeeController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,6 @@ public class SpeakerController extends AttendeeController {
      * @param eventManager event use case
      * @param messageManager message use case
      * @param username username of the user
-     * @param request request use case
      */
     public SpeakerController(UserManager userManager, EventManager eventManager, MessageManager messageManager,
                              String username, RequestManager request){
@@ -163,7 +162,6 @@ public class SpeakerController extends AttendeeController {
                     if (next.equals("q")){
                         break;
                     }
-                    // NEED TO FIX BELOW
                     if (speakingEventsNames.contains(next) && !eventNames.contains(next)) {
                         eventNames.add(next);
                     }
@@ -190,7 +188,7 @@ public class SpeakerController extends AttendeeController {
                 if(eventManager.getAllEvents().containsKey(eventName)){
                     Set<String> eventAttendees = eventManager.getEventAttendees(eventName);
                     String toMessage = p.displayEventAttendeesList(eventAttendees);
-                    ArrayList<String> usernameList = new ArrayList<>();
+                    ArrayList<String> usernameList = new ArrayList<String>();
                     usernameList.addAll(eventAttendees);
                     if(usernameList.contains(toMessage)){
                         String messageContent = p.displayEnterMessagePrompt();
@@ -264,6 +262,4 @@ public class SpeakerController extends AttendeeController {
         messageManager.speakerBlastMessage(eventNames, message, eventManager, this.username);
         p.displayMessageSentPrompt2();
     }
-
-
 }

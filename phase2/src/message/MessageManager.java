@@ -338,6 +338,10 @@ public class MessageManager implements java.io.Serializable {
                 messageList = generateStarredMessageList(username);
                 break;
             }
+            case "all": {
+                messageList = allUserMessages.get(username);
+                break;
+            }
             default: {
                 messageList = generateArchivedMessageList(username);
                 break;
@@ -360,6 +364,12 @@ public class MessageManager implements java.io.Serializable {
             messageInfo.add(String.valueOf(allUserMessages.get(username).indexOf(message)));
             messageInfo.add(username);
             messageInfo.add(String.valueOf(message.isPinned()));
+            if(!(getDeletionDateInfo(message) == null)) {
+                messageInfo.add(dtf.format(getDeletionDateInfo(message)));
+            } else{
+                messageInfo.add("null");
+            }
+            messageInfo.add(dtf.format(getTimeCreatedCopy(message)));
             messageSenderContentTimestamp.add(messageInfo);
         }
         return messageSenderContentTimestamp;
