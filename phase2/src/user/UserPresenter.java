@@ -241,6 +241,13 @@ public class UserPresenter extends Presenter {
         System.out.println("That is not a valid message. Please try again.");
     }
 
+    /**
+     * Tells the user they gave an invalid input.
+     */
+    public void displayInvalidInput(){
+        System.out.println("That is not a valid action. Please try again.");
+    }
+
 
     /**
      * Displays options that a user can take while looking at their inbox, or their starred messages.

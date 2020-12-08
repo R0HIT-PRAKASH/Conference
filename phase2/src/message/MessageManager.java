@@ -434,4 +434,22 @@ public class MessageManager implements java.io.Serializable {
         return allUserMessages.get(username).get(index);
     }
 
+
+    public void deletedMessagesCheckMM(String username) {
+        List<Message> allMessages = viewMessages(username);
+        List<Message> deletedMessages = new ArrayList<>();
+
+        for (Message message : allMessages) {
+            if (getDeletionStatus(message)) {
+                deletedMessages.add(message);
+            }
+        }
+        LocalDateTime currentTime = LocalDateTime.now();
+        int currentMinute = currentTime.getMinute();
+        for (Message message : deletedMessages) {
+            if (getDeletionDateInfo(message).getMinute() + 1 < currentMinute) {
+                allMessages.remove(message);
+            }
+        }
+    }
 }
