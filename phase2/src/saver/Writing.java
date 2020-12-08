@@ -20,12 +20,19 @@ public class Writing {
     Connection conn;
     DateTimeFormatter formatter;
 
-
+    /**
+     * Creates a writing object
+     * @param conn the connection to the database
+     */
     public Writing(Connection conn) {
         this.conn = conn;
         formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
     }
 
+    /**
+     * Removes all information from the tables
+     * @throws SQLException If it can't connect
+     */
     public void clearEverything() throws SQLException {
         int clear = 0;
         PreparedStatement dropEL = conn.prepareStatement("DELETE FROM eventlist");
@@ -48,6 +55,11 @@ public class Writing {
         clear += dropU.executeUpdate();
     }
 
+    /**
+     * Saves the usermanager information in the database
+     * @param userManager The userManager we want to save
+     * @throws SQLException If it can't connect
+     */
     public void saveUserManager(UserManager userManager) throws SQLException{
         Set<String> setUsernames = userManager.getUserMap().keySet();
         for (String username : setUsernames) {
@@ -107,7 +119,11 @@ public class Writing {
 
     }
 
-    //Clean architecture is violated here. Need to refactor how rooms are stored
+    /**
+     * Saves the eventManager information in the database
+     * @param eventManager The eventManager we want to save
+     * @throws SQLException If it can't connect
+     */
     public void saveEventManager(EventManager eventManager) throws SQLException {
         List<List<Integer>> rooms = eventManager.getEffectiveRoomList();
         for (List<Integer> room : rooms){
@@ -166,8 +182,11 @@ public class Writing {
         }
     }
 
-    //Also violates clean architecture, can't isolate Messages otherwise
-    // not anymore 😎
+    /**
+     * Saves the messageManager information in the database
+     * @param messageManager The userManager we want to save
+     * @throws SQLException If it can't connect
+     */
     public void saveMessageManager(MessageManager messageManager) throws SQLException{
         Set<String> usernames = messageManager.getAllUserMessages().keySet();
         for (String username : usernames){
@@ -207,6 +226,11 @@ public class Writing {
 
     }
 
+    /**
+     * Saves the requestManager information in the database
+     * @param requestManager The userManager we want to save
+     * @throws SQLException If it can't connect
+     */
     public void saveRequestManager(RequestManager requestManager) throws SQLException{
         Set<String> usernames = requestManager.getAllRequests().keySet();
         for(String username : usernames){

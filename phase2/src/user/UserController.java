@@ -47,11 +47,10 @@ public abstract class UserController {
 
     /**
      * Displays all of the messages this user has received of a certain type.
-     * @param username Refers to the user whose messages are printed.
      * @param messageList Refers to a list of messages (encoded as a list of strings) that live in the inbox we display.
      * @param inboxType Refers to the type of inbox that the messages live in.
      */
-    protected void viewMessages(String username, List<List<String>> messageList, String inboxType) {
+    protected void viewMessages(List<List<String>> messageList, String inboxType) {
 
         if (messageList.size() == 0) {
             p.displayEmptyInbox();

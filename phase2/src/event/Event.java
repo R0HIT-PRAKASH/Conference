@@ -2,13 +2,9 @@ package event;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
-import user.User;
 
 /**
  * This class represents an Event object. An Event can have a name, speaker, time, duration(in hours), room,
@@ -65,6 +61,7 @@ public abstract class Event implements Comparable<Event>, Serializable {
     }
 
     // Getter Methods
+
     /**
      * This method is a getter for name
      * @return String name
@@ -300,5 +297,4 @@ public abstract class Event implements Comparable<Event>, Serializable {
     public void addAttendee(String attendee) {
         this.attendeeSet.add(attendee);
     }
-
 }

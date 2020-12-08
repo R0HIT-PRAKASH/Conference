@@ -19,6 +19,11 @@ public class Reader {
         formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
     }
 
+    /**
+     * Reads in the userManager information from the database
+     * @throws SQLException If it can't connect
+     * @return The newly read in userManager
+     */
     public UserManager readInUsers() throws SQLException {
         UserManager userManager = new UserManager();
         PreparedStatement getUsers = conn.prepareStatement("select * from users");
@@ -66,6 +71,11 @@ public class Reader {
         return userManager;
     }
 
+    /**
+     * Reads in the messageManager information from the database
+     * @throws SQLException If it can't connect
+     * @return The newly read in messageManager
+     */
     public MessageManager readInMessages() throws SQLException {
         MessageManager messageManager = new MessageManager();
         PreparedStatement getUsernames = conn.prepareStatement("select username from users");
@@ -107,6 +117,11 @@ public class Reader {
         return messageManager;
     }
 
+    /**
+     * Reads in the requestManager information from the database
+     * @throws SQLException If it can't connect
+     * @return The newly read in requestManager
+     */
     public RequestManager readInRequests() throws SQLException{
         RequestManager requestManager = new RequestManager();
         PreparedStatement getUsernames = conn.prepareStatement("select username from users");
@@ -125,6 +140,11 @@ public class Reader {
         return requestManager;
     }
 
+    /**
+     * Reads in the eventManager information from the database
+     * @throws SQLException If it can't connect
+     * @return The newly read in eventManager
+     */
     public EventManager readInEvents() throws SQLException{
         EventManager eventManager = new EventManager();
         PreparedStatement getAllEvents = conn.prepareStatement("select * from eventlist");

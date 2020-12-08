@@ -1,8 +1,6 @@
 package user.speaker;
 
 import event.Event;
-import request.Request;
-import user.UserPresenter;
 import user.attendee.AttendeePresenter;
 
 import java.time.LocalDate;
@@ -229,15 +227,25 @@ public class SpeakerPresenter extends AttendeePresenter {
         System.out.println("Your request was successfully submitted.");
     }
 
+    /**
+     * Prompts the user to enter the number of events they would like to message.
+     */
     public void displayEnterNumberOfEventsToMessage(){
         System.out.println("How many events would you like to send messages to? Enter -1 to quit.");
     }
 
+    /**
+     * Informs the user that they cannot send a message to the number of events they selected.
+     * @return The number of events
+     */
     public int displayInvalidNumberOfEventsToMessage(){
         System.out.println("You cannot message that amount of events. Try again or -1 to quit.");
         return nextInt();
     }
 
+    /**
+     * Informs the user to enter the next task.
+     */
     public void displayNextTaskPrompt(){
         System.out.println("Enter the next task:");
     }

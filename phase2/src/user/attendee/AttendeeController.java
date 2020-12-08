@@ -1,17 +1,11 @@
 package user.attendee;
 
-import event.Event;
 import event.EventManager;
-import message.Message;
 import message.MessageManager;
-import request.Request;
 import request.RequestManager;
-import room.Room;
 import user.UserController;
 import user.UserManager;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -109,19 +103,19 @@ public class AttendeeController extends UserController {
     protected void determineInput0(int input){
         switch (input){
             case 0:
-                viewMessages(this.username, messageManager.generateEffectiveMessageList(this.username, "inbox"),
+                viewMessages(messageManager.generateEffectiveMessageList(this.username, "inbox"),
                         "inbox");
                 break;
             case 1:
-                viewMessages(this.username, messageManager.generateEffectiveMessageList(this.username, "starred"),
+                viewMessages(messageManager.generateEffectiveMessageList(this.username, "starred"),
                         "starred");
                 break;
             case 2:
-                viewMessages(this.username, messageManager.generateEffectiveMessageList(this.username, "deleted"),
+                viewMessages(messageManager.generateEffectiveMessageList(this.username, "deleted"),
                         "deleted");
                 break;
             case 3:
-                viewMessages(this.username, messageManager.generateEffectiveMessageList(this.username, "archived"),
+                viewMessages(messageManager.generateEffectiveMessageList(this.username, "archived"),
                         "archived");
                 break;
             case 4:
