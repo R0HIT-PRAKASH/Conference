@@ -76,7 +76,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      * Prints a message that tells the user that their input is invalid when navigating the events menu.
      */
     public void displayEventOptionsInvalidChoice() {
-        System.out.println("Invalid input. Please enter a number between 0 and 9:");
+        System.out.println("Invalid input. Please enter a number between 0 and 11:");
     }
 
     /**
@@ -361,7 +361,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      * @return The speaker
      */
     public String displayEnterUserNamePrompt() {
-        System.out.print("Enter the user name: ");
+        System.out.print("Enter the user's name: ");
         return scan.nextLine();
     }
 
@@ -743,7 +743,7 @@ public class OrganizerPresenter extends AttendeePresenter {
      */
     public int displayEnterNewEventCapacityPrompt(int maxCapacity, int minCapacity){
         System.out.println("The room this event is taking place in has a maximum capacity of " + maxCapacity +
-                ". Thus the new capacity must be greater than " + minCapacity + "; the number" +
+                ". The new capacity must be greater than " + minCapacity + "; the number" +
                 " of users already attending the event. The capacity can also not be 0. Please Enter the new number " +
                 "of people that can attend the event:");
 

@@ -224,22 +224,32 @@ public class AttendeePresenter extends UserPresenter {
         System.out.println("Successfully signed up for the event");
     }
 
-    /**
-     * Prints an error message that the Event sign up was unsuccessful since this Event does not exist in the conference.
-     */
-    public void displaySignUpError1(){
-        System.out.println("Sign Up was unsuccessful as the event you are trying to sign up for is not" +
-                "valid");
-    }
 
     /**
-     * Prints an error message that user cannot sign up for this event
+     * Prints a message tasking for another name input from the user.
      * @return Returns the next string input from the user.
      */
     public String displayInvalidEventSignUp(){
-        System.out.print("That is not an Event you can sign up for. Please re-enter the name " +
+        System.out.print("Please re-enter the name " +
                 "(it is case sensitive) or enter 'q' to quit: ");
         return scan.nextLine();
+    }
+
+    /**
+     * Prints an error message that user cannot sign up for this event because it is only for VIP's
+     * @return Returns the next string input from the user.
+     */
+    public void displayEventOnlyforVIPs(){
+        System.out.print("That event is only for VIP's.\n");
+    }
+
+
+    /**
+     * Prints an error message that user cannot sign up for this event because it does not exist.
+     * @return Returns the next string input from the user.
+     */
+    public void displayEventNotRegistered(){
+        System.out.print("That event does not exist.\n");
     }
 
     /**

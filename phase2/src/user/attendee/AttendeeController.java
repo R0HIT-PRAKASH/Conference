@@ -243,6 +243,11 @@ public class AttendeeController extends UserController {
         }
         while (!eventManager.checkEventIsRegistered(eventSignedUp) ||
                 eventManager.checkIfEventIsVIp(eventSignedUp)){    // Checks if the event is VIP exclusive and then prompts attendee that they cannot sign up for that event
+            if (!eventManager.checkEventIsRegistered(eventSignedUp)) {
+                p.displayEventNotRegistered();
+            } else if (eventManager.checkIfEventIsVIp(eventSignedUp)) {
+                p.displayEventOnlyforVIPs();
+            }
             eventSignedUp = p.displayInvalidEventSignUp();
             if (eventSignedUp.equalsIgnoreCase("q")){
                 break;

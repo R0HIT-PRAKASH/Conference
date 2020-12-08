@@ -212,6 +212,20 @@ public abstract class Presenter {
     }
 
     /**
+     * Prompts an organizer to enter the company a new user is associated with.
+     * @return The company of the new user.
+     */
+    public String displayEnterCompanyPromptOrg(){
+        System.out.println("What company are they associated with? If they are not associated with any company, please enter \"none\": ");
+        String company = scan.nextLine();
+
+        while(company.equalsIgnoreCase("")){
+            company = displayInvalidCompanyError();
+        }
+        return company;
+    }
+
+    /**
      * Prints an error message that the company entered is an invalid input.
      * @return The company of the user.
      */
@@ -226,6 +240,20 @@ public abstract class Presenter {
      */
     public String displayEnterBioPrompt(){
         System.out.println("What would you like to add to your bio? Enter it below: ");
+        String company = scan.nextLine();
+
+        while(company.equalsIgnoreCase("")){
+            company = displayInvalidBioError();
+        }
+        return company;
+    }
+
+    /**
+     * Prompts the user to enter a bio for the new user.
+     * @return The bio of the new user.
+     */
+    public String displayEnterBioPromptOrg(){
+        System.out.println("What would you like to add to their bio? Enter it below: ");
         String company = scan.nextLine();
 
         while(company.equalsIgnoreCase("")){
