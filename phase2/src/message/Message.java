@@ -1,12 +1,10 @@
 package message;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
- * This class represents a Message object. Message objects have a string content, username of the sender,
- * and a username of the recipient. NEED TO FIX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ * This class represents a Message object which is sent between users.
  */
 public class Message implements Serializable, Comparable<Message> {
 
@@ -100,7 +98,7 @@ public class Message implements Serializable, Comparable<Message> {
     public LocalDateTime getDateTimeCreatedCopy(){ return dateTimeCreatedCopy;}
 
     /**
-     * Gets the the date and time of a deleted message was deleted.
+     * Gets the the date and time a deleted message was deleted.
      * @return Returns dateTimeDeleted variable of the message.
      */
     public LocalDateTime getDateTimeDeleted(){ return dateTimeDeleted;}
@@ -150,7 +148,7 @@ public class Message implements Serializable, Comparable<Message> {
     public void setRecipient(String recipientUsername){ this.recipientUsername = recipientUsername; }
 
     /**
-     * Sets the username of sender of the message.
+     * Sets the username of the sender of the message.
      * @param senderUsername Refers to the username of the sender.
      */
     public void setSender(String senderUsername){ this.senderUsername = senderUsername; }
@@ -176,7 +174,7 @@ public class Message implements Serializable, Comparable<Message> {
     public void setUnstarred(){this.starred = false;}
 
     /**
-     * Sets the message's deletion status as deleted.
+     * Sets the message's deletion status as deleted. Starred status is set to unstarred in doing so.
      */
     public void setDeleted(){
         this.deleted = true;
@@ -193,7 +191,7 @@ public class Message implements Serializable, Comparable<Message> {
     }
 
     /**
-     * Sets the message's archived status as archived.
+     * Sets the message's archived status as archived. Starred status is set to unstarred in doing so.
      */
     public void setArchived(){
         this.archived = true;
@@ -223,6 +221,12 @@ public class Message implements Serializable, Comparable<Message> {
         this.dateTimeCreated = LDT;
     }
 
+    /**
+     * Compares the date and time created of this message object and another message object.
+     * @param message Refers to the message object we are comparing to.
+     * @return Returns the comparator value of this message object's dateTimeCreated variable and another message
+     * object's dateTimeCreated variable. Negative if less, positive if greater.
+     */
     @Override
     public int compareTo(Message message) {
         return this.getDateTimeCreated().compareTo(message.getDateTimeCreated());

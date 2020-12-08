@@ -202,7 +202,7 @@ public abstract class Presenter {
      * @return The company of the user.
      */
     public String displayEnterCompanyPrompt(){
-        System.out.println("What company are you associated with? If you are not associated with any company, please enter \'none\': ");
+        System.out.println("What company are you associated with? If you are not associated with any company, please enter \"none\": ");
         String company = scan.nextLine();
 
         while(company.equalsIgnoreCase("")){

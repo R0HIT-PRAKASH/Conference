@@ -209,7 +209,7 @@ public abstract class UserController {
         LocalDateTime currentTime = LocalDateTime.now();
         int currentMinute = currentTime.getMinute();
         for (Message message : deletedMessages) {
-            if (messageManager.getDeletionDateInfo(message).getMinute() + 2 < currentMinute) {
+            if (messageManager.getDeletionDateInfo(message).getMinute() + 1 < currentMinute) {
                 allMessages.remove(message);
             }
         }

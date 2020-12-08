@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * This class contains all of the characteristics and actions of an attendee. They
- * have a name, address, email, username, and password. Attendees can attend events
+ * have a name, address, email, username, password company and bio. Attendees can attend events
  * and sign up for events.
  */
 public class Attendee extends User {
@@ -23,7 +23,7 @@ public class Attendee extends User {
      * @param userName Refers to the username of the attendee.
      * @param password Refers to the password of the attendee.
      * @param company Refers to the company of the attendee.
-     * @param bio Refers to the bio of the speaker.
+     * @param bio Refers to the bio of the attendee.
      */
     public Attendee(String name, String address, String email, String userName, String password, String company, String bio) {
         super(name, address, email, userName, password, company, bio);

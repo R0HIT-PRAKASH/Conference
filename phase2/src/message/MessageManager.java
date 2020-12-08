@@ -1,13 +1,9 @@
 package message;
-
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
-
 import event.EventManager;
 import saver.ReaderWriter;
-import user.User;
 import user.UserManager;
 // using this https://stackoverflow.com/questions/40715424/printing-out-datetime-in-a-specific-format-in-java/40715452
 import java.time.format.DateTimeFormatter;
@@ -268,7 +264,7 @@ public class MessageManager implements java.io.Serializable {
     public boolean getStarredStatus(Message message){ return message.isStarred();}
 
     /**
-     * This method sets a Message's deletion status as either deleted or restored;
+     * This method sets a Message's deletion status as either deleted or restored.
      * @param message Refers to the message to be interacted with.
      * @param status Refers to the status you want to set the message to have.
      */
@@ -280,6 +276,11 @@ public class MessageManager implements java.io.Serializable {
         }
     }
 
+    /**
+     * This method sets a Message's archived status as either archived or unarchived.
+     * @param message Refers to the message to be interacted with.
+     * @param status Refers to the status you want to set the message to have.
+     */
     public void setArchiveStatus(Message message, String status){
         if(status.equals("archive")){
             message.setArchived();
@@ -288,6 +289,12 @@ public class MessageManager implements java.io.Serializable {
         }
     }
 
+    /**
+     * This method sets the date and time a message was created.
+     * @param message Refers to the message to be interacted with.
+     * @param status Refers to the status you want to set the message to have.
+     * @param LDT Refers to the new date and time created you want to set the message to have.
+     */
     public void setDateTimeCreatedStatus(Message message, String status, LocalDateTime LDT){
         message.setDateTimeCreated(LDT);
         if(status.equals("pin")){
@@ -419,6 +426,12 @@ public class MessageManager implements java.io.Serializable {
         return inboxMessages;
     }
 
+    /**
+     * Get the message in a User's inbox at a specified index
+     * @param username the username of the User who's inbox we want to check
+     * @param index the location of the message we are getting within the inbox
+     * @return Return the message at index in the corresponding User's inbox.
+     */
     public Message getMessageAtIndex(String username, int index){
         return allUserMessages.get(username).get(index);
     }
