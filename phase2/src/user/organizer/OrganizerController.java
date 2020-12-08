@@ -864,7 +864,9 @@ public class OrganizerController extends AttendeeController {
         return username;
     }
 
-
+    /**
+     * This method generates conference statistics
+     */
     private void getStats() {
 
         Map<String, Double> stats = new HashMap<>();

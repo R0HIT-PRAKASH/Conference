@@ -812,8 +812,13 @@ public class OrganizerPresenter extends AttendeePresenter {
         Collections.sort(keys);
 
         for(String s : keys) {
-            System.out.println(s + ": " + stats.get(s));
+            System.out.println(s + ": " + fmt(stats.get(s)));
         }
+    }
+
+    private String fmt(double d) {
+
+            return d == (long) d ? String.format("%d",(long)d) : String.format("%s", d);
     }
 
     /**
