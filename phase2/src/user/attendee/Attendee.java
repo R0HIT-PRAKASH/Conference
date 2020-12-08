@@ -1,6 +1,5 @@
 package user.attendee;
 
-import event.Event;
 import user.User;
 
 import java.util.ArrayList;

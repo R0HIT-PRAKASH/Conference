@@ -1,10 +1,9 @@
 package main;
 
 import event.EventManager;
-import saver.Connector;
-import saver.Writing;
 import message.MessageManager;
 import request.RequestManager;
+import saver.Connector;
 import saver.ReaderWriter;
 import user.UserManager;
 import user.attendee.AttendeeController;
@@ -12,11 +11,7 @@ import user.organizer.OrganizerController;
 import user.speaker.SpeakerController;
 import user.vip.VipController;
 
-import java.io.File;
-import java.io.IOException;
-import java.sql.*;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.sql.SQLException;
 
 /**
  * Refers to the controller class that handles all of the other controller classes.
