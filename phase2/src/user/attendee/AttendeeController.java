@@ -1,17 +1,11 @@
 package user.attendee;
 
-import event.Event;
 import event.EventManager;
-import message.Message;
 import message.MessageManager;
-import request.Request;
 import request.RequestManager;
-import room.Room;
 import user.UserController;
 import user.UserManager;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
