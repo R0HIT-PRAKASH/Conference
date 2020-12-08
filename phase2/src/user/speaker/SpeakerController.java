@@ -2,7 +2,6 @@ package user.speaker;
 
 import event.Event;
 import event.EventManager;
-import message.Message;
 import message.MessageManager;
 import request.RequestManager;
 import user.UserManager;
@@ -188,7 +187,7 @@ public class SpeakerController extends AttendeeController {
                 if(eventManager.getAllEvents().containsKey(eventName)){
                     Set<String> eventAttendees = eventManager.getEventAttendees(eventName);
                     String toMessage = p.displayEventAttendeesList(eventAttendees);
-                    ArrayList<String> usernameList = new ArrayList<String>();
+                    ArrayList<String> usernameList = new ArrayList<>();
                     usernameList.addAll(eventAttendees);
                     if(usernameList.contains(toMessage)){
                         String messageContent = p.displayEnterMessagePrompt();
