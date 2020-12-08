@@ -4,9 +4,13 @@ import java.sql.*;
 
 public class CreateConferenceTables {
 
+    /**
+     * Sets up the  tables for the database
+     * @param args
+     */
     public static void main(String [] args){
         try( Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/conference",
-                "root", "");){
+                "root", "csc@207uoft");){
 
             //list of events
             PreparedStatement dropEL = conn.prepareStatement("CREATE TABLE eventlist(eventname varchar(200) PRIMARY" +

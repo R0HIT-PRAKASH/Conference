@@ -14,10 +14,14 @@ public class Connector {
     Writing writer;
     Reader reader;
 
+    /**
+     * Creates a connector between the database and this program
+     * @throws SQLException
+     */
     public Connector() throws SQLException{
         try{
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/conference",
-                    "root", "");
+                    "root", "csc@207uoft");
             writer = new Writing(conn);
             reader = new Reader(conn);
         } catch (SQLException e) {
@@ -26,6 +30,11 @@ public class Connector {
         }
     }
 
+    /**
+     * Checks to see if there are files that already exist or not
+     * @return Whether or not files exist
+     * @throws SQLException
+     */
     public boolean determineExisting() throws SQLException {
         PreparedStatement exists = conn.prepareStatement("SELECT * from users");
         ResultSet rs = exists.executeQuery();
@@ -33,45 +42,93 @@ public class Connector {
         return false;
     }
 
+
+    /**
+     * Closes the connection between the database and this program
+     * @throws SQLException
+     */
     public void end() throws SQLException {
         conn.close();
     }
 
+    /**
+     * Clears all the tables in the database
+     * @throws SQLException
+     */
     public void clearEverything() throws SQLException {
         writer.clearEverything();
     }
 
+    /**
+     * Saves the usermanager information in the database
+     * @param userManager The userManager we want to save
+     * @throws SQLException
+     */
     public void saveUserManager(UserManager userManager) throws SQLException{
         writer.saveUserManager(userManager);
     }
 
-    //Clean architecture is violated here. Need to refactor how rooms are stored
+    /**
+     * Saves the eventManager information in the database
+     * @param eventManager The eventManager we want to save
+     * @throws SQLException
+     */
     public void saveEventManager(EventManager eventManager) throws SQLException {
         writer.saveEventManager(eventManager);
     }
 
-    //Also violates clean architecture, can't isolate Messages otherwise
+
+    /**
+     * Saves the messageManager information in the database
+     * @param messageManager The userManager we want to save
+     * @throws SQLException
+     */
     public void saveMessageManager(MessageManager messageManager) throws SQLException{
         writer.saveMessageManager(messageManager);
     }
 
+    /**
+     * Saves the requestManager information in the database
+     * @param requestManager The userManager we want to save
+     * @throws SQLException
+     */
     public void saveRequestManager(RequestManager requestManager) throws SQLException{
         writer.saveRequestManager(requestManager);
 
     }
 
+    /**
+     * Reads in the userManager information from the database
+     * @throws SQLException
+     * @return The newly read in userManager
+     */
     public UserManager readInUsers() throws SQLException {
         return reader.readInUsers();
     }
 
+    /**
+     * Reads in the messageManager information from the database
+     * @throws SQLException
+     * @return The newly read in messageManager
+     */
     public MessageManager readInMessages() throws SQLException {
         return reader.readInMessages();
     }
 
+    /**
+     * Reads in the requestManager information from the database
+     * @throws SQLException
+     * @return The newly read in requestManager
+     */
     public RequestManager readInRequests() throws SQLException{
         return reader.readInRequests();
     }
 
+    /**
+     * Reads in the eventManager information from the database
+     * @throws SQLException
+     * @return The newly read in eventManager
+     */
     public EventManager readInEvents() throws SQLException{
        return reader.readInEvents();
     }
