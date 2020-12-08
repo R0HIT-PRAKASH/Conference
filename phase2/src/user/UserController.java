@@ -27,7 +27,7 @@ public abstract class UserController {
     UserPresenter p;
 
     /**
-     * Creates a Speaker Controller
+     * Creates a UserController
      *
      * @param userManager    user use case
      * @param eventManager   event use case
