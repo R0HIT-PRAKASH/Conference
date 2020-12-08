@@ -878,10 +878,10 @@ public class OrganizerController extends AttendeeController {
         Map<String, Double> stats = new HashMap<>();
         Map<String, List<String>> lists = new HashMap<>();
 
-        double numSpeakers = users("organizer").size();
+        double numSpeakers = userManager.numOfUsersOfType("organizer");
         stats.put("Number of Organizers: ", numSpeakers);
-        stats.put("Number of Speakers: ", (double) users("speaker").size());
-        stats.put("Number of Attendees: ", (double) users("attendee").size());
+        stats.put("Number of Speakers: ", (double) userManager.numOfUsersOfType("speaker"));
+        stats.put("Number of Attendees: ", (double) userManager.numOfUsersOfType("attendee"));
 
         if(stats.get("Number of Speakers: ") == 0) {
             p.displayNoStats();

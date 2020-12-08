@@ -470,4 +470,17 @@ public class UserManager implements Serializable {
         return temp.getAttendingEvents().isEmpty();
     }
 
+    /**
+     * @param type Refers to the type of User
+     * @return Returns the number of users that are of the type: type in the total users list.
+     */
+    public int numOfUsersOfType(String type){
+        if (getUserMap().size() == 0){
+            return 0;
+        }
+
+        return getUserMap().values().stream()
+                .filter(user -> user.getUserType().equals(type))
+                .collect(Collectors.toList()).size();
+    }
 }
