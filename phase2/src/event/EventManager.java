@@ -15,7 +15,7 @@ import user.speaker.Speaker;
  */
 public class EventManager implements Serializable {
 
-    private HashMap<String, Event> events;
+    private Map<String, Event> events;
     private List<Room> rooms;
     private EventFactory eventFactory;
     private ReaderWriter RW;
@@ -275,7 +275,7 @@ public class EventManager implements Serializable {
     /**
      * @return Returns map of events.
      */
-    public HashMap<String, Event> getAllEvents(){
+    public Map<String, Event> getAllEvents(){
         return events;
     }
 
