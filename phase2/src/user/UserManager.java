@@ -421,6 +421,10 @@ public class UserManager implements Serializable {
         return getUser(username).getName();
     }
 
+    /**
+     * @param type Refers to the type of the user
+     * @return Returns the string representation of users that are type.
+     */
     public List<String> getToStringsOfUsers(String type){
 
         if (getUserMap() == null) return new ArrayList<>();
