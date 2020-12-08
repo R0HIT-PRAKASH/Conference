@@ -188,6 +188,10 @@ public class EventManager implements Serializable {
         return strings;
     }
 
+    /**
+     * This method stores information regarding all the rooms in the conference.
+     * @return The list of rooms in the conference.
+     */
     public List<List<Integer>> getEffectiveRoomList(){
         List<List<Integer>> allRoomsInfo = new ArrayList<>();
         for (Room room : rooms){
@@ -290,6 +294,7 @@ public class EventManager implements Serializable {
     }
 
     /**
+     * Retrieves the events in the conference.
      * @return Returns map of events.
      */
     public Map<String, Event> getAllEvents(){
@@ -306,6 +311,7 @@ public class EventManager implements Serializable {
     }
 
     /**
+     * Retrieves the rooms in the conference.
      * @return Returns list of all rooms
      */
     public List<Room> getRooms(){

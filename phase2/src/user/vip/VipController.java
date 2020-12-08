@@ -13,6 +13,14 @@ public class VipController extends AttendeeController {
 
     AttendeePresenter p;
 
+    /**
+     * This constructs a VipController object
+     * @param userManager the instance of the User Manager
+     * @param eventManager the instance of the Event Manager
+     * @param messageManager the instance of the Message Manager
+     * @param username the username of the user accessing the VipController
+     * @param requestManager the instance of the Request Manager.
+     */
     public VipController(UserManager userManager, EventManager eventManager, MessageManager messageManager, String username, RequestManager requestManager) {
         super(userManager, eventManager, messageManager, username, requestManager);
         this.p = new AttendeePresenter();

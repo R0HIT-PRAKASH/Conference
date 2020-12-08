@@ -27,7 +27,7 @@ public abstract class UserController {
     UserPresenter p;
 
     /**
-     * Creates a Speaker Controller
+     * Creates a UserController
      *
      * @param userManager    user use case
      * @param eventManager   event use case
@@ -80,6 +80,7 @@ public abstract class UserController {
             }
 
             List<String> effectiveRequestedMessage = messageList.get(messageList.size() - requestedMessage);
+            p.displayFullMessage(effectiveRequestedMessage);
 
             // based on inbox type and choice, allow user to select what action to take
             String messageAction;

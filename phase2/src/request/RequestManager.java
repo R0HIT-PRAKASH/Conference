@@ -213,6 +213,11 @@ public class RequestManager {
         this.allRequests.put(username, new ArrayList<Request>());
     }
 
+    /**
+     * This information retrives the status and content of a request
+     * @param request The request a user has made.
+     * @return The status and the content of the request.
+     */
     public List<String> getRequestInformation(Request request){
         List<String> requestInfo = new ArrayList<>();
         requestInfo.add(getRequestStatus(request));
@@ -220,6 +225,11 @@ public class RequestManager {
         return requestInfo;
     }
 
+    /**
+     * Retrieves all requests from a user.
+     * @param username The username of the user whose requests we are retrieving.
+     * @return The requests of the user.
+     */
     public List<List<String>> getUsersRequestInfo(String username){
         List<Request> requests = getUserRequests(username);
         List<List<String>> usersRequests = new ArrayList<>();

@@ -2,15 +2,12 @@ package user; /**
  * This class is a Presenter Class with common functionality between Attendee, Organizer and Speaker Controllers.
  * It handles asking for user input and printing any error messages.
  */
+
 import main.Presenter;
-import message.Message;
-import request.Request;
-import java.lang.Math;
+
+import java.util.List;
 
 // using this https://stackoverflow.com/questions/40715424/printing-out-datetime-in-a-specific-format-in-java/40715452
-
-import java.time.format.DateTimeFormatter;
-import java.util.*;
 
 public class UserPresenter extends Presenter {
 
@@ -152,7 +149,7 @@ public class UserPresenter extends Presenter {
 
         System.out.println(buffer + "\n" + counter + ". Sent By: " + sender + "\n" +
                 (!isRead? ("\u25CF "): "") + (isStarred? ("\u2605"): "") + " Message: " +
-                content.substring(0, Math.min(10, content.length()-1)) + "..." +
+                content.substring(0, Math.min(10, content.length())) + "..." +
                 "\n" + time);
     }
 
@@ -161,7 +158,7 @@ public class UserPresenter extends Presenter {
 
         System.out.println(buffer + "\n" + counter + ". Sent By: " + sender + "\n" +
                  "\uD83D\uDDD1" + " Message: " +
-                content.substring(0, Math.min(10, content.length()-1)) + "..." +
+                content.substring(0, Math.min(10, content.length())) + "..." +
                 "\n" + time);
     }
 
@@ -170,7 +167,7 @@ public class UserPresenter extends Presenter {
 
         System.out.println(buffer + "\n" + counter + ". Sent By: " + sender + "\n" +
                 "\uD83D\uDCC2" + " Message: " +
-                content.substring(0, Math.min(10, content.length()-1)) + "..." +
+                content.substring(0, Math.min(10, content.length())) + "..." +
                 "\n" + time);
     }
 
@@ -206,6 +203,16 @@ public class UserPresenter extends Presenter {
         }
     }
 
+    /**
+     * Displays the full message
+     * @param effectiveMessage Refers to a list of strings that represents the components of the message
+     */
+    public void displayFullMessage(List<String> effectiveMessage){
+        System.out.println("Sent By: " + effectiveMessage.get(0) + "\n" +
+               "Message: " +
+                effectiveMessage.get(1) +
+                "\n Sent on:" + effectiveMessage.get(2));
+    }
 
     /**
      * Asks the user if they really want to delete a message from their deleted messages inbox.
@@ -327,6 +334,11 @@ public class UserPresenter extends Presenter {
         }
     }
 
+    /**
+     * This method displays the status and content of a user request.
+     * @param requestStatus The status of a users request.
+     * @param requestContent The contents of a users request.
+     */
     public void displayRequestsBody(String requestStatus, String requestContent){
         System.out.print(requestStatus + " : ");
         System.out.println(requestContent);
