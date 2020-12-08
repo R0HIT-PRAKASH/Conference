@@ -2,15 +2,12 @@ package user; /**
  * This class is a Presenter Class with common functionality between Attendee, Organizer and Speaker Controllers.
  * It handles asking for user input and printing any error messages.
  */
+
 import main.Presenter;
-import message.Message;
-import request.Request;
-import java.lang.Math;
+
+import java.util.List;
 
 // using this https://stackoverflow.com/questions/40715424/printing-out-datetime-in-a-specific-format-in-java/40715452
-
-import java.time.format.DateTimeFormatter;
-import java.util.*;
 
 public class UserPresenter extends Presenter {
 
@@ -320,6 +317,11 @@ public class UserPresenter extends Presenter {
         }
     }
 
+    /**
+     * This method displays the status and content of a user request.
+     * @param requestStatus The status of a users request.
+     * @param requestContent The contents of a users request.
+     */
     public void displayRequestsBody(String requestStatus, String requestContent){
         System.out.print(requestStatus + " : ");
         System.out.println(requestContent);
@@ -340,5 +342,24 @@ public class UserPresenter extends Presenter {
         System.out.println(bio);
     }
 
+    /**
+     * This method prints that the user has no message in their inbox.
+     */
     public void displayEmptyInbox(){System.out.println("No Messages :(");}
+
+    /**
+     * This method prints that the user has no starred messages.
+     */
+    public void displayEmptyStarredInbox(){System.out.println("No Starred Messages :(");}
+
+    /**
+     * This method prints that the user has no deleted messages.
+     */
+    public void displayEmptyDeletedInbox(){System.out.println("No Deleted Messages :(");}
+
+    /**
+     * This method prints that the user has no archived messages.
+     */
+    public void displayEmptyArchivedInbox(){System.out.println("No Archived Messages :(");}
+
 }

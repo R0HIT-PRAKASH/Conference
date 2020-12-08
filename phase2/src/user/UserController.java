@@ -53,7 +53,15 @@ public abstract class UserController {
     protected void viewMessages(List<List<String>> messageList, String inboxType) {
 
         if (messageList.size() == 0) {
-            p.displayEmptyInbox();
+            if (inboxType.equalsIgnoreCase("inbox")) {
+                p.displayEmptyInbox();
+            } else if (inboxType.equalsIgnoreCase("starred")) {
+                p.displayEmptyStarredInbox();
+            } else if (inboxType.equalsIgnoreCase("deleted")) {
+                p.displayEmptyDeletedInbox();
+            } else if (inboxType.equalsIgnoreCase("archived")) {
+                p.displayEmptyArchivedInbox();
+            }
         } else {
 
             // display all the user's messages
