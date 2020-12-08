@@ -73,7 +73,7 @@ public class OrganizerController extends AttendeeController {
             case 1:
                 p.displayEventOptions();
                 int choice1 = p.nextInt();
-                final int endCond1 = 11;
+                final int endCond1 = 12;
                 while (choice1 != endCond1) {
                     determineInput1(choice1);
                     choice1 = p.nextInt();
@@ -83,7 +83,7 @@ public class OrganizerController extends AttendeeController {
             case 2:
                 p.displayUserOptions();
                 int choice2 = p.nextInt();
-                final int endCond2 = 10;
+                final int endCond2 = 9;
                 while (choice2 != endCond2) {
                     determineInput2(choice2);
                     choice2 = p.nextInt();
@@ -297,6 +297,11 @@ public class OrganizerController extends AttendeeController {
                 break;
 
             case 7:
+                List<String> stringsOfRooms = eventManager.getToStringsOfRooms();
+                p.displayRoomList(stringsOfRooms);
+                break;
+
+            case 8:
 
                 int roomNumber = p.displayRoomCreationPrompt();
                 if (roomNumber == 0) {
@@ -343,7 +348,7 @@ public class OrganizerController extends AttendeeController {
                 }
                 break;
 
-            case 8: // I would suggest putting this in a Modify Event Tab for GUI
+            case 9: // I would suggest putting this in a Modify Event Tab for GUI
                 List<String> namesOfEvents = userManager.allCreatedEvents(this.username);
                 if(namesOfEvents.isEmpty()){
                     p.displayNoOrganizedEvents();
@@ -373,13 +378,13 @@ public class OrganizerController extends AttendeeController {
                 eventManager.changeEventCapacity(eventManager.getEvent(eventNameToModify), newCapacity);
                 break;
 
-            case 9:
+            case 10:
                 getStats();
                 break;
-            case 10:
+            case 11:
                 searchForEvents();
                 break;
-            case 14:
+            case 12:
                 p.displayEventOptions();
                 break;
 
@@ -408,35 +413,30 @@ public class OrganizerController extends AttendeeController {
                 break;
 
             case 1:
-                List<String> stringsOfRooms = eventManager.getToStringsOfRooms();
-                p.displayRoomList(stringsOfRooms);
-                break;
-
-            case 2:
                 List<String> stringsOfSpeakers = userManager.getToStringsOfUsers("speaker");
                 p.displayUserList(stringsOfSpeakers, "Speaker");
                 break;
 
-            case 3:
+            case 2:
                 List<String> stringsOfAttendees = userManager.getToStringsOfUsers("attendee");
                 p.displayUserList(stringsOfAttendees, "Attendee");
                 break;
 
-            case 4:
+            case 3:
                 List<String> stringsOfOrganizers = userManager.getToStringsOfUsers("organizer");
                 p.displayUserList(stringsOfOrganizers, "Organizer");
                 break;
 
-            case 5:
+            case 4:
                 List<String> stringsOfVIP = userManager.getToStringsOfUsers("vip");
                 p.displayUserList(stringsOfVIP, "VIP");
                 break;
 
-            case 6:
+            case 5:
                 viewCorporation();
                 break;
 
-            case 7:
+            case 6:
                 String corporation = p.displayEnterCompanyPrompt();
                 if(corporation.equalsIgnoreCase("q")){
                     break;
@@ -447,11 +447,11 @@ public class OrganizerController extends AttendeeController {
                 editCorporation(corporation);
                 break;
 
-            case 8:
+            case 7:
                 viewBio();
                 break;
 
-            case 9:
+            case 8:
                 String bio = p.displayEnterBioPrompt();
                 if(bio.equalsIgnoreCase("q")){
                     break;
