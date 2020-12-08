@@ -45,17 +45,17 @@ public class OrganizerPresenter extends AttendeePresenter {
      */
     public void displayEventOptions() {
         System.out.println("(0) View Event List\n(1) View My Scheduled Events\n(2) Cancel Event Reservation\n(3) Sign up for Event" +
-                "\n(4) Add Event\n(5) Cancel Event\n(6) Reschedule Event\n(7) Add Room \n(8) Modify an Event's capacity\n" +
-                "(9) Display Conference Statistics\n(10)Search for events\n(11)Go back to main screen ");
+                "\n(4) Add Event\n(5) Cancel Event\n(6) Reschedule Event\n(7) View All Rooms \n(8) Add Room \n(9) Modify an Event's capacity\n" +
+                "(10) Display Conference Statistics\n(11)Search for events\n(12)Go back to main screen ");
     }
 
     /**
      * Prints all of the options an organizer can do related to users.
      */
     public void displayUserOptions() {
-        System.out.println("(0) Add New User\n(1) View All Rooms\n(2) View Speakers\n(3) View Attendees\n(4) View Organizers" +
-                "\n(5) View VIPs\n(6) View Corporation\n(7) Edit Corporation Information\n" +
-                "(8) View Bio\n(9) Edit Bio\n(10) Go back to main screen");
+        System.out.println("(0) Add New User\n(1) View Speakers\n(2) View Attendees\n(3) View Organizers" +
+                "\n(4) View VIPs\n(5) View Corporation\n(6) Edit Corporation Information\n" +
+                "(7) View Bio\n(8) Edit Bio\n(9) Go back to main screen");
     }
 
     /**
@@ -76,14 +76,14 @@ public class OrganizerPresenter extends AttendeePresenter {
      * Prints a message that tells the user that their input is invalid when navigating the events menu.
      */
     public void displayEventOptionsInvalidChoice() {
-        System.out.println("Invalid input. Please enter a number between 0 and 11:");
+        System.out.println("Invalid input. Please enter a number between 0 and 12:");
     }
 
     /**
      * Prints a message that tells the user that their input is invalid when navigating the users menu.
      */
     public void displayUserOptionsInvalidChoice() {
-        System.out.println("Invalid input. Please enter a number between 0 and 9:");
+        System.out.println("Invalid input. Please enter a number between 0 and 8:");
     }
 
     /**
