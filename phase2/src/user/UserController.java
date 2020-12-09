@@ -56,11 +56,11 @@ public abstract class UserController {
             }
         } else {
             // display all the user's messages
-            int counter = messageList.size();
+            int counter = 1;
 
             for (List<String> effectiveMessage : messageList) {
                 p.displayUserMessages(effectiveMessage, counter, inboxType);
-                counter--;
+                counter++;
             }
 
             // prompt the user to choose what message to read
@@ -145,13 +145,17 @@ public abstract class UserController {
             } else if (messageAction.equalsIgnoreCase("DELETE")) {
                 messageManager.setDeletionStatus(messageManager.getMessageAtIndex(username, index), "delete");
             } else if (messageAction.equalsIgnoreCase("ARCHIVE")) {
+                messageManager.setMessageStarredStatus(messageManager.getMessageAtIndex(username, index), "unstar");
+                messageManager.setDateTimeCreatedStatus(messageManager.getMessageAtIndex(username, index), "unpin",
+                        messageManager.getMessageAtIndex(username, index).getDateTimeCreatedCopy());
                 messageManager.setArchiveStatus(messageManager.getMessageAtIndex(username, index), "archive");
             } else if (messageAction.equalsIgnoreCase("PIN")) {
                 if (isPinned) {
                     p.displayPinnedError();
                 } else {
                     LocalDateTime newLDT = LocalDateTime.now();
-                    messageManager.setDateTimeCreatedStatus(messageManager.getMessageAtIndex(username, index), "pin", newLDT);
+                    LocalDateTime pinLDT = newLDT.plusYears(2);
+                    messageManager.setDateTimeCreatedStatus(messageManager.getMessageAtIndex(username, index), "pin", pinLDT);
                 }
             } else if (messageAction.equalsIgnoreCase("UNPIN")) {
                 if (isPinned) {
