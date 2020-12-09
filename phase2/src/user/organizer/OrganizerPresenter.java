@@ -1059,13 +1059,9 @@ public class OrganizerPresenter extends AttendeePresenter {
 
     /**
      * Prints all of the requests that are addressed.
-     * @param requests Refers to the list of all of the requests.
      */
-    public void displayAddressedRequests(List<Request> requests){
+    public void displayAddressedRequests(){
         System.out.println("Addressed Requests: ");
-        for (Request request : requests){
-            System.out.print(request.getRequesterUsername() + " : " + request.getContent());
-        }
     }
 
     /**
@@ -1079,13 +1075,9 @@ public class OrganizerPresenter extends AttendeePresenter {
 
     /**
      * Prints all of the requests a user has made.
-     * @param requests Refers to the list of requests.
      */
-    public void displayUserRequests(List<Request> requests){
+    public void displayUserRequests(){
         System.out.println("This user has made the following requests: ");
-        for (Request request : requests){
-            System.out.println(request.getRequestStatus() + " : " + request.getContent());
-        }
     }
 
     /**
@@ -1102,4 +1094,23 @@ public class OrganizerPresenter extends AttendeePresenter {
         System.out.println("There are no addressed requests at this time.");
     }
 
+    /**
+     * This method displays the status and content of a user's request
+     * @param status the status of the request
+     * @param content the content of the request
+     */
+    public void displayRequestBody(String status, String content){
+        System.out.print(status + " : ");
+        System.out.println(content);
+    }
+
+    /**
+     * This method displays the request details, including username and content
+     * @param username the username of the individual who made the request
+     * @param content the content of the request
+     */
+    public void displayRequestDetails(String username, String content){
+        System.out.print(username + " : ");
+        System.out.println(content);
+    }
 }

@@ -930,26 +930,31 @@ public class OrganizerController extends AttendeeController {
      * @param username The username of the user whose requests we are viewing.
      */
     public void getUserRequests(String username){
-        List<Request> user_req = requestManager.getUserRequests(username);
-        if (user_req.size() == 0){
+        List<List<String>> usersRequestInfo = requestManager.getUsersRequestInfo(username);
+        if (usersRequestInfo.size() == 0){
             p.noUserRequests();
         }
         else{
-            p.displayUserRequests(user_req);
+            p.displayUserRequests();
+            for(List<String> requestInfo : usersRequestInfo){
+                p.displayRequestBody(requestInfo.get(0), requestInfo.get(1));
+            }
         }
     }
 
     /**
-     * This method prints a message telling the user there are no addressed requests.
+     * This method prints all the addressed requests.
      */
     public void getAddressedRequests(){
-        List<Request> addressed = requestManager.getStatusRequests("addressed");
+        List<List<String>> addressed = requestManager.getAllStatusRequests("addressed");
         if (addressed.size() == 0){
             p.noAddressedRequests();
         }
         else{
-            p.displayAddressedRequests(addressed);
+            p.displayAddressedRequests();
+            for(List<String> request : addressed){
+                p.displayRequestDetails(request.get(0), request.get(1));
+            }
         }
     }
-
 }
