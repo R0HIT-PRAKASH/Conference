@@ -213,7 +213,7 @@ public class UserPresenter extends Presenter {
         System.out.println("Sent By: " + effectiveMessage.get(0) + "\n" +
                "Message: " +
                 effectiveMessage.get(1) +
-                "\n Sent on:" + effectiveMessage.get(2));
+                "\nSent on:" + effectiveMessage.get(2));
     }
 
     /**

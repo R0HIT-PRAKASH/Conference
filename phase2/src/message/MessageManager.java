@@ -388,6 +388,7 @@ public class MessageManager implements java.io.Serializable {
             }
         }
         Collections.sort(deletedMessages);
+        Collections.reverse(deletedMessages);
         return deletedMessages;
     }
 
@@ -400,6 +401,7 @@ public class MessageManager implements java.io.Serializable {
             }
         }
         Collections.sort(archivedMessages);
+        Collections.reverse(archivedMessages);
         return archivedMessages;
     }
 
@@ -412,6 +414,7 @@ public class MessageManager implements java.io.Serializable {
             }
         }
         Collections.sort(starredMessages);
+        Collections.reverse(starredMessages);
         return starredMessages;
     }
 
@@ -424,6 +427,7 @@ public class MessageManager implements java.io.Serializable {
             }
         }
         Collections.sort(inboxMessages);
+        Collections.reverse(inboxMessages);
         return inboxMessages;
     }
 

@@ -114,7 +114,6 @@ public abstract class UserController {
         } else if (messageAction.equalsIgnoreCase("CLOSE")) {
         }
 
-        int pinningDateCounter = 3000;
         if (inboxType.equals("inbox") || inboxType.equals("starred")) {
             while (!messageAction.equalsIgnoreCase("REPLY") &&
                     !messageAction.equalsIgnoreCase("MARK AS UNREAD") &&
@@ -151,9 +150,8 @@ public abstract class UserController {
                 if (isPinned) {
                     p.displayPinnedError();
                 } else {
-                    LocalDateTime newLDT = LocalDateTime.of(pinningDateCounter, 1, 1, 1, 1);
+                    LocalDateTime newLDT = LocalDateTime.now();
                     messageManager.setDateTimeCreatedStatus(messageManager.getMessageAtIndex(username, index), "pin", newLDT);
-                    pinningDateCounter++;
                 }
             } else if (messageAction.equalsIgnoreCase("UNPIN")) {
                 if (isPinned) {
