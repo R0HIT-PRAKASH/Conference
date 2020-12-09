@@ -8,15 +8,12 @@ import message.MessageManager;
 import request.Request;
 import request.RequestManager;
 import room.Room;
-import user.User;
 import user.UserManager;
 import user.attendee.AttendeeController;
-import user.speaker.Speaker;
 
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 /**
  * Refers to the controller class that will deal with the actions of an organizer object.

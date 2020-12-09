@@ -1,13 +1,11 @@
 package user;
 
 import event.EventManager;
-import message.Message;
 import message.MessageManager;
 import request.Request;
 import request.RequestManager;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class UserController {
