@@ -35,7 +35,7 @@ The Optional Extensions that we implemented were:
     Include app traffic statistics, event enrollment statistics, and top-five lists (or something similar). You should
     include enough statistics to make this option as complicated as the other ones on this list.
         Details: Organizers can access detailed statistical information about the conference including numbers of types
-        of users, size of events and more.
+        of users, size of events and more. Data is also plotted with a histogram when meaningful.
 
     (3) Allow the system to support additional user requests (e.g. dietary restrictions, accessibility requirements)
     where organizers can tag a request as "pending" or "addressed". All organizers see the same list of requests, so if
