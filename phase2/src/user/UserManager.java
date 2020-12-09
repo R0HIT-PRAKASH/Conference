@@ -2,13 +2,11 @@ package user;
 
 import event.Event;
 import event.EventManager;
-import saver.ReaderWriter;
 import user.attendee.Attendee;
 import user.organizer.Organizer;
 import user.speaker.Speaker;
 import user.vip.Vip;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -22,17 +20,6 @@ public class UserManager implements Serializable {
 
     private HashMap<String, User> userMap;
     UserFactory userFactory;
-    ReaderWriter RW;
-
-    /**
-     * Constructs a UserManager Object.
-     * @param RW Refers to an instance of the class that reads and writes to files.
-     */
-    public UserManager(ReaderWriter RW){
-        userMap = new HashMap<>();
-        this.RW = RW;
-        this.userFactory = new UserFactory();
-    }
 
     /**
      * Constructs a UserManger object
@@ -58,14 +45,6 @@ public class UserManager implements Serializable {
      */
     public User getUser(String username){
         return userMap.get(username);
-    }
-
-    /**
-     * This method sets the map of users.
-     * @param userMap Refers to the map the userMap will now be set to.
-     */
-    public void setUserMap(HashMap<String, User> userMap) {
-        this.userMap = userMap;
     }
 
     /**
@@ -97,15 +76,6 @@ public class UserManager implements Serializable {
         User newUser = userFactory.createNewUser(name, address, email, username, password, type, company, bio);
         userMap.put(newUser.getUsername(), newUser);
         return true;
-    }
-
-    /**
-     * This method returns the username of the user.
-     * @param user This parameter refers to the user object.
-     * @return Returns the username of the user.
-     */
-    public String getUsername(User user){
-        return user.getUsername();
     }
 
     /**
@@ -293,18 +263,6 @@ public class UserManager implements Serializable {
      */
     public List<String> allCreatedEvents(String organizer){
         return ((Organizer) userMap.get(organizer)).getOrganizingEvents();
-    }
-
-    /**
-     * This method sets the map of users to the deserialized HashMap object containing usernames as keys
-     * and the corresponding Users as values.
-     * @throws IOException Refers to the exception that is raised when the program can't get input or output from users.
-     * @throws ClassNotFoundException Refers to the exception that is raised when the program can't find users.
-     */
-    public void setUserMapReadIn() throws IOException, ClassNotFoundException {
-        Object uncastedUsers = RW.readUsers();
-        HashMap<String, User> userHashMap = (HashMap<String, User>) uncastedUsers;
-        setUserMap(userHashMap);
     }
 
     /**

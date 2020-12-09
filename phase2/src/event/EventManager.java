@@ -1,11 +1,9 @@
 package event;
 
 import room.Room;
-import saver.ReaderWriter;
 import user.User;
 import user.speaker.Speaker;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -19,20 +17,8 @@ public class EventManager implements Serializable {
 
     private Map<String, Event> events;
     private List<Room> rooms;
-    private EventFactory eventFactory;
-    private ReaderWriter RW;
+    private final EventFactory eventFactory;
 
-    /**
-     * Constructs a new EventManager with an empty map of events and an empty list of rooms, when a ReaderWriter is
-     * provided
-     * @param RW the reader writer provided
-     */
-    public EventManager(ReaderWriter RW){
-        events = new HashMap<>();
-        rooms =  new ArrayList<Room>();
-        eventFactory = new EventFactory();
-        this.RW = RW;
-    }
 
     /**
      * Constructs a new EventManager with an empty map of events and an empty list of rooms, when no ReaderWriter is
@@ -360,45 +346,6 @@ public class EventManager implements Serializable {
     // Setter Methods
 
     /**
-     * This method sets the map of events to the deserialized HashMap object containing event names as keys
-     * and the corresponding Events as values.
-     * @throws IOException Refers to the exception that is raised when the program can't get input or output from users.
-     * @throws ClassNotFoundException Refers to the exception that is raised when the program can't find users.
-     */
-    public void setAllEventsReadIn() throws IOException, ClassNotFoundException {
-        Object uncastedEvents = RW.readEvents();
-        HashMap<String, Event> events = (HashMap<String, Event>) uncastedEvents;
-        setAllEvents(events);
-    }
-
-    /**
-     * This method sets the list of rooms to the deserialized ArrayList object containing the rooms.
-     * @throws IOException Refers to the exception that is raised when the program can't get input or output from users.
-     * @throws ClassNotFoundException Refers to the exception that is raised when the program can't find users.
-     */
-    public void setRoomsReadIn() throws IOException, ClassNotFoundException {
-        Object uncastedRooms = RW.readRooms();
-        ArrayList<Room> rooms = (ArrayList<Room>) uncastedRooms;
-        setRooms(rooms);
-    }
-
-    /**
-     * Sets events to the events passed in
-     * @param events Refers to the events
-     */
-    public void setAllEvents(HashMap<String, Event> events){
-        this.events = events;
-    }
-
-    /**
-     * Sets rooms to the rooms passed in
-     * @param rooms Refers to the rooms
-     */
-    public void setRooms(ArrayList<Room> rooms){
-        this.rooms = rooms;
-    }
-
-    /**
      * Creates a new event object.
      * @param eventType The type of event
      * @param name Refers to the name of the event.
@@ -642,21 +589,6 @@ public class EventManager implements Serializable {
     }
 
     /**
-     * Creates a new Speaker user.
-     * @param name Refers to the name of the speaker.
-     * @param address Refers to the address of the speaker.
-     * @param email Refers to the email of the speaker.
-     * @param username Refers to the username of the speaker.
-     * @param password Refers to the password of the speaker.
-     * @param company Refers to the company of the speaker.
-     * @param bio Refers to the bio of the speaker.
-     * @return Returns the created speaker.
-     */
-    public Speaker createNewSpeaker(String name, String address, String email, String username, String password, String company, String bio){
-        return new Speaker(name, address, email, username, password, company, bio);
-    }
-
-    /**
      * Checks if the event is registered
      * @param eventName the name of the event being checked
      * @return if the event is registered or not
@@ -716,24 +648,6 @@ public class EventManager implements Serializable {
      */
     public Room createNewRoom(int roomNumber, Integer capacity, int computers, boolean projector, int chairs, int tables){
         return new Room(roomNumber, capacity, computers, projector, chairs, tables);
-    }
-
-    /**
-     * Yields the events that have already happened.
-     * @param allEvents Refers to all the events in this conference.
-     * @return All the events that have already happened.
-     */
-    public List<String> eventHappened(List<String> allEvents){
-        LocalDateTime time = LocalDateTime.now();
-        List<String> priorEvents = new ArrayList<>();
-        for(String event: allEvents){
-            Event check = getEvent(event);
-            int compare = time.compareTo(check.getTime());
-            if (compare > 0){
-                priorEvents.add(event);
-            }
-        }
-        return priorEvents;
     }
 
     /**

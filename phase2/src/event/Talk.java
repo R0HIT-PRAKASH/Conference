@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class Talk extends Event{
 
-    private String speakerName;
+    private final String speakerName;
 
     /**
      * This constructs a talk
@@ -45,14 +45,6 @@ public class Talk extends Event{
     @Override
     public List<String> getSpeakersList() {
         return null;
-    }
-
-    /**
-     * This method is a setter for the speaker's username
-     * @param speakerName Refers to the new name of the speaker.
-     */
-    public void setSpeakerName(String speakerName) {
-        this.speakerName = speakerName;
     }
 
     /**

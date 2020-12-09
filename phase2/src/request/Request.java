@@ -7,8 +7,8 @@ import java.io.Serializable;
  * requestStatus that contains the status of the request.
  */
 public class Request implements Serializable {
-    private String content; //limited to 200 characters
-    private String requesterUsername;
+    private final String content; //limited to 200 characters
+    private final String requesterUsername;
     private String requestStatus;
 
     /**

@@ -8,12 +8,12 @@ import java.time.LocalDateTime;
  */
 public class Message implements Serializable, Comparable<Message> {
 
-    private String content;
-    private String senderUsername;
-    private String recipientUsername;
+    private final String content;
+    private final String senderUsername;
+    private final String recipientUsername;
     private boolean beenRead;
     private LocalDateTime dateTimeCreated;
-    private LocalDateTime dateTimeCreatedCopy;
+    private final LocalDateTime dateTimeCreatedCopy;
     private LocalDateTime dateTimeDeleted;
     private boolean starred;
     private boolean deleted;
@@ -74,12 +74,6 @@ public class Message implements Serializable, Comparable<Message> {
     public String getContent(){ return content; }
 
     /**
-     * Gets the recipient of the message.
-     * @return Returns the username of the recipient of the message.
-     */
-    public String getRecipient(){ return recipientUsername; }
-
-    /**
      * Gets the sender of the message.
      * @return Returns the username of the sender of the message.
      */
@@ -134,24 +128,6 @@ public class Message implements Serializable, Comparable<Message> {
     public boolean isPinned(){ return pinned;}
 
     // Setters
-
-    /**
-     * Sets the string content of the message.
-     * @param content Refers to the string content of the message.
-     */
-    public void setContent(String content){ this.content = content; }
-
-    /**
-     * Sets the username of the recipient of the message.
-     * @param recipientUsername Refers to the username of the recipient.
-     */
-    public void setRecipient(String recipientUsername){ this.recipientUsername = recipientUsername; }
-
-    /**
-     * Sets the username of the sender of the message.
-     * @param senderUsername Refers to the username of the sender.
-     */
-    public void setSender(String senderUsername){ this.senderUsername = senderUsername; }
 
     /**
      * Sets the message as having been read.

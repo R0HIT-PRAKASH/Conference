@@ -3,10 +3,6 @@ package user.speaker;
 import event.Event;
 import user.attendee.AttendeePresenter;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Set;
 
@@ -105,20 +101,6 @@ public class SpeakerPresenter extends AttendeePresenter {
     }
 
     /**
-     * Asks how many events' attendees you'd like to message
-     */
-    public void displayEnterNumberOfEventsPrompt(){
-        System.out.print("Please enter the number of events or enter -1 to quit: ");
-    }
-
-    /**
-     * Asks how many events' attendees you'd like to message
-     */
-    public void displayNumberOfEventsError(){
-        System.out.print("Not an appropriate number of events, please re-enter or enter -1 to quit: ");
-    }
-
-    /**
      * Asks the name of the first event whose attendees you'd like to message
      * @return The event
      */
@@ -148,40 +130,6 @@ public class SpeakerPresenter extends AttendeePresenter {
      */
     public void displayEventNotGivenError(){
         System.out.println("That event isn't one you have given. ");
-    }
-
-    /**
-     * Asks the name of the attendee that you are replying to
-     * @return The name
-     */
-    public String displayEnterAttendeeUsernamePrompt(){
-        System.out.print("Which attendee are you replying to (it is case sensitive): ");
-        return scan.nextLine();
-    }
-
-    /**
-     * Prints the message the date input is invalid.
-     */
-    public void displayInvalidDateError(){
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        LocalDate currentDate = currentDateTime.toLocalDate();
-        LocalTime currentTime = currentDateTime.toLocalTime();
-        LocalTime endTime = LocalTime.of(16, 0);
-        if (currentTime.isAfter(endTime)) {
-            System.out.println("Invalid date entered. The soonest you may schedule an event is tomorrow at 9AM.");
-        } else {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
-            String date = currentDate.format(formatter);
-            System.out.println("Invalid date entered. An event can only be scheduled for " + date +
-                    " any time before 5PM and any following date");
-        }
-    }
-
-    /**
-     * Prints the message that the user input is not a speaker.
-     */
-    public void displayNotSpeakerError(){
-        System.out.print("This user is not a speaker! Please try again or enter 'q' to quit: ");
     }
 
     /**

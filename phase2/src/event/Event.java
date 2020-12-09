@@ -13,19 +13,19 @@ import java.util.Set;
  */
 public abstract class Event implements Comparable<Event>, Serializable {
 
-    private String name;
+    private final String name;
     private LocalDateTime time;
-    private int duration;
-    private int roomNumber;
+    private final int duration;
+    private final int roomNumber;
     private int capacity;
-    private int requiredComputers;
-    private boolean requiredProjector;
-    private int requiredChairs;
-    private int requiredTables;
-    private Set<String> attendeeSet;
-    private List<String> creators;
-    private boolean vipEvent;
-    private String tag;
+    private final int requiredComputers;
+    private final boolean requiredProjector;
+    private final int requiredChairs;
+    private final int requiredTables;
+    private final Set<String> attendeeSet;
+    private final List<String> creators;
+    private final boolean vipEvent;
+    private final String tag;
 
     /**
      * This constructs an event
@@ -193,43 +193,11 @@ public abstract class Event implements Comparable<Event>, Serializable {
     // Setter Methods
 
     /**
-     * This method is a setter for the event name
-     * @param name The Event Name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
      * This method is a setter for the time
      * @param time The Event Time
      */
     public void setTime(LocalDateTime time) {
         this.time = time;
-    }
-
-    /**
-     * This method is a setter for the event tag
-     * @param tag The Event tag
-     */
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-
-    /**
-     * This method is a setter for the duration
-     * @param duration The Event Duration
-     */
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-
-    /**
-     * This method is a setter for the roomNumber
-     * @param roomNumber The Event Room Number
-     */
-    public void setRoomNumber(int roomNumber) {
-        this.roomNumber = roomNumber;
     }
 
     /**
@@ -239,44 +207,6 @@ public abstract class Event implements Comparable<Event>, Serializable {
     public void setCapacity(int capacity){
         this.capacity = capacity;
     }
-
-    /**
-     * This method sets the number of computers in the room.
-     * @param requiredComputers Refers to the new number of required computers for the event.
-     */
-    public void setRequiredComputers(int requiredComputers){
-        this.requiredComputers = requiredComputers;
-    }
-
-    /**
-     * This method sets whether or not a projector is required for the event.
-     * @param requiredProjector Refers to whether or not the event will now require a projector.
-     */
-    public void setRequiredProjector(boolean requiredProjector){
-        this.requiredProjector = requiredProjector;
-    }
-
-    /**
-     * This method sets the number of chairs required for the event.
-     * @param requiredChairs Refers to the new number of required chairs for the event.
-     */
-    public void setRequiredChairs(int requiredChairs){
-        this.requiredChairs = requiredChairs;
-    }
-
-    /**
-     * This method sets the number of tables required for the room.
-     * @param requiredTables Refers to the new number of required tables for the event.
-     */
-    public void setRequiredTables(int requiredTables){
-        this.requiredTables = requiredTables;
-    }
-
-    /**
-     * This methods sets whether or not the event is VIP exclusive.
-     * @param vipEvent The status of whether or not the event is VIP exclusive.
-     */
-    public void setVipEvent(boolean vipEvent){ this.vipEvent = vipEvent;}
 
     // Other Methods
 

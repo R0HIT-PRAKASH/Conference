@@ -112,86 +112,91 @@ public abstract class UserController {
         } else if (messageAction.equalsIgnoreCase("CLOSE")) {
         }
 
-        if (inboxType.equals("inbox") || inboxType.equals("starred")) {
-            while (!messageAction.equalsIgnoreCase("REPLY") &&
-                    !messageAction.equalsIgnoreCase("MARK AS UNREAD") &&
-                    !messageAction.equalsIgnoreCase("CLOSE") &&
-                    !messageAction.equalsIgnoreCase("MARK AS STARRED") &&
-                    !messageAction.equalsIgnoreCase("UNSTAR") &&
-                    !messageAction.equalsIgnoreCase("DELETE") &&
-                    !messageAction.equalsIgnoreCase("ARCHIVE") &&
-                    !messageAction.equalsIgnoreCase("PIN") &&
-                    !messageAction.equalsIgnoreCase("UNPIN")) {
-                p.displayInvalidInput();
-                messageAction = p.displayMessageActionPrompt();
-            }
+        switch (inboxType) {
+            case "inbox":
+            case "starred":
+                while (!messageAction.equalsIgnoreCase("REPLY") &&
+                        !messageAction.equalsIgnoreCase("MARK AS UNREAD") &&
+                        !messageAction.equalsIgnoreCase("CLOSE") &&
+                        !messageAction.equalsIgnoreCase("MARK AS STARRED") &&
+                        !messageAction.equalsIgnoreCase("UNSTAR") &&
+                        !messageAction.equalsIgnoreCase("DELETE") &&
+                        !messageAction.equalsIgnoreCase("ARCHIVE") &&
+                        !messageAction.equalsIgnoreCase("PIN") &&
+                        !messageAction.equalsIgnoreCase("UNPIN")) {
+                    p.displayInvalidInput();
+                    messageAction = p.displayMessageActionPrompt();
+                }
 
-            if (messageAction.equalsIgnoreCase("MARK AS UNREAD")) {
-                messageManager.setMessageReadStatus(messageManager.getMessageAtIndex(username, index), "unread");
-            } else if (messageAction.equalsIgnoreCase("MARK AS STARRED")) {
-                if (isStarred) {
-                    p.displayStarError();
-                } else {
-                    messageManager.setMessageStarredStatus(messageManager.getMessageAtIndex(username, index), "starred");
-                }
-            } else if (messageAction.equalsIgnoreCase("UNSTAR")) {
-                if (isStarred) {
+                if (messageAction.equalsIgnoreCase("MARK AS UNREAD")) {
+                    messageManager.setMessageReadStatus(messageManager.getMessageAtIndex(username, index), "unread");
+                } else if (messageAction.equalsIgnoreCase("MARK AS STARRED")) {
+                    if (isStarred) {
+                        p.displayStarError();
+                    } else {
+                        messageManager.setMessageStarredStatus(messageManager.getMessageAtIndex(username, index), "starred");
+                    }
+                } else if (messageAction.equalsIgnoreCase("UNSTAR")) {
+                    if (isStarred) {
+                        messageManager.setMessageStarredStatus(messageManager.getMessageAtIndex(username, index), "unstar");
+                    } else {
+                        p.displayUnstarError();
+                    }
+                } else if (messageAction.equalsIgnoreCase("DELETE")) {
+                    messageManager.setDeletionStatus(messageManager.getMessageAtIndex(username, index), "delete");
+                } else if (messageAction.equalsIgnoreCase("ARCHIVE")) {
                     messageManager.setMessageStarredStatus(messageManager.getMessageAtIndex(username, index), "unstar");
-                } else {
-                    p.displayUnstarError();
-                }
-            } else if (messageAction.equalsIgnoreCase("DELETE")) {
-                messageManager.setDeletionStatus(messageManager.getMessageAtIndex(username, index), "delete");
-            } else if (messageAction.equalsIgnoreCase("ARCHIVE")) {
-                messageManager.setMessageStarredStatus(messageManager.getMessageAtIndex(username, index), "unstar");
-                messageManager.setDateTimeCreatedStatus(messageManager.getMessageAtIndex(username, index), "unpin",
-                        messageManager.getMessageAtIndex(username, index).getDateTimeCreatedCopy());
-                messageManager.setArchiveStatus(messageManager.getMessageAtIndex(username, index), "archive");
-            } else if (messageAction.equalsIgnoreCase("PIN")) {
-                if (isPinned) {
-                    p.displayPinnedError();
-                } else {
-                    LocalDateTime newLDT = LocalDateTime.now();
-                    LocalDateTime pinLDT = newLDT.plusYears(2);
-                    messageManager.setDateTimeCreatedStatus(messageManager.getMessageAtIndex(username, index), "pin", pinLDT);
-                }
-            } else if (messageAction.equalsIgnoreCase("UNPIN")) {
-                if (isPinned) {
                     messageManager.setDateTimeCreatedStatus(messageManager.getMessageAtIndex(username, index), "unpin",
                             messageManager.getMessageAtIndex(username, index).getDateTimeCreatedCopy());
-                } else {
-                    p.displayUnpinnedError();
+                    messageManager.setArchiveStatus(messageManager.getMessageAtIndex(username, index), "archive");
+                } else if (messageAction.equalsIgnoreCase("PIN")) {
+                    if (isPinned) {
+                        p.displayPinnedError();
+                    } else {
+                        LocalDateTime newLDT = LocalDateTime.now();
+                        LocalDateTime pinLDT = newLDT.plusYears(2);
+                        messageManager.setDateTimeCreatedStatus(messageManager.getMessageAtIndex(username, index), "pin", pinLDT);
+                    }
+                } else if (messageAction.equalsIgnoreCase("UNPIN")) {
+                    if (isPinned) {
+                        messageManager.setDateTimeCreatedStatus(messageManager.getMessageAtIndex(username, index), "unpin",
+                                messageManager.getMessageAtIndex(username, index).getDateTimeCreatedCopy());
+                    } else {
+                        p.displayUnpinnedError();
+                    }
                 }
-            }
 
 
-        } else if (inboxType.equals("deleted")) {
-            while (!messageAction.equalsIgnoreCase("DELETE") &&
-                    !messageAction.equalsIgnoreCase("RESTORE") &&
-                    !messageAction.equalsIgnoreCase("CLOSE")) {
-                p.displayInvalidInput();
-                messageAction = p.displayDeletedActionPrompt();
-            }
-            if (messageAction.equalsIgnoreCase("DELETE")) {
-                if (p.displayDeleteConfirmation().equalsIgnoreCase("YES")) {
+                break;
+            case "deleted":
+                while (!messageAction.equalsIgnoreCase("DELETE") &&
+                        !messageAction.equalsIgnoreCase("RESTORE") &&
+                        !messageAction.equalsIgnoreCase("CLOSE")) {
+                    p.displayInvalidInput();
+                    messageAction = p.displayDeletedActionPrompt();
+                }
+                if (messageAction.equalsIgnoreCase("DELETE")) {
+                    if (p.displayDeleteConfirmation().equalsIgnoreCase("YES")) {
 //                    deletedMessages.remove(selectedMessage);
-                    messageManager.getAllUserMessages().get(username).remove(messageManager.getMessageAtIndex(username, index));
-                }
-            } else if (messageAction.equalsIgnoreCase("RESTORE")) {
+                        messageManager.getAllUserMessages().get(username).remove(messageManager.getMessageAtIndex(username, index));
+                    }
+                } else if (messageAction.equalsIgnoreCase("RESTORE")) {
 //                deletedMessages.remove(selectedMessage);
-                messageManager.setDeletionStatus(messageManager.getMessageAtIndex(username, index), "restore");
-            }
-        } else if (inboxType.equals("archived")) {
-            while (!messageAction.equalsIgnoreCase("UNARCHIVE") &&
-                    !messageAction.equalsIgnoreCase("CLOSE") &&
-                    !messageAction.equalsIgnoreCase("REPLY")) {
-                p.displayInvalidInput();
-                messageAction = p.displayDeletedActionPrompt();
-            }
-            if (messageAction.equalsIgnoreCase("UNARCHIVE")) {
+                    messageManager.setDeletionStatus(messageManager.getMessageAtIndex(username, index), "restore");
+                }
+                break;
+            case "archived":
+                while (!messageAction.equalsIgnoreCase("UNARCHIVE") &&
+                        !messageAction.equalsIgnoreCase("CLOSE") &&
+                        !messageAction.equalsIgnoreCase("REPLY")) {
+                    p.displayInvalidInput();
+                    messageAction = p.displayDeletedActionPrompt();
+                }
+                if (messageAction.equalsIgnoreCase("UNARCHIVE")) {
 //                archivedMessages.remove(selectedMessage);
-                messageManager.setArchiveStatus(messageManager.getMessageAtIndex(username, index), "restore");
-            }
+                    messageManager.setArchiveStatus(messageManager.getMessageAtIndex(username, index), "restore");
+                }
+                break;
         }
     }
 

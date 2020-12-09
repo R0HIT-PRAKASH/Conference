@@ -8,11 +8,11 @@ import java.io.Serializable;
  */
 public abstract class User implements Comparable<User>, Serializable {
 
-    private String name;
-    private String address;
-    private String email;
-    private String username;
-    private String password;
+    private final String name;
+    private final String address;
+    private final String email;
+    private final String username;
+    private final String password;
     private String company;
     private String bio;
 
@@ -117,38 +117,6 @@ public abstract class User implements Comparable<User>, Serializable {
      */
     public void setBio(String bio){
         this.bio = bio;
-    }
-
-    /**
-     * This method sets the name of the user.
-     * @param newName Refers to the new name of the user.
-     */
-    public void setName(String newName){
-        this.name = newName;
-    }
-
-    /**
-     * This method sets the address of the user.
-     * @param newAddress Refers to the new address of the user.
-     */
-    public void setAddress(String newAddress){
-        this.address = newAddress;
-    }
-
-    /**
-     * This method sets the email of the user.
-     * @param newEmail Refers to the new email of the user.
-     */
-    public void setEmail(String newEmail){
-        this.email = newEmail;
-    }
-
-    /**
-     * This method sets the username of the user.
-     * @param newUserName Refers to the new username of the user.
-     */
-    public void setUsername(String newUserName){
-        this.username = newUserName;
     }
 
     // Other Methods

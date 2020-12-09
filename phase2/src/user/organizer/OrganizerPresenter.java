@@ -110,13 +110,6 @@ public class OrganizerPresenter extends AttendeePresenter {
     }
 
     /**
-     * Prompts the Organizer to add the Title of the Event they want to create.
-     */
-    public void displayEventTitleNoQuitPrompt() {
-        System.out.print("Enter the Event Title: ");
-    }
-
-    /**
      * Prompts the Organizer to enter the name of the Speaker for the Event they want to create.
      * @return The speaker username
      */
@@ -131,15 +124,6 @@ public class OrganizerPresenter extends AttendeePresenter {
      */
     public String askNewSpeakerPrompt() {
         System.out.print("Enter a new speaker? (Y/N): ");
-        return scan.nextLine();
-    }
-
-    /**
-     * Prompts the Organizer to enter the name of the newly created speaker.
-     * @return The speaker username
-     */
-    public String displayEnterNewSpeakerPrompt() {
-        System.out.print("Enter the new Speaker's username: ");
         return scan.nextLine();
     }
 
@@ -182,13 +166,6 @@ public class OrganizerPresenter extends AttendeePresenter {
             System.out.println("Invalid date entered. An event can only be scheduled for " + date +
                     " any time before 5PM and any following date");
         }
-    }
-
-    /**
-     * Prints an error message notifying the Organizer that the Room they tried to add to their Event does not exist.
-     */
-    public void displayRoomNumberError() {
-        System.out.println("There is no room with this room number. You will be asked to create a room with this room number.");
     }
 
     /**
@@ -778,13 +755,6 @@ public class OrganizerPresenter extends AttendeePresenter {
     }
 
     /**
-     * Prints the message that the organizer doesn't have the ability to cancel the event.
-     */
-    public void displayNoEventsCreated(){
-        System.out.println("You don't have the power to cancel any events.");
-    }
-
-    /**
      * Displays the message that prompts the user to enter the event they want to change the capacity of.
      * @return The event
      */
@@ -836,13 +806,6 @@ public class OrganizerPresenter extends AttendeePresenter {
                 System.out.println(e);
             }
         }
-    }
-
-    /**
-     * Prints the message that there are no stats to display.
-     */
-    public void displayNoStats() {
-        System.out.println("There are no Events or Stats to display!");
     }
 
     /**

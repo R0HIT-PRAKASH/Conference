@@ -37,10 +37,6 @@ public class UserPresenter extends Presenter {
         System.out.print("Please enter next task:\n");
     }
 
-    public void displayNextTaskPrompt(){
-        System.out.print("Please enter next task (reminder, you can type '14' to see what you can do): ");
-    }
-
     /**
      * Prompts a Speaker to choose another task once they have completed a task.
      */
@@ -78,13 +74,6 @@ public class UserPresenter extends Presenter {
         return scan.nextLine();
     }
 
-
-    /**
-     * Notifies a User that their reply was successful.
-     */
-    public void displaySuccessfulMessage(){
-        System.out.println("Successfully Replied to Message");
-    }
 
     /**
      * Notifies a User that they successfully canceled their spot in an event.
@@ -194,14 +183,19 @@ public class UserPresenter extends Presenter {
         boolean isStarred = Boolean.parseBoolean(effectiveMessage.get(4));
         boolean isPinned = Boolean.parseBoolean(effectiveMessage.get(9));
 
-        if(inboxType.equals("inbox") || inboxType.equals("starred")){
-            printInboxMessages(sender, content, time, counter, isRead, isStarred, isPinned);
+        switch (inboxType) {
+            case "inbox":
+            case "starred":
+                printInboxMessages(sender, content, time, counter, isRead, isStarred, isPinned);
 
-        } else if (inboxType.equals("deleted")){
-            printDeletedMessages(sender, content, time, counter);
+                break;
+            case "deleted":
+                printDeletedMessages(sender, content, time, counter);
 
-        } else if (inboxType.equals("archived")){
-            printArchivedMessage(sender, content, time, counter);
+                break;
+            case "archived":
+                printArchivedMessage(sender, content, time, counter);
+                break;
         }
     }
 
@@ -231,8 +225,7 @@ public class UserPresenter extends Presenter {
      */
     public int displaySelectMessage(){
         System.out.println("Which message would you like to read? (Enter the number of the corresponding message): ");
-        int choice = nextInt();
-        return choice;
+        return nextInt();
     }
 
     /**
@@ -278,40 +271,6 @@ public class UserPresenter extends Presenter {
         System.out.println("What would you like to do with this message?(reply, unarchive, " +
                 "close)");
         return scan.nextLine();
-    }
-
-    /**
-     * Prints all the Users who have messaged this Speaker.
-     * @param attendees: a List of User usernames that have messaged this Speaker.
-     */
-    public void displayAllSenders(List<String> attendees){
-        if (attendees.size() == 0){
-            System.out.println("You haven't received any messages yet. ");
-            return;
-        }
-        System.out.println("These are all the users who have messaged you: ");
-        int counter = 1;
-        for (String attendee: attendees){
-            System.out.println(counter + ": " + attendee);
-            counter++;
-        }
-    }
-
-    /**
-     * Prints that the username inputted belongs to a user that the Speaker cannot message
-     * @return The username
-     */
-    public String displayUserReplyError(){
-        System.out.print("That user is not one you can reply to, please re-enter the username " +
-                "of someone who has messaged you or enter \"q\" to go back to your options: ");
-        return scan.nextLine();
-    }
-
-    /**
-     * Notifies an Organizer or Attendee that they have no messages to reply to.
-     */
-    public void displayNoReply(){
-        System.out.println("You currently have no messages to reply to.");
     }
 
 

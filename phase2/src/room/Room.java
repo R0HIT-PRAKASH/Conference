@@ -9,12 +9,12 @@ import java.io.Serializable;
  */
 public class Room implements Serializable {
 
-    private int capacity;
-    private int roomNumber;
-    private int computers;
-    private boolean projector;
-    private int tables;
-    private int chairs;
+    private final int capacity;
+    private final int roomNumber;
+    private final int computers;
+    private final boolean projector;
+    private final int tables;
+    private final int chairs;
 
     /**
      * This method constructs a room with capacity 2 and room number roomNumber.
@@ -89,38 +89,6 @@ public class Room implements Serializable {
     }
 
     // Setter Methods
-
-    /**
-     * This method sets the number of computers in the room.
-     * @param computers Refers to the new number of computers in the room.
-     */
-    public void setComputers(int computers){
-        this.computers = computers;
-    }
-
-    /**
-     * This method sets whether or not there is a projector in the room.
-     * @param projector Refers to whether or not a projector will be added or removed from the room.
-     */
-    public void setProjector(boolean projector){
-        this.projector = projector;
-    }
-
-    /**
-     * This method sets the number of chairs in the room.
-     * @param chairs Refers to the number of chairs that will now be in the room.
-     */
-    public void setChairs(int chairs){
-        this.chairs = chairs;
-    }
-
-    /**
-     * This method sets the number of tables in the room.
-     * @param tables Refers to the new number of tables in the room.
-     */
-    public void setTables(int tables){
-        this.tables = tables;
-    }
 
     // Other Methods
 

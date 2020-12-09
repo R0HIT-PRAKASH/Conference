@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Testing {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/conference",
                 "root", ".....")) {
             boolean isValid = conn.isValid(0);

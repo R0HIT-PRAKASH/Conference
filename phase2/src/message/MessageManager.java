@@ -1,10 +1,8 @@
 package message;
 
 import event.EventManager;
-import saver.ReaderWriter;
 import user.UserManager;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -16,18 +14,7 @@ import java.util.*;
 public class MessageManager implements java.io.Serializable {
 
     protected Map<String, List<Message>> allUserMessages;
-    ReaderWriter RW;
 
-    /**
-     * This method constructs a MessageManager object with an empty allUserMessages.
-     * @param RW Refers to an instance of the class that reads and writes to files.
-     */
-    public MessageManager(ReaderWriter RW){
-    this.allUserMessages =  new HashMap<String, List<Message>>();
-    this.RW = RW;
-
-
-    }
     /**
      * This method constructs a MessageManager object with an empty allUserMessages.
      */
@@ -103,15 +90,6 @@ public class MessageManager implements java.io.Serializable {
         } else return userManager.getUserType(from).equals("organizer");
     }
 
-    /**
-     * Returns the actual written component of a Message object
-     * @param message the message whose content variable we want
-     * @return returns the content variable of the Message object
-     */
-    public String getMessageContent(Message message){
-        return message.getContent();
-}
-
 
     /**
      * This method gets all of the user messages.
@@ -120,32 +98,6 @@ public class MessageManager implements java.io.Serializable {
     public HashMap<String, List<Message>> getAllUserMessages(){
         return (HashMap<String, List<Message>>) allUserMessages;
     }
-
-    /**
-     * This method sets the map of usernames to the list of messages relating to the user.
-     * @param allUserMessages Refers to the map of usernames to list of messages relating to the user.
-     */
-    public void setAllUserMessages(HashMap<String, List<Message>> allUserMessages){
-        this.allUserMessages = allUserMessages;
-    }
-
-    /**
-     * This method gets the recipient of the message object.
-     * @param message Refers to the message object.
-     * @return Returns the username of the recipient of the message.
-     */
-    public String getRecipient(Message message){
-        return message.getRecipient();
-}
-
-    /**
-     * This method gets the sender of the message object.
-     * @param message Refers to the message object.
-     * @return Returns the username of the sender of the recipient.
-     */
-    public String getSender(Message message){
-        return message.getSender();
-}
 
     /**
      * This method sends a message to all of the attendees of the specified event.
@@ -171,18 +123,6 @@ public class MessageManager implements java.io.Serializable {
 }
 
     /**
-     * This method sets the map of all messages to the deserialized HashMap object containing usernames as keys
-     * and the corresponding user's messages received as values.
-     * @throws IOException Refers to the exception that is raised when the program can't get input or output from users.
-     * @throws ClassNotFoundException Refers to the exception that is raised when the program can't find users.
-     */
-    public void setAllUserMessagesReadIn() throws IOException, ClassNotFoundException {
-        Object uncastedMessages = RW.readMessages();
-        HashMap<String, List<Message>> allUserMessages = (HashMap<String, List<Message>>) uncastedMessages;
-        setAllUserMessages(allUserMessages);
-    }
-
-    /**
      * This method sets a Message's read status as either read or unread.
      * @param message Refers to the message to be interacted with.
      * @param status Refers to the status you want to set the message to have.
@@ -197,15 +137,6 @@ public class MessageManager implements java.io.Serializable {
     }
 
     /**
-     * This method get a Message's read status as either read or unread.
-     * @param message Refers to the message to be interacted with.
-     * @return Return true if the message has been read.
-     */
-    public boolean getMessageReadStatus(Message message){
-        return message.hasBeenRead();
-    }
-
-    /**
      * This method sets a Message's starred status as either starred or unstarred.
      * @param message Refers to the message to be interacted with.
      * @param status Refers to the status you want to set the message to have.
@@ -216,15 +147,6 @@ public class MessageManager implements java.io.Serializable {
         }else{
             message.setUnstarred();
         }
-    }
-
-    /**
-     * This method gets the date and time of creation information of the message object.
-     * @param message Refers to the message object.
-     * @return Returns the dateTimeCreated variable of the message object.
-     */
-    public LocalDateTime getCreationInfo(Message message){
-        return message.getDateTimeCreated();
     }
 
     /**
@@ -244,22 +166,6 @@ public class MessageManager implements java.io.Serializable {
     public LocalDateTime getDeletionDateInfo(Message message){
         return message.getDateTimeDeleted();
     }
-
-    /**
-     * This method returns the archive status of a message.
-     * @param message Refers to the message being checked.
-     * @return Returns true if the message is in the archive folder, and false otherwise.
-     */
-    public boolean getArchivedStatus(Message message){
-        return message.isArchived();
-    }
-
-    /**
-     * This method returns the read status of a message.
-     * @param message Refers to the message being checked.
-     * @return Returns true if the message is starred, and false otherwise.
-     */
-    public boolean getStarredStatus(Message message){ return message.isStarred();}
 
     /**
      * This method sets a Message's deletion status as either deleted or restored.
@@ -300,15 +206,6 @@ public class MessageManager implements java.io.Serializable {
         }else{
             message.setUnpinned();
         }
-    }
-
-    /**
-     * Returns the date and time this message was created.
-     * @param message The message whose date we are looking for
-     * @return Returns the date the message was created
-     */
-    public LocalDateTime getTimeCreated(Message message){
-        return message.getDateTimeCreated();
     }
 
     /**

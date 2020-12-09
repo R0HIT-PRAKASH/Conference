@@ -90,14 +90,6 @@ public class AttendeePresenter extends UserPresenter {
     }
 
     /**
-     * Prints an error message when an Attendee or Organizer tries to message a User who has not registered for this conference.
-     */
-    public void displayMessageError(){ // use this for case2 in attendee controller as well
-        System.out.println("Sorry, it seems you are unable to message this user. Please wait for this " +
-                "user to register for the conference.");
-    }
-
-    /**
      * Prompts an Attendee or Organizer to enter the contents of the message they would like to send.
      * @param recipient: The username of the User who is being messaged.
      * @return Returns the next string input from the user.
@@ -107,24 +99,6 @@ public class AttendeePresenter extends UserPresenter {
         return scan.nextLine();
     }
 
-
-    /**
-     * Prompts an Attendee or Organizer to enter which User they want to reply to.
-     * @return The username of the recipient
-     */
-    public String displayEnterUserUsernamePrompt(){
-        System.out.print("Which user are you replying to (it is case sensitive). If you no longer want to reply to a user, type 'q' to exit: ");
-        return scan.nextLine();
-    }
-
-    /**
-     * Displays an error message which notifies the user that they entered an invalid action.
-     * @return The action the user wants to select.
-     */
-    public String displayIncorrectSelection(){
-        System.out.println("That is not a valid action. Please type out fully an action you wish to take: ");
-        return scan.nextLine();
-    }
 
     /**
      * Prints the event list for the conference.
@@ -173,14 +147,6 @@ public class AttendeePresenter extends UserPresenter {
     public String displayEventCancelPrompt(){
         System.out.println("What is the name of the event you no longer want to attend? Type 'q' if you no longer want to cancel your spot in an event. ");
         return scan.nextLine();
-    }
-
-    /**
-     * Prints an error message that tells an Attendee or Organizer that the Event they are trying to cancel is not in the included events for the conference.
-     */
-    public void displayEventCancellationError1(){
-        System.out.println("Cancellation was unsuccessful since this event is not included in the events " +
-                "you are attending. Please try again.");
     }
 
     /**
@@ -237,7 +203,6 @@ public class AttendeePresenter extends UserPresenter {
 
     /**
      * Prints an error message that user cannot sign up for this event because it is only for VIP's
-     * @return Returns the next string input from the user.
      */
     public void displayEventOnlyforVIPs(){
         System.out.print("That event is only for VIP's.\n");
@@ -246,7 +211,6 @@ public class AttendeePresenter extends UserPresenter {
 
     /**
      * Prints an error message that user cannot sign up for this event because it does not exist.
-     * @return Returns the next string input from the user.
      */
     public void displayEventNotRegistered(){
         System.out.print("That event does not exist.\n");

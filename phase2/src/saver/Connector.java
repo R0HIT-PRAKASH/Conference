@@ -15,12 +15,11 @@ public class Connector {
 
     /**
      * Creates a connector between the database and this program
-     * @throws SQLException If it can't connect
      */
-    public Connector() throws SQLException{
+    public Connector() {
         try{
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/conference",
-                    "root", "Crypt0master");
+                    "root", "123p");
             writer = new Writing(conn);
             reader = new Reader(conn);
         } catch (SQLException e) {

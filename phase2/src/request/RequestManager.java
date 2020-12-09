@@ -1,8 +1,6 @@
 package request;
 
-import saver.ReaderWriter;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,21 +15,7 @@ public class RequestManager {
 
     protected HashMap<String, List<Request>> allRequests;
     protected HashMap<String, List<Request>> requestStatus;
-    ReaderWriter RW;
 
-    /**
-     * This constructs a RequestManager object with an empty allRequests, and an empty requestStatus that is given it's
-     * keys.
-     * @param RW Refers to an instance of the class that will read from and write to files.
-     */
-    public RequestManager( ReaderWriter RW){
-        this.allRequests = new HashMap<String, List<Request>>();
-        this.requestStatus = new HashMap<String, List<Request>>();
-        this.requestStatus.put("pending", new ArrayList<Request>());
-        this.requestStatus.put("addressed", new ArrayList<Request>());
-        this.requestStatus.put("rejected", new ArrayList<Request>());
-        this.RW = RW;
-    }
 
     public RequestManager(){
         this.allRequests = new HashMap<String, List<Request>>();
@@ -49,14 +33,6 @@ public class RequestManager {
      */
     public HashMap<String, List<Request>> getAllRequests(){
         return allRequests;
-    }
-
-    /**
-     * The method gets all the Request Statuses
-     * @return refers to the map allRequests
-     */
-    public HashMap<String, List<Request>> getAllRequestStatuses(){
-        return requestStatus;
     }
 
     /**
@@ -92,46 +68,6 @@ public class RequestManager {
     public String getRequestContent(Request request){return request.getContent();}
 
     // Setter Methods
-
-    /**
-     * The method sets the requests HashMap
-     * @param requests Refers to the hashmap of usernames to list of requests made by the user.
-     */
-    public void setAllRequests(HashMap<String, List<Request>> requests){
-        this.allRequests = requests;
-    }
-
-    /**
-     * The method sets the requestStatus HashMap
-     * @param requestStatus Refers to the map of status of request to the list of requests.
-     */
-    public void setAllRequestStatuses(HashMap<String, List<Request>> requestStatus){
-        this.requestStatus = requestStatus;
-    }
-
-    /**
-     * This method sets the map of requests to the deserialized HashMap object containing usernames as keys
-     * and the corresponding requests as values.
-     * @throws IOException Refers to the exception that is raised when the program can't get input or output from users.
-     * @throws ClassNotFoundException Refers to the exception that is raised when the program can't find users.
-     */
-    public void setAllRequestsReadIn() throws IOException, ClassNotFoundException {
-        Object uncastedRequests = RW.readRequests();
-        HashMap<String, List<Request>> requestMap = (HashMap<String, List<Request>>) uncastedRequests;
-        setAllRequests(requestMap);
-    }
-
-    /**
-     * This method sets the map of request statuses to the deserialized HashMap object containing request statuses as keys
-     * and the corresponding request objects as values.
-     * @throws IOException Refers to the exception that is raised when the program can't get input or output from users.
-     * @throws ClassNotFoundException Refers to the exception that is raised when the program can't find users.
-     */
-    public void setAllRequestStatusesReadIn() throws IOException, ClassNotFoundException {
-        Object uncastedRequestStatuses = RW.readRequestStatuses();
-        HashMap<String, List<Request>> requestStatusesMap = (HashMap<String, List<Request>>) uncastedRequestStatuses;
-        setAllRequestStatuses(requestStatusesMap);
-    }
 
     // Other Methods
 

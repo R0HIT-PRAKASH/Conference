@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class Panel extends Event{
 
-    private List<String> speakers;
+    private final List<String> speakers;
 
     /**
      * This constructs an event

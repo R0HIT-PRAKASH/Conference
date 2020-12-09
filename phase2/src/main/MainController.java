@@ -4,7 +4,6 @@ import event.EventManager;
 import message.MessageManager;
 import request.RequestManager;
 import saver.Connector;
-import saver.ReaderWriter;
 import user.UserManager;
 import user.attendee.AttendeeController;
 import user.organizer.OrganizerController;
@@ -22,7 +21,6 @@ public class MainController {
     protected EventManager eventManager;
     protected RequestManager requestManager;
     protected String username;
-    protected ReaderWriter RW;
     MainPresenter p;
     boolean startingScratch;
     protected Connector conn;
@@ -33,7 +31,6 @@ public class MainController {
      * @throws SQLException Refers to the exception that is raised when there is a problem accessing the database.
      */
     public MainController() throws SQLException {
-        RW = new ReaderWriter();
         username = "";
         p = new MainPresenter();
         conn = new Connector();

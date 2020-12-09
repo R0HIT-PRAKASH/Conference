@@ -2,9 +2,6 @@ package user.vip;
 
 import user.attendee.Attendee;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * This class contains all of the characteristics and actions of an attendee. They
  * have a name, address, email, username, and password. Attendees can attend events
@@ -12,7 +9,6 @@ import java.util.List;
  */
 public class Vip extends Attendee {
 
-    private List<String> attendingEvents;
 
     /**
      * This method constructs a new vip object with an empty list of attendingEvents.
@@ -26,7 +22,6 @@ public class Vip extends Attendee {
      */
     public Vip(String name, String address, String email, String userName, String password, String company, String bio) {
         super(name, address, email, userName, password, company, bio);
-        this.attendingEvents = new ArrayList<>();
     }
 
     // Getter Methods
