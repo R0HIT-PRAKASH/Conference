@@ -467,6 +467,11 @@ public class UserManager implements Serializable {
         return users(type).size();
     }
 
+    /**
+     * Returns the list of users of a given type
+     * @param type The userType
+     * @return A list of Users
+     */
     private List<User> users(String type) {
 
             return userMap.values().stream()
@@ -475,6 +480,11 @@ public class UserManager implements Serializable {
 
     }
 
+    /**
+     * Returns the list of the top i speakers by number of engagements
+     * @param i The number to look for
+     * @return The list of usernames
+     */
     public List<String> getTopSpeakers(int i) {
         List<String> speakers = users("speaker").stream()
                 .map(s -> (Speaker) s)
@@ -489,6 +499,10 @@ public class UserManager implements Serializable {
         return speakers;
     }
 
+    /**
+     * Returns the number of events per speaker
+     * @return The list
+     */
     public List<Integer> speakerEvents() {
         return users("speaker").stream()
                 .map(s -> (Speaker) s)

@@ -20,7 +20,7 @@ public class Connector {
     public Connector() throws SQLException{
         try{
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/conference",
-                    "root", "123p");
+                    "root", "Crypt0master");
             writer = new Writing(conn);
             reader = new Reader(conn);
         } catch (SQLException e) {

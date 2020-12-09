@@ -862,17 +862,31 @@ public class EventManager implements Serializable {
         return event.getVipEvent();
     }
 
+    /**
+     * Returns the total capacity in all events
+     * @return The total capacity
+     */
     public int totalCapacity() {
         return events.values().stream()
                 .map(Event::getSize)
                 .reduce(0, Integer::sum);
     }
 
+    /**
+     * Get the number of events past a certain time
+     * @param time The time
+     * @return The number of events in the future
+     */
     public int getFutureEventNum(LocalDateTime time) {
         return (int) events.values().stream()
                 .filter(e -> e.getTime().isAfter(time)).count();
     }
 
+    /**
+     * Returns the top i events by attendance
+     * @param i The number to return
+     * @return A list of events
+     */
     public List<String> getTopEvents(int i) {
         List<String> eventList = events.values().stream()
                 .sorted(Comparator.comparingInt(Event::getSize))
@@ -886,6 +900,10 @@ public class EventManager implements Serializable {
         return eventList;
     }
 
+    /**
+     * Returns a list of event sizes
+     * @return The list of Integer
+     */
     public List<Integer> eventSizes() {
         return events.values().stream()
                 .map(Event::getSize)
