@@ -148,26 +148,66 @@
 
 ===== DEFAULTS PROVIDED =====
     ==Organizers==
+    username: gblythe, password: pworg,
+        [address: 22 Phase Two Drive, name: George Blythe, email: gblythe@email.com, company: none,
+        bio: I’m an organizer!]
+
+    username: esherman, password: hello11,
+        [address: 100 Demo Circle, name: Ellis Sherman, email: ellis@email.com, company: Bell,
+        bio: My name is Ellis and I’m 21 years old,]
 
     ==Attendees==
 
     ==Speakers==
+    username: piqcyl, password: zed,
+        [address: 1000 Colonial Farm Road Langley Virginia USA, name: John Smith, email: piqcyl@ca.gov,
+        company: Canadian Tire, bio: This is me]
+
+    username: romanovm, password: abc123,
+        [address: 143 University Avenue, name: Martha Romanov, company: Qoogle, bio: I am a motivational speaker]
 
     ==VIPs==
+    username: tsmith, password: pass,
+        [address: 16 East Ave, name: Taylor Smith, email: tsmith@email.com, company: Amazon,
+         bio: My name is Taylor Smith and I'm 20 years old]
 
     ==Requests==
+    username of requester: romanovm, request status: pending, request message: I require gluten free food
+
+    username of requester: romanovm, request status: addressed,
+        request message: I want chocolate dollars brought to my talk so I can throw them to the audience
+
+    username of requester: tsmith, request status: pending, request message: I require a vegetarian meal plan
 
     ==Messages==
 
     ==Rooms==
+    room number: 1000, capacity: 2000, num. computers: 0, projector?: no, num. tables: 100, num. chairs: 1000
+
+    room number: 101, capacity: 20, num. computers: 1, projector?: yes, num. tables: 20, num. chairs: 20
+
+    room number: 100, capacity: 100, num. computers: 100, projector?: no, num. tables: 100, num. chairs: 100
 
     ==Events==
 
         ==Parties==
+         Title: Company Christmas Party, Date: 2021/2/12 14:00:00,
+            [duration in hours: 1, room #: 101, capacity: 50, # of computers: 0, projector?: yes,
+            # of chairs: 50, # of tables: 3, VIP only?: no, event type: company]
 
         ==Panels==
+        Title: Motivational Panel, Date: 2020/12/20 11:59:59,
+            [duration in hours: 2, room #: 100, capacity: 100, # of computers: 1, projector?: no,
+             # of chairs: 50, # of tables: 10, VIP only?: yes, event type: motivational]
 
         ==Talks==
+        Title: The Best Talk, Date: 2020/12/31 12:59:59,
+            [duration in hours: 1, room #: 1000, capacity: 1000, # of computers: 0, projector?: no,
+            # of chairs: 1000, # of tables: 10, VIP only?: no, event type: motivational]
+
+        Title: How to make five billion dollars, Date: 2020/12/31 12:12:12,
+            [duration in hours: 1, room #: 101, capacity: 20, # of computers: 1, projector?: yes,
+            # of chairs: 20, # of tables: 20, VIP only?: no, event type: development
 
 ===== NEW USER ACCOUNT CONDITIONS =====
     If you choose to create a new account, the following conditions MUST hold:
