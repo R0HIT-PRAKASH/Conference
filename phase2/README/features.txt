@@ -96,7 +96,10 @@ Features of our own that we implemented were:
         the conference. The bio is generally used to describe the user and display some relevant information about them.
 
 Design Patterns Implemented:
-    (1) Factory Design Pattern: UserFactory (used in UserManager) and EventFactory (EventManager)
+    (1) Factory Design Pattern: UserFactory (used in UserManager) and EventFactory (EventManager). We implemented
+        the factory method in creating subclasses of User and Event to replace direct object construction calls (using the
+        new operator) by calling the methods in the factory classes instead. Therefore, we are able to avoid high coupling
+        between our classes.
     (2) Dependency Injection: Controllers of all Users (created instances of the users elsewhere and pass them in to the
      controller rather than hard coding them) - AttendeeController, SpeakerController, OrganizerController, VIPController
     (3) Liskov Substitution Principle: Lists, Maps, Set (vs ArrayList, HashMap, HashSet) - eventManager, messageManager,
