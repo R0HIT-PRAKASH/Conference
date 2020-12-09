@@ -67,6 +67,13 @@ public class RequestManager {
      */
     public String getRequestContent(Request request){return request.getContent();}
 
+    /**
+     * Gets the string username of the individual who made the request
+     * @param request The request we want the username of
+     * @return the username as a String
+     */
+    public String getRequestUsername(Request request){return request.getRequesterUsername();}
+
     // Setter Methods
 
     // Other Methods
@@ -160,6 +167,18 @@ public class RequestManager {
     }
 
     /**
+     * This information retrieves the username and content of a request
+     * @param request the request made
+     * @return the username and content of the request
+     */
+    public List<String> getRequestDetails(Request request){
+        List<String> reqDetails = new ArrayList<>();
+        reqDetails.add(getRequestUsername(request));
+        reqDetails.add(getRequestContent(request));
+        return reqDetails;
+    }
+
+    /**
      * Retrieves all requests from a user.
      * @param username The username of the user whose requests we are retrieving.
      * @return The requests of the user.
@@ -171,5 +190,19 @@ public class RequestManager {
             usersRequests.add(getRequestInformation(request));
         }
         return usersRequests;
+    }
+
+    /**
+     * Retrieves all requests with a certain status
+     * @param status the status of the requests that we want
+     * @return the requests of that status
+     */
+    public List<List<String>> getAllStatusRequests(String status){
+        List<Request> requests = getStatusRequests(status);
+        List<List<String>> statusRequests = new ArrayList<>();
+        for(Request request : requests){
+            statusRequests.add(getRequestDetails(request));
+        }
+        return statusRequests;
     }
 }
