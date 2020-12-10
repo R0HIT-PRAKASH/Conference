@@ -105,3 +105,5 @@ Design Patterns Implemented:
     (3) Liskov Substitution Principle: Lists, Maps, Set (vs ArrayList, HashMap, HashSet) - eventManager, messageManager,
         userManager, Event, Users
     (4) Single Responsibility Principle - Message, Event, User (Attendee, Organizer, Speaker, VIP), Request, Room
+
+*With regards to Clean Architecture, we realize that Controllers (rather than Presenters) should handle all System.in functionality, and that is something that would be refactored if we had time to do so.
