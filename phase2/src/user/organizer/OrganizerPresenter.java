@@ -824,10 +824,10 @@ public class OrganizerPresenter extends AttendeePresenter {
 
         for(int i : list) hist[i - min]++;
 
-        for (int i = 0; i < hist.length; i++) {
-            if (hist[i] > 0) {
-                System.out.print((i + 1) + ": ");
-                for (int j = 0; j < hist[i]; j++) {
+        for (int i = min; i <= max; i++) {
+            if (hist[i - min] > 0) {
+                System.out.print(i + ": ");
+                for (int j = 0; j < hist[i - min]; j++) {
                     System.out.print("*");
                 }
                 System.out.println();
