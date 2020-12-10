@@ -894,7 +894,7 @@ public class OrganizerController extends AttendeeController {
 
 
 
-        lists.put("Top Five Events (By Capacity):", eventManager.getTopEvents(5));
+        lists.put("Top Five Events (By Size):", eventManager.getTopEvents(5));
 
 
         lists.put("Most Popular Speakers (By Number of Events):", userManager.getTopSpeakers(5));

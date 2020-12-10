@@ -80,8 +80,8 @@ public class Panel extends Event{
             projector = 1;
         }
 
-        return "Title: " + getName() + "| Type: " + getEventType() + "| Time: " + date + "| Speakers: " + speakersToString() + "| Duration: "
-                + getDuration() + " hour/s| Room: " + getRoomNumber() + ", Equipment Required: " +
+        return "Title: " + getName() + "| Type: " + getEventType() + "| Time: " + date + "| Speakers: " + speakersToString() +
+                "| Size: " + getSize() + "| Duration: " + getDuration() + " hour/s| Room: " + getRoomNumber() + ", Equipment Required: " +
                 getRequiredComputers() + " Computers, " + projector + " Projector(s), " + getRequiredChairs() +
                 " Chairs, " + getRequiredTables() + " Tables ";
     }

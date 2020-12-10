@@ -68,8 +68,8 @@ public class Talk extends Event{
             projector = 1;
         }
 
-        return "Title: " + getName() + "| Type: " + getEventType() + "| Time: " + date + "| Speaker: " + getSpeakerName() + "| Duration: "
-                + getDuration() + " hours| Room: " + getRoomNumber() + ", Equipment Required: " +
+        return "Title: " + getName() + "| Type: " + getEventType() + "| Time: " + date + "| Speaker: " + getSpeakerName() +
+                "| Size: " + getSize() + "| Duration: " + getDuration() + " hours| Room: " + getRoomNumber() + ", Equipment Required: " +
                 getRequiredComputers() + " Computers, " + projector + " Projector(s), " + getRequiredChairs() +
                 " Chairs, " + getRequiredTables() + " Tables ";
     }

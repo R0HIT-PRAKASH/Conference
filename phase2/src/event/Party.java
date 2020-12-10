@@ -60,7 +60,7 @@ public class Party extends Event{
             projector = 1;
         }
 
-        return "Title: " + getName() + "| Type: " + getEventType() + "| Time: " + date + "| Duration: "
+        return "Title: " + getName() + "| Type: " + getEventType() + "| Time: " + date + "| Size: " + getSize() + "| Duration: "
                 + getDuration() + " hours| Room: " + getRoomNumber() + ", Equipment Required: " +
                 getRequiredComputers() + " Computers, " + projector + " Projector(s), " + getRequiredChairs() +
                 " Chairs, " + getRequiredTables() + " Tables ";
