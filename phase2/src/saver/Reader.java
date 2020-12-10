@@ -151,6 +151,19 @@ public class Reader {
      */
     public EventManager readInEvents() throws SQLException{
         EventManager eventManager = new EventManager();
+        PreparedStatement getAllRooms = conn.prepareStatement("select * from room");
+        ResultSet allRooms = getAllRooms.executeQuery();
+        while(allRooms.next()){
+            int roomNumber = allRooms.getInt("roomnumber");
+            int capacity = allRooms.getInt("capacity");
+            int computers = allRooms.getInt("computers");
+            int inProjector = allRooms.getInt("projector");
+            boolean projector = false;
+            if(inProjector == 1) projector = true;
+            int chairs = allRooms.getInt("chairs");
+            int tables = allRooms.getInt("tables");
+            eventManager.addRoom(roomNumber, capacity, computers, projector, chairs, tables);
+        }
         PreparedStatement getAllEvents = conn.prepareStatement("select * from eventlist");
         ResultSet allEvents = getAllEvents.executeQuery();
         while(allEvents.next()){
@@ -215,19 +228,6 @@ public class Reader {
             for (String attendee : attendees) {
                 eventManager.addAttendee(name, attendee);
             }
-        }
-        PreparedStatement getAllRooms = conn.prepareStatement("select * from room");
-        ResultSet allRooms = getAllRooms.executeQuery();
-        while(allRooms.next()){
-            int roomNumber = allRooms.getInt("roomnumber");
-            int capacity = allRooms.getInt("capacity");
-            int computers = allRooms.getInt("computers");
-            int inProjector = allRooms.getInt("projector");
-            boolean projector = false;
-            if(inProjector == 1) projector = true;
-            int chairs = allRooms.getInt("chairs");
-            int tables = allRooms.getInt("tables");
-            eventManager.addRoom(roomNumber, capacity, computers, projector, chairs, tables);
         }
         return eventManager;
     }
