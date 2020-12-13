@@ -397,7 +397,9 @@ public class AttendeeController extends UserController {
         if (successful){
             p.displaySuccessfulCancellation();
         }
-        p.displayUnsuccessfulCancellation();
+        else{
+            p.displayUnsuccessfulCancellation();
+        }
     }
 
     /**
