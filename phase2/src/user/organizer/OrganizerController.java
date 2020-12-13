@@ -281,6 +281,7 @@ public class OrganizerController extends AttendeeController {
                 if (eventName1.equalsIgnoreCase("q")) {
                     break;
                 }
+                LocalDateTime oldTime = eventManager.getTime(eventName1);
                 LocalDateTime newTime = p.askTime();
                 if(eventManager.roomIsOccupied(eventManager.getEvent(eventName1).getRoomNumber(), newTime,
                         eventManager.getEvent(eventName1).getDuration()) ||
@@ -289,7 +290,12 @@ public class OrganizerController extends AttendeeController {
                     p.displayInvalidEventError();
                 }else{
                     rescheduleEvent(eventName1, newTime);
-                    p.displayEventTimeChanged();
+                    if(!eventManager.checkEventIsValid(eventManager.getEvent(eventName1))){
+                        rescheduleEvent(eventName1, oldTime);
+                        p.displayInvalidEventError();
+                    }else {
+                        p.displayEventTimeChanged();
+                    }
                 }
                 break;
 
