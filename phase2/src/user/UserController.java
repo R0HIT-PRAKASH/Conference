@@ -62,7 +62,7 @@ public abstract class UserController {
             }
 
             // prompt the user to choose what message to read
-            int requestedMessage = p.displaySelectMessage();
+            int requestedMessage = messageList.size() - p.displaySelectMessage() + 1;
             while (requestedMessage > messageList.size() || requestedMessage < 1) {
                 p.displayMessageNonExistent();
                 requestedMessage = p.displaySelectMessage();
