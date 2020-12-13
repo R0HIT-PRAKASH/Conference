@@ -222,6 +222,14 @@
             - you must enter some input that is at least one character
 
 
+===== DESIGN PATTERNS USED =====
+1. Factory Design Pattern: UserFactory (used in UserManager) and EventFactory (EventManager)
+2. Dependency Injection: Controllers of all Users (created instances of the users elsewhere and pass them in to the controller rather than hard coding them)
+3. AttendeeController, SpeakerController, OrganizerController, VIPController
+4. Liskov Substitution Principle: Lists, Maps, Set (vs ArrayList, HashMap, HashSet) - eventManager, messageManager, userManager, Event, Users
+5. Single Responsibility Principle - Message, Event, User (Attendee, Organizer, Speaker, VIP), Request, Room
+
+
 ===== APPENDIX: SETTING UP THE MYSQL DATABASE =====
 1. Download and install the MySQL Community Server here: https://dev.mysql.com/downloads/mysql/
 2. Under your 'System Preferences' (OS Dependent) make sure the server is running.
