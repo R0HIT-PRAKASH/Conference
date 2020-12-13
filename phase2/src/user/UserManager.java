@@ -187,6 +187,19 @@ public class UserManager implements Serializable {
                     return false;
                 }
             }
+
+            ((Attendee) user).signUpForEvent(event.getName());
+            eventManager.addAttendee(event.getName(), username);
+        }
+
+         else if(user.getUserType().equals("vip")) {
+            for (String eventName : ((Attendee) user).getAttendingEvents()) {
+               if (!helpSignUp(eventName, event, eventManager)) {
+                   return false;
+               }
+            }
+
+            ((Vip) user).signUpForEvent(event.getName());
             eventManager.addAttendee(event.getName(), username);
         }
 
@@ -196,6 +209,7 @@ public class UserManager implements Serializable {
                     return false;
                 }
             }
+
             ((Organizer) user).signUpForEvent(event.getName());
             eventManager.addAttendee(event.getName(), username);
 
