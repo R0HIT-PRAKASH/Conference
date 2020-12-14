@@ -191,7 +191,7 @@ public class SpeakerController extends AttendeeController {
                     ArrayList<String> usernameList = new ArrayList<>(eventAttendees);
                     if(usernameList.contains(toMessage)){
                         String messageContent = p.displayEnterMessagePrompt();
-                        replyMessage(toMessage, messageContent);
+                        replyMessage(messageContent, toMessage);
                         break;
                     } else {
                         p.displayInvalidInputError();
