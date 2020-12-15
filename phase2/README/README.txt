@@ -30,6 +30,9 @@
     It will ask you to set up a password during the installation phase, make sure you remember the password
     Make sure you know where the files are being saved
     Complete the installation
+    If you have not set up a password, open up MySQL Installer and press reconfigure next to the server.
+    Leave everything as default until you are asked to enter your password.
+    Apply the configuration and exit the installer.
     Open the MySQL Command Line Client
     Enter your password
     Enter the following
