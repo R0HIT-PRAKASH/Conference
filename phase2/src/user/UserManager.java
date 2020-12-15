@@ -157,7 +157,7 @@ public class UserManager implements Serializable {
      * @return Returns a list of strings that represent the events the user will be attending.
      */
     public List<String> getAttendingEvents(String username){
-        if(userMap.get(username).getUserType().equals("attendee")){
+        if(userMap.get(username).getUserType().equals("attendee") || userMap.get(username).getUserType().equals("vip")){
             return ((Attendee) userMap.get(username)).getAttendingEvents();
         }else if(userMap.get(username).getUserType().equals("organizer")){
             return ((Organizer) userMap.get(username)).getAttendingEvents();
